@@ -1,0 +1,13 @@
+{
+  "name": "attune",
+  "version": "0.0.1",
+  "description": "",
+  "main": "README.md",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Peter",
+  "license": "MIT",
+  "packageManager": "pnpm@10.28.2"
+}

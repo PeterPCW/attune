@@ -15,7 +15,7 @@
   },
   "scripts": {
     "dev": "tsup --watch",
-    "build": "tsup && mkdir -p dist/rules/data && cp src/rules/data/*.json dist/rules/data/",
+    "build": "tsup && node -e \"const fs=require('fs');const p=require('path');fs.mkdirSync('dist/rules/data',{recursive:true});fs.readdirSync('src/rules/data').filter(f=>f.endsWith('.json')).forEach(f=>fs.copyFileSync(p.join('src/rules/data',f),p.join('dist/rules/data',f)))\"",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --config vitest.coverage.config.ts --coverage --coverage.all=false",

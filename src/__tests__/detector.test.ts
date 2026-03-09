@@ -137,7 +137,8 @@ describe('FrameworkDetector', () => {
     const files = detector.getProjectFiles(['.ts']);
 
     expect(files.length).toBe(1);
-    expect(files[0]).toContain('src/index.ts');
+    // Normalize path separators for cross-platform compatibility
+    expect(files[0].replace(/\\/g, '/')).toContain('src/index.ts');
   });
 });
 

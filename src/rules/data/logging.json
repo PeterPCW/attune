@@ -1,0 +1,69 @@
+{
+  "rules": [
+    {
+      "id": "LOG_SENSITIVE",
+      "name": "Logging sensitive data",
+      "category": "security",
+      "severity": "high",
+      "frameworks": [],
+      "catches": [
+        "Passwords being logged",
+        "API tokens exposed in logs",
+        "PII being recorded",
+        "Security vulnerabilities"
+      ],
+      "fix": [
+        "Redact sensitive fields before logging",
+        "Use structured logging with field allowlists",
+        "Implement log masking middleware",
+        "Audit logging statements"
+      ],
+      "recommendation": {
+        "title": "Don't log sensitive data",
+        "description": "Passwords, tokens, and PII should never be logged.",
+        "library": "Security"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "console\\.(log|debug|info)\\s*\\([^)]*(?:password|passwd|secret|token|auth|card|credit|ssn|social)",
+          "message": "Sensitive data being logged"
+        },
+        {
+          "type": "regex",
+          "pattern": "logger\\.[a-z]+\\s*\\([^)]*(?:password|passwd|secret|token|auth|card|credit|ssn|social)",
+          "message": "Sensitive data being logged"
+        }
+      ]
+    },
+    {
+      "id": "LOG_CONSOLE_LOG",
+      "name": "Console.log in code",
+      "category": "cleanliness",
+      "severity": "low",
+      "frameworks": [],
+      "catches": [
+        "Debug statements left in code",
+        "Console output in production",
+        "No log levels configured"
+      ],
+      "fix": [
+        "Remove debug statements before production",
+        "Use proper logger with levels",
+        "Configure log level by environment"
+      ],
+      "recommendation": {
+        "title": "Remove console.log statements",
+        "description": "Debug statements should be removed or replaced with proper logging.",
+        "library": "Logging"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "console\\.(log|debug|info)",
+          "message": "Console statement found - use proper logging"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "rules": [
+    {
+      "id": "CATEGORY_RULE_NAME",
+      "name": "Human readable rule name",
+      "category": "category-name",
+      "severity": "medium",
+      "frameworks": [],
+      "description": "Brief description of what this rule detects",
+      "catches": [
+        "What problems this rule detects",
+        "Why this is a problem for the project"
+      ],
+      "fix": [
+        "Step 1: How to fix the issue",
+        "Step 2: Alternative approaches"
+      ],
+      "recommendation": {
+        "title": "Fix the detected issue",
+        "description": "Detailed explanation of the issue and why it matters",
+        "library": "Optional: related library or pattern to use",
+        "docsLink": "Optional: link to documentation",
+        "codeExample": {
+          "before": "Code that triggers the finding",
+          "after": "Code that fixes the issue"
+        }
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "specific-pattern-to-match",
+          "message": "Finding message shown to user",
+          "excludePatterns": [
+            "Optional: pattern to exclude false positives"
+          ],
+          "fileExtensions": [
+            ".ts",
+            ".js"
+          ]
+        }
+      ],
+      "fileExtensions": [
+        ".ts",
+        ".js"
+      ]
+    }
+  ]
+}

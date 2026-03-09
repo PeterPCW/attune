@@ -1,0 +1,111 @@
+{
+  "rules": [
+    {
+      "id": "REMIX_LOADER_ERROR",
+      "name": "Loader error not handled",
+      "category": "architecture",
+      "severity": "high",
+      "frameworks": ["remix"],
+      "catches": [
+        "Unhandled exceptions in loader",
+        "Crashed pages",
+        "Poor error handling"
+      ],
+      "fix": [
+        "Wrap loader in try-catch",
+        "Return error responses",
+        "Throw Response for errors"
+      ],
+      "recommendation": {
+        "title": "Handle errors in loader",
+        "description": "Loaders should have error handling for proper error states.",
+        "library": "Remix"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "export\\s+const\\s+loader",
+          "message": "Loader function detected"
+        }
+      ]
+    },
+    {
+      "id": "REMIX_NO_ERROR_BOUNDARY",
+      "name": "No ErrorBoundary in route",
+      "category": "architecture",
+      "severity": "medium",
+      "frameworks": ["remix"],
+      "catches": [
+        "Crashed routes show nothing",
+        "No graceful error handling",
+        "Poor UX on errors"
+      ],
+      "fix": [
+        "Add ErrorBoundary export to route",
+        "Handle errors gracefully",
+        "Show helpful error messages"
+      ],
+      "recommendation": {
+        "title": "Add ErrorBoundary to route",
+        "description": "Routes should have ErrorBoundary for graceful error handling.",
+        "library": "Remix"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "ErrorBoundary",
+          "message": "ErrorBoundary component detected"
+        }
+      ]
+    },
+    {
+      "id": "REMIX_CLIENT_ONLY",
+      "name": "Client-only code in loader",
+      "category": "architecture",
+      "severity": "high",
+      "frameworks": ["remix"],
+      "catches": [
+        "Server crashes on browser APIs",
+        "ReferenceError on server",
+        "SSR failures"
+      ],
+      "fix": [
+        "Move to clientLoader function",
+        "Use useEffect for client logic",
+        "Guard with typeof window checks"
+      ],
+      "recommendation": {
+        "title": "Move client-only code to clientLoader or useEffect",
+        "description": "Client-only code in loader runs on server. Move to clientLoader or useEffect.",
+        "library": "Remix"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "document\\.",
+          "message": "document API in file - avoid in loader"
+        },
+        {
+          "type": "regex",
+          "pattern": "window\\.",
+          "message": "window API in file - avoid in loader"
+        },
+        {
+          "type": "regex",
+          "pattern": "navigator\\.",
+          "message": "navigator API in file - avoid in loader"
+        },
+        {
+          "type": "regex",
+          "pattern": "localStorage",
+          "message": "localStorage in file - avoid in loader"
+        },
+        {
+          "type": "regex",
+          "pattern": "sessionStorage",
+          "message": "sessionStorage in file - avoid in loader"
+        }
+      ]
+    }
+  ]
+}

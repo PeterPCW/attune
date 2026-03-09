@@ -1,0 +1,150 @@
+{
+  "rules": [
+    {
+      "id": "CLEAN_COMMENTED_CODE",
+      "name": "Commented out code",
+      "category": "cleanliness",
+      "severity": "low",
+      "frameworks": [],
+      "catches": [
+        "Commented out code",
+        "Reduces readability",
+        "Confuses developers"
+      ],
+      "fix": [
+        "Remove commented code",
+        "Use version control instead",
+        "Delete unused code"
+      ],
+      "recommendation": {
+        "title": "Remove commented code",
+        "description": "Commented out code reduces readability. Remove it or use version control.",
+        "library": "Code cleanliness"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "//.*[a-zA-Z]{3,}.*;$",
+          "message": "Commented code detected - remove or use version control"
+        }
+      ]
+    },
+    {
+      "id": "CLEAN_CONSOLE_LOG",
+      "name": "Console.log in code",
+      "category": "cleanliness",
+      "severity": "low",
+      "frameworks": [],
+      "catches": [
+        "console.log in production code",
+        "No log levels",
+        "Hard to debug in production"
+      ],
+      "fix": [
+        "Use logging library (winston, pino)",
+        "Add log levels",
+        "Configure for production"
+      ],
+      "recommendation": {
+        "title": "Use proper logging",
+        "description": "Console.log should be replaced with proper logging library.",
+        "library": "winston, pino"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "console\\.(log|debug|info|warn|error)\\(",
+          "message": "Console statement found - use proper logger"
+        }
+      ]
+    },
+    {
+      "id": "CLEAN_DEAD_CODE",
+      "name": "Potential dead code",
+      "category": "cleanliness",
+      "severity": "low",
+      "frameworks": [],
+      "catches": [
+        "Dead code exists",
+        "Unreachable code",
+        "Reduces maintainability"
+      ],
+      "fix": [
+        "Remove unreachable code",
+        "Clean up TODO/FIXME comments",
+        "Use version control"
+      ],
+      "recommendation": {
+        "title": "Remove dead code",
+        "description": "Dead code reduces maintainability. Remove unreachable code.",
+        "library": "Code cleanliness"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "//\\s*TODO\\s*:|//\\s*FIXME\\s*:",
+          "message": "TODO/FIXME comment found",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    },
+    {
+      "id": "CLEAN_CONSOLE_ERROR",
+      "name": "Using console.log for errors",
+      "category": "cleanliness",
+      "severity": "low",
+      "frameworks": [],
+      "catches": [
+        "console.error used",
+        "No structured error logging",
+        "Hard to track errors"
+      ],
+      "fix": [
+        "Use proper logger",
+        "Add error context",
+        "Set appropriate log levels"
+      ],
+      "recommendation": {
+        "title": "Use proper error logging",
+        "description": "Use proper error logging instead of console.log for errors.",
+        "library": "Logging"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "console\\.(error|warn)",
+          "message": "Console error/warn found"
+        }
+      ]
+    },
+    {
+      "id": "CLEAN_NO_LOGGER",
+      "name": "Using console.log instead of logger",
+      "category": "cleanliness",
+      "severity": "low",
+      "frameworks": [],
+      "catches": [
+        "No structured logging",
+        "console.log instead of logger",
+        "Hard to analyze logs"
+      ],
+      "fix": [
+        "Install winston or pino",
+        "Replace console.log",
+        "Add log levels"
+      ],
+      "recommendation": {
+        "title": "Use structured logging",
+        "description": "Use a structured logging library instead of console.log.",
+        "library": "winston, pino"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "logger|winston|pino|bunyan",
+          "message": "Logger found"
+        }
+      ]
+    }
+  ]
+}

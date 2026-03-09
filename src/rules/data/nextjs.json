@@ -1,0 +1,344 @@
+{
+  "rules": [
+    {
+      "id": "NEXT_SERVER_COMPONENT_CLIENT",
+      "name": "useState/useEffect in Server Component",
+      "category": "architecture",
+      "severity": "critical",
+      "frameworks": ["nextjs"],
+      "catches": [
+        "Using hooks in Server Component",
+        "Runtime errors in SSR",
+        "Breaking Server Component functionality"
+      ],
+      "fix": [
+        "Add 'use client' at top of component",
+        "Extract client logic to separate component",
+        "Pass data from server to client"
+      ],
+      "recommendation": {
+        "title": "Move client code to client component",
+        "description": "useState/useEffect can only be used in Client Components. Add 'use client' or refactor.",
+        "library": "Next.js"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "useState\\s*\\(",
+          "message": "useState detected - needs 'use client' directive"
+        },
+        {
+          "type": "regex",
+          "pattern": "useEffect\\s*\\(",
+          "message": "useEffect detected - needs 'use client' directive"
+        },
+        {
+          "type": "regex",
+          "pattern": "useCallback\\s*\\(",
+          "message": "useCallback detected - needs 'use client' directive"
+        },
+        {
+          "type": "regex",
+          "pattern": "useMemo\\s*\\(",
+          "message": "useMemo detected - needs 'use client' directive"
+        }
+      ]
+    },
+    {
+      "id": "NEXT_CLIENT_DIRECTIVE",
+      "name": "Unnecessary 'use client' directive",
+      "category": "performance",
+      "severity": "medium",
+      "frameworks": ["nextjs"],
+      "catches": [
+        "Unnecessary client-side rendering",
+        "Larger bundle size",
+        "Worse performance"
+      ],
+      "fix": [
+        "Remove 'use client' if hooks not needed",
+        "Use server components by default",
+        "Only add 'use client' where needed"
+      ],
+      "recommendation": {
+        "title": "Remove unnecessary 'use client' directive",
+        "description": "'use client' makes the component a Client Component. Use only if you need hooks or browser APIs.",
+        "library": "Next.js"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "\"use client\"|'use client'",
+          "message": "'use client' directive detected"
+        }
+      ]
+    },
+    {
+      "id": "NEXT_SERVER_DIRECTIVE",
+      "name": "Missing 'use server' for server actions",
+      "category": "architecture",
+      "severity": "medium",
+      "frameworks": ["nextjs"],
+      "catches": [
+        "Server actions not recognized",
+        "Actions run on client instead of server",
+        "Security issues"
+      ],
+      "fix": [
+        "Add 'use server' to action functions",
+        "Place server actions in separate files",
+        "Import actions from server files"
+      ],
+      "recommendation": {
+        "title": "Add 'use server' for server actions",
+        "description": "Server actions should be marked with 'use server' directive.",
+        "library": "Next.js"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "\"use server\"|'use server'",
+          "message": "'use server' directive detected"
+        }
+      ]
+    },
+    {
+      "id": "NEXT_MISSING_CACHE",
+      "name": "fetch() without cache option",
+      "category": "performance",
+      "severity": "medium",
+      "frameworks": ["nextjs"],
+      "catches": [
+        "Fetch runs on every request",
+        "Unnecessary network requests",
+        "Poor caching behavior"
+      ],
+      "fix": [
+        "Add cache: 'force-cache' for static data",
+        "Add cache: 'no-store' for dynamic data",
+        "Use fetch with revalidate options"
+      ],
+      "recommendation": {
+        "title": "Add cache option to fetch",
+        "description": "fetch() without cache option may cause unnecessary fetches.",
+        "library": "Next.js"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "fetch\\s*\\(",
+          "message": "fetch call detected"
+        }
+      ]
+    },
+    {
+      "id": "NEXT_CACHE_DYNAMIC",
+      "name": "Dynamic data without cache config",
+      "category": "performance",
+      "severity": "low",
+      "frameworks": ["nextjs"],
+      "catches": [
+        "Cache strategy unclear",
+        "Unexpected cached data",
+        "Stale data served"
+      ],
+      "fix": [
+        "Use no-store for dynamic data",
+        "Use revalidate for periodic updates",
+        "Document cache strategy"
+      ],
+      "recommendation": {
+        "title": "Configure cache for dynamic data",
+        "description": "Dynamic data should have explicit cache configuration.",
+        "library": "Next.js"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "cache|no-store|revalidate",
+          "message": "Cache configuration found"
+        }
+      ]
+    },
+    {
+      "id": "NEXT_LAYOUT_STATE",
+      "name": "State in shared layout",
+      "category": "performance",
+      "severity": "medium",
+      "frameworks": ["nextjs"],
+      "catches": [
+        "All pages re-render when state changes",
+        "Performance issues",
+        "Unnecessary server rendering"
+      ],
+      "fix": [
+        "Move useState to client components",
+        "Use context providers in client components",
+        "Keep layouts pure and server-only"
+      ],
+      "recommendation": {
+        "title": "Don't use state in shared layout",
+        "description": "State in shared layouts causes all pages to re-render. Move state to client components.",
+        "library": "Next.js"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "useState\\s*\\(",
+          "message": "useState in layout file - consider moving to client component"
+        },
+        {
+          "type": "regex",
+          "pattern": "useReducer\\s*\\(",
+          "message": "useReducer in layout file - consider moving to client component"
+        }
+      ]
+    },
+    {
+      "id": "NEXT_METADATA_DYNAMIC",
+      "name": "Dynamic metadata without generate",
+      "category": "performance",
+      "severity": "low",
+      "frameworks": ["nextjs"],
+      "catches": [
+        "Static metadata for dynamic pages",
+        "SEO issues",
+        "Missing OG images"
+      ],
+      "fix": [
+        "Use generateMetadata function",
+        "Fetch data for each page",
+        "Return dynamic metadata object"
+      ],
+      "recommendation": {
+        "title": "Use generateMetadata for dynamic metadata",
+        "description": "Dynamic metadata should use generateMetadata function.",
+        "library": "Next.js"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "generateMetadata|metadata",
+          "message": "Metadata function found"
+        }
+      ]
+    },
+    {
+      "id": "NEXT_IMAGE_UNOPTIMIZED",
+      "name": "next/image without optimization config",
+      "category": "performance",
+      "severity": "low",
+      "frameworks": ["nextjs"],
+      "catches": [
+        "Large images sent to browser",
+        "Slow page loads",
+        "Poor Core Web Vitals"
+      ],
+      "fix": [
+        "Configure images in next.config.js",
+        "Use quality prop on Image",
+        "Configure allowed domains"
+      ],
+      "recommendation": {
+        "title": "Configure next/image optimization",
+        "description": "next/image should have proper optimization configuration.",
+        "library": "next/image"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "Image|img|optimize|loader",
+          "message": "Image optimization found"
+        }
+      ]
+    },
+    {
+      "id": "NEXT_FONT_GOOGLE",
+      "name": "Google Fonts without optimization",
+      "category": "performance",
+      "severity": "low",
+      "frameworks": ["nextjs"],
+      "catches": [
+        "Fonts loaded with layout shift",
+        "Flash of unstyled text",
+        "Blocking render"
+      ],
+      "fix": [
+        "Use next/font/google",
+        "Use next/font/local",
+        "Remove link tags to Google Fonts"
+      ],
+      "recommendation": {
+        "title": "Use next/font for Google Fonts",
+        "description": "Use next/font/google for optimized font loading.",
+        "library": "next/font"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "fonts\\.googleapis\\.com",
+          "message": "Google Fonts loaded without optimization - use next/font/google"
+        }
+      ]
+    },
+    {
+      "id": "NEXT_DYNAMIC_IMPORT",
+      "name": "Missing dynamic imports for heavy components",
+      "category": "performance",
+      "severity": "medium",
+      "frameworks": ["nextjs"],
+      "catches": [
+        "Large bundle size",
+        "Slow initial load",
+        "Blocking JavaScript"
+      ],
+      "fix": [
+        "Use dynamic() for heavy components",
+        "Add loading for code splitting",
+        "Use ssr: false for client-only"
+      ],
+      "recommendation": {
+        "title": "Use dynamic imports for heavy components",
+        "description": "Heavy components should be lazy loaded with dynamic imports.",
+        "library": "Next.js"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "dynamic|lazy|import",
+          "message": "Dynamic import found"
+        }
+      ]
+    },
+    {
+      "id": "NEXT_PARALLEL_ROUTE_MISSING",
+      "name": "Parallel route without default.tsx",
+      "category": "architecture",
+      "severity": "medium",
+      "frameworks": ["nextjs"],
+      "catches": [
+        "Blank page for unmatched routes",
+        "User sees nothing when slot inactive",
+        "Poor UX"
+      ],
+      "fix": [
+        "Add default.tsx for unmatched slots",
+        "Create fallback UI",
+        "Handle both matched and unmatched states"
+      ],
+      "recommendation": {
+        "title": "Add default component for parallel routes",
+        "description": "Parallel routes need a default.tsx to handle unmatched slots.",
+        "library": "Next.js"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "export\\s+default\\s+function|@\\w+",
+          "message": "Parallel route pattern found",
+          "fileExtensions": [".tsx", ".jsx", ".ts", ".js"]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "name": "@attune/mcp-server",
+  "version": "0.8.0",
+  "description": "MCP server for Attune code quality analysis - use Attune from Claude Code, Cursor, and other AI tools",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "attune-mcp": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "^1.0.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.7.0"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "attune",
+    "code-quality",
+    "ai",
+    "claude",
+    "cursor"
+  ],
+  "license": "MIT"
+}

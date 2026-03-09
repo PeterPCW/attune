@@ -8,5 +8,6 @@ coverage/
 
 # Attune outputs (local-first, may contain project-specific data)
 .attune/
-
+.claude/
+.husky/
 test-repos/

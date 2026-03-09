@@ -1,0 +1,346 @@
+{
+  "rules": [
+    {
+      "id": "MAIN_HARDCODED_SQL",
+      "name": "Hardcoded SQL Queries",
+      "category": "maintainability",
+      "severity": "info",
+      "frameworks": [],
+      "catches": [
+        "SQL queries embedded in code",
+        "Hard to change schema",
+        "SQL injection risks"
+      ],
+      "fix": [
+        "Use Prisma or Drizzle ORM",
+        "Use query builder like Knex",
+        "Parameterize queries"
+      ],
+      "recommendation": {
+        "title": "Use query builders or ORMs",
+        "description": "Hardcoded SQL queries reduce maintainability. Use query builders.",
+        "library": "Knex, Prisma"
+      },
+      "fileExtensions": [".ts", ".js"],
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "['\"]SELECT.*FROM|['\"]INSERT.*INTO|['\"]UPDATE.*SET|['\"]DELETE.*FROM",
+          "message": "Raw SQL query detected - consider using an ORM or query builder"
+        }
+      ]
+    },
+    {
+      "id": "MAIN_MANUAL_FORM_STATE",
+      "name": "Manual useState for form fields",
+      "category": "maintainability",
+      "severity": "medium",
+      "frameworks": ["react", "vue", "svelte"],
+      "catches": [
+        "Many useState for each field",
+        "Hard to manage validation",
+        "Boilerplate code"
+      ],
+      "fix": [
+        "Use React Hook Form or Formik",
+        "Use form library for validation",
+        "Simplify form state management"
+      ],
+      "recommendation": {
+        "title": "Use form libraries",
+        "description": "Manual useState for each form field reduces maintainability. Use form libraries.",
+        "library": "React Hook Form, Formik"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "useForm|formik|react-hook-form",
+          "message": "Form library found"
+        }
+      ]
+    },
+    {
+      "id": "MAIN_DRY_VIOLATION",
+      "name": "Potential DRY violation",
+      "category": "maintainability",
+      "severity": "low",
+      "frameworks": [],
+      "catches": [
+        "Code repeated multiple times across files",
+        "Duplicate code chunks that should be extracted",
+        "DRY principle violated",
+        "Hard to maintain changes"
+      ],
+      "fix": [
+        "Extract to reusable function",
+        "Create utility functions",
+        "Reuse existing code"
+      ],
+      "recommendation": {
+        "title": "Extract repeated code",
+        "description": "Potential DRY violation - duplicate code chunks found across multiple files. Extract to shared utility.",
+        "library": "Refactoring"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "function\\s+\\w+\\s*\\([^)]*\\)\\s*\\{[^}]*\\}\\s*\\{",
+          "message": "Nested function found",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ],
+      "helpers": [
+        {
+          "name": "findDuplicateCode",
+          "params": {
+            "minChunkLines": 10,
+            "minOccurrences": 2,
+            "message": "Duplicate code found across files - extract to shared utility",
+            "fileExtensions": [".ts", ".js", ".tsx", ".jsx"],
+            "skipPaths": ["src/rules/", "node_modules/"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "MAIN_MAGIC_NUMBERS",
+      "name": "Magic numbers in code",
+      "category": "maintainability",
+      "severity": "info",
+      "frameworks": [],
+      "catches": [
+        "Numbers without explanation",
+        "Hard to understand code",
+        "Difficult to update"
+      ],
+      "fix": [
+        "Create named constants",
+        "Use enums for related values",
+        "Document what numbers mean"
+      ],
+      "recommendation": {
+        "title": "Use constants",
+        "description": "Magic numbers reduce readability. Use named constants instead.",
+        "library": "Constants"
+      },
+      "fileExtensions": [".ts", ".js", ".tsx", ".jsx"],
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "(?<![a-zA-Z_])[0-9]{3,}(?![a-zA-Z0-9_])",
+          "message": "Magic number detected - consider using a named constant"
+        }
+      ]
+    },
+    {
+      "id": "MAIN_HARDCODED_VALUES",
+      "name": "Hardcoded values",
+      "category": "maintainability",
+      "severity": "low",
+      "frameworks": [],
+      "catches": [
+        "Values hardcoded in code",
+        "Requires code changes to update",
+        "No environment-specific config"
+      ],
+      "fix": [
+        "Move to config file",
+        "Use environment variables",
+        "Create config object"
+      ],
+      "recommendation": {
+        "title": "Extract configuration",
+        "description": "Hardcoded values should be extracted to configuration files.",
+        "library": "Configuration"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "process\\.env\\.|dotenv\\.config\\(|require\\('dotenv'\\)",
+          "message": "Environment config found",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    },
+    {
+      "id": "MAIN_LONG_FILE",
+      "name": "Long file",
+      "category": "maintainability",
+      "severity": "medium",
+      "frameworks": [],
+      "catches": [
+        "Files too large",
+        "Hard to navigate",
+        "Difficult to maintain"
+      ],
+      "fix": [
+        "Split into multiple files",
+        "Extract to separate modules",
+        "Organize by feature"
+      ],
+      "recommendation": {
+        "title": "Split long files",
+        "description": "Files should be kept under 500 lines for maintainability.",
+        "library": "Code organization"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "export\\s+(class|function|const)",
+          "message": "Export statement found",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    },
+    {
+      "id": "MAIN_COMPLEX_FUNCTION",
+      "name": "Complex function",
+      "category": "maintainability",
+      "severity": "medium",
+      "frameworks": [],
+      "catches": [
+        "Function does too much",
+        "Hard to understand",
+        "Difficult to test"
+      ],
+      "fix": [
+        "Extract to smaller functions",
+        "Follow single responsibility",
+        "Reduce function size"
+      ],
+      "recommendation": {
+        "title": "Simplify complex functions",
+        "description": "Functions should be simple and focused on a single task.",
+        "library": "Refactoring"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "function\\s+\\w+\\s*\\([^)]*\\)\\s*\\{[^}]{200,}",
+          "message": "Long function found",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    },
+    {
+      "id": "MAIN_DEEP_NESTING",
+      "name": "Deeply nested code",
+      "category": "maintainability",
+      "severity": "medium",
+      "frameworks": [],
+      "catches": [
+        "Too many nested levels",
+        "Hard to follow logic",
+        "Complex to maintain"
+      ],
+      "fix": [
+        "Use early returns",
+        "Extract to functions",
+        "Simplify conditionals"
+      ],
+      "recommendation": {
+        "title": "Reduce nesting",
+        "description": "Deeply nested code is hard to read and maintain.",
+        "library": "Refactoring"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "if\\s*\\([^)]+\\)\\s*\\{[^}]{0,50}\\}[\\s]*else\\s*if",
+          "message": "Deeply nested if-else chain found",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    },
+    {
+      "id": "MAIN_GOD_OBJECT",
+      "name": "God object",
+      "category": "maintainability",
+      "severity": "high",
+      "frameworks": [],
+      "catches": [
+        "Class doing too much",
+        "Hard to maintain",
+        "Too many responsibilities"
+      ],
+      "fix": [
+        "Split into smaller classes",
+        "Follow single responsibility",
+        "Use composition"
+      ],
+      "recommendation": {
+        "title": "Split god objects",
+        "description": "Objects that do too much should be split into smaller, focused objects.",
+        "library": "SOLID principles"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "class\\s+[A-Z][a-zA-Z0-9]*\\s*\\{[^}]{500,}",
+          "message": "Large class definition found",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    },
+    {
+      "id": "MAIN_FEATURE_ENVY",
+      "name": "Feature envy",
+      "category": "maintainability",
+      "severity": "low",
+      "frameworks": [],
+      "catches": [
+        "Function uses too much external data",
+        "Strong coupling",
+        "Hard to reuse"
+      ],
+      "fix": [
+        "Move method to the class it uses most",
+        "Pass needed data only",
+        "Reduce coupling"
+      ],
+      "recommendation": {
+        "title": "Move code to data",
+        "description": "Functions that access too much data from other objects should be moved closer to that data.",
+        "library": "Refactoring"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "this\\.\\w+\\(\\)",
+          "message": "Method call found",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    },
+    {
+      "id": "MAIN_DATA_CLUMP",
+      "name": "Data clump",
+      "category": "maintainability",
+      "severity": "low",
+      "frameworks": [],
+      "catches": [
+        "Same variables passed together",
+        "Duplicated parameter lists",
+        "Hard to maintain"
+      ],
+      "fix": [
+        "Extract to interface or type",
+        "Create parameter object",
+        "Group related data"
+      ],
+      "recommendation": {
+        "title": "Extract data clumps",
+        "description": "Groups of variables passed together should be extracted into their own class or object.",
+        "library": "Refactoring"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "interface\\s+\\w+\\s*\\{",
+          "message": "Interface definition found",
+          "fileExtensions": [".ts"]
+        }
+      ]
+    }
+  ]
+}

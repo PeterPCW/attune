@@ -1,0 +1,244 @@
+{
+  "rules": [
+    {
+      "id": "DOCKER_RUN_ROOT",
+      "name": "Container running as root",
+      "category": "docker",
+      "severity": "high",
+      "frameworks": [],
+      "catches": [
+        "Container runs as root",
+        "Security vulnerability",
+        "Unnecessary privileges"
+      ],
+      "fix": [
+        "Add USER directive",
+        "Create non-root user",
+        "Run as specific user"
+      ],
+      "recommendation": {
+        "title": "Run container as non-root user",
+        "description": "Running as root is a security risk. Use USER directive.",
+        "library": "Docker"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "USER\\s+root",
+          "message": "Container runs as root - use non-root user",
+          "fileExtensions": ["Dockerfile"]
+        }
+      ]
+    },
+    {
+      "id": "DOCKER_NO_HEALTHCHECK",
+      "name": "Missing HEALTHCHECK instruction",
+      "category": "docker",
+      "severity": "medium",
+      "frameworks": [],
+      "catches": [
+        "No HEALTHCHECK in Dockerfile",
+        "Can't monitor container health",
+        "Orchestrator issues"
+      ],
+      "fix": [
+        "Add HEALTHCHECK instruction",
+        "Use curl or similar",
+        "Configure liveness probe"
+      ],
+      "recommendation": {
+        "title": "Add HEALTHCHECK instruction",
+        "description": "Health checks allow Docker to monitor container health.",
+        "library": "Docker"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "HEALTHCHECK",
+          "message": "HEALTHCHECK directive missing",
+          "fileExtensions": ["Dockerfile"]
+        }
+      ]
+    },
+    {
+      "id": "DOCKER_LATEST_TAG",
+      "name": "Using latest tag",
+      "category": "docker",
+      "severity": "medium",
+      "frameworks": [],
+      "catches": [
+        "Using :latest tag",
+        "Unpredictable builds",
+        "Reproducibility issues"
+      ],
+      "fix": [
+        "Pin to specific version",
+        "Use version tags",
+        "Update intentionally"
+      ],
+      "recommendation": {
+        "title": "Use specific version tags",
+        "description": "Using latest can cause unpredictable builds. Pin to specific versions.",
+        "library": "Docker"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "FROM.*:latest",
+          "message": "Using :latest tag - pin to specific version",
+          "fileExtensions": ["Dockerfile"]
+        }
+      ]
+    },
+    {
+      "id": "DOCKER_NO_PORTS",
+      "name": "Exposing all ports",
+      "category": "docker",
+      "severity": "low",
+      "frameworks": [],
+      "catches": [
+        "Too many ports exposed",
+        "Increased attack surface",
+        "Security risk"
+      ],
+      "fix": [
+        "Only expose needed ports",
+        "Remove unnecessary EXPOSE",
+        "Minimize exposure"
+      ],
+      "recommendation": {
+        "title": "Only expose necessary ports",
+        "description": "Exposing unnecessary ports increases attack surface.",
+        "library": "Docker"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "EXPOSE\\s+[0-9]+\\s*[0-9]+\\s*[0-9]+",
+          "message": "Multiple ports exposed - only expose needed ones",
+          "fileExtensions": ["Dockerfile"]
+        }
+      ]
+    },
+    {
+      "id": "DOCKER_NO_MULTISTAGE",
+      "name": "No multi-stage build",
+      "category": "docker",
+      "severity": "medium",
+      "frameworks": [],
+      "catches": [
+        "No multi-stage build",
+        "Large final image",
+        "Build dependencies included"
+      ],
+      "fix": [
+        "Use multi-stage build",
+        "Separate build and run stages",
+        "Reduce image size"
+      ],
+      "recommendation": {
+        "title": "Use multi-stage builds",
+        "description": "Multi-stage builds reduce final image size by excluding build dependencies.",
+        "library": "Docker"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "^COPY\\s+\\.",
+          "message": "Consider multi-stage build for smaller image",
+          "fileExtensions": ["Dockerfile"]
+        }
+      ]
+    },
+    {
+      "id": "DOCKER_NO_LABEL",
+      "name": "Missing labels",
+      "category": "docker",
+      "severity": "low",
+      "frameworks": [],
+      "catches": [
+        "No LABEL in Dockerfile",
+        "Missing metadata",
+        "Hard to manage"
+      ],
+      "fix": [
+        "Add LABEL directives",
+        "Include maintainer info",
+        "Add version labels"
+      ],
+      "recommendation": {
+        "title": "Add metadata labels",
+        "description": "Labels help with container management and organization.",
+        "library": "Docker"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "^LABEL",
+          "message": "LABEL directive missing - add metadata",
+          "fileExtensions": ["Dockerfile"]
+        }
+      ]
+    },
+    {
+      "id": "DOCKER_SUDO",
+      "name": "Using sudo in Dockerfile",
+      "category": "docker",
+      "severity": "medium",
+      "frameworks": [],
+      "catches": [
+        "sudo in Dockerfile",
+        "Unnecessary privilege",
+        "Security issue"
+      ],
+      "fix": [
+        "Remove sudo from commands",
+        "Run as non-root user",
+        "Avoid privilege escalation"
+      ],
+      "recommendation": {
+        "title": "Avoid sudo in Dockerfile",
+        "description": "Sudo is unnecessary when running as non-root user.",
+        "library": "Docker"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "sudo\\s+",
+          "message": "sudo found - avoid in containers",
+          "fileExtensions": ["Dockerfile"]
+        }
+      ]
+    },
+    {
+      "id": "DOCKER_NO_CLEANUP",
+      "name": "No cleanup in same layer",
+      "category": "docker",
+      "severity": "low",
+      "frameworks": [],
+      "catches": [
+        "No cleanup in RUN layer",
+        "Larger image size",
+        "Package cache included"
+      ],
+      "fix": [
+        "Combine install and cleanup",
+        "Use && to chain commands",
+        "Remove apt cache"
+      ],
+      "recommendation": {
+        "title": "Clean up in same layer",
+        "description": "Combine apt-get install and cleanup in same RUN to reduce image size.",
+        "library": "Docker"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "apt-get\\s+install(?!.*&&.*apt-get\\s+clean)",
+          "message": "Clean up package manager cache in same layer",
+          "fileExtensions": ["Dockerfile"]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "name": "attune-vscode",
+  "displayName": "Attune",
+  "description": "Code quality analysis for AI-generated code - detects issues in your codebase",
+  "version": "0.8.0",
+  "publisher": "attune",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other",
+    "Linters"
+  ],
+  "activationEvents": [
+    "onCommand:attune.analyze",
+    "onCommand:attune.analyzeFile",
+    "onCommand:attune.analyzeFolder"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "attune.analyze",
+        "title": "Attune: Analyze Project",
+        "category": "Attune"
+      },
+      {
+        "command": "attune.analyzeFile",
+        "title": "Attune: Analyze Current File",
+        "category": "Attune"
+      },
+      {
+        "command": "attune.analyzeFolder",
+        "title": "Attune: Analyze Folder",
+        "category": "Attune"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "when": "editorTextFocus",
+          "command": "attune.analyzeFile",
+          "group": "navigation"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "attune.analyzeFolder",
+          "group": "navigation"
+        }
+      ]
+    },
+    "problemMatchers": [
+      {
+        "name": "attune",
+        "owner": "attune",
+        "fileLocation": "absolute",
+        "pattern": {
+          "regexp": "^/([^:]+):(\\d+):(.+)$",
+          "file": 1,
+          "line": 2,
+          "message": 3
+        },
+        "severity": "warning"
+      }
+    ],
+    "configuration": {
+      "title": "Attune",
+      "properties": {
+        "attune.runOnSave": {
+          "type": "boolean",
+          "default": false,
+          "description": "Run Attune automatically on file save"
+        },
+        "attune.runOnOpen": {
+          "type": "boolean",
+          "default": false,
+          "description": "Run Attune when a workspace is opened"
+        },
+        "attune.liteMode": {
+          "type": "boolean",
+          "default": true,
+          "description": "Use lite mode for faster analysis"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "npx vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.80.0",
+    "typescript": "^5.0.0"
+  }
+}

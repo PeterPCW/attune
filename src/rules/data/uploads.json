@@ -1,0 +1,191 @@
+{
+  "rules": [
+    {
+      "id": "UPLOAD_NO_SIZE_LIMIT",
+      "name": "Missing file size limit",
+      "category": "uploads",
+      "severity": "high",
+      "frameworks": [],
+      "catches": [
+        "No limit on upload size",
+        "DoS via large files",
+        "Server storage exhausted"
+      ],
+      "fix": [
+        "Set file size limit in middleware",
+        "Validate file size before processing",
+        "Return 413 on limit exceeded"
+      ],
+      "recommendation": {
+        "title": "Limit file upload sizes",
+        "description": "Unlimited uploads can cause DoS. Set reasonable limits.",
+        "library": "multer, express-fileupload"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "fileSize|maxFileSize|limit\\s*:\\s*\\d",
+          "message": "File size limit found",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    },
+    {
+      "id": "UPLOAD_NO_TYPE_CHECK",
+      "name": "Missing file type validation",
+      "category": "uploads",
+      "severity": "high",
+      "frameworks": [],
+      "catches": [
+        "Malicious files uploaded",
+        "Server compromised",
+        "No validation of content"
+      ],
+      "fix": [
+        "Check MIME type on server",
+        "Verify file extension",
+        "Use file-type library"
+      ],
+      "recommendation": {
+        "title": "Validate file types",
+        "description": "Check MIME type and extension. Don't trust client-provided types.",
+        "library": "multer, file-type"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "fileFilter|mimeType|mimetype",
+          "message": "File type filter found",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    },
+    {
+      "id": "UPLOAD_NO_VIRUS_SCAN",
+      "name": "Files not scanned for viruses",
+      "category": "uploads",
+      "severity": "critical",
+      "frameworks": [],
+      "catches": [
+        "Malware uploaded to server",
+        "Virus spread to users",
+        "Security breach"
+      ],
+      "fix": [
+        "Integrate ClamAV scanner",
+        "Scan before storing",
+        "Quarantine suspicious files"
+      ],
+      "recommendation": {
+        "title": "Scan uploaded files",
+        "description": "Scan files for malware before processing or storing.",
+        "library": "ClamAV, virus-scan"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "clamav|virus|malware",
+          "message": "Virus scanning found",
+          "fileExtensions": [".ts", ".js"]
+        },
+        {
+          "type": "regex",
+          "pattern": "\\bscan\\b",
+          "message": "File scanning found",
+          "fileExtensions": [".ts", ".js"],
+          "excludePatterns": ["directory", "file.*scan", "scanned", "scanning"]
+        }
+      ]
+    },
+    {
+      "id": "UPLOAD_NO_RENAME",
+      "name": "Uploaded files not renamed",
+      "category": "uploads",
+      "severity": "medium",
+      "frameworks": [],
+      "catches": [
+        "Files overwritten by duplicates",
+        "Path traversal attacks",
+        "Security vulnerabilities"
+      ],
+      "fix": [
+        "Generate UUID for filenames",
+        "Store mapping to original name",
+        "Never use user-provided names"
+      ],
+      "recommendation": {
+        "title": "Generate unique filenames",
+        "description": "Don't use original filename. Generate UUID to prevent overwrites and path traversal.",
+        "library": "uuid"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "originalname|filename|name\\.original",
+          "message": "Original filename used - rename instead",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    },
+    {
+      "id": "UPLOAD_NO_STORAGE",
+      "name": "Files stored locally in container",
+      "category": "uploads",
+      "severity": "medium",
+      "frameworks": [],
+      "catches": [
+        "Files lost on restart",
+        "No scalability",
+        "Can't handle large files"
+      ],
+      "fix": [
+        "Use S3, GCS, or Azure Blob",
+        "Configure proper bucket policies",
+        "Enable versioning"
+      ],
+      "recommendation": {
+        "title": "Use object storage",
+        "description": "Store uploads in S3, GCS, or similar. Local storage is lost on restart.",
+        "library": "AWS S3, GCS, Azure Blob"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "s3|bucket|storage|gcs|blob|uploadFile",
+          "message": "Storage found",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    },
+    {
+      "id": "UPLOAD_NO_CHUNKING",
+      "name": "Large files not using chunked upload",
+      "category": "uploads",
+      "severity": "medium",
+      "frameworks": [],
+      "catches": [
+        "Large uploads fail easily",
+        "No resume on failure",
+        "Poor user experience"
+      ],
+      "fix": [
+        "Use tus or Uppy for uploads",
+        "Enable resumable uploads",
+        "Handle upload interruption"
+      ],
+      "recommendation": {
+        "title": "Implement chunked uploads",
+        "description": "Large files should use resumable uploads for reliability.",
+        "library": "tus, Uppy"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "chunk|resumable|tus|uppy",
+          "message": "Chunked upload found",
+          "fileExtensions": [".ts", ".js", ".tsx", ".jsx"]
+        }
+      ]
+    }
+  ]
+}

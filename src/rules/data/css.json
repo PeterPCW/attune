@@ -1,0 +1,276 @@
+{
+  "rules": [
+    {
+      "id": "CSS_INLINE_STYLES",
+      "name": "Inline styles detected",
+      "category": "css",
+      "severity": "medium",
+      "frameworks": ["react", "vue", "svelte", "angular"],
+      "catches": [
+        "Inline styles in components",
+        "No CSS optimization",
+        "Hard to maintain"
+      ],
+      "fix": [
+        "Use CSS classes",
+        "Use CSS Modules",
+        "Use styled-components"
+      ],
+      "recommendation": {
+        "title": "Use CSS classes instead of inline styles",
+        "description": "Inline styles prevent CSS optimization and reduce maintainability.",
+        "library": "CSS Modules, styled-components"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "style=\\{",
+          "message": "Inline style detected - use CSS classes",
+          "fileExtensions": [".tsx", ".jsx", ".vue", ".svelte"]
+        }
+      ]
+    },
+    {
+      "id": "CSS_GLOBAL_NAMESPACE",
+      "name": "Global CSS without scoping",
+      "category": "css",
+      "severity": "medium",
+      "frameworks": ["react", "vue", "svelte", "angular"],
+      "catches": [
+        "Global CSS without scoping",
+        "Namespace pollution",
+        "Style conflicts"
+      ],
+      "fix": [
+        "Use CSS Modules",
+        "Use scoped styles",
+        "Use CSS-in-JS"
+      ],
+      "recommendation": {
+        "title": "Scope CSS to components",
+        "description": "Use CSS modules, CSS-in-JS, or scoped styles to prevent global namespace pollution.",
+        "library": "CSS Modules, Vue scoped CSS"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "^\\.[a-z][a-z0-9]*\\s*\\{",
+          "message": "Global CSS class found - consider scoping",
+          "fileExtensions": [".css", ".scss", ".less"]
+        }
+      ]
+    },
+    {
+      "id": "CSS_IMPORTANT_ABUSE",
+      "name": "Overuse of !important",
+      "category": "css",
+      "severity": "low",
+      "frameworks": [],
+      "catches": [
+        "!important used excessively",
+        "Breaks CSS specificity",
+        "Hard to maintain"
+      ],
+      "fix": [
+        "Use proper specificity",
+        "Avoid !important",
+        "Use more specific selectors"
+      ],
+      "recommendation": {
+        "title": "Avoid !important declarations",
+        "description": "!important breaks CSS specificity and makes maintenance difficult.",
+        "library": "CSS"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "!important",
+          "message": "!important found - refactor to use proper specificity",
+          "fileExtensions": [".css", ".scss", ".less", ".tsx", ".jsx", ".vue", ".svelte"]
+        }
+      ]
+    },
+    {
+      "id": "CSS_SPECIFICITY_HIGH",
+      "name": "High CSS specificity",
+      "category": "css",
+      "severity": "low",
+      "frameworks": [],
+      "catches": [
+        "High specificity selectors",
+        "Hard to override",
+        "Maintenance issues"
+      ],
+      "fix": [
+        "Use BEM methodology",
+        "Keep selectors simple",
+        "Use CSS Modules"
+      ],
+      "recommendation": {
+        "title": "Keep specificity low",
+        "description": "High specificity selectors are hard to override and maintain.",
+        "library": "BEM, CSS Modules"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "#[a-z]+\\s+[a-z]+\\s+[a-z]+\\s*\\{|#[a-z]+#[a-z]+|!important",
+          "message": "High specificity selector - simplify",
+          "fileExtensions": [".css", ".scss", ".less"]
+        }
+      ]
+    },
+    {
+      "id": "CSS_MAGIC_NUMBERS",
+      "name": "Magic numbers in CSS",
+      "category": "css",
+      "severity": "low",
+      "frameworks": [],
+      "catches": [
+        "Hardcoded pixel values",
+        "Magic numbers in CSS",
+        "Hard to maintain"
+      ],
+      "fix": [
+        "Use CSS custom properties",
+        "Define spacing variables",
+        "Use rem/em units"
+      ],
+      "recommendation": {
+        "title": "Use CSS custom properties",
+        "description": "Hardcoded pixel values make responsive design harder. Use CSS variables.",
+        "library": "CSS Custom Properties"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "(width|height|margin|padding|top|left|right|bottom):\\s*\\d+px",
+          "message": "Magic number in CSS - use variables",
+          "fileExtensions": [".css", ".scss", ".less"]
+        }
+      ]
+    },
+    {
+      "id": "CSS_HARDCODED_COLORS",
+      "name": "Hardcoded color values",
+      "category": "css",
+      "severity": "low",
+      "frameworks": [],
+      "catches": [
+        "Hardcoded color values",
+        "No theming support",
+        "Hard to change globally"
+      ],
+      "fix": [
+        "Use CSS variables for colors",
+        "Define color palette",
+        "Enable theming"
+      ],
+      "recommendation": {
+        "title": "Use CSS custom properties for colors",
+        "description": "Hardcoded colors prevent theming. Use CSS variables.",
+        "library": "CSS Custom Properties"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "(color|background|border):\\s*#[0-9a-fA-F]{3,6}",
+          "message": "Hardcoded color - use CSS variable",
+          "fileExtensions": [".css", ".scss", ".less"]
+        }
+      ]
+    },
+    {
+      "id": "CSS_FLEX_GAP",
+      "name": "Using margins instead of gap",
+      "category": "css",
+      "severity": "low",
+      "frameworks": [],
+      "catches": [
+        "Using margins instead of gap",
+        "Extra markup needed",
+        "Inconsistent spacing"
+      ],
+      "fix": [
+        "Use gap property",
+        "Remove margin hacks",
+        "Simplify layout"
+      ],
+      "recommendation": {
+        "title": "Use gap for flex/grid spacing",
+        "description": "The gap property is cleaner than margin hacks for flex/grid containers.",
+        "library": "CSS Flexbox, CSS Grid"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "display:\\s*flex[^}]*margin-(right|bottom)",
+          "message": "Consider using gap instead of margins",
+          "fileExtensions": [".css", ".scss", ".less"]
+        }
+      ]
+    },
+    {
+      "id": "CSS_FONT_FAMILY",
+      "name": "Web fonts without font-display",
+      "category": "css",
+      "severity": "medium",
+      "frameworks": [],
+      "catches": [
+        "Web font without font-display",
+        "Invisible text on load",
+        "Poor UX"
+      ],
+      "fix": [
+        "Add font-display: swap",
+        "Use optional for faster loading",
+        "Prevent FOIT"
+      ],
+      "recommendation": {
+        "title": "Add font-display for web fonts",
+        "description": "font-display prevents invisible text while fonts load.",
+        "library": "CSS"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "@font-face[^}]*\\}",
+          "message": "Web font without font-display - add swap or optional",
+          "fileExtensions": [".css", ".scss", ".less"]
+        }
+      ]
+    },
+    {
+      "id": "CSS_DUPLICATE_VALUES",
+      "name": "Duplicate CSS values across files",
+      "category": "css",
+      "severity": "low",
+      "frameworks": [],
+      "catches": [
+        "Duplicate CSS values",
+        "Inconsistent styling",
+        "Hard to maintain"
+      ],
+      "fix": [
+        "Use CSS custom properties",
+        "Define design tokens",
+        "Centralize values"
+      ],
+      "recommendation": {
+        "title": "Use CSS custom properties for repeated values",
+        "description": "Colors, font sizes, and spacing values used multiple times should be defined as CSS variables for consistency and easier maintenance.",
+        "library": "CSS Custom Properties"
+      },
+      "helpers": [
+        {
+          "name": "findDuplicateCssValues",
+          "params": {
+            "message": "Duplicate CSS value",
+            "threshold": 2,
+            "skipPaths": ["node_modules", "dist", ".attune", "research"]
+          }
+        }
+      ]
+    }
+  ]
+}

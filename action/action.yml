@@ -1,0 +1,44 @@
+name: 'Attune Code Quality'
+description: 'Run Attune code quality analysis on your codebase. Detects AI-generated code patterns, security issues, and best practices.'
+branding:
+  icon: 'check-circle'
+  color: 'green'
+
+inputs:
+  path:
+    description: 'Path to analyze (default: .)'
+    default: '.'
+    required: false
+  flags:
+    description: 'Attune flags (e.g., --security, --lite, --json)'
+    default: '--json'
+    required: false
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install Attune
+      shell: bash
+      run: npm install -g attune
+
+    - name: Run Attune
+      id: attune
+      shell: bash
+      run: |
+        cd ${{ inputs.path }}
+        attune analyze . ${{ inputs.flags }} --output attune-results.json || true
+
+    - name: Upload results
+      uses: actions/upload-artifact@v4
+      with:
+        name: attune-results
+        path: attune-results.json
+        retention-days: 30

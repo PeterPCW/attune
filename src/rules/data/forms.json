@@ -1,0 +1,63 @@
+{
+  "rules": [
+    {
+      "id": "FORM_NO_VALIDATION",
+      "name": "Form missing validation",
+      "category": "forms",
+      "severity": "high",
+      "frameworks": [],
+      "catches": [
+        "No form validation",
+        "Invalid data submitted",
+        "Security issues"
+      ],
+      "fix": [
+        "Add client-side validation",
+        "Add server-side validation",
+        "Use form library"
+      ],
+      "recommendation": {
+        "title": "Add form validation",
+        "description": "Forms should have both client-side and server-side validation.",
+        "library": "Form handling"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "<form[^>]*>",
+          "excludePatterns": ["required", "pattern=", "novalidate"],
+          "message": "Form may be missing validation"
+        }
+      ]
+    },
+    {
+      "id": "FORM_SUBMIT_PREVENT",
+      "name": "Form submit not prevented",
+      "category": "forms",
+      "severity": "medium",
+      "frameworks": ["react", "vue"],
+      "catches": [
+        "Form submit not prevented",
+        "Page reload on submit",
+        "SPA navigation broken"
+      ],
+      "fix": [
+        "Call event.preventDefault()",
+        "Handle submission in JS",
+        "Use onSubmit handler"
+      ],
+      "recommendation": {
+        "title": "Prevent default form submission",
+        "description": "Use event.preventDefault() on form submission.",
+        "library": "Form handling"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "onSubmit\\s*=\\s*\\{",
+          "message": "Form onSubmit handler should call preventDefault"
+        }
+      ]
+    }
+  ]
+}

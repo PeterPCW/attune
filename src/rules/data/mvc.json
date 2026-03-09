@@ -1,0 +1,62 @@
+{
+  "rules": [
+    {
+      "id": "MVC_BUSINESS_IN_CONTROLLER",
+      "name": "Business logic in controller",
+      "category": "architecture",
+      "severity": "medium",
+      "frameworks": ["express", "fastify"],
+      "catches": [
+        "Business logic mixed with HTTP handling",
+        "Hard to test business logic",
+        "Code duplication"
+      ],
+      "fix": [
+        "Extract logic to service layer",
+        "Keep controllers thin",
+        "Follow single responsibility"
+      ],
+      "recommendation": {
+        "title": "Move business logic to service layer",
+        "description": "Controllers should handle HTTP, not business logic.",
+        "library": "MVC"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "controller|route|router",
+          "message": "Controller/router found"
+        }
+      ]
+    },
+    {
+      "id": "MVC_FAT_MODEL",
+      "name": "Fat model",
+      "category": "architecture",
+      "severity": "low",
+      "frameworks": [],
+      "catches": [
+        "Models too large",
+        "Too many responsibilities",
+        "Hard to maintain"
+      ],
+      "fix": [
+        "Split into multiple models",
+        "Use composition over inheritance",
+        "Extract to services"
+      ],
+      "recommendation": {
+        "title": "Split large models",
+        "description": "Models should be focused and not contain unrelated logic.",
+        "library": "MVC"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "model|schema|entity",
+          "message": "Model found"
+        }
+      ]
+    }
+  ]
+}

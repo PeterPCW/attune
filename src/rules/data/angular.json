@@ -1,0 +1,125 @@
+{
+  "rules": [
+    {
+      "id": "ANGULAR_SUBSCRIBE_LEAK",
+      "name": "Subscription without unsubscribe",
+      "category": "architecture",
+      "severity": "critical",
+      "frameworks": ["angular"],
+      "catches": [
+        "Observable subscription without unsubscribe",
+        "Memory leaks",
+        "Performance degradation"
+      ],
+      "fix": [
+        "Use takeUntilDestroyed()",
+        "Unsubscribe in ngOnDestroy",
+        "Use async pipe instead"
+      ],
+      "recommendation": {
+        "title": "Unsubscribe from observables",
+        "description": "Always unsubscribe from observables to prevent memory leaks. Use takeUntilDestroyed or unsubscribe.",
+        "library": "RxJS"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "\\.subscribe\\s*\\(",
+          "message": "Observable subscription without unsubscribe - will cause memory leak"
+        }
+      ]
+    },
+    {
+      "id": "ANGULAR_DETECT_CHANGE",
+      "name": "Manual change detection",
+      "category": "performance",
+      "severity": "medium",
+      "frameworks": ["angular"],
+      "catches": [
+        "Manual change detection calls",
+        "Performance issues",
+        "Unnecessary re-renders"
+      ],
+      "fix": [
+        "Use OnPush change detection",
+        "Use async pipe",
+        "Avoid detectChanges() calls"
+      ],
+      "recommendation": {
+        "title": "Avoid manual change detection",
+        "description": "Manual change detection can cause performance issues. Use OnPush and async pipe.",
+        "library": "Angular"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "detectChanges\\s*\\(\\s*\\)",
+          "message": "Manual change detection - use OnPush and async pipe instead"
+        },
+        {
+          "type": "regex",
+          "pattern": "markForCheck\\s*\\(\\s*\\)",
+          "message": "Manual change detection - use OnPush and async pipe instead"
+        }
+      ]
+    },
+    {
+      "id": "ANGULAR_TEMPLATE_CHANGE",
+      "name": "Method call in template",
+      "category": "performance",
+      "severity": "medium",
+      "frameworks": ["angular"],
+      "catches": [
+        "Method calls in template",
+        "Runs on every change detection",
+        "Performance issues"
+      ],
+      "fix": [
+        "Use pure pipes",
+        "Use computed properties",
+        "Move logic to component"
+      ],
+      "recommendation": {
+        "title": "Avoid method calls in templates",
+        "description": "Method calls in templates run on every change detection. Use pipes or computed properties.",
+        "library": "Angular"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "\\{\\{\\s*\\w+\\s*\\([^)]*\\)\\s*\\}\\}",
+          "message": "Method call in template - runs on every change detection"
+        }
+      ]
+    },
+    {
+      "id": "ANGULAR_PIPE_PURE",
+      "name": "Impure pipe with expensive computation",
+      "category": "performance",
+      "severity": "medium",
+      "frameworks": ["angular"],
+      "catches": [
+        "Impure pipe with expensive computation",
+        "Runs on every change detection",
+        "Performance issues"
+      ],
+      "fix": [
+        "Make pipe pure if possible",
+        "Cache results in impure pipe",
+        "Use OnPush change detection"
+      ],
+      "recommendation": {
+        "title": "Mark pure pipes",
+        "description": "Pipes should be pure by default for performance.",
+        "library": "Angular"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "@Pipe[^}]*pure:\\s*false",
+          "message": "Impure pipe runs on every change detection - make pure if possible"
+        }
+      ]
+    }
+  ]
+}

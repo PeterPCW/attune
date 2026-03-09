@@ -1,0 +1,154 @@
+{
+  "rules": [
+    {
+      "id": "CORS_NO_CONFIG",
+      "name": "Missing CORS configuration",
+      "category": "cors",
+      "severity": "medium",
+      "frameworks": ["express", "fastify", "nextjs", "nuxt"],
+      "catches": [
+        "API accessible from any domain",
+        "No control over who accesses API",
+        "Potential data exposure"
+      ],
+      "fix": [
+        "Configure allowed origins explicitly",
+        "Use environment variables for origins",
+        "Implement origin validation"
+      ],
+      "recommendation": {
+        "title": "Configure CORS properly",
+        "description": "CORS should be explicitly configured, not left permissive.",
+        "library": "cors, @fastify/cors"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "cors\\(|cors:\\s*\\{",
+          "message": "CORS configuration found",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    },
+    {
+      "id": "CORS_WILDCARD",
+      "name": "CORS allows all origins",
+      "category": "cors",
+      "severity": "high",
+      "frameworks": [],
+      "catches": [
+        "Any website can call API",
+        "Data exposed to unauthorized sites",
+        "Security vulnerabilities"
+      ],
+      "fix": [
+        "Specify exact allowed origins",
+        "Use array of allowed origins",
+        "Implement origin allowlist"
+      ],
+      "recommendation": {
+        "title": "Don't use wildcard origin in production",
+        "description": "Allowing all origins (* ) is a security risk. Specify allowed origins.",
+        "library": "CORS configuration"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "origin:\\s*['\"]\\*['\"]|origin:\\s*true",
+          "message": "Wildcard CORS origin detected",
+          "fileExtensions": [".ts", ".js", ".json"]
+        }
+      ]
+    },
+    {
+      "id": "CORS_CREDENTIALS",
+      "name": "CORS credentials with wildcard origin",
+      "category": "cors",
+      "severity": "critical",
+      "frameworks": [],
+      "catches": [
+        "Browser rejects credentials request",
+        "CORS error in browsers",
+        "API breaks for frontend"
+      ],
+      "fix": [
+        "Remove wildcard origin",
+        "Specify exact origins for credentials",
+        "Use origin whitelist"
+      ],
+      "recommendation": {
+        "title": "Fix credentials with wildcard",
+        "description": "Cannot use credentials with wildcard origin. Specify exact origins.",
+        "library": "CORS"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "credentials:\\s*true.*origin:\\s*['\"]\\*",
+          "message": "Credentials with wildcard origin is insecure",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    },
+    {
+      "id": "CORS_NO_EXPOSE_HEADERS",
+      "name": "Missing Access-Control-Expose-Headers",
+      "category": "cors",
+      "severity": "low",
+      "frameworks": [],
+      "catches": [
+        "Custom headers not accessible",
+        "Can't read response headers",
+        "Broken frontend functionality"
+      ],
+      "fix": [
+        "Add exposeHeaders configuration",
+        "List needed custom headers",
+        "Allow frontend access"
+      ],
+      "recommendation": {
+        "title": "Expose custom headers",
+        "description": "Custom headers need to be exposed to be accessible from frontend.",
+        "library": "CORS"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "exposeHeaders",
+          "message": "Expose-Headers configured",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    },
+    {
+      "id": "CORS_NO_MAX_AGE",
+      "name": "Missing Access-Control-Max-Age",
+      "category": "cors",
+      "severity": "low",
+      "frameworks": [],
+      "catches": [
+        "Extra preflight requests",
+        "Increased latency",
+        "Unnecessary OPTIONS calls"
+      ],
+      "fix": [
+        "Set maxAge to reasonable value (e.g., 86400)",
+        "Cache preflight for stable APIs",
+        "Balance security with performance"
+      ],
+      "recommendation": {
+        "title": "Set preflight cache duration",
+        "description": "Setting Max-Age reduces preflight requests.",
+        "library": "CORS"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "maxAge",
+          "message": "Max-Age header set",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    }
+  ]
+}

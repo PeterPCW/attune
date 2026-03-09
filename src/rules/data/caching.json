@@ -1,0 +1,124 @@
+{
+  "rules": [
+    {
+      "id": "CACHE_NO_TTL",
+      "name": "Cache entry missing TTL",
+      "category": "caching",
+      "severity": "medium",
+      "frameworks": [],
+      "catches": [
+        "Cache entry without TTL",
+        "Data never expires",
+        "Potential stale data"
+      ],
+      "fix": [
+        "Set TTL for cache entries",
+        "Choose appropriate expiration",
+        "Use setEx or similar"
+      ],
+      "recommendation": {
+        "title": "Set cache TTL",
+        "description": "Cache entries should have expiration times.",
+        "library": "Redis, Memcached"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "cache\\.|redis\\.|setEx\\(|set\\(",
+          "message": "Cache call found",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    },
+    {
+      "id": "CACHE_NO_KEY_PREFIX",
+      "name": "Cache missing key prefix",
+      "category": "caching",
+      "severity": "low",
+      "frameworks": [],
+      "catches": [
+        "No key prefix",
+        "Potential key collisions",
+        "Hard to debug"
+      ],
+      "fix": [
+        "Add key prefixes",
+        "Use namespace",
+        "Make keys descriptive"
+      ],
+      "recommendation": {
+        "title": "Use cache key prefixes",
+        "description": "Key prefixes prevent collisions and aid debugging.",
+        "library": "Redis"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "keyPrefix|PREFIX|prefix:",
+          "message": "Key prefix found",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    },
+    {
+      "id": "CACHE_STALE_WHILE_REVALIDATE",
+      "name": "Missing stale-while-revalidate pattern",
+      "category": "caching",
+      "severity": "low",
+      "frameworks": [],
+      "catches": [
+        "No stale-while-revalidate",
+        "Stale content not served",
+        "Slower response times"
+      ],
+      "fix": [
+        "Implement stale-while-revalidate",
+        "Serve stale while revalidating",
+        "Improve response times"
+      ],
+      "recommendation": {
+        "title": "Use stale-while-revalidate",
+        "description": "Serve stale content while revalidating in background.",
+        "library": "HTTP Cache, Redis"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "stale-while-revalidate|staleWhileRevalidate",
+          "message": "Stale-while-revalidate found",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    },
+    {
+      "id": "CACHE_NO_INVALIDATION",
+      "name": "Missing cache invalidation strategy",
+      "category": "caching",
+      "severity": "medium",
+      "frameworks": [],
+      "catches": [
+        "No cache invalidation strategy",
+        "Stale data served indefinitely",
+        "Data inconsistencies"
+      ],
+      "fix": [
+        "Plan cache invalidation",
+        "Use write-through or write-back",
+        "Invalidate on data change"
+      ],
+      "recommendation": {
+        "title": "Plan cache invalidation",
+        "description": "Have a clear strategy for when cached data becomes stale.",
+        "library": "Cache patterns"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "invalidate|del\\(|delete\\(",
+          "message": "Cache invalidation found",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    }
+  ]
+}

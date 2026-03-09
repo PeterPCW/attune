@@ -1,0 +1,447 @@
+{
+  "rules": [
+    {
+      "id": "ARCH_CIRCULAR_DEP",
+      "name": "Circular dependency detected",
+      "category": "architecture",
+      "severity": "high",
+      "frameworks": [],
+      "catches": [
+        "Circular dependencies",
+        "Tight coupling",
+        "Testing difficulties"
+      ],
+      "fix": [
+        "Use dependency injection",
+        "Extract shared logic",
+        "Refactor to reduce coupling"
+      ],
+      "recommendation": {
+        "title": "Break circular dependencies",
+        "description": "Circular dependencies cause tight coupling and make testing difficult. Refactor to use dependency injection.",
+        "library": "Architecture"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "export\\s+\\{[^}]+\\}\\s+from\\s+['\"]\\.\\/[^'\"]+['\"]",
+          "message": "Relative import found",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    },
+    {
+      "id": "ARCH_HUB_MODULE",
+      "name": "Hub module with too many dependencies",
+      "category": "architecture",
+      "severity": "medium",
+      "frameworks": [],
+      "catches": [
+        "Module depends on many others",
+        "Poor separation of concerns",
+        "Hard to maintain"
+      ],
+      "fix": [
+        "Split into smaller modules",
+        "Extract related functionality",
+        "Reduce dependencies"
+      ],
+      "recommendation": {
+        "title": "Split hub modules",
+        "description": "Modules that depend on too many other modules indicate poor separation. Split into smaller modules.",
+        "library": "Architecture"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "services?|repositories?|controllers?|handlers?",
+          "message": "Layered structure found"
+        }
+      ]
+    },
+    {
+      "id": "ARCH_ORPHAN_MODULE",
+      "name": "Orphan/unused module",
+      "category": "architecture",
+      "severity": "low",
+      "frameworks": [],
+      "catches": [
+        "Orphan module with no dependencies",
+        "May be dead code",
+        "Unnecessary bundle size"
+      ],
+      "fix": [
+        "Verify if module is used",
+        "Remove dead code",
+        "Add exports if needed"
+      ],
+      "recommendation": {
+        "title": "Remove orphan modules",
+        "description": "Modules with no dependencies may be dead code. Verify and remove.",
+        "library": "Architecture"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "services?|repositories?|controllers?|handlers?",
+          "message": "Layered structure found"
+        }
+      ]
+    },
+    {
+      "id": "ARCH_DB_IN_CONTROLLER",
+      "name": "Database access in controller",
+      "category": "architecture",
+      "severity": "high",
+      "frameworks": ["express", "fastify", "nodejs"],
+      "catches": [
+        "Database logic in controller",
+        "Poor separation of concerns",
+        "Hard to test"
+      ],
+      "fix": [
+        "Move DB logic to service/repository",
+        "Keep controllers thin",
+        "Separate HTTP and data concerns"
+      ],
+      "recommendation": {
+        "title": "Move database logic to service layer",
+        "description": "Controllers should only handle HTTP concerns. Move database logic to repositories/services.",
+        "library": "Layered Architecture"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "prisma|drizzle|knex|query|sql",
+          "message": "Database layer found"
+        }
+      ]
+    },
+    {
+      "id": "ARCH_LOGIC_IN_ROUTE",
+      "name": "Business logic in route handler",
+      "category": "architecture",
+      "severity": "medium",
+      "frameworks": ["express", "fastify"],
+      "catches": [
+        "Business logic in routes",
+        "Hard to test and reuse",
+        "Duplicated logic"
+      ],
+      "fix": [
+        "Extract to service layer",
+        "Keep routes thin",
+        "Delegate to business logic"
+      ],
+      "recommendation": {
+        "title": "Extract business logic",
+        "description": "Route handlers should delegate to service layer. Keep them thin.",
+        "library": "Service Layer"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "async|await|Promise",
+          "message": "Async handling found"
+        }
+      ]
+    },
+    {
+      "id": "ARCH_NO_SERVICE_LAYER",
+      "name": "Missing service layer",
+      "category": "architecture",
+      "severity": "medium",
+      "frameworks": [],
+      "catches": [
+        "No service layer",
+        "Logic in routes/controllers",
+        "Poor separation"
+      ],
+      "fix": [
+        "Create service layer",
+        "Move business logic",
+        "Keep routes thin"
+      ],
+      "recommendation": {
+        "title": "Add service layer",
+        "description": "Business logic should be in a service layer, not in routes or controllers.",
+        "library": "Layered Architecture"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "service",
+          "message": "Service layer found"
+        }
+      ]
+    },
+    {
+      "id": "ARCH_DIRECT_SQL",
+      "name": "Raw SQL in route handlers",
+      "category": "architecture",
+      "severity": "medium",
+      "frameworks": [],
+      "catches": [
+        "Raw SQL in routes",
+        "Database coupling",
+        "Hard to maintain"
+      ],
+      "fix": [
+        "Use repository pattern",
+        "Move SQL to repositories",
+        "Abstract database access"
+      ],
+      "recommendation": {
+        "title": "Use repository pattern",
+        "description": "Raw SQL in routes couples to database. Use repository pattern.",
+        "library": "Repository Pattern"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "SELECT\\s+|INSERT\\s+|UPDATE\\s+|DELETE\\s+",
+          "message": "Raw SQL query found",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    },
+    {
+      "id": "ARCH_ANEMIC_MODEL",
+      "name": "Anemic domain model",
+      "category": "architecture",
+      "severity": "medium",
+      "frameworks": [],
+      "catches": [
+        "Classes with only getters/setters",
+        "No business logic in models",
+        "Anemic domain model"
+      ],
+      "fix": [
+        "Add domain logic to models",
+        "Use domain-driven design",
+        "Move logic from services"
+      ],
+      "recommendation": {
+        "title": "Add behavior to domain models",
+        "description": "Classes with only getters/setters are anemic. Add domain logic to models.",
+        "library": "Domain-Driven Design"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "class\\s+[A-Z]\\w*[^{]*\\{\\s*(get\\s+\\w+\\(|set\\s+\\w+\\()",
+          "message": "Class with getters/setters found",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    },
+    {
+      "id": "ARCH_FEATURE_ENVY",
+      "name": "Feature envy anti-pattern",
+      "category": "architecture",
+      "severity": "low",
+      "frameworks": [],
+      "catches": [
+        "Method accesses too much from other class",
+        "Feature envy code smell",
+        "Poor encapsulation"
+      ],
+      "fix": [
+        "Move method to data class",
+        "Extract related logic",
+        "Improve encapsulation"
+      ],
+      "recommendation": {
+        "title": "Move method to data class",
+        "description": "Methods that access too much data from other classes should be moved there.",
+        "library": "Refactoring"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "this\\.",
+          "message": "Method access found"
+        }
+      ]
+    },
+    {
+      "id": "ARCH_VIOLATES_DEMETER",
+      "name": "Law of Demeter violation",
+      "category": "architecture",
+      "severity": "low",
+      "frameworks": [],
+      "catches": [
+        "Excessive method chaining",
+        "Law of Demeter violation",
+        "Tight coupling"
+      ],
+      "fix": [
+        "Use delegate methods",
+        "Reduce chaining",
+        "Improve encapsulation"
+      ],
+      "recommendation": {
+        "title": "Avoid method chaining",
+        "description": "Excessive chaining (a.getB().getC().getD()) violates Demeter. Use delegates.",
+        "library": "Law of Demeter"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "\\.get\\(|\\.set\\(|getter|setter",
+          "message": "Property access found"
+        }
+      ]
+    },
+    {
+      "id": "ARCH_GOD_CLASS",
+      "name": "God class detected",
+      "category": "architecture",
+      "severity": "high",
+      "frameworks": [],
+      "catches": [
+        "Class does too much",
+        "Violates single responsibility",
+        "Hard to maintain"
+      ],
+      "fix": [
+        "Split into smaller classes",
+        "Apply single responsibility",
+        "Extract related functionality"
+      ],
+      "recommendation": {
+        "title": "Split god class",
+        "description": "Classes that do too much should be split into focused, single-responsibility classes.",
+        "library": "SOLID - SRP"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "class\\s+[A-Z][a-zA-Z0-9]*[^{]*\\{[^}]{1000,}",
+          "message": "Large class found",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    },
+    {
+      "id": "ARCH_SPAGHETTI_CODE",
+      "name": "Spaghetti code structure",
+      "category": "architecture",
+      "severity": "info",
+      "frameworks": [],
+      "catches": [
+        "Deeply nested code",
+        "Tangled control flow",
+        "Hard to maintain"
+      ],
+      "fix": [
+        "Refactor to clean structure",
+        "Reduce nesting",
+        "Use early returns"
+      ],
+      "recommendation": {
+        "title": "Refactor to clean structure",
+        "description": "Deeply nested, tangled code is hard to maintain. Refactor to clear structure.",
+        "library": "Clean Code"
+      },
+      "fileExtensions": [".ts", ".js", ".tsx", ".jsx"],
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "(\\{[^}]*\\{[^}]*\\{[^}]*\\{[^}]*\\{)",
+          "message": "Deeply nested code (5+ levels) - consider refactoring"
+        }
+      ]
+    },
+    {
+      "id": "ARCH_BIG_COMPONENT",
+      "name": "Component too large",
+      "category": "architecture",
+      "severity": "medium",
+      "frameworks": ["react", "vue", "svelte", "angular"],
+      "catches": [
+        "Component too large",
+        "Hard to maintain",
+        "Multiple responsibilities"
+      ],
+      "fix": [
+        "Split into smaller components",
+        "Extract sub-components",
+        "Use composition"
+      ],
+      "recommendation": {
+        "title": "Split large components",
+        "description": "Components should be focused. Split into smaller, composable components.",
+        "library": "Component Design"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "export\\s+(default\\s+)?(function|const)\\s+[A-Z]|^export\\s+class\\s+[A-Z]",
+          "message": "Component definition found",
+          "fileExtensions": [".tsx", ".jsx", ".vue", ".svelte"]
+        }
+      ]
+    },
+    {
+      "id": "ARCH_PROP_DRILLING",
+      "name": "Props drilling through many levels",
+      "category": "architecture",
+      "severity": "medium",
+      "frameworks": ["react", "vue", "svelte"],
+      "catches": [
+        "Props passed through many levels",
+        "Prop drilling code smell",
+        "Hard to maintain"
+      ],
+      "fix": [
+        "Use React Context",
+        "Use state management",
+        "Use composition"
+      ],
+      "recommendation": {
+        "title": "Use context or state management",
+        "description": "Props passed through 3+ levels indicate need for context or state management.",
+        "library": "React Context, Vue/Nuxt Store"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "createContext\\(|useContext\\(|provide\\(|inject\\(",
+          "message": "Context or provide/inject found",
+          "fileExtensions": [".tsx", ".jsx", ".vue", ".svelte", ".ts"]
+        }
+      ]
+    },
+    {
+      "id": "ARCH_NO_ABSTRACTION",
+      "name": "Missing abstraction layer",
+      "category": "architecture",
+      "severity": "medium",
+      "frameworks": [],
+      "catches": [
+        "Direct implementations everywhere",
+        "No abstractions/interfaces",
+        "Tight coupling"
+      ],
+      "fix": [
+        "Add interfaces",
+        "Use dependency injection",
+        "Abstract implementations"
+      ],
+      "recommendation": {
+        "title": "Add abstraction layers",
+        "description": "Direct implementations scattered throughout code. Use abstractions/interfaces.",
+        "library": "Dependency Inversion"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "export\\s+interface\\s+|abstract\\s+class\\s+",
+          "message": "Abstraction found",
+          "fileExtensions": [".ts", ".d.ts"]
+        }
+      ]
+    }
+  ]
+}

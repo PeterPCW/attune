@@ -81,10 +81,10 @@ attune analyze . --no-config
 
 ### HTML Report
 
-Before fixing issues (score: 45):
+Before fixing issues:
 ![Attune Report - Many Issues](assets/report-before.png)
 
-After fixing all issues (score: 100):
+After fixing all issues:
 ![Attune Report - Perfect Score](assets/report-after.png)
 
 ## Configuration

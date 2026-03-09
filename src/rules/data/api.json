@@ -1,0 +1,273 @@
+{
+  "rules": [
+    {
+      "id": "API_NO_ERROR_TYPE",
+      "name": "API missing error type",
+      "category": "api",
+      "severity": "medium",
+      "frameworks": ["express", "fastify", "nextjs", "nuxt"],
+      "catches": [
+        "No typed error responses",
+        "Clients can't handle errors properly",
+        "Inconsistent error format"
+      ],
+      "fix": [
+        "Define error response types",
+        "Use error handling middleware",
+        "Return consistent error format"
+      ],
+      "recommendation": {
+        "title": "Add typed error responses",
+        "description": "API should return typed error responses for proper error handling.",
+        "library": "TypeScript"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "router\\.(get|post|put|delete|patch)\\(|app\\.(get|post|put|delete|patch)\\(",
+          "message": "API route handler found",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    },
+    {
+      "id": "API_NO_PAGINATION",
+      "name": "API missing pagination",
+      "category": "api",
+      "severity": "medium",
+      "frameworks": ["express", "fastify", "nextjs", "nuxt"],
+      "catches": [
+        "No pagination on list endpoints",
+        "Large data sets returned",
+        "Performance issues"
+      ],
+      "fix": [
+        "Add page/limit parameters",
+        "Implement cursor-based pagination",
+        "Set reasonable defaults"
+      ],
+      "recommendation": {
+        "title": "Add pagination to list endpoints",
+        "description": "Large data sets should be paginated.",
+        "library": "API design"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "\\.findMany\\(|\\.find\\(|router\\.(get|post)\\(",
+          "message": "Data query found",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    },
+    {
+      "id": "API_NO_RATE_LIMIT",
+      "name": "API missing rate limiting",
+      "category": "api",
+      "severity": "medium",
+      "frameworks": ["express", "fastify"],
+      "catches": [
+        "No rate limiting",
+        "Vulnerable to abuse",
+        "DDoS vulnerability"
+      ],
+      "fix": [
+        "Add rate limiting middleware",
+        "Configure limits per endpoint",
+        "Use Redis for distributed rate limiting"
+      ],
+      "recommendation": {
+        "title": "Add rate limiting",
+        "description": "APIs should have rate limiting to prevent abuse.",
+        "library": "API security"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "express-rate-limit|rate-limit|@fastify/rate-limit",
+          "message": "Rate limiting found",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    },
+    {
+      "id": "API_SENSITIVE_HEADER",
+      "name": "Sensitive data in request headers",
+      "category": "security",
+      "severity": "high",
+      "frameworks": [],
+      "catches": [
+        "Sensitive data in headers",
+        "Potential data exposure",
+        "Security vulnerability"
+      ],
+      "fix": [
+        "Use request body for sensitive data",
+        "Use Authorization header for tokens",
+        "Don't log sensitive headers"
+      ],
+      "recommendation": {
+        "title": "Don't expose sensitive data in headers",
+        "description": "Avoid sending sensitive data like passwords or tokens in HTTP headers.",
+        "library": "API security"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "(headers|req\\.headers|request\\.headers)[\\s\\S]*?(password|token|secret|auth|bearer)",
+          "message": "Sensitive data should not be sent in HTTP headers"
+        }
+      ]
+    },
+    {
+      "id": "API_PUBLIC_CALLS_PRIVATE",
+      "name": "Public API directly calls private/internal API",
+      "category": "api",
+      "severity": "low",
+      "frameworks": [],
+      "catches": [
+        "Public API calls internal services",
+        "No API Gateway",
+        "Direct service-to-service calls"
+      ],
+      "fix": [
+        "Use API Gateway",
+        "Implement BFF pattern",
+        "Hide internal services"
+      ],
+      "recommendation": {
+        "title": "Use API Gateway pattern",
+        "description": "Public APIs should go through an API gateway rather than directly calling internal services.",
+        "library": "API Gateway, BFF pattern"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "internal|private|-api|\\.internal\\.",
+          "message": "Internal API call found - consider API Gateway",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    },
+    {
+      "id": "API_NO_REQUEST_ID",
+      "name": "Missing request ID for tracing",
+      "category": "api",
+      "severity": "low",
+      "frameworks": ["express", "fastify", "nextjs", "nuxt"],
+      "catches": [
+        "No request ID for tracing",
+        "Hard to debug issues",
+        "No correlation across services"
+      ],
+      "fix": [
+        "Add X-Request-ID header",
+        "Pass request ID to logs",
+        "Use OpenTelemetry"
+      ],
+      "recommendation": {
+        "title": "Add request ID headers",
+        "description": "Add X-Request-ID or correlation ID for request tracing.",
+        "library": "Express: uuid, Morgan"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "x-request-id|correlation-id|requestId",
+          "message": "Request ID header found",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    },
+    {
+      "id": "API_NO_DEPRECATION",
+      "name": "Missing deprecation header for old endpoints",
+      "category": "api",
+      "severity": "medium",
+      "frameworks": ["express", "fastify", "nextjs", "nuxt"],
+      "catches": [
+        "No deprecation headers",
+        "Clients don't know endpoint is deprecated",
+        "Breaking changes surprise users"
+      ],
+      "fix": [
+        "Add Deprecation header",
+        "Add Sunset header",
+        "Document deprecation timeline"
+      ],
+      "recommendation": {
+        "title": "Add deprecation headers",
+        "description": "Deprecated endpoints should include Deprecation and Sunset headers.",
+        "library": "API versioning"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "deprecation|Sunset|@deprecated",
+          "message": "Deprecation header found",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    },
+    {
+      "id": "API_NO_ETAG",
+      "name": "Missing ETag for caching",
+      "category": "api",
+      "severity": "low",
+      "frameworks": ["express", "fastify", "nextjs", "nuxt"],
+      "catches": [
+        "No ETag headers",
+        "No conditional request support",
+        "Wasted bandwidth"
+      ],
+      "fix": [
+        "Add ETag headers",
+        "Support if-none-match",
+        "Use express-etag or similar"
+      ],
+      "recommendation": {
+        "title": "Add ETag for conditional requests",
+        "description": "Add ETag headers to enable conditional requests and caching.",
+        "library": "Express: express-etag"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "ETag|etag|if-none-match|if-modified",
+          "message": "ETag caching found",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    },
+    {
+      "id": "API_NO_IDEMPOTENCY",
+      "name": "Missing idempotency for critical operations",
+      "category": "api",
+      "severity": "medium",
+      "frameworks": ["express", "fastify", "nextjs", "nuxt"],
+      "catches": [
+        "No idempotency support",
+        "Duplicate operations possible",
+        "Payment issues"
+      ],
+      "fix": [
+        "Add idempotency key header",
+        "Store key with result",
+        "Check before processing"
+      ],
+      "recommendation": {
+        "title": "Add idempotency keys",
+        "description": "POST/PUT/DELETE endpoints should support idempotency keys to prevent duplicate operations.",
+        "library": "Idempotency"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "idempotency|POST|PUT|DELETE",
+          "message": "State-changing endpoint - consider idempotency",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    }
+  ]
+}

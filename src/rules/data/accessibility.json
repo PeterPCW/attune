@@ -1,0 +1,1038 @@
+{
+  "rules": [
+    {
+      "id": "ACCESS_SKIP_LINK",
+      "name": "Missing skip link",
+      "category": "accessibility",
+      "severity": "high",
+      "frameworks": ["react", "vue", "nextjs", "nuxt", "astro", "svelte", "angular"],
+      "catches": [
+        "No skip navigation link",
+        "Keyboard users can't bypass navigation",
+        "WCAG 2.1 B1 violation"
+      ],
+      "fix": [
+        "Add a skip link at the top of the page",
+        "Make it visible on focus",
+        "Link to the main content area"
+      ],
+      "recommendation": {
+        "title": "Add skip navigation link",
+        "description": "Add a skip link to allow keyboard users to bypass navigation.",
+        "library": "WCAG 2.1 B1"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "skip.?link|<a[^>]+href=\"#",
+          "message": "Skip link found",
+          "fileExtensions": [".html", ".tsx", ".jsx", ".vue", ".svelte", ".astro"]
+        }
+      ]
+    },
+    {
+      "id": "ACCESS_LANG_ATTRIBUTE",
+      "name": "Missing lang attribute",
+      "category": "accessibility",
+      "severity": "medium",
+      "frameworks": ["react", "vue", "nextjs", "nuxt", "astro", "svelte", "angular"],
+      "catches": [
+        "Missing lang attribute on HTML element",
+        "Screen readers can't pronounce content correctly",
+        "WCAG 2.1 A3 violation"
+      ],
+      "fix": [
+        "Add lang attribute to <html> tag (e.g., lang=\"en\")",
+        "Use appropriate language code for the content"
+      ],
+      "recommendation": {
+        "title": "Add lang attribute to HTML",
+        "description": "Add lang attribute to the html element for screen readers.",
+        "library": "WCAG 2.1 A3"
+      },
+      "helpers": [
+        {
+          "name": "findMissingLang",
+          "params": {
+            "message": "HTML missing lang attribute - screen readers need this to pronounce correctly"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ACCESS_KBD_NAV",
+      "name": "Keyboard navigation issues",
+      "category": "accessibility",
+      "severity": "high",
+      "frameworks": ["react", "vue", "nextjs", "nuxt", "astro", "svelte", "angular"],
+      "catches": [
+        "Interactive elements not keyboard accessible",
+        "Users can't navigate with Tab key",
+        "WCAG 2.1 A2 violation"
+      ],
+      "fix": [
+        "Ensure all buttons/links are focusable",
+        "Add keyboard event handlers",
+        "Test with keyboard only navigation"
+      ],
+      "recommendation": {
+        "title": "Ensure keyboard accessibility",
+        "description": "All interactive elements must be keyboard accessible.",
+        "library": "WCAG 2.1 A2"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "tabIndex|keydown|keypress|onKey",
+          "message": "Keyboard accessibility found"
+        }
+      ]
+    },
+    {
+      "id": "ACCESS_LIVE_REGION",
+      "name": "Missing live region for dynamic content",
+      "category": "accessibility",
+      "severity": "medium",
+      "frameworks": ["react", "vue", "nextjs", "nuxt", "astro", "svelte", "angular"],
+      "catches": [
+        "Dynamic content updates not announced",
+        "Screen reader users miss updates",
+        "WCAG 2.1 A1 violation"
+      ],
+      "fix": [
+        "Add aria-live attribute to dynamic content regions",
+        "Use polite or assertive based on urgency"
+      ],
+      "recommendation": {
+        "title": "Add live regions for dynamic content",
+        "description": "Use aria-live for content that updates dynamically.",
+        "library": "WCAG 2.1 A1"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "aria-live",
+          "message": "ARIA live region found"
+        }
+      ]
+    },
+    {
+      "id": "A11Y_REDUCED_MOTION",
+      "name": "Missing reduced motion preference",
+      "category": "accessibility",
+      "severity": "medium",
+      "frameworks": ["react", "vue", "nextjs", "nuxt", "astro", "svelte", "angular"],
+      "catches": [
+        "Animations play for users who prefer reduced motion",
+        "Can cause dizziness or nausea",
+        "WCAG 2.1 A2 violation"
+      ],
+      "fix": [
+        "Add prefers-reduced-motion media query",
+        "Disable or reduce animations for users who prefer it"
+      ],
+      "recommendation": {
+        "title": "Respect reduced motion preference",
+        "description": "Add media query for prefers-reduced-motion.",
+        "library": "WCAG 2.1 A2"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "prefers-reduced-motion",
+          "message": "Reduced motion support found"
+        }
+      ]
+    },
+    {
+      "id": "A11Y_TIMEOUT_SHORT",
+      "name": "Short timeout without warning",
+      "category": "accessibility",
+      "severity": "high",
+      "frameworks": ["react", "vue", "nextjs", "nuxt", "astro", "svelte", "angular"],
+      "catches": [
+        "Users timed out without warning",
+        "Data loss from expired sessions",
+        "WCAG 2.1 A1 violation"
+      ],
+      "fix": [
+        "Warn users before timeout",
+        "Provide ways to extend session",
+        "Allow users to adjust timeout settings"
+      ],
+      "recommendation": {
+        "title": "Warn users of short timeouts",
+        "description": "Sessions with short timeouts should warn users.",
+        "library": "WCAG 2.1 A1"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "setTimeout|timeout|expiry|session",
+          "message": "Timeout handling found"
+        }
+      ]
+    },
+    {
+      "id": "A11Y_ERROR_UNCLEAR",
+      "name": "Unclear error messages",
+      "category": "accessibility",
+      "severity": "high",
+      "frameworks": ["react", "vue", "nextjs", "nuxt", "astro", "svelte", "angular"],
+      "catches": [
+        "Error messages not descriptive",
+        "Users don't know how to fix errors",
+        "WCAG 2.1 A1 violation"
+      ],
+      "fix": [
+        "Write clear, specific error messages",
+        "Explain what went wrong and how to fix it",
+        "Use plain language"
+      ],
+      "recommendation": {
+        "title": "Make error messages clear",
+        "description": "Error messages should clearly explain what went wrong.",
+        "library": "WCAG 2.1 A1"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "error|Error|message|validation",
+          "message": "Error handling found"
+        }
+      ]
+    },
+    {
+      "id": "ACCESS_HEADING_ORDER",
+      "name": "Heading level skipped",
+      "category": "accessibility",
+      "severity": "medium",
+      "frameworks": ["react", "vue", "nextjs", "nuxt", "astro", "svelte", "angular"],
+      "catches": [
+        "Heading levels skipped (e.g., h1 to h3)",
+        "Screen reader users can't navigate structure",
+        "WCAG 2.1 A1 violation"
+      ],
+      "fix": [
+        "Use sequential heading levels",
+        "Don't skip from h1 to h3 without h2",
+        "Use proper hierarchy for outline"
+      ],
+      "recommendation": {
+        "title": "Maintain proper heading hierarchy",
+        "description": "Heading levels should not skip (e.g., h1 to h3 without h2).",
+        "library": "WCAG 2.1 A1"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "<h[1-6][^>]*>",
+          "message": "Heading elements found"
+        }
+      ]
+    },
+    {
+      "id": "ACCESS_IMG_ALT",
+      "name": "Image missing alt text",
+      "category": "accessibility",
+      "severity": "high",
+      "frameworks": ["react", "vue", "nextjs", "nuxt", "astro", "svelte", "angular"],
+      "catches": [
+        "Image missing alt attribute",
+        "Screen readers can't describe images",
+        "WCAG 2.1 A1 violation"
+      ],
+      "fix": [
+        "Add alt text to all images",
+        "Use alt=\"\" for decorative images",
+        "Describe image content in alt text"
+      ],
+      "recommendation": {
+        "title": "Add alt text to images",
+        "description": "Images need alt text for screen readers. Use empty alt=\"\" for decorative images.",
+        "library": "WCAG 2.1 A1"
+      },
+      "helpers": [
+        {
+          "name": "findMissingAltText",
+          "params": {
+            "message": "Image missing alt attribute - screen readers cannot describe this image"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ACCESS_ARIA_LABEL",
+      "name": "Missing ARIA labels",
+      "category": "accessibility",
+      "severity": "high",
+      "frameworks": ["react", "vue", "nextjs", "nuxt", "astro", "svelte", "angular"],
+      "catches": [
+        "Buttons/links without accessible names",
+        "Screen readers can't describe elements",
+        "WCAG 2.1 A4 violation"
+      ],
+      "fix": [
+        "Add aria-label to interactive elements",
+        "Use aria-labelledby for complex labels",
+        "Ensure icon buttons have labels"
+      ],
+      "recommendation": {
+        "title": "Add ARIA labels to interactive elements",
+        "description": "Buttons and links need accessible names. Use aria-label or aria-labelledby.",
+        "library": "WCAG 2.1 A4"
+      },
+      "helpers": [
+        {
+          "name": "findUnlabeledButtons",
+          "params": {
+            "message": "Button may lack accessible name"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ACCESS_LINK_TEXT",
+      "name": "Insufficient link text",
+      "category": "accessibility",
+      "severity": "medium",
+      "frameworks": [],
+      "catches": [
+        "Link text not descriptive (e.g., click here)",
+        "Users can't determine link destination",
+        "WCAG 2.1 A13 violation"
+      ],
+      "fix": [
+        "Use descriptive link text",
+        "Avoid generic phrases like click here",
+        "Make link purpose clear"
+      ],
+      "recommendation": {
+        "title": "Use descriptive link text",
+        "description": "Links should describe their destination. Avoid \"click here\" or \"read more\".",
+        "library": "WCAG 2.1 A13"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "<a[^>]*>(click here|read more|here|link)</a>",
+          "message": "Link text not descriptive"
+        }
+      ]
+    },
+    {
+      "id": "ACCESS_COLOR_CONTRAST",
+      "name": "Potential color contrast issue",
+      "category": "accessibility",
+      "severity": "medium",
+      "frameworks": ["react", "vue", "nextjs", "nuxt", "astro", "svelte", "angular"],
+      "catches": [
+        "Insufficient color contrast",
+        "Text hard to read for visually impaired users",
+        "WCAG 2.1 AA1 violation"
+      ],
+      "fix": [
+        "Ensure 4.5:1 contrast ratio for normal text",
+        "Ensure 3:1 for large text",
+        "Use contrast checker tools"
+      ],
+      "recommendation": {
+        "title": "Ensure sufficient color contrast",
+        "description": "Text should have 4.5:1 contrast ratio against background.",
+        "library": "WCAG 2.1 AA1"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "contrast|color|background|foreground",
+          "message": "Color contrast handling found"
+        }
+      ]
+    },
+    {
+      "id": "ACCESS_FOCUS_INDICATOR",
+      "name": "Missing focus indicators",
+      "category": "accessibility",
+      "severity": "high",
+      "frameworks": [],
+      "catches": [
+        "Focus indicator removed or hidden",
+        "Keyboard users can't see focused element",
+        "WCAG 2.1 AA2 violation"
+      ],
+      "fix": [
+        "Ensure focus indicators are visible",
+        "Don't remove outline without replacement",
+        "Use visible focus styles"
+      ],
+      "recommendation": {
+        "title": "Add focus indicators",
+        "description": "Interactive elements need visible focus indicators for keyboard users.",
+        "library": "WCAG 2.1 AA2"
+      },
+      "helpers": [
+        {
+          "name": "findRemovedFocusIndicator",
+          "params": {
+            "message": "Focus indicator removed - keyboard users won't know which element is focused"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ACCESS_FORM_LABEL",
+      "name": "Form input missing label",
+      "category": "accessibility",
+      "severity": "high",
+      "frameworks": [],
+      "catches": [
+        "Form input missing label",
+        "Screen readers can't identify field purpose",
+        "WCAG 2.1 A1 violation"
+      ],
+      "fix": [
+        "Add <label> element for each input",
+        "Use for attribute to associate label",
+        "Use aria-label as fallback"
+      ],
+      "recommendation": {
+        "title": "Add labels to form inputs",
+        "description": "Form inputs need associated labels for screen readers.",
+        "library": "WCAG 2.1 A1"
+      },
+      "helpers": [
+        {
+          "name": "findMissingFormLabels",
+          "params": {
+            "message": "Form input missing label - screen reader users won't know what this field is for"
+          }
+        }
+      ]
+    },
+    {
+      "id": "A11Y_COGNITIVE_LOAD",
+      "name": "Complex language may cause cognitive load",
+      "category": "accessibility",
+      "severity": "medium",
+      "frameworks": [],
+      "catches": [
+        "Complex language and jargon",
+        "Content hard to understand",
+        "Cognitive accessibility issues"
+      ],
+      "fix": [
+        "Use simple, clear language",
+        "Avoid jargon when possible",
+        "Break up complex content"
+      ],
+      "recommendation": {
+        "title": "Use clear, simple language",
+        "description": "Avoid complex sentences and jargon. Aim for reading level appropriate for audience.",
+        "library": "WCAG 2.1 - Cognitive"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "<p>|<span>|<div>|<h[1-6]>",
+          "message": "HTML text element found",
+          "fileExtensions": [".html", ".jsx", ".tsx", ".vue", ".svelte"]
+        }
+      ]
+    },
+    {
+      "id": "A11Y_CONSISTENT_NAV",
+      "name": "Inconsistent navigation across pages",
+      "category": "accessibility",
+      "severity": "medium",
+      "frameworks": [],
+      "catches": [
+        "Navigation changes between pages",
+        "Users can't predict navigation patterns",
+        "WCAG consistency violation"
+      ],
+      "fix": [
+        "Keep navigation consistent",
+        "Use same order and labels",
+        "Maintain consistent layout"
+      ],
+      "recommendation": {
+        "title": "Maintain consistent navigation",
+        "description": "Navigation should be consistent across pages for predictability.",
+        "library": "WCAG 2.1 - Consistent Navigation"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "nav|menu|header|footer|navigation",
+          "message": "Navigation found"
+        }
+      ]
+    },
+    {
+      "id": "A11Y_PREDICTABLE",
+      "name": "Unpredictable behavior on focus/hover",
+      "category": "accessibility",
+      "severity": "high",
+      "frameworks": [],
+      "catches": [
+        "Focus/hover causes unexpected changes",
+        "Content changes without user action",
+        "WCAG predictability violation"
+      ],
+      "fix": [
+        "Don't change content on focus/hover alone",
+        "Use user-triggered events",
+        "Provide controls for dynamic content"
+      ],
+      "recommendation": {
+        "title": "Make behavior predictable",
+        "description": "Focus and hover should not cause unexpected content changes.",
+        "library": "WCAG 2.1 - Predictable"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "onFocus|onMouseEnter|onMouseLeave|hover|focus",
+          "message": "Focus/hover handling found"
+        }
+      ]
+    },
+    {
+      "id": "A11Y_ERROR_PREVENTION",
+      "name": "No error prevention for forms",
+      "category": "accessibility",
+      "severity": "medium",
+      "frameworks": [],
+      "catches": [
+        "No confirmation for important actions",
+        "Users can't reverse submissions",
+        "WCAG error prevention violation"
+      ],
+      "fix": [
+        "Add confirmation dialogs for important actions",
+        "Provide reversible submission options",
+        "Allow undo functionality"
+      ],
+      "recommendation": {
+        "title": "Add error prevention",
+        "description": "Provide confirmation for important actions and reversible submissions.",
+        "library": "WCAG 2.1 - Error Prevention"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "confirm|confirmDialog|confirmSubmit",
+          "message": "Error prevention found"
+        }
+      ]
+    },
+    {
+      "id": "A11Y_HELP_DOCS",
+      "name": "Missing help or instructions",
+      "category": "accessibility",
+      "severity": "low",
+      "frameworks": [],
+      "catches": [
+        "No help text for complex forms",
+        "Users don't understand required input",
+        "WCAG input assistance violation"
+      ],
+      "fix": [
+        "Add help text for complex fields",
+        "Provide clear instructions",
+        "Show examples where helpful"
+      ],
+      "recommendation": {
+        "title": "Add help and instructions",
+        "description": "Provide help text and clear instructions for complex forms.",
+        "library": "WCAG 2.1 - Input Assistance"
+      },
+      "fileExtensions": [".tsx", ".jsx"],
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "<Input|<Select|<Textarea(?!.*help|.*description)",
+          "message": "Form input without help text or description"
+        }
+      ]
+    },
+    {
+      "id": "A11Y_FOCUS_ORDER",
+      "name": "Focus order not logical",
+      "category": "accessibility",
+      "severity": "high",
+      "frameworks": [],
+      "catches": [
+        "Focus order doesn't follow visual layout",
+        "Confusing navigation for keyboard users",
+        "WCAG focus order violation"
+      ],
+      "fix": [
+        "Order elements in DOM logically",
+        "Use tabindex carefully",
+        "Test with keyboard navigation"
+      ],
+      "recommendation": {
+        "title": "Ensure logical focus order",
+        "description": "Tab order should follow visual layout from left to right, top to bottom.",
+        "library": "WCAG 2.1 - Focus Order"
+      },
+      "fileExtensions": [".tsx", ".jsx", ".html"],
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "tabindex\\s*=\\s*['\"][1-9][^0-9]",
+          "message": "Manual tabindex found - may disrupt natural focus order"
+        }
+      ]
+    },
+    {
+      "id": "A11Y_PAGE_TITLE",
+      "name": "Missing or unclear page title",
+      "category": "accessibility",
+      "severity": "high",
+      "frameworks": [],
+      "catches": [
+        "Missing or generic page title",
+        "Users can't identify pages",
+        "WCAG page titled violation"
+      ],
+      "fix": [
+        "Add unique title to each page",
+        "Include page name and site name",
+        "Make titles descriptive"
+      ],
+      "recommendation": {
+        "title": "Add descriptive page titles",
+        "description": "Each page should have a unique, descriptive title.",
+        "library": "WCAG 2.1 - Page Titled"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "<title>",
+          "message": "Page title found"
+        }
+      ]
+    },
+    {
+      "id": "A11Y_LANDMARKS",
+      "name": "Missing semantic landmarks",
+      "category": "accessibility",
+      "severity": "medium",
+      "frameworks": [],
+      "catches": [
+        "Missing semantic HTML landmarks",
+        "Screen readers can't navigate regions",
+        "WCAG info and relationships violation"
+      ],
+      "fix": [
+        "Add header, nav, main, footer elements",
+        "Use aside for complementary content",
+        "Use role attributes as fallback"
+      ],
+      "recommendation": {
+        "title": "Use semantic HTML landmarks",
+        "description": "Use <header>, <nav>, <main>, <footer> for screen reader navigation.",
+        "library": "WCAG 2.1 - Info and Relationships"
+      },
+      "helpers": [
+        {
+          "name": "findMissingLandmarks",
+          "params": {
+            "message": "Missing semantic HTML landmarks",
+            "landmarks": ["header", "nav", "main", "footer"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "A11Y_AUTOPLAY_MEDIA",
+      "name": "Auto-playing media without controls",
+      "category": "accessibility",
+      "severity": "high",
+      "frameworks": [],
+      "catches": [
+        "Media auto-plays with sound",
+        "No controls for user",
+        "WCAG audio control violation"
+      ],
+      "fix": [
+        "Don't auto-play with sound",
+        "Add controls to media elements",
+        "Respect prefers-reduced-motion"
+      ],
+      "recommendation": {
+        "title": "Don't auto-play media with sound",
+        "description": "Auto-playing audio/video must have controls and respect user preference.",
+        "library": "WCAG 2.1 - Audio Control"
+      },
+      "fileExtensions": [".tsx", ".jsx", ".html"],
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "<video|<audio(?!.*controls)",
+          "message": "Media element may auto-play without controls"
+        }
+      ]
+    },
+    {
+      "id": "A11Y_CAPTCHA_ALT",
+      "name": "CAPTCHA without accessible alternative",
+      "category": "accessibility",
+      "severity": "high",
+      "frameworks": [],
+      "catches": [
+        "CAPTCHA without accessible alternative",
+        "Users with disabilities can't complete verification",
+        "WCAG CAPTCHA violation"
+      ],
+      "fix": [
+        "Add audio alternative for CAPTCHA",
+        "Consider hCaptcha or similar",
+        "Use invisible CAPTCHA when possible"
+      ],
+      "recommendation": {
+        "title": "Provide CAPTCHA alternatives",
+        "description": "CAPTCHA should have audio alternative or be replaceable with less exclusionary method.",
+        "library": "WCAG 2.1 - CAPTCHA"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "grecaptcha|recaptcha|captcha",
+          "message": "CAPTCHA usage detected - ensure accessible alternative"
+        }
+      ]
+    },
+    {
+      "id": "A11Y_LINK_PURPOSE",
+      "name": "Link purpose not clear from context",
+      "category": "accessibility",
+      "severity": "medium",
+      "frameworks": [],
+      "catches": [
+        "Link purpose unclear from context",
+        "Users can't determine destination",
+        "WCAG link purpose violation"
+      ],
+      "fix": [
+        "Make link text descriptive",
+        "Add aria-label for context",
+        "Avoid ambiguous link text"
+      ],
+      "recommendation": {
+        "title": "Clear link purpose",
+        "description": "Link purpose should be clear from link text alone or context.",
+        "library": "WCAG 2.1 - Link Purpose"
+      },
+      "fileExtensions": [".tsx", ".jsx", ".html"],
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "<Link\\s+[^>]*>(?!.*(click|here|more|read|learn|info))",
+          "message": "Link with generic text - use descriptive link text"
+        }
+      ]
+    },
+    {
+      "id": "A11Y_MULTIPLE_WAYS",
+      "name": "Only one way to find page",
+      "category": "accessibility",
+      "severity": "low",
+      "frameworks": [],
+      "catches": [
+        "Only one way to find pages",
+        "Users with disabilities limited",
+        "WCAG multiple ways violation"
+      ],
+      "fix": [
+        "Add site search functionality",
+        "Include site map",
+        "Use navigation menus"
+      ],
+      "recommendation": {
+        "title": "Provide multiple ways to find pages",
+        "description": "Users should have multiple ways to find pages (search, navigation, site map).",
+        "library": "WCAG 2.1 - Multiple Ways"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "useSearch|useNavigate|<Search|<SiteMap",
+          "message": "Search or navigation component found"
+        }
+      ]
+    },
+    {
+      "id": "A11Y_FOCUS_VISIBLE",
+      "name": "Focus not visible",
+      "category": "accessibility",
+      "severity": "critical",
+      "frameworks": [],
+      "catches": [
+        "Focus indicator not visible",
+        "Keyboard users lose track of focus",
+        "WCAG focus visible violation"
+      ],
+      "fix": [
+        "Ensure focus is always visible",
+        "Don't hide focus with CSS",
+        "Use high contrast focus styles"
+      ],
+      "recommendation": {
+        "title": "Make focus clearly visible",
+        "description": "Keyboard focus must have visible indicator at all times.",
+        "library": "WCAG 2.1 - Focus Visible"
+      },
+      "fileExtensions": [".css", ".tsx", ".jsx"],
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "outline\\s*:\\s*none|:focus\\s*\\{[^}]*\\}",
+          "message": "Focus outline removed - ensure visible focus indicator"
+        }
+      ]
+    },
+    {
+      "id": "A11Y_NO_REFERRER",
+      "name": "Link behavior changes context unexpectedly",
+      "category": "accessibility",
+      "severity": "high",
+      "frameworks": [],
+      "catches": [
+        "Links open new windows without warning",
+        "Context changes unexpectedly on focus",
+        "WCAG on focus violation"
+      ],
+      "fix": [
+        "Warn before opening new window",
+        "Use rel=\"noopener noreferrer\"",
+        "Announce link behavior to screen readers"
+      ],
+      "recommendation": {
+        "title": "Don't change context unexpectedly",
+        "description": "Links should not open new windows/tabs without warning.",
+        "library": "WCAG 2.1 - On Focus"
+      },
+      "fileExtensions": [".tsx", ".jsx", ".html"],
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "target\\s*=\\s*['\"]_blank['\"](?!.*rel)",
+          "message": "Link opens new window without rel=\"noopener noreferrer\""
+        }
+      ]
+    },
+    {
+      "id": "A11Y_ERROR_SUGGESTION",
+      "name": "No error suggestions provided",
+      "category": "accessibility",
+      "severity": "medium",
+      "frameworks": [],
+      "catches": [
+        "No error suggestions",
+        "Users don't know how to fix errors",
+        "WCAG error suggestion violation"
+      ],
+      "fix": [
+        "Suggest corrections for errors",
+        "Provide format examples",
+        "Validate in real-time"
+      ],
+      "recommendation": {
+        "title": "Provide error suggestions",
+        "description": "When errors are detected, suggest corrections.",
+        "library": "WCAG 2.1 - Error Suggestion"
+      },
+      "fileExtensions": [".tsx", ".jsx"],
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "error\\s*=|setError\\(|onError\\s*=",
+          "message": "Error handling found - ensure error messages suggest corrections"
+        }
+      ]
+    },
+    {
+      "id": "A11Y_STATUS_MESSAGE",
+      "name": "Status messages not announced",
+      "category": "accessibility",
+      "severity": "medium",
+      "frameworks": [],
+      "catches": [
+        "Status messages not announced",
+        "Screen readers miss important updates",
+        "WCAG status messages violation"
+      ],
+      "fix": [
+        "Add aria-live to status regions",
+        "Announce important updates",
+        "Don't steal focus for status"
+      ],
+      "recommendation": {
+        "title": "Announce status messages",
+        "description": "Status messages should be announced without focus change using aria-live.",
+        "library": "WCAG 2.1 - Status Messages"
+      },
+      "fileExtensions": [".tsx", ".jsx"],
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "toast|notification|snackbar",
+          "message": "Notification component found - ensure aria-live for screen readers"
+        }
+      ]
+    },
+    {
+      "id": "ACCESS_TARGET_SIZE",
+      "name": "Clickable target too small",
+      "category": "accessibility",
+      "severity": "high",
+      "frameworks": [],
+      "catches": [
+        "Clickable targets too small",
+        "Users with motor impairments struggle",
+        "WCAG 2.2 target size violation"
+      ],
+      "fix": [
+        "Make targets at least 24x24px",
+        "Increase padding on buttons",
+        "Use touch-friendly sizes"
+      ],
+      "recommendation": {
+        "title": "Use minimum 24x24px target size",
+        "description": "Clickable targets must be at least 24 by 24 CSS pixels. Small targets are difficult for users with motor impairments.",
+        "library": "WCAG 2.2 - Target Size (Minimum)"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "(?:width|height|min-width|min-height):\\s*(?:1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23)px",
+          "message": "Target size less than 24px - users with motor impairments may struggle",
+          "fileExtensions": [".css", ".scss", ".less", ".html", ".tsx", ".jsx", ".vue", ".svelte"]
+        }
+      ]
+    },
+    {
+      "id": "ACCESS_DRAG_ALT",
+      "name": "Drag operation without keyboard alternative",
+      "category": "accessibility",
+      "severity": "high",
+      "frameworks": [],
+      "catches": [
+        "Drag operations without keyboard alternative",
+        "Users can't perform with keyboard",
+        "WCAG 2.2 dragging movements violation"
+      ],
+      "fix": [
+        "Add keyboard alternative",
+        "Use click + move pattern",
+        "Provide two-click alternative"
+      ],
+      "recommendation": {
+        "title": "Provide keyboard alternative for drag",
+        "description": "Drag operations must have a keyboard alternative (click + move, or two clicks). Users cannot use drag with keyboards or assistive tech.",
+        "library": "WCAG 2.2 - Dragging Movements"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "(?:onDrag|onDragStart|onDragEnd|draggable|dragstart|dragend)\\s*=",
+          "message": "Drag operation detected - ensure keyboard alternative exists",
+          "fileExtensions": [".tsx", ".jsx", ".vue", ".svelte", ".html"]
+        }
+      ]
+    },
+    {
+      "id": "ACCESS_FOCUS_NOT_OBSCURED",
+      "name": "Focus indicator hidden",
+      "category": "accessibility",
+      "severity": "high",
+      "frameworks": [],
+      "catches": [
+        "Focus hidden by other content",
+        "Sticky headers cover focused element",
+        "WCAG 2.2 focus not obscured violation"
+      ],
+      "fix": [
+        "Ensure focus never hidden",
+        "Adjust sticky header behavior",
+        "Scroll element into view"
+      ],
+      "recommendation": {
+        "title": "Focus must not be hidden",
+        "description": "When an element receives focus, it must not be completely hidden by other content (sticky headers, modals, etc.).",
+        "library": "WCAG 2.2 - Focus Not Obscured"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "outline:\\s*none|display:\\s*none|visibility:\\s*hidden",
+          "message": "This may hide focus indicator - ensure focus remains visible",
+          "fileExtensions": [".css", ".scss", ".less", ".html"]
+        }
+      ]
+    },
+    {
+      "id": "ACCESS_TEXT_SPACING",
+      "name": "Text spacing restrictions",
+      "category": "accessibility",
+      "severity": "medium",
+      "frameworks": [],
+      "catches": [
+        "Fixed text spacing prevents adjustment",
+        "Users can't customize reading experience",
+        "WCAG 2.2 text spacing violation"
+      ],
+      "fix": [
+        "Use unitless line-height",
+        "Avoid fixed px line-heights",
+        "Allow natural text reflow"
+      ],
+      "recommendation": {
+        "title": "Allow text spacing adjustments",
+        "description": "Text should reflow when users adjust line-height, letter-spacing, or word-spacing. Avoid fixed px line-heights.",
+        "library": "WCAG 2.2 - Text Spacing"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "line-height:\\s*\\d+px",
+          "message": "Fixed px line-height may prevent text spacing adjustments - use unitless or em",
+          "fileExtensions": [".css", ".scss", ".less"]
+        }
+      ]
+    },
+    {
+      "id": "ACCESS_WRAP_LINES",
+      "name": "Horizontal scrolling required",
+      "category": "accessibility",
+      "severity": "high",
+      "frameworks": [],
+      "catches": [
+        "Horizontal scrolling at 320px",
+        "Content doesn't wrap properly",
+        "WCAG 2.2 wrap lines violation"
+      ],
+      "fix": [
+        "Enable text wrapping",
+        "Use word-wrap or overflow-wrap",
+        "Test at 320px width"
+      ],
+      "recommendation": {
+        "title": "Enable line wrapping",
+        "description": "Content should not require horizontal scrolling at 320px width. Use word-wrap, overflow-wrap, or allow natural text reflow.",
+        "library": "WCAG 2.2 - Wrap Lines"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "white-space:\\s*nowrap|overflow-x:\\s*hidden",
+          "message": "May cause horizontal scrolling - allow text to wrap",
+          "fileExtensions": [".css", ".scss", ".less"]
+        }
+      ]
+    }
+  ]
+}

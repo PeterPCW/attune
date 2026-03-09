@@ -1,0 +1,65 @@
+# Attune ignore patterns
+# Similar to .gitignore
+
+# Test files
+**/__tests__/**
+**/*.test.ts
+**/*.spec.ts
+**/test/**
+**/tests/**
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Build outputs
+dist/
+build/
+out/
+
+# Node modules
+node_modules/
+
+# Dependencies
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Documentation (source)
+docs/
+*.md
+
+# Attune local outputs (reports, cache, etc.)
+.attune/reports/
+.attune/cache/
+
+# Old report patterns from different versions
+attune-*.json
+attune-*.html
+attune-*.sarif
+
+# Files with security patterns that produce false positives
+# (These files contain security detection code that triggers false positives)
+src/core/
+src/types/index.ts
+src/index.ts
+src/utils/retry.ts
+src/rules/helpers/ast-helpers.ts
+
+# Root config files that trigger false positives
+package.json
+tsconfig.json
+vitest.config.ts
+vitest.coverage.config.ts
+tsup.config.ts
+

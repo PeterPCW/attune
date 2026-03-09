@@ -1,0 +1,154 @@
+{
+  "rules": [
+    {
+      "id": "DB_N_PLUS_1",
+      "name": "N+1 Query Problem",
+      "category": "performance",
+      "severity": "high",
+      "frameworks": [],
+      "catches": [
+        "N+1 query problem",
+        "Multiple database calls in loop",
+        "Performance issues"
+      ],
+      "fix": [
+        "Use eager loading",
+        "Use JOINs",
+        "Batch queries"
+      ],
+      "recommendation": {
+        "title": "Fix N+1 query problem",
+        "description": "Use eager loading or JOINs to avoid N+1 queries.",
+        "library": "Prisma, Drizzle"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "for\\s*\\(\\s*(const|let|var)\\s+\\w+\\s+of|\\.forEach\\s*\\(|\\.map\\s*\\(.*=>",
+          "message": "Potential N+1 query - loop with database call",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    },
+    {
+      "id": "DB_INJECTION_STRING",
+      "name": "SQL injection via string concatenation",
+      "category": "security",
+      "severity": "critical",
+      "frameworks": [],
+      "catches": [
+        "SQL string concatenation",
+        "SQL injection vulnerability",
+        "Data breach risk"
+      ],
+      "fix": [
+        "Use parameterized queries",
+        "Use ORM methods",
+        "Never concatenate user input"
+      ],
+      "recommendation": {
+        "title": "Use parameterized queries",
+        "description": "String concatenation in SQL queries creates SQL injection vulnerabilities. Use parameterized queries.",
+        "library": "Prepared statements, ORM"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "\".*\\+\\s*[\"']|\\'.*\\+\\s*[\"']|query\\s*\\(\\s*[\"'].*\\+",
+          "message": "SQL string concatenation detected - use parameterized queries",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    },
+    {
+      "id": "DB_MISSING_INDEX",
+      "name": "Missing Database Index",
+      "category": "performance",
+      "severity": "medium",
+      "frameworks": ["nextjs", "nuxt", "express", "fastify", "remix"],
+      "catches": [
+        "Missing database index",
+        "Slow queries",
+        "Full table scans"
+      ],
+      "fix": [
+        "Add index to frequently queried columns",
+        "Use @@index in Prisma",
+        "Analyze query patterns"
+      ],
+      "recommendation": {
+        "title": "Add database index",
+        "description": "Missing index on frequently queried columns.",
+        "library": "Database"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "@@index|@index",
+          "message": "Index annotation found",
+          "fileExtensions": [".ts", ".prisma"]
+        }
+      ]
+    },
+    {
+      "id": "DB_EAGER_LOAD",
+      "name": "Eager Loading Everything",
+      "category": "performance",
+      "severity": "medium",
+      "frameworks": ["nextjs", "nuxt", "remix"],
+      "catches": [
+        "Eager loading all relations",
+        "Unnecessary data fetched",
+        "Performance issues"
+      ],
+      "fix": [
+        "Load only needed relations",
+        "Use lazy loading",
+        "Select specific fields"
+      ],
+      "recommendation": {
+        "title": "Avoid eager loading everything",
+        "description": "Eager loading all relations causes performance issues. Load only needed relations.",
+        "library": "ORM"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "\\.include\\s*\\(\\s*\\{",
+          "message": "Eager loading found",
+          "fileExtensions": [".ts", ".js"]
+        }
+      ]
+    },
+    {
+      "id": "DB_PRISMA_INCLUDE_ALL",
+      "name": "Prisma include() without where",
+      "category": "performance",
+      "severity": "medium",
+      "frameworks": ["nextjs", "nuxt", "remix"],
+      "catches": [
+        "include() without where",
+        "Loads all related records",
+        "Performance issues"
+      ],
+      "fix": [
+        "Add where clause to include",
+        "Filter related records",
+        "Limit fetched data"
+      ],
+      "recommendation": {
+        "title": "Prisma include without where",
+        "description": "include() without where loads all relations. Add filtering.",
+        "library": "Prisma"
+      },
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "prisma\\.[a-z]+\\.include",
+          "message": "Prisma include found",
+          "fileExtensions": [".ts"]
+        }
+      ]
+    }
+  ]
+}

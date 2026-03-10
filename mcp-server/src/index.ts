@@ -21,8 +21,8 @@
  *   }
  */
 
-import { Server } from '@modelcontextprotocol/server';
-import { StdioServerTransport } from '@modelcontextprotocol/server/stdio';
+import { Server } from '@modelcontextprotocol/sdk';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 

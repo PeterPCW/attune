@@ -7,7 +7,7 @@
  * Attune code quality analysis directly from their conversations.
  *
  * Usage:
- *   npx @attune/mcp-server
+ *   npx attune-mcp-server
  *   npm run start
  *
  * Configuration (Claude Code):
@@ -15,7 +15,7 @@
  *     "mcpServers": {
  *       "attune": {
  *         "command": "npx",
- *         "args": ["@attune/mcp-server"]
+ *         "args": ["attune-mcp-server"]
  *       }
  *     }
  *   }

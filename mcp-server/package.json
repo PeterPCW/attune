@@ -1,5 +1,5 @@
 {
-  "name": "@attune/mcp-server",
+  "name": "attune-mcp-server",
   "version": "0.8.0",
   "description": "MCP server for Attune code quality analysis - use Attune from Claude Code, Cursor, and other AI tools",
   "type": "module",

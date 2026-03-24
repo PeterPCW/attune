@@ -1,0 +1,412 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "COMP_NESTING",
+      "name": "Deeply nested code",
+      "description": "Deeply nested code is hard to read. Consider early returns or extraction.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "complexity",
+      "recommendation": {
+        "title": "Reduce nesting depth",
+        "description": "Deeply nested code is hard to read. Consider early returns or extraction.",
+        "library": "Code style"
+      },
+      "catches": [
+        "Deeply nested code",
+        "Hard to read and maintain",
+        "High cyclomatic complexity"
+      ],
+      "fix": [
+        "Use early returns",
+        "Extract to helper functions",
+        "Reduce nesting levels"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "if\\s*\\([X]\\)\\s*\\{[^}]{0,200}if\\s*\\([X]\\)",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Nested if statements found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "COMP_PARAMS",
+      "name": "Too many function parameters",
+      "description": "Too many parameters make functions hard to use. Consider passing an object.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "complexity",
+      "recommendation": {
+        "title": "Reduce function parameters",
+        "description": "Too many parameters make functions hard to use. Consider passing an object.",
+        "library": "Code style"
+      },
+      "catches": [
+        "Too many function parameters",
+        "Hard to use and remember",
+        "Code smell"
+      ],
+      "fix": [
+        "Pass an object instead",
+        "Group related params",
+        "Use options pattern"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "(function\\s+\\w+|const\\s+\\w+\\s*=\\s*(?:async\\s+)?\\(|=>\\s*(?:async\\s+)?\\()\\(,",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Function has too many parameters (5+)"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "COMP_GLOBAL_STATE",
+      "name": "Global state detected",
+      "description": "Global state causes unexpected side effects. Use dependency injection.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Avoid global state",
+        "description": "Global state causes unexpected side effects. Use dependency injection.",
+        "library": "Best practices"
+      },
+      "catches": [
+        "Global state found",
+        "Unexpected side effects",
+        "Hard to test"
+      ],
+      "fix": [
+        "Use dependency injection",
+        "Pass state explicitly",
+        "Use context/state management"
+      ],
+      "conditions": [
+        {
+          "type": "regex",
+          "pattern": "^const\\s+\\w+\\s*=\\s*\\{\\}[\\s;]*$",
+          "fileExtensions": [
+            ".ts",
+            ".js"
+          ]
+        },
+        {
+          "type": "regex",
+          "pattern": "^let\\s+\\w+\\s*=\\s*\\{\\}[\\s;]*$",
+          "fileExtensions": [
+            ".ts",
+            ".js"
+          ]
+        },
+        {
+          "type": "regex",
+          "pattern": "global\\.\\w+",
+          "fileExtensions": [
+            ".ts",
+            ".js"
+          ]
+        }
+      ],
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Potential global state object"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "COMP_EMPTY_CATCH",
+      "name": "Empty catch block",
+      "description": "Empty catch blocks hide errors. Add proper error handling.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "error-handling",
+      "recommendation": {
+        "title": "Handle errors properly",
+        "description": "Empty catch blocks hide errors. Add proper error handling.",
+        "library": "Error handling"
+      },
+      "catches": [
+        "Empty catch block",
+        "Errors silently ignored",
+        "Hard to debug"
+      ],
+      "fix": [
+        "Add error handling",
+        "Log the error",
+        "Re-throw if needed"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "catch\\s*\\(\\)\\s*\\{\\s*\\}",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Empty catch block - errors are being silently ignored"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "COMP_CIRCULAR",
+      "name": "Potential circular dependency",
+      "description": "Circular dependencies cause coupling issues. Refactor to remove them.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "nextjs",
+        "nuxt",
+        "remix",
+        "svelte",
+        "vue"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Avoid circular dependencies",
+        "description": "Circular dependencies cause coupling issues. Refactor to remove them.",
+        "library": "Architecture"
+      },
+      "catches": [
+        "Circular dependency found",
+        "Tight coupling",
+        "Startup issues"
+      ],
+      "fix": [
+        "Refactor to remove circular deps",
+        "Use dependency injection",
+        "Extract to third module"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "export\\s+\\{\\s*\\bfrom\\s+['\"]\\.\\.?/",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Relative re-export found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "COMP_DEAD_CODE",
+      "name": "Potential dead code",
+      "description": "Unused code should be removed. It confuses readers and bloats builds.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "cleanliness",
+      "recommendation": {
+        "title": "Remove dead code",
+        "description": "Unused code should be removed. It confuses readers and bloats builds.",
+        "library": "Code cleanliness"
+      },
+      "catches": [
+        "Dead code exists",
+        "Confuses readers",
+        "Bloats builds"
+      ],
+      "fix": [
+        "Remove unused functions",
+        "Delete unreachable code",
+        "Clean up exports"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "function\\s+\\w+\\s*\\(\\s*\\)\\s*\\{\\s*\\}",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Empty function found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "COMP_CONSOLE_LOG",
+      "name": "Console log statements",
+      "description": "Console.log statements should be removed in production.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "cleanliness",
+      "recommendation": {
+        "title": "Remove console logs",
+        "description": "Console.log statements should be removed in production.",
+        "library": "Code cleanliness"
+      },
+      "catches": [
+        "console.log in code",
+        "Debug statements left in",
+        "No log levels"
+      ],
+      "fix": [
+        "Remove console.log",
+        "Use logging library",
+        "Configure for environment"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "console\\.(log|debug|info)\\(",
+        "fileExtensions": [
+          ".ts",
+          ".js",
+          ".jsx",
+          ".tsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Console log statement found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "COMP_BIG_FILE",
+      "name": "File too large",
+      "description": "Files over 500 lines are hard to maintain. Consider splitting into smaller modules.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "complexity",
+      "recommendation": {
+        "title": "Split large files",
+        "description": "Files over 500 lines are hard to maintain. Consider splitting into smaller modules.",
+        "library": "Code organization"
+      },
+      "catches": [
+        "File too large (500+ lines)",
+        "Hard to maintain",
+        "Hard to navigate"
+      ],
+      "fix": [
+        "Split into smaller files",
+        "Extract related code",
+        "Organize by feature"
+      ],
+      "condition": {
+        "type": "exists",
+        "field": "content"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Check for findLargeFiles",
+        "helper": "findLargeFiles",
+        "params": {
+          "maxLines": 500,
+          "message": "File exceeds 500 lines - consider splitting",
+          "skipPaths": [
+            "src/rules",
+            "src/cli",
+            "src/formatters"
+          ]
+        }
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "COMP_CYCLOMATIC",
+      "name": "High cyclomatic complexity",
+      "description": "High cyclomatic complexity indicates complex logic. Consider refactoring.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "complexity",
+      "recommendation": {
+        "title": "Reduce cyclomatic complexity",
+        "description": "High cyclomatic complexity indicates complex logic. Consider refactoring.",
+        "library": "Code complexity"
+      },
+      "catches": [
+        "High cyclomatic complexity",
+        "Complex logic hard to test",
+        "More bugs likely"
+      ],
+      "fix": [
+        "Refactor complex functions",
+        "Extract to smaller functions",
+        "Use early returns"
+      ],
+      "condition": {
+        "type": "exists",
+        "field": "content"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Check for findHighComplexity",
+        "helper": "findHighComplexity",
+        "params": {
+          "threshold": 3,
+          "message": "High cyclomatic complexity detected",
+          "skipPaths": [
+            "src/rules",
+            "src/cli",
+            "src/formatters"
+          ]
+        }
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,301 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "DOCKER_RUN_ROOT",
+      "name": "Container running as root",
+      "description": "Running as root is a security risk. Use USER directive.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "docker",
+      "recommendation": {
+        "title": "Run container as non-root user",
+        "description": "Running as root is a security risk. Use USER directive.",
+        "library": "Docker"
+      },
+      "catches": [
+        "Container runs as root",
+        "Security vulnerability",
+        "Unnecessary privileges"
+      ],
+      "fix": [
+        "Add USER directive",
+        "Create non-root user",
+        "Run as specific user"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "USER\\s+root",
+        "fileExtensions": [
+          "Dockerfile"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Container runs as root - use non-root user"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "DOCKER_NO_HEALTHCHECK",
+      "name": "Missing HEALTHCHECK instruction",
+      "description": "Health checks allow Docker to monitor container health.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "docker",
+      "recommendation": {
+        "title": "Add HEALTHCHECK instruction",
+        "description": "Health checks allow Docker to monitor container health.",
+        "library": "Docker"
+      },
+      "catches": [
+        "No HEALTHCHECK in Dockerfile",
+        "Can't monitor container health",
+        "Orchestrator issues"
+      ],
+      "fix": [
+        "Add HEALTHCHECK instruction",
+        "Use curl or similar",
+        "Configure liveness probe"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "HEALTHCHECK",
+        "fileExtensions": [
+          "Dockerfile"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "HEALTHCHECK directive missing"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "DOCKER_LATEST_TAG",
+      "name": "Using latest tag",
+      "description": "Using latest can cause unpredictable builds. Pin to specific versions.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "docker",
+      "recommendation": {
+        "title": "Use specific version tags",
+        "description": "Using latest can cause unpredictable builds. Pin to specific versions.",
+        "library": "Docker"
+      },
+      "catches": [
+        "Using :latest tag",
+        "Unpredictable builds",
+        "Reproducibility issues"
+      ],
+      "fix": [
+        "Pin to specific version",
+        "Use version tags",
+        "Update intentionally"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "FROM.*:latest",
+        "fileExtensions": [
+          "Dockerfile"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Using :latest tag - pin to specific version"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "DOCKER_NO_PORTS",
+      "name": "Exposing all ports",
+      "description": "Exposing unnecessary ports increases attack surface.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "docker",
+      "recommendation": {
+        "title": "Only expose necessary ports",
+        "description": "Exposing unnecessary ports increases attack surface.",
+        "library": "Docker"
+      },
+      "catches": [
+        "Too many ports exposed",
+        "Increased attack surface",
+        "Security risk"
+      ],
+      "fix": [
+        "Only expose needed ports",
+        "Remove unnecessary EXPOSE",
+        "Minimize exposure"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "EXPOSE\\s+[0-9]+\\s*[0-9]+\\s*[0-9]+",
+        "fileExtensions": [
+          "Dockerfile"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Multiple ports exposed - only expose needed ones"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "DOCKER_NO_MULTISTAGE",
+      "name": "No multi-stage build",
+      "description": "Multi-stage builds reduce final image size by excluding build dependencies.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "docker",
+      "recommendation": {
+        "title": "Use multi-stage builds",
+        "description": "Multi-stage builds reduce final image size by excluding build dependencies.",
+        "library": "Docker"
+      },
+      "catches": [
+        "No multi-stage build",
+        "Large final image",
+        "Build dependencies included"
+      ],
+      "fix": [
+        "Use multi-stage build",
+        "Separate build and run stages",
+        "Reduce image size"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "^COPY\\s+\\.",
+        "fileExtensions": [
+          "Dockerfile"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Consider multi-stage build for smaller image"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "DOCKER_NO_LABEL",
+      "name": "Missing labels",
+      "description": "Labels help with container management and organization.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "docker",
+      "recommendation": {
+        "title": "Add metadata labels",
+        "description": "Labels help with container management and organization.",
+        "library": "Docker"
+      },
+      "catches": [
+        "No LABEL in Dockerfile",
+        "Missing metadata",
+        "Hard to manage"
+      ],
+      "fix": [
+        "Add LABEL directives",
+        "Include maintainer info",
+        "Add version labels"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "^LABEL",
+        "fileExtensions": [
+          "Dockerfile"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "LABEL directive missing - add metadata"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "DOCKER_SUDO",
+      "name": "Using sudo in Dockerfile",
+      "description": "Sudo is unnecessary when running as non-root user.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "docker",
+      "recommendation": {
+        "title": "Avoid sudo in Dockerfile",
+        "description": "Sudo is unnecessary when running as non-root user.",
+        "library": "Docker"
+      },
+      "catches": [
+        "sudo in Dockerfile",
+        "Unnecessary privilege",
+        "Security issue"
+      ],
+      "fix": [
+        "Remove sudo from commands",
+        "Run as non-root user",
+        "Avoid privilege escalation"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "sudo\\s+",
+        "fileExtensions": [
+          "Dockerfile"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "sudo found - avoid in containers"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "DOCKER_NO_CLEANUP",
+      "name": "No cleanup in same layer",
+      "description": "Combine apt-get install and cleanup in same RUN to reduce image size.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "docker",
+      "recommendation": {
+        "title": "Clean up in same layer",
+        "description": "Combine apt-get install and cleanup in same RUN to reduce image size.",
+        "library": "Docker"
+      },
+      "catches": [
+        "No cleanup in RUN layer",
+        "Larger image size",
+        "Package cache included"
+      ],
+      "fix": [
+        "Combine install and cleanup",
+        "Use && to chain commands",
+        "Remove apt cache"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "apt-get\\s+install(?!.*&&.*apt-get\\s+clean)",
+        "fileExtensions": [
+          "Dockerfile"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Clean up package manager cache in same layer"
+      },
+      "projectTypes": []
+    }
+  ]
+}

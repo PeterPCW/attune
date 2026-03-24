@@ -1,0 +1,262 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "I18N_HARDCODED_STRING",
+      "name": "Hardcoded string instead of i18n",
+      "description": "Hardcoded strings prevent localization. Use translation functions.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react",
+        "vue",
+        "svelte",
+        "angular"
+      ],
+      "category": "i18n",
+      "recommendation": {
+        "title": "Use i18n for strings",
+        "description": "Hardcoded strings prevent localization. Use translation functions.",
+        "library": "i18next, vue-i18n, ngx-translate"
+      },
+      "catches": [
+        "Hardcoded UI strings",
+        "Can't translate app",
+        "Single language only"
+      ],
+      "fix": [
+        "Use t() or translate function",
+        "Create translation files",
+        "Support multiple languages"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "<[A-Z][a-zA-Z]+>[a-zA-Z]+</[A-Z]",
+        "fileExtensions": [
+          ".tsx",
+          ".jsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Hardcoded text in JSX - use i18n"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "I18N_NO_LOCALE",
+      "name": "Missing locale configuration",
+      "description": "Define supported locales for the application.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "i18n",
+      "recommendation": {
+        "title": "Configure supported locales",
+        "description": "Define supported locales for the application.",
+        "library": "i18next"
+      },
+      "catches": [
+        "Undefined supported languages",
+        "Can't filter languages",
+        "Inconsistent behavior"
+      ],
+      "fix": [
+        "Define supportedLocales",
+        "Configure fallback locale",
+        "Validate locale codes"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "supportedLngs|supportedLocales|locales",
+        "fileExtensions": [
+          ".ts",
+          ".js",
+          ".json"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Locale config found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "I18N_NO_FALLBACK",
+      "name": "Missing fallback language",
+      "description": "Configure fallback when translation is missing.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "i18n",
+      "recommendation": {
+        "title": "Set fallback language",
+        "description": "Configure fallback when translation is missing.",
+        "library": "i18next"
+      },
+      "catches": [
+        "Missing translations break UI",
+        "No default language",
+        "Blank strings shown"
+      ],
+      "fix": [
+        "Set fallbackLng config",
+        "Use common language as fallback",
+        "Handle missing keys"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "fallbackLng|fallbackLocale|fallback",
+        "fileExtensions": [
+          ".ts",
+          ".js",
+          ".json"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Fallback locale found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "I18N_PLURAL_NOTES",
+      "name": "Plural forms not handled",
+      "description": "Different languages have different plural rules.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "i18n",
+      "recommendation": {
+        "title": "Handle plural forms",
+        "description": "Different languages have different plural rules.",
+        "library": "i18next plural"
+      },
+      "catches": [
+        "Incorrect plural forms shown",
+        "Grammar errors in translations",
+        "Wrong count displayed"
+      ],
+      "fix": [
+        "Add plural forms to keys",
+        "Use count variable",
+        "Define all plural forms"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "count\\s*[><=]|plural|one\\s*other",
+        "fileExtensions": [
+          ".json",
+          ".ts"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Plural handling found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "I18N_NO_DATE_FORMAT",
+      "name": "Using hardcoded date formats",
+      "description": "Date formats vary by locale. Use Intl.DateTimeFormat.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "i18n",
+      "recommendation": {
+        "title": "Use locale-aware date formatting",
+        "description": "Date formats vary by locale. Use Intl.DateTimeFormat.",
+        "library": "Intl, date-fns, dayjs"
+      },
+      "catches": [
+        "Wrong date format per locale",
+        "Confusing for users",
+        "Hard to read dates"
+      ],
+      "fix": [
+        "Use Intl.DateTimeFormat",
+        "Pass locale to formatter",
+        "Use date-fns or dayjs"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "toLocaleDateString|format\\(\\d{2}|YYYY-MM-DD",
+        "fileExtensions": [
+          ".ts",
+          ".js",
+          ".tsx",
+          ".jsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Date formatting found - use locale-aware"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "I18N_NO_NUMBER_FORMAT",
+      "name": "Using hardcoded number formats",
+      "description": "Number formats (decimal separators) vary by locale.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "i18n",
+      "recommendation": {
+        "title": "Use locale-aware number formatting",
+        "description": "Number formats (decimal separators) vary by locale.",
+        "library": "Intl.NumberFormat"
+      },
+      "catches": [
+        "Wrong number format per locale",
+        "Wrong decimal separators",
+        "Confusing for users"
+      ],
+      "fix": [
+        "Use Intl.NumberFormat",
+        "Pass locale to formatter",
+        "Format numbers properly"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "toLocaleString|Intl\\.NumberFormat",
+        "fileExtensions": [
+          ".ts",
+          ".js",
+          ".tsx",
+          ".jsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Number formatting found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

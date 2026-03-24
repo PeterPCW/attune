@@ -1,0 +1,335 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "PYDANTIC_MISSING_FIELD_DESC",
+      "name": "Pydantic Field missing description",
+      "description": "Add description= to Field() for API documentation.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "pydantic",
+        "fastapi"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "documentation",
+      "recommendation": {
+        "title": "Add Field description",
+        "description": "Add description= to Field() for API documentation.",
+        "library": "Pydantic"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "Field\\(\\)(?!.*description)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Field should have a description"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PYDANTIC_MUTABLE_DEFAULT",
+      "name": "Mutable default in Pydantic model",
+      "description": "Use default_factory for mutable defaults.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "pydantic",
+        "fastapi"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "maintainability",
+      "recommendation": {
+        "title": "Use Field with default_factory",
+        "description": "Use default_factory for mutable defaults.",
+        "library": "Pydantic"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "Field\\(default=\\s*\\[|Field\\(default=\\s*\\{"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Mutable default in Pydantic Field"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PYDANTIC_NO_VALIDATION",
+      "name": "Pydantic model without validation",
+      "description": "Add model_config = ConfigDict(...) for validation settings.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "pydantic",
+        "fastapi"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "reliability",
+      "recommendation": {
+        "title": "Configure model validation",
+        "description": "Add model_config = ConfigDict(...) for validation settings.",
+        "library": "Pydantic"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "class\\s+\\w+\\s*\\(BaseModel\\):(?!.*model_config)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Consider adding model_config for validation settings"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PYDANTIC_NESTED_NO_VALIDATION",
+      "name": "Nested Pydantic model without validation",
+      "description": "Ensure nested models inherit from BaseModel.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "pydantic",
+        "fastapi"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "reliability",
+      "recommendation": {
+        "title": "Use BaseModel for nested types",
+        "description": "Ensure nested models inherit from BaseModel.",
+        "library": "Pydantic"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": ":\\s*\\w+\\s*=\\s*\\w+\\s*\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Nested model should use BaseModel"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PYDANTIC_OPTIONAL_REQUIRED",
+      "name": "Field marked both Optional and required",
+      "description": "Optional fields should have default=None.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "pydantic",
+        "fastapi"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "cleanliness",
+      "recommendation": {
+        "title": "Fix Optional field defaults",
+        "description": "Optional fields should have default=None.",
+        "library": "Pydantic"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "Optional\\s*\\[\\w+\\]\\s*=\\s*[^N]"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Optional field should default to None"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PYDANTIC_SENSITIVE",
+      "name": "Pydantic field should be sensitive",
+      "description": "Use Field(exclude=True) or exclude_from_serial=True.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "pydantic",
+        "fastapi"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "security",
+      "recommendation": {
+        "title": "Mark sensitive fields",
+        "description": "Use Field(exclude=True) or exclude_from_serial=True.",
+        "library": "Pydantic"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "password|secret|token|api_?key"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Sensitive field should be marked as sensitive"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PYDANTIC_VALIDATOR_IMPORT",
+      "name": "Using deprecated validator import",
+      "description": "Use @field_validator (Pydantic v2) instead of @validator.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "pydantic",
+        "fastapi"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "cleanliness",
+      "recommendation": {
+        "title": "Use field_validator",
+        "description": "Use @field_validator (Pydantic v2) instead of @validator.",
+        "library": "Pydantic"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "from pydantic import validator"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Use @field_validator instead of @validator"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PYDANTIC_ROOT_VALIDATOR",
+      "name": "Using deprecated root_validator",
+      "description": "Use @model_validator (Pydantic v2) instead of @root_validator.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "pydantic",
+        "fastapi"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "cleanliness",
+      "recommendation": {
+        "title": "Use model_validator",
+        "description": "Use @model_validator (Pydantic v2) instead of @root_validator.",
+        "library": "Pydantic"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "from pydantic import root_validator"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Use @model_validator instead of @root_validator"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PYDANTIC_BARE_TYPE",
+      "name": "Using bare type annotation",
+      "description": "Use field: Optional[Type] = None instead of field: Type = None.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "pydantic",
+        "fastapi"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "maintainability",
+      "recommendation": {
+        "title": "Use Optional for nullable fields",
+        "description": "Use field: Optional[Type] = None instead of field: Type = None.",
+        "library": "Pydantic"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": ":\\s*\\w+\\s*=\\s*None(?!\\s*\\|)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Use Optional[Type] instead of Type = None"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PYDANTIC_STR_FIELD",
+      "name": "String field without max_length",
+      "description": "Add max_length for better validation and performance.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "pydantic",
+        "fastapi"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Add max_length to string fields",
+        "description": "Add max_length for better validation and performance.",
+        "library": "Pydantic"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "str\\s*\\)(?!.*max_length)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Consider adding max_length to str field"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

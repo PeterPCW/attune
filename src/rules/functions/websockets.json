@@ -1,0 +1,251 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "WS_NO_HEARTBEAT",
+      "name": "WebSocket missing heartbeat",
+      "description": "Heartbeats detect disconnected clients and prevent stale connections.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "websockets",
+      "recommendation": {
+        "title": "Implement heartbeat/ping-pong",
+        "description": "Heartbeats detect disconnected clients and prevent stale connections.",
+        "library": "ws, socket.io"
+      },
+      "catches": [
+        "Dead connections not detected",
+        "Stale connections using resources",
+        "Ghost clients"
+      ],
+      "fix": [
+        "Implement ping/pong heartbeat",
+        "Set heartbeat interval",
+        "Handle disconnection"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "heartbeat|ping|pong|keepAlive",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Heartbeat found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "WS_NO_RECONNECT",
+      "name": "Client missing reconnection logic",
+      "description": "Auto-reconnect when connection is lost.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "websockets",
+      "recommendation": {
+        "title": "Add reconnection handling",
+        "description": "Auto-reconnect when connection is lost.",
+        "library": "socket.io-client, ws"
+      },
+      "catches": [
+        "App stops working on disconnect",
+        "Manual refresh required",
+        "Poor user experience"
+      ],
+      "fix": [
+        "Enable auto-reconnect",
+        "Handle reconnection events",
+        "Update UI on reconnect"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "reconnect|autoReconnect|reconnection",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Reconnection found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "WS_NO_AUTH",
+      "name": "WebSocket without authentication",
+      "description": "WebSocket connections should be authenticated on handshake.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "websockets",
+      "recommendation": {
+        "title": "Authenticate WebSocket connections",
+        "description": "WebSocket connections should be authenticated on handshake.",
+        "library": "socket.io, ws"
+      },
+      "catches": [
+        "Unauthenticated connections",
+        "Security vulnerabilities",
+        "Anyone can connect"
+      ],
+      "fix": [
+        "Pass token on handshake",
+        "Validate on connection",
+        "Use middleware"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "ws\\.|socket\\.|WebSocket\\(",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "critical",
+        "message": "WebSocket found - add auth"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "WS_NO_MESSAGE_TYPES",
+      "name": "Using string messages instead of typed objects",
+      "description": "Use JSON with type field for better debugging and validation.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "websockets",
+      "recommendation": {
+        "title": "Use typed message format",
+        "description": "Use JSON with type field for better debugging and validation.",
+        "library": "socket.io, ws"
+      },
+      "catches": [
+        "String messages hard to debug",
+        "No validation",
+        "Type errors at runtime"
+      ],
+      "fix": [
+        "Use JSON with type field",
+        "Define message schemas",
+        "Validate on receive"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "emit\\s*\\([X],|on\\s*\\([X],",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Socket event found - consider typed messages"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "WS_ROOM_BROADCAST",
+      "name": "Broadcasting to all instead of rooms",
+      "description": "Broadcast to specific rooms rather than all connected clients.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "websockets",
+      "recommendation": {
+        "title": "Use rooms for targeted broadcasts",
+        "description": "Broadcast to specific rooms rather than all connected clients.",
+        "library": "socket.io rooms"
+      },
+      "catches": [
+        "Messages sent to everyone",
+        "Data leaked to wrong users",
+        "Wasted bandwidth"
+      ],
+      "fix": [
+        "Use socket.io rooms",
+        "Join user to room by ID",
+        "Broadcast to specific room"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "io\\.emit\\(|broadcast\\(|to\\(",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Broadcast found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "WS_NO_RATE_LIMIT",
+      "name": "WebSocket missing rate limiting",
+      "description": "Limit message frequency per client to prevent abuse.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "websockets",
+      "recommendation": {
+        "title": "Rate limit messages",
+        "description": "Limit message frequency per client to prevent abuse.",
+        "library": "socket.io rate limiter"
+      },
+      "catches": [
+        "Client can flood with messages",
+        "DoS vulnerability",
+        "Server overload"
+      ],
+      "fix": [
+        "Add rate limiter middleware",
+        "Limit messages per second",
+        "Throttle per connection"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "throttle|rateLimit|throttle",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Rate limiting found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

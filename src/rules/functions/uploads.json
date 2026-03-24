@@ -1,0 +1,245 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "UPLOAD_NO_SIZE_LIMIT",
+      "name": "Missing file size limit",
+      "description": "Unlimited uploads can cause DoS. Set reasonable limits.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "projectTypes": ["webapp", "saas"],
+      "category": "uploads",
+      "recommendation": {
+        "title": "Limit file upload sizes",
+        "description": "Unlimited uploads can cause DoS. Set reasonable limits.",
+        "library": "multer, express-fileupload"
+      },
+      "catches": [
+        "No limit on upload size",
+        "DoS via large files",
+        "Server storage exhausted"
+      ],
+      "fix": [
+        "Set file size limit in middleware",
+        "Validate file size before processing",
+        "Return 413 on limit exceeded"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "fileSize|maxFileSize|limit\\s*:\\s*\\d",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "File size limit found"
+      }
+    },
+    {
+      "id": "UPLOAD_NO_TYPE_CHECK",
+      "name": "Missing file type validation",
+      "description": "Check MIME type and extension. Don't trust client-provided types.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "projectTypes": ["webapp", "saas"],
+      "category": "uploads",
+      "recommendation": {
+        "title": "Validate file types",
+        "description": "Check MIME type and extension. Don't trust client-provided types.",
+        "library": "multer, file-type"
+      },
+      "catches": [
+        "Malicious files uploaded",
+        "Server compromised",
+        "No validation of content"
+      ],
+      "fix": [
+        "Check MIME type on server",
+        "Verify file extension",
+        "Use file-type library"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "fileFilter|mimeType|mimetype",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "File type filter found"
+      }
+    },
+    {
+      "id": "UPLOAD_NO_VIRUS_SCAN",
+      "name": "Files not scanned for viruses",
+      "description": "Scan files for malware before processing or storing.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "projectTypes": ["webapp", "saas"],
+      "category": "uploads",
+      "recommendation": {
+        "title": "Scan uploaded files",
+        "description": "Scan files for malware before processing or storing.",
+        "library": "ClamAV, virus-scan"
+      },
+      "catches": [
+        "Malware uploaded to server",
+        "Virus spread to users",
+        "Security breach"
+      ],
+      "fix": [
+        "Integrate ClamAV scanner",
+        "Scan before storing",
+        "Quarantine suspicious files"
+      ],
+      "conditions": [
+        {
+          "type": "regex",
+          "pattern": "clamav|virus|malware",
+          "fileExtensions": [
+            ".ts",
+            ".js"
+          ]
+        },
+        {
+          "type": "regex",
+          "pattern": "\\bscan\\b",
+          "fileExtensions": [
+            ".ts",
+            ".js"
+          ]
+        }
+      ],
+      "action": {
+        "type": "flag",
+        "severity": "critical",
+        "message": "Virus scanning found"
+      }
+    },
+    {
+      "id": "UPLOAD_NO_RENAME",
+      "name": "Uploaded files not renamed",
+      "description": "Don't use original filename. Generate UUID to prevent overwrites and path traversal.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "projectTypes": ["webapp", "saas"],
+      "category": "uploads",
+      "recommendation": {
+        "title": "Generate unique filenames",
+        "description": "Don't use original filename. Generate UUID to prevent overwrites and path traversal.",
+        "library": "uuid"
+      },
+      "catches": [
+        "Files overwritten by duplicates",
+        "Path traversal attacks",
+        "Security vulnerabilities"
+      ],
+      "fix": [
+        "Generate UUID for filenames",
+        "Store mapping to original name",
+        "Never use user-provided names"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "originalname|filename|name\\.original",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Original filename used - rename instead"
+      }
+    },
+    {
+      "id": "UPLOAD_NO_STORAGE",
+      "name": "Files stored locally in container",
+      "description": "Store uploads in S3, GCS, or similar. Local storage is lost on restart.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "projectTypes": ["webapp", "saas"],
+      "category": "uploads",
+      "recommendation": {
+        "title": "Use object storage",
+        "description": "Store uploads in S3, GCS, or similar. Local storage is lost on restart.",
+        "library": "AWS S3, GCS, Azure Blob"
+      },
+      "catches": [
+        "Files lost on restart",
+        "No scalability",
+        "Can't handle large files"
+      ],
+      "fix": [
+        "Use S3, GCS, or Azure Blob",
+        "Configure proper bucket policies",
+        "Enable versioning"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "s3|bucket|storage|gcs|blob|uploadFile",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Storage found"
+      }
+    },
+    {
+      "id": "UPLOAD_NO_CHUNKING",
+      "name": "Large files not using chunked upload",
+      "description": "Large files should use resumable uploads for reliability.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "projectTypes": ["webapp", "saas"],
+      "category": "uploads",
+      "recommendation": {
+        "title": "Implement chunked uploads",
+        "description": "Large files should use resumable uploads for reliability.",
+        "library": "tus, Uppy"
+      },
+      "catches": [
+        "Large uploads fail easily",
+        "No resume on failure",
+        "Poor user experience"
+      ],
+      "fix": [
+        "Use tus or Uppy for uploads",
+        "Enable resumable uploads",
+        "Handle upload interruption"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "chunk|resumable|tus|uppy",
+        "fileExtensions": [
+          ".ts",
+          ".js",
+          ".tsx",
+          ".jsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Chunked upload found"
+      }
+    }
+  ]
+}

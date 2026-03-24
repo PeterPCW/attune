@@ -1,0 +1,140 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "REMIX_LOADER_ERROR",
+      "name": "Loader error not handled",
+      "description": "Loaders should have error handling for proper error states.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "remix"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Handle errors in loader",
+        "description": "Loaders should have error handling for proper error states.",
+        "library": "Remix"
+      },
+      "catches": [
+        "Unhandled exceptions in loader",
+        "Crashed pages",
+        "Poor error handling"
+      ],
+      "fix": [
+        "Wrap loader in try-catch",
+        "Return error responses",
+        "Throw Response for errors"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "export\\s+const\\s+loader"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Loader function detected"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "REMIX_NO_ERROR_BOUNDARY",
+      "name": "No ErrorBoundary in route",
+      "description": "Routes should have ErrorBoundary for graceful error handling.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "remix"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Add ErrorBoundary to route",
+        "description": "Routes should have ErrorBoundary for graceful error handling.",
+        "library": "Remix"
+      },
+      "catches": [
+        "Crashed routes show nothing",
+        "No graceful error handling",
+        "Poor UX on errors"
+      ],
+      "fix": [
+        "Add ErrorBoundary export to route",
+        "Handle errors gracefully",
+        "Show helpful error messages"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "ErrorBoundary"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "ErrorBoundary component detected"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "REMIX_CLIENT_ONLY",
+      "name": "Client-only code in loader",
+      "description": "Client-only code in loader runs on server. Move to clientLoader or useEffect.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "remix"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Move client-only code to clientLoader or useEffect",
+        "description": "Client-only code in loader runs on server. Move to clientLoader or useEffect.",
+        "library": "Remix"
+      },
+      "catches": [
+        "Server crashes on browser APIs",
+        "ReferenceError on server",
+        "SSR failures"
+      ],
+      "fix": [
+        "Move to clientLoader function",
+        "Use useEffect for client logic",
+        "Guard with typeof window checks"
+      ],
+      "conditions": [
+        {
+          "type": "regex",
+          "pattern": "document\\."
+        },
+        {
+          "type": "regex",
+          "pattern": "window\\."
+        },
+        {
+          "type": "regex",
+          "pattern": "navigator\\."
+        },
+        {
+          "type": "regex",
+          "pattern": "localStorage"
+        },
+        {
+          "type": "regex",
+          "pattern": "sessionStorage"
+        }
+      ],
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "document API in file - avoid in loader"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

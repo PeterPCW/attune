@@ -107,6 +107,20 @@ The documentation includes:
 
 This helps users understand, ignore, or report issues with specific rules.
 
+### Adding Python Framework Support
+
+Attune supports Python frameworks (Django, FastAPI, Flask, SQLAlchemy, Celery). To add a new Python framework:
+
+1. Create `src/rules/functions/<framework>.json` with `fileExtensions: [".py", ".pyw"]`
+2. Add framework detection in `src/core/detector/index.ts`
+3. Add helper functions in `src/rules/python/python-helpers.ts` if needed
+
+Python rules use the same JSON format as JavaScript rules but with `.py` file extensions.
+
+### Project Types
+
+Attune auto-detects 8 project types: `cli`, `devtool`, `library`, `webapp`, `saas`, `mobile`, `desktop`, `firmware`. Rules can be filtered by project type in `src/types/index.ts` via `PROJECT_TYPE_CATEGORIES`.
+
 ## Project Structure
 
 ```
@@ -115,7 +129,7 @@ src/
 ├── core/          # Core analysis engine
 ├── formatters/    # Output formatters (JSON, Markdown, Terminal)
 ├── rules/         # Detection rules
-│   ├── data/      # JSON rule definitions
+│   ├── functions/ # JSON rule definitions (json-function-engine format)
 │   ├── helpers/   # Helper functions (Rules SDK)
 │   ├── security/  # Security rules (TS for complex logic)
 │   ├── react/     # React rules (TS for complex logic)
@@ -125,17 +139,17 @@ src/
 
 ## Adding New Rules
 
-All rules should be defined in JSON format in `src/rules/data/`.
+All rules should be defined in JSON format in `src/rules/functions/`.
 
 ### Creating a JSON Rule
 
-1. Create or edit a JSON file in `src/rules/data/`
+1. Create or edit a JSON file in `src/rules/functions/`
 2. Define your rule with patterns and/or helpers
 3. Register the category in `src/rules/index.ts` (if new)
 
 > **Tip:** Copy `rule-template.json` from the project root as a starting point.
 
-Example (add to `src/rules/data/my-category.json`):
+Example (add to `src/rules/functions/my-category.json`):
 
 ```json
 {
@@ -424,6 +438,45 @@ describe('Category Rules', () => {
 2. Update documentation for any changed functionality
 3. PRs will be reviewed within 48 hours
 4. Address any feedback from reviewers
+
+## Reporting Issues
+
+Found a bug, false positive, or have a suggestion? We'd love to hear from you!
+
+### How to Report
+
+1. **Check existing issues** - Someone may have already reported the problem
+2. **Use the issue template** - Helps us understand and reproduce the issue
+3. **Be specific** - Include:
+   - Rule ID (if applicable)
+   - Sample code that triggers the issue
+   - Your framework and project type
+   - Expected vs actual behavior
+
+### What We're Looking For
+
+- **False positives** - Rules that fire on valid code
+- **False negatives** - Issues that should be detected but aren't
+- **Missing rules** - Common patterns that should be caught
+- **Bug reports** - Crashes, errors, unexpected behavior
+- **Feature requests** - Ideas for improvement
+
+### Before You Submit
+
+- Try the latest version (regression may already be fixed)
+- Test with `--verbose` for detailed output
+- Verify it's not a configuration issue (`.attuneignore`, `.attunerc`)
+
+### Privacy Note
+
+**Attune is 100% local and offline.**
+
+- No data leaves your machine
+- No telemetry, analytics, or crash reporting
+- No network calls during analysis
+- Your code is never sent anywhere
+
+If you report an issue, only the information you voluntarily include in the issue description will be shared. We will never request access to your codebase.
 
 ## License
 

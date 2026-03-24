@@ -9,7 +9,7 @@
 import { readdirSync, readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
-const RULES_DIR = join(process.cwd(), 'src/rules/data');
+const RULES_DIR = join(process.cwd(), 'src/rules/functions');
 const OUTPUT_DIR = join(process.cwd(), 'docs');
 
 function findJsonFiles(dir) {
@@ -35,33 +35,41 @@ function generateDocs() {
   const severities = { critical: 0, high: 0, medium: 0, low: 0, info: 0 };
 
   for (const file of jsonFiles) {
-    const content = readFileSync(file, 'utf-8');
-    const data = JSON.parse(content);
+    try {
+      const content = readFileSync(file, 'utf-8');
+      const data = JSON.parse(content);
 
-    if (data.rules) {
-      for (const rule of data.rules) {
+      // Support both 'rules' (legacy) and 'functions' (current) formats
+      const ruleArray = data.functions || data.rules || [];
+
+      for (const rule of ruleArray) {
         const fileName = file.split('/').pop().replace('.json', '');
+
+        // Get severity from action or rule directly
+        const severity = rule.action?.severity || rule.severity || 'medium';
 
         rules.push({
           id: rule.id,
           name: rule.name,
           category: rule.category,
-          severity: rule.severity,
+          severity: severity,
           frameworks: rule.frameworks || [],
-          description: rule.recommendation?.description || '',
-          title: rule.recommendation?.title || '',
+          description: rule.description || rule.recommendation?.description || '',
+          title: rule.recommendation?.title || rule.name || '',
           library: rule.recommendation?.library || '',
           catches: rule.catches || [],
           fix: rule.fix || [],
-          fileExtensions: rule.patterns?.flatMap(p => p.fileExtensions || []) || [],
-          hasPatterns: (rule.patterns?.length || 0) > 0,
-          hasHelpers: (rule.helpers?.length || 0) > 0,
+          // Get file extensions from condition
+          fileExtensions: rule.condition?.fileExtensions || [],
+          hasCondition: !!rule.condition,
           sourceFile: fileName
         });
 
         categories[rule.category] = (categories[rule.category] || 0) + 1;
-        severities[rule.severity] = (severities[rule.severity] || 0) + 1;
+        severities[severity] = (severities[severity] || 0) + 1;
       }
+    } catch (e) {
+      console.error(`Error parsing ${file}: ${e.message}`);
     }
   }
 
@@ -125,7 +133,7 @@ ${rule.library ? `**Library**: ${rule.library}` : ''}
 **Applies to**: ${rule.frameworks.length > 0 ? rule.frameworks.join(', ') : 'All frameworks'}
 ${rule.fileExtensions.length > 0 ? `**File Extensions**: ${[...new Set(rule.fileExtensions)].join(', ')}` : ''}
 
-**Source**: \`src/rules/data/${rule.sourceFile}.json\`
+**Source**: \`src/rules/functions/${rule.sourceFile}.json\`
 
 ---
 

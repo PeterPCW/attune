@@ -1,0 +1,329 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "FLASK_APP_FACTORY_PATTERN",
+      "name": "Flask app created at module level without factory pattern",
+      "description": "Use application factory pattern (create_app) to avoid circular imports and improve testability.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "flask"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Use Flask application factory pattern",
+        "description": "Use application factory pattern (create_app) to avoid circular imports and improve testability.",
+        "library": "Flask"
+      },
+      "condition": {
+        "type": "exists",
+        "field": "content"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Check for findFlaskAppAtModuleLevel",
+        "helper": "findFlaskAppAtModuleLevel",
+        "params": {
+          "message": "Flask app at module level"
+        }
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "FLASK_DEBUG_TRUE",
+      "name": "Debug mode enabled in production",
+      "description": "Set debug=False in production or use a WSGI server.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "flask"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "security",
+      "recommendation": {
+        "title": "Disable debug in production",
+        "description": "Set debug=False in production or use a WSGI server.",
+        "library": "Flask"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "app\\.run\\(debug\\s*=\\s*True"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "critical",
+        "message": "Debug mode enabled"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "FLASK_SECRET_KEY",
+      "name": "Missing or weak Flask secret key",
+      "description": "Use os.urandom(24).hex() to generate a secret key.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "flask"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "security",
+      "recommendation": {
+        "title": "Set a strong secret key",
+        "description": "Use os.urandom(24).hex() to generate a secret key.",
+        "library": "Flask"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "SECRET_KEY\\s*=\\s*['\"]?['\"](?!{%|\\{\\{)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Check Flask secret key configuration"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "FLASK_JSON_SORTED",
+      "name": "JSON not sorted for consistent responses",
+      "description": "Set JSON_SORT_KEYS=True for consistent API responses.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "flask"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Enable JSON_SORT_KEYS",
+        "description": "Set JSON_SORT_KEYS=True for consistent API responses.",
+        "library": "Flask"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "app\\s*=\\s*Flask\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Consider enabling JSON_SORT_KEYS"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "FLASK_NO_ERROR_HANDLERS",
+      "name": "Missing custom error handlers",
+      "description": "Use @app.errorhandler(404) for custom error pages.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "flask"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "error-handling",
+      "recommendation": {
+        "title": "Add error handlers",
+        "description": "Use @app.errorhandler(404) for custom error pages.",
+        "library": "Flask"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "app\\s*=\\s*Flask\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Consider adding error handlers"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "FLASK_GLOBAL_DB",
+      "name": "Database connection at module level",
+      "description": "Create database sessions per request using g or scoped_session.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "flask"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Use request-scoped database sessions",
+        "description": "Create database sessions per request using g or scoped_session.",
+        "library": "Flask"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "^\\w+\\s*=\\s*.*SQLAlchemy\\(\\)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Database connection should be scoped to request"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "FLASK_PRINT_STATEMENT",
+      "name": "Using print instead of logging",
+      "description": "Use current_app.logger or logging module.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "flask"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "cleanliness",
+      "recommendation": {
+        "title": "Use Flask's logging",
+        "description": "Use current_app.logger or logging module.",
+        "library": "Flask"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "print\\s*\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Use logging instead of print"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "FLASK_WTF_CSRF",
+      "name": "CSRF protection not enabled",
+      "description": "Use Flask-WTF and enable CSRF protection.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "flask"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "security",
+      "recommendation": {
+        "title": "Enable CSRF protection",
+        "description": "Use Flask-WTF and enable CSRF protection.",
+        "library": "Flask"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "app\\s*=\\s*Flask\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Consider enabling CSRF protection with Flask-WTF"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "FLASK_NO_PAGINATION",
+      "name": "Missing pagination",
+      "description": "Use page and per_page parameters.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "flask"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Add pagination",
+        "description": "Use page and per_page parameters.",
+        "library": "Flask"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "@app\\.route\\(\"\"\\)(?!.*page|.*limit|.*offset)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Consider adding pagination to list endpoints"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "FLASK_RESPONSE_FORMAT",
+      "name": "Inconsistent JSON response format",
+      "description": "Create a helper function for consistent API responses.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "flask"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "api",
+      "recommendation": {
+        "title": "Use consistent JSON wrapper",
+        "description": "Create a helper function for consistent API responses.",
+        "library": "Flask"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "return\\s+.*jsonify\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Consider using consistent response format"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,400 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "ERR_NO_ERROR_HANDLING",
+      "name": "Missing error handling",
+      "description": "Async operations should have proper error handling. Note: This is a suggestion - if you handle errors differently, you can ignore this.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "error-handling",
+      "recommendation": {
+        "title": "Add error handling",
+        "description": "Async operations should have proper error handling. Note: This is a suggestion - if you handle errors differently, you can ignore this.",
+        "library": "Error handling"
+      },
+      "catches": [
+        "Async operations without try/catch",
+        "Unhandled promise rejections",
+        "Missing error handling"
+      ],
+      "fix": [
+        "Wrap async code in try/catch",
+        "Add .catch() to promises",
+        "Handle errors properly"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "async\\s+function\\s+\\w+\\s*\\(\\)\\s*\\{\\}(?!.*\\.catch)",
+        "fileExtensions": [
+          ".ts",
+          ".js",
+          ".tsx",
+          ".jsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "info",
+        "message": "Async function without .catch() - consider adding error handling"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "ERR_PROMISE_CATCH",
+      "name": "Promise without catch",
+      "description": "Unhandled promise rejections can crash your app.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "error-handling",
+      "recommendation": {
+        "title": "Add .catch() to promises",
+        "description": "Unhandled promise rejections can crash your app.",
+        "library": "Error handling"
+      },
+      "catches": [
+        "Promise without .catch()",
+        "Unhandled promise rejection",
+        "Silent failures"
+      ],
+      "fix": [
+        "Add .catch() to all promises",
+        "Use try/catch with async/await",
+        "Handle rejections properly"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "\\.then\\s*\\(\\)\\s*(?!.*\\.catch)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Promise chain without .catch() - may cause unhandled rejection"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "ERR_ASYNC_NO_AWAIT",
+      "name": "Async function without await",
+      "description": "Not awaiting async functions can lead to race conditions.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "error-handling",
+      "recommendation": {
+        "title": "Await async function calls",
+        "description": "Not awaiting async functions can lead to race conditions.",
+        "library": "Error handling"
+      },
+      "catches": [
+        "async function not awaited",
+        "Promise returned but not handled",
+        "Race conditions"
+      ],
+      "fix": [
+        "Await async functions",
+        "Handle returned promises",
+        "Use proper async patterns"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "const\\s+\\w+\\s*=\\s*(fetch|load|request|call|invoke|post|put|del|create|update|read|write)\\w*\\(\\)(?!.*\\.then|.*\\.catch|.*await)",
+        "fileExtensions": [
+          ".ts",
+          ".js",
+          ".tsx",
+          ".jsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "info",
+        "message": "Async function called but result not awaited or chained with .then()"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "ERR_SWALLOW_ERRORS",
+      "name": "Swallowing errors",
+      "description": "Empty catch blocks hide errors. Log or handle them properly.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "error-handling",
+      "recommendation": {
+        "title": "Don't swallow errors",
+        "description": "Empty catch blocks hide errors. Log or handle them properly.",
+        "library": "Error handling"
+      },
+      "catches": [
+        "Empty catch blocks",
+        "Errors silently ignored",
+        "Hidden failures"
+      ],
+      "fix": [
+        "Log errors in catch blocks",
+        "Handle or rethrow errors",
+        "Never leave catch blocks empty"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "catch\\s*\\(\\)\\s*\\{\\s*\\}"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Empty catch block - errors are being silently ignored"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "ERR_NO_ERROR_BOUNDARY",
+      "name": "React app missing error boundary",
+      "description": "React apps should have error boundaries to catch rendering errors.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react",
+        "nextjs"
+      ],
+      "category": "error-handling",
+      "recommendation": {
+        "title": "Add error boundary component",
+        "description": "React apps should have error boundaries to catch rendering errors.",
+        "library": "React"
+      },
+      "catches": [
+        "No Error Boundary in React",
+        "App crashes not caught",
+        "No fallback UI"
+      ],
+      "fix": [
+        "Add Error Boundary component",
+        "Use getDerivedStateFromError",
+        "Add componentDidCatch"
+      ],
+      "condition": {
+        "type": "exists",
+        "field": "content"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Check for findMissing",
+        "helper": "findMissing",
+        "params": {
+          "pattern": "class\\s+ErrorBoundary|function\\s+ErrorBoundary|getDerivedStateFromError|componentDidCatch",
+          "message": "React app should have an Error Boundary component",
+          "frameworks": [
+            "react",
+            "nextjs"
+          ],
+          "fileExtensions": [
+            ".tsx",
+            ".jsx",
+            ".ts",
+            ".js"
+          ],
+          "skipPaths": [
+            "middleware",
+            ".server.",
+            "server.",
+            "getServerSideProps",
+            "getStaticProps"
+          ]
+        }
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "ERR_THROW_IN_CALLBACK",
+      "name": "Throwing errors in callbacks",
+      "description": "Throwing in callbacks can cause unhandled exceptions. Use error parameters instead.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "error-handling",
+      "recommendation": {
+        "title": "Don't throw in callbacks",
+        "description": "Throwing in callbacks can cause unhandled exceptions. Use error parameters instead.",
+        "library": "Error handling"
+      },
+      "catches": [
+        "Throwing in event callbacks",
+        "throw in async callbacks",
+        "Uncaught exceptions"
+      ],
+      "fix": [
+        "Use error parameters in callbacks",
+        "Handle errors properly in callbacks",
+        "Don't throw in event handlers"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "\\.(on|addEventListener)\\s*\\([X],\\s*\\(\\)\\s*=>\\s*\\{throw\\s+new"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Throwing errors in event callbacks can cause issues"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "ERR_EMPTY_CATCH",
+      "name": "Empty catch block",
+      "description": "Empty catch blocks silently swallow errors. Add error handling or logging.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "error-handling",
+      "recommendation": {
+        "title": "Handle errors in catch blocks",
+        "description": "Empty catch blocks silently swallow errors. Add error handling or logging.",
+        "library": "Error handling"
+      },
+      "catches": [
+        "Empty catch blocks",
+        "Errors silently ignored",
+        "Debugging impossible"
+      ],
+      "fix": [
+        "Add error handling to catch",
+        "Log the error",
+        "Rethrow if needed"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "catch\\s*\\(\\)\\s*\\{\\s*\\}"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Empty catch block - errors are silently ignored"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "ERR_MISSING_FINALLY",
+      "name": "Missing finally block",
+      "description": "Finally blocks ensure cleanup code runs regardless of errors.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "error-handling",
+      "recommendation": {
+        "title": "Add finally block for cleanup",
+        "description": "Finally blocks ensure cleanup code runs regardless of errors.",
+        "library": "Error handling"
+      },
+      "catches": [
+        "No finally for cleanup",
+        "Resources not released",
+        "Connections left open"
+      ],
+      "fix": [
+        "Add finally block",
+        "Clean up resources",
+        "Close connections"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "try\\s*\\{\\}\\s*catch",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Try-catch without finally found"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "ERR_FUNCTION_NO_ERROR_HANDLING",
+      "name": "Function without try-catch",
+      "description": "Functions that perform async operations, I/O, or external calls should have error handling. Pure functions with no side effects don't need try-catch. Note: This is a best-effort check and may have false positives - use .attuneignore if needed.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "error-handling",
+      "recommendation": {
+        "title": "Add error handling to async/I/O functions",
+        "description": "Functions that perform async operations, I/O, or external calls should have error handling. Pure functions with no side effects don't need try-catch. Note: This is a best-effort check and may have false positives - use .attuneignore if needed.",
+        "library": "Error handling"
+      },
+      "catches": [
+        "Async functions without error handling",
+        "Functions performing I/O without try-catch",
+        "Missing try-catch for external calls"
+      ],
+      "fix": [
+        "Add try-catch to functions with external calls",
+        "Handle errors gracefully",
+        "Return error values or throw"
+      ],
+      "condition": {
+        "type": "exists",
+        "field": "content"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "info",
+        "message": "Check for findFunctionWithoutErrorHandling",
+        "helper": "findFunctionWithoutErrorHandling",
+        "params": {
+          "message": "Async/I/O function may need error handling (no try-catch found)",
+          "minLines": 8,
+          "skipPaths": [
+            "/rules/",
+            "/formatters/",
+            "/cli/"
+          ]
+        }
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "ERR_ASYNC_NO_AWAIT_HELPER",
+      "name": "Async function not awaited",
+      "description": "Async functions should be awaited or have their promises handled properly.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "error-handling",
+      "recommendation": {
+        "title": "Await async functions",
+        "description": "Async functions should be awaited or have their promises handled properly.",
+        "library": "Error handling"
+      },
+      "catches": [
+        "Async function called without await",
+        "Promise not handled",
+        "Potential race conditions"
+      ],
+      "fix": [
+        "Add await to async function calls",
+        "Handle returned promises with .then() or await",
+        "Return value from async functions"
+      ],
+      "condition": {
+        "type": "exists",
+        "field": "content"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Check for findAsyncWithoutAwait",
+        "helper": "findAsyncWithoutAwait",
+        "params": {
+          "message": "Async function result not awaited - may cause race conditions"
+        }
+      },
+      "projectTypes": []
+    }
+  ]
+}

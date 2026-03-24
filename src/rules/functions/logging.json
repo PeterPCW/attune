@@ -1,0 +1,84 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "LOG_SENSITIVE",
+      "name": "Logging sensitive data",
+      "description": "Passwords, tokens, and PII should never be logged.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "security",
+      "recommendation": {
+        "title": "Don't log sensitive data",
+        "description": "Passwords, tokens, and PII should never be logged.",
+        "library": "Security"
+      },
+      "catches": [
+        "Passwords being logged",
+        "API tokens exposed in logs",
+        "PII being recorded",
+        "Security vulnerabilities"
+      ],
+      "fix": [
+        "Redact sensitive fields before logging",
+        "Use structured logging with field allowlists",
+        "Implement log masking middleware",
+        "Audit logging statements"
+      ],
+      "conditions": [
+        {
+          "type": "regex",
+          "pattern": "console\\.(log|debug|info)\\s*\\((?:password|passwd|secret|token|auth|card|credit|ssn|social)"
+        },
+        {
+          "type": "regex",
+          "pattern": "logger\\.[a-z]+\\s*\\((?:password|passwd|secret|token|auth|card|credit|ssn|social)"
+        }
+      ],
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Sensitive data being logged"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "LOG_CONSOLE_LOG",
+      "name": "Console.log in code",
+      "description": "Debug statements should be removed or replaced with proper logging.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "cleanliness",
+      "recommendation": {
+        "title": "Remove console.log statements",
+        "description": "Debug statements should be removed or replaced with proper logging.",
+        "library": "Logging"
+      },
+      "catches": [
+        "Debug statements left in code",
+        "Console output in production",
+        "No log levels configured"
+      ],
+      "fix": [
+        "Remove debug statements before production",
+        "Use proper logger with levels",
+        "Configure log level by environment"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "console\\.(log|debug|info)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Console statement found - use proper logging"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

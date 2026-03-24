@@ -1,0 +1,259 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "EMAIL_NO_VERIFY",
+      "name": "Email not sent via provider",
+      "description": "Use SendGrid, AWS SES, Mailgun. Direct SMTP is unreliable.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "email",
+      "recommendation": {
+        "title": "Use email service provider",
+        "description": "Use SendGrid, AWS SES, Mailgun. Direct SMTP is unreliable.",
+        "library": "SendGrid, AWS SES, Mailgun"
+      },
+      "catches": [
+        "Using basic SMTP",
+        "Deliverability issues",
+        "Can't track metrics"
+      ],
+      "fix": [
+        "Use SendGrid, AWS SES, or Mailgun",
+        "Configure properly",
+        "Monitor delivery rates"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "sendgrid|ses|mailgun|postmark|resend",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Email provider found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas",
+        "mobile"
+      ]
+    },
+    {
+      "id": "EMAIL_NO_TEMPLATE",
+      "name": "Using hardcoded email content",
+      "description": "Templates allow non-devs to edit emails and support i18n.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "email",
+      "recommendation": {
+        "title": "Use email templates",
+        "description": "Templates allow non-devs to edit emails and support i18n.",
+        "library": "Handlebars, MJML, React Email"
+      },
+      "catches": [
+        "Hardcoded email content",
+        "Hard to maintain",
+        "No localization support"
+      ],
+      "fix": [
+        "Use email templates",
+        "Use Handlebars or React Email",
+        "Allow non-devs to edit"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "sendMail\\(\"subject\"|\\.send\\(",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Email sending found - use templates"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas",
+        "mobile"
+      ]
+    },
+    {
+      "id": "EMAIL_NO_TRACKING",
+      "name": "No email open/click tracking",
+      "description": "Track opens and clicks to measure engagement.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "email",
+      "recommendation": {
+        "title": "Track email metrics",
+        "description": "Track opens and clicks to measure engagement.",
+        "library": "SendGrid, Mailgun tracking"
+      },
+      "catches": [
+        "Can't measure engagement",
+        "No open/click data",
+        "Can't improve emails"
+      ],
+      "fix": [
+        "Enable tracking in provider",
+        "Track opens and clicks",
+        "Analyze engagement"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "openTracking|clickTracking|track",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Email tracking found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas",
+        "mobile"
+      ]
+    },
+    {
+      "id": "EMAIL_NO_UNSUBSCRIBE",
+      "name": "Missing unsubscribe link",
+      "description": "Commercial emails must have working unsubscribe (CAN-SPAM, GDPR).",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "email",
+      "recommendation": {
+        "title": "Include unsubscribe link",
+        "description": "Commercial emails must have working unsubscribe (CAN-SPAM, GDPR).",
+        "library": "Email headers"
+      },
+      "catches": [
+        "Violates CAN-SPAM and GDPR",
+        "Legal issues",
+        "Users can't opt out"
+      ],
+      "fix": [
+        "Add unsubscribe link",
+        "Include List-Unsubscribe header",
+        "Honor opt-outs promptly"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "unsubscribe|List-Unsubscribe",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Unsubscribe found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas",
+        "mobile"
+      ]
+    },
+    {
+      "id": "EMAIL_NO_FROM",
+      "name": "No proper From address",
+      "description": "Set proper From and Reply-To addresses.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "email",
+      "recommendation": {
+        "title": "Configure From/Reply-To",
+        "description": "Set proper From and Reply-To addresses.",
+        "library": "Email config"
+      },
+      "catches": [
+        "No from address set",
+        "Emails marked as spam",
+        "Poor deliverability"
+      ],
+      "fix": [
+        "Set proper from address",
+        "Add reply-to for responses",
+        "Verify domain"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "from:|from\\s*:",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "From header found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas",
+        "mobile"
+      ]
+    },
+    {
+      "id": "EMAIL_NO_DKIM",
+      "name": "No DKIM/SPF configured",
+      "description": "DKIM and SPF prevent email spoofing.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "email",
+      "recommendation": {
+        "title": "Configure email authentication",
+        "description": "DKIM and SPF prevent email spoofing.",
+        "library": "DNS configuration"
+      },
+      "catches": [
+        "Emails marked as spam",
+        "Email spoofing possible",
+        "Poor deliverability"
+      ],
+      "fix": [
+        "Configure SPF DNS record",
+        "Set up DKIM signing",
+        "Verify domain"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "dkim|spf|dkimSigner",
+        "fileExtensions": [
+          ".ts",
+          ".js",
+          ".yaml",
+          ".yml"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "DKIM/SPF found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas",
+        "mobile"
+      ]
+    }
+  ]
+}

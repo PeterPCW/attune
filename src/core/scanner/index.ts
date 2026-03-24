@@ -1,9 +1,10 @@
 import { readFileSync, existsSync, readdirSync, statSync } from 'fs';
 import { readFile, readdir, stat } from 'fs/promises';
 import { join, normalize, isAbsolute } from 'path';
-import { SourceFile } from '../types/index.js';
+import { SourceFile } from '../../types/index.js';
 import { CacheManager } from '../cache/index.js';
 import { retry, retrySync } from '../../utils/retry.js';
+import { createError, ErrorCode, isAttuneError } from '../../errors.js';
 
 // Error tracking for visibility
 export interface ScanError {
@@ -12,10 +13,14 @@ export interface ScanError {
   message: string;
   code?: string;
   timestamp: number;
+  // Structured error code from errors.ts
+  errorCode?: ErrorCode;
 }
 
 // Global error tracker - accessible for reporting
 const scanErrors: ScanError[] = [];
+// Structured errors for programmatic access
+const structuredErrors: ReturnType<typeof createError>[] = [];
 let verboseMode = false;
 
 export function setVerboseErrors(enabled: boolean): void {
@@ -26,37 +31,89 @@ export function getScanErrors(): ScanError[] {
   return [...scanErrors];
 }
 
+export function getStructuredErrors(): ReturnType<typeof createError>[] {
+  return [...structuredErrors];
+}
+
 export function clearScanErrors(): void {
   scanErrors.length = 0;
+  structuredErrors.length = 0;
+}
+
+/**
+ * Map operation to error code
+ */
+function getErrorCodeForOperation(operation: string, error: Error | string): ErrorCode {
+  const code = error instanceof Error ? (error as NodeJS.ErrnoException).code : undefined;
+
+  if (code === 'ENOENT') return ErrorCode.SCAN_PATH_NOT_FOUND;
+  if (code === 'EACCES' || code === 'EPERM') return ErrorCode.SCAN_PERMISSION_DENIED;
+  if (code === 'ENOMEM') return ErrorCode.SYS_OUT_OF_MEMORY;
+
+  // Default based on operation
+  switch (operation) {
+    case 'readFile':
+    case 'readFileSync':
+      return ErrorCode.SCAN_PATH_NOT_FOUND;
+    case 'readdir':
+    case 'readdirSync':
+      return ErrorCode.SCAN_PATH_NOT_FOUND;
+    case 'stat':
+    case 'statSync':
+      return ErrorCode.SCAN_PATH_NOT_FOUND;
+    default:
+      return ErrorCode.SYS_UNCAUGHT_ERROR;
+  }
 }
 
 function trackError(operation: string, path: string, error: Error | string): void {
+  const message = error instanceof Error ? error.message : String(error);
+  const nodeCode = error instanceof Error ? (error as NodeJS.ErrnoException).code : undefined;
+  const errorCode = getErrorCodeForOperation(operation, error);
+
+  // Create structured error
+  const structuredErr = createError(errorCode, message, {
+    details: { operation, path, nodeCode },
+    recoverable: true,
+    cause: error instanceof Error ? error : undefined
+  });
+
+  // Store legacy format for compatibility
   const err: ScanError = {
     operation,
     path,
-    message: error instanceof Error ? error.message : String(error),
-    code: error instanceof Error ? (error as NodeJS.ErrnoException).code : undefined,
-    timestamp: Date.now()
+    message,
+    code: nodeCode,
+    timestamp: Date.now(),
+    errorCode
   };
   scanErrors.push(err);
+  structuredErrors.push(structuredErr);
 
   // In verbose mode, also log to console
   if (verboseMode) {
-    console.warn(`[Scanner] ${operation} failed for ${path}: ${err.message}`);
+    console.warn(`[Scanner] ${operation} failed for ${path}: ${err.message} [${errorCode}]`);
   }
 }
 
 // Security: Normalize path to prevent path traversal attacks
 function safePath(filePath: string, projectRoot: string): string {
   // Normalize the path to remove .. and .
-  const normalized = normalize(filePath);
+  // Use forward slashes for consistent cross-platform handling
+  const normalized = normalize(filePath).replace(/\\/g, '/');
 
-  // Convert to absolute if needed
+  // Convert to absolute if needed, then normalize slashes
   const absolutePath = isAbsolute(normalized) ? normalized : join(projectRoot, normalized);
+  const normalizedAbsPath = normalize(absolutePath).replace(/\\/g, '/');
 
   // Ensure the path is within the project root
-  const absoluteRoot = normalize(projectRoot);
-  if (!absolutePath.startsWith(absoluteRoot + '/') && absolutePath !== absoluteRoot) {
+  const absoluteRoot = normalize(projectRoot).replace(/\\/g, '/');
+
+  // Check if path is within project root (handles both Unix and Windows)
+  const isInRoot = normalizedAbsPath === absoluteRoot ||
+    normalizedAbsPath.startsWith(absoluteRoot + '/');
+
+  if (!isInRoot) {
     throw new Error(`Path traversal attempt detected: ${filePath}`);
   }
 
@@ -94,8 +151,8 @@ export class DefaultFileScanner implements FileScanner {
   private verbose?: boolean;
 
   constructor(options: FileScannerOptions = {}) {
-    this.sourceExtensions = options.sourceExtensions || ['.ts', '.tsx', '.js', '.jsx', '.vue', '.svelte', '.astro'];
-    this.configExtensions = options.configExtensions || ['.ts', '.js', '.json'];
+    this.sourceExtensions = options.sourceExtensions || ['.ts', '.tsx', '.js', '.jsx', '.vue', '.svelte', '.astro', '.py', '.pyw'];
+    this.configExtensions = options.configExtensions || ['.ts', '.js', '.json', '.toml'];
     this.ignorePatterns = options.ignorePatterns || [];
     this.cacheManager = options.cacheManager;
     this.relevantExtensions = options.relevantExtensions;
@@ -380,7 +437,7 @@ export class DefaultFileScanner implements FileScanner {
           await this.scanDirectoryAsync(fullPath, files, extensions, isRoot, projectRoot, ignorePatterns);
         } else if (statResult.isFile()) {
           const ext = entry.substring(entry.lastIndexOf('.'));
-          if ((extensions.includes(ext) || (isRoot && (ext === '.ts' || ext === '.js'))) && this.shouldIncludeFile(ext)) {
+          if ((extensions.includes(ext) || (isRoot && (ext === '.ts' || ext === '.js' || ext === '.py' || ext === '.pyw'))) && this.shouldIncludeFile(ext)) {
             try {
               const safeFilePath = safePath(fullPath, projectRoot);
               const content = await retry(() => readFile(safeFilePath, 'utf-8'));
@@ -407,19 +464,24 @@ export class DefaultFileScanner implements FileScanner {
   }
 
   private shouldIgnore(filePath: string, projectRoot: string, patterns: string[]): boolean {
-    const relativePath = projectRoot
-      ? filePath.replace(projectRoot, '').replace(/^[/\\]/, '')
-      : filePath;
+    // Normalize paths to use forward slashes for consistent cross-platform matching
+    const normalizedFilePath = filePath.replace(/\\/g, '/');
+    const normalizedProjectRoot = projectRoot.replace(/\\/g, '/');
+    const relativePath = normalizedProjectRoot
+      ? normalizedFilePath.replace(normalizedProjectRoot, '').replace(/^[/\\]/, '')
+      : normalizedFilePath;
 
     for (const pattern of patterns) {
-      if (pattern.includes('*')) {
+      // Normalize pattern too
+      const normalizedPattern = pattern.replace(/\\/g, '/');
+      if (normalizedPattern.includes('*')) {
         // Simple wildcard matching
-        const regex = new RegExp('^' + pattern.replace(/\*/g, '.*') + '$');
-        if (regex.test(relativePath) || regex.test(filePath)) {
+        const regex = new RegExp('^' + normalizedPattern.replace(/\*/g, '.*') + '$');
+        if (regex.test(relativePath) || regex.test(normalizedFilePath)) {
           return true;
         }
       } else {
-        if (relativePath.includes(pattern) || filePath.includes(pattern)) {
+        if (relativePath.includes(normalizedPattern) || normalizedFilePath.includes(normalizedPattern)) {
           return true;
         }
       }
@@ -469,7 +531,7 @@ export class DefaultFileScanner implements FileScanner {
         this.scanDirectory(fullPath, files, extensions, isRoot, projectRoot, ignorePatterns);
       } else if (stat.isFile()) {
         const ext = entry.substring(entry.lastIndexOf('.'));
-        if ((extensions.includes(ext) || (isRoot && (ext === '.ts' || ext === '.js'))) && this.shouldIncludeFile(ext)) {
+        if ((extensions.includes(ext) || (isRoot && (ext === '.ts' || ext === '.js' || ext === '.py' || ext === '.pyw'))) && this.shouldIncludeFile(ext)) {
           try {
             // Security: Validate path is within project
             const safeFilePath = safePath(fullPath, projectRoot);

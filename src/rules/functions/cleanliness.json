@@ -1,0 +1,194 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "CLEAN_COMMENTED_CODE",
+      "name": "Commented out code",
+      "description": "Commented out code reduces readability. Remove it or use version control.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "cleanliness",
+      "recommendation": {
+        "title": "Remove commented code",
+        "description": "Commented out code reduces readability. Remove it or use version control.",
+        "library": "Code cleanliness"
+      },
+      "catches": [
+        "Commented out code",
+        "Reduces readability",
+        "Confuses developers"
+      ],
+      "fix": [
+        "Remove commented code",
+        "Use version control instead",
+        "Delete unused code"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "//.*[a-zA-Z]{3,}.*;$"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Commented code detected - remove or use version control"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "CLEAN_CONSOLE_LOG",
+      "name": "Console.log in code",
+      "description": "Console.log should be replaced with proper logging library for web apps/services. For CLI tools, console.log is appropriate and expected - this is not an issue for CLI projects.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "cleanliness",
+      "recommendation": {
+        "title": "Use proper logging (for web apps)",
+        "description": "Console.log should be replaced with proper logging library for web apps/services. For CLI tools, console.log is appropriate and expected - this is not an issue for CLI projects.",
+        "library": "winston, pino"
+      },
+      "catches": [
+        "console.log in production code",
+        "No log levels",
+        "Hard to debug in production"
+      ],
+      "fix": [
+        "For web apps/services: Use logging library (winston, pino)",
+        "For CLI tools: console.log is appropriate - no change needed",
+        "Consider log levels for production"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "console\\.(log|debug|info|warn|error)\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "info",
+        "message": "Console statement found - use proper logger"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "CLEAN_DEAD_CODE",
+      "name": "Potential dead code",
+      "description": "Dead code reduces maintainability. Remove unreachable code.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "cleanliness",
+      "recommendation": {
+        "title": "Remove dead code",
+        "description": "Dead code reduces maintainability. Remove unreachable code.",
+        "library": "Code cleanliness"
+      },
+      "catches": [
+        "Dead code exists",
+        "Unreachable code",
+        "Reduces maintainability"
+      ],
+      "fix": [
+        "Remove unreachable code",
+        "Clean up TODO/FIXME comments",
+        "Use version control"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "//\\s*TODO\\s*:|//\\s*FIXME\\s*:",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "TODO/FIXME comment found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "CLEAN_CONSOLE_ERROR",
+      "name": "Using console.log for errors",
+      "description": "Use proper error logging instead of console.log for errors.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "cleanliness",
+      "recommendation": {
+        "title": "Use proper error logging",
+        "description": "Use proper error logging instead of console.log for errors.",
+        "library": "Logging"
+      },
+      "catches": [
+        "console.error used",
+        "No structured error logging",
+        "Hard to track errors"
+      ],
+      "fix": [
+        "Use proper logger",
+        "Add error context",
+        "Set appropriate log levels"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "console\\.(error|warn)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Console error/warn found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "CLEAN_NO_LOGGER",
+      "name": "Using console.log instead of logger",
+      "description": "Use a structured logging library instead of console.log.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "cleanliness",
+      "recommendation": {
+        "title": "Use structured logging",
+        "description": "Use a structured logging library instead of console.log.",
+        "library": "winston, pino"
+      },
+      "catches": [
+        "No structured logging",
+        "console.log instead of logger",
+        "Hard to analyze logs"
+      ],
+      "fix": [
+        "Install winston or pino",
+        "Replace console.log",
+        "Add log levels"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "logger|winston|pino|bunyan"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Logger found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

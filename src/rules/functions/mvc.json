@@ -1,0 +1,82 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "MVC_BUSINESS_IN_CONTROLLER",
+      "name": "Business logic in controller",
+      "description": "Controllers should handle HTTP, not business logic.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "express",
+        "fastify"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Move business logic to service layer",
+        "description": "Controllers should handle HTTP, not business logic.",
+        "library": "MVC"
+      },
+      "catches": [
+        "Business logic mixed with HTTP handling",
+        "Hard to test business logic",
+        "Code duplication"
+      ],
+      "fix": [
+        "Extract logic to service layer",
+        "Keep controllers thin",
+        "Follow single responsibility"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "controller|route|router"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Controller/router found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "MVC_FAT_MODEL",
+      "name": "Fat model",
+      "description": "Models should be focused and not contain unrelated logic.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Split large models",
+        "description": "Models should be focused and not contain unrelated logic.",
+        "library": "MVC"
+      },
+      "catches": [
+        "Models too large",
+        "Too many responsibilities",
+        "Hard to maintain"
+      ],
+      "fix": [
+        "Split into multiple models",
+        "Use composition over inheritance",
+        "Extract to services"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "model|schema|entity"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Model found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

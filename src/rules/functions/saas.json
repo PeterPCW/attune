@@ -1,0 +1,816 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "SAAS_NO_PAGINATION",
+      "name": "Missing pagination on list endpoints",
+      "description": "Without pagination, list endpoints can return unbounded results causing memory issues and slow responses.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "express",
+        "fastify",
+        "nextjs"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Add pagination to list endpoints",
+        "description": "Without pagination, list endpoints can return unbounded results causing memory issues and slow responses.",
+        "library": "API Design"
+      },
+      "catches": [
+        "API endpoints returning all records without limits",
+        "No page/limit parameters on list routes",
+        "Unbounded result sets"
+      ],
+      "fix": [
+        "Add page and limit query parameters",
+        "Implement offset/limit or cursor-based pagination",
+        "Set reasonable default limits"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "app\\.(get|post|put|patch)\\s*\\(['\"`](?!.*/(page|limit|offset|pagination))"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Route handler may return unpaginated results - add pagination parameters"
+      },
+      "projectTypes": [
+        "saas"
+      ]
+    },
+    {
+      "id": "SAAS_N_PLUS_1",
+      "name": "Potential N+1 query problem",
+      "description": "N+1 queries occur when fetching records then looping to get related data. Use JOINs or eager loading.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "performance",
+      "recommendation": {
+        "title": "Use eager loading",
+        "description": "N+1 queries occur when fetching records then looping to get related data. Use JOINs or eager loading.",
+        "library": "ORM, Database"
+      },
+      "catches": [
+        "Loop fetching related data for each item",
+        "Multiple database calls in forEach/map",
+        "Missing eager loading"
+      ],
+      "fix": [
+        "Use ORM's include/with for eager loading",
+        "Use JOINs instead of loops",
+        "Batch fetch related records"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "for\\s*\\(\\s*const\\s+\\w+\\s+of\\s+\\w+\\s*\\)\\s*\\{\\.find|forEach.*\\.find"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Potential N+1 query - loop followed by database find"
+      },
+      "projectTypes": [
+        "saas"
+      ]
+    },
+    {
+      "id": "SAAS_NO_CACHE",
+      "name": "No caching detected",
+      "description": "Frequently accessed data should be cached to reduce database load.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "performance",
+      "recommendation": {
+        "title": "Add caching layer",
+        "description": "Frequently accessed data should be cached to reduce database load.",
+        "library": "Redis, memory-cache"
+      },
+      "catches": [
+        "Repeated queries for same data",
+        "No caching layer configured",
+        "Database hit on every request"
+      ],
+      "fix": [
+        "Add Redis caching",
+        "Cache frequently accessed data",
+        "Set appropriate TTL"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "cache|redis|memcached"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Caching implementation found"
+      },
+      "projectTypes": [
+        "saas"
+      ]
+    },
+    {
+      "id": "SAAS_SYNC_BLOCKING",
+      "name": "Synchronous blocking operations",
+      "description": "Synchronous operations block the event loop. Use async/await for I/O operations.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "nodejs"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Use async operations",
+        "description": "Synchronous operations block the event loop. Use async/await for I/O operations.",
+        "library": "Node.js"
+      },
+      "catches": [
+        "readFileSync, writeFileSync usage",
+        "Blocking the event loop",
+        "Synchronous fs operations"
+      ],
+      "fix": [
+        "Use async/await versions",
+        "Use fs.promises",
+        "Move to worker threads if needed"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "readFileSync|writeFileSync|existsSync|readdirSync"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Synchronous file operation detected - use async version"
+      },
+      "projectTypes": [
+        "saas"
+      ]
+    },
+    {
+      "id": "SAAS_NO_RATE_LIMIT",
+      "name": "No rate limiting detected",
+      "description": "APIs without rate limiting are vulnerable to abuse and DDoS attacks.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "express",
+        "fastify"
+      ],
+      "category": "security",
+      "recommendation": {
+        "title": "Add rate limiting",
+        "description": "APIs without rate limiting are vulnerable to abuse and DDoS attacks.",
+        "library": "express-rate-limit"
+      },
+      "catches": [
+        "No rate limiting on endpoints",
+        "Vulnerable to brute force",
+        "No protection against DDoS"
+      ],
+      "fix": [
+        "Add express-rate-limit",
+        "Configure limits per endpoint",
+        "Add stricter limits for auth endpoints"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "rateLimit|rate.?limit"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Rate limiting found"
+      },
+      "projectTypes": [
+        "saas"
+      ]
+    },
+    {
+      "id": "SAAS_NO_AUTH",
+      "name": "Route without authentication",
+      "description": "API endpoints should require authentication unless explicitly public.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "express",
+        "fastify"
+      ],
+      "category": "security",
+      "recommendation": {
+        "title": "Add authentication",
+        "description": "API endpoints should require authentication unless explicitly public.",
+        "library": "Auth, JWT, Sessions"
+      },
+      "catches": [
+        "API endpoints without auth check",
+        "Routes that should be protected",
+        "Missing auth middleware"
+      ],
+      "fix": [
+        "Add authentication middleware",
+        "Protect sensitive endpoints",
+        "Use auth middleware on routes"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "app\\.(get|post|put|patch|delete)\\s*\\(\\s*['\"`]/(?!auth|login|register|public)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "critical",
+        "message": "Route may lack authentication middleware"
+      },
+      "projectTypes": [
+        "saas"
+      ]
+    },
+    {
+      "id": "SAAS_NO_AUTHZ",
+      "name": "Potential missing authorization checks",
+      "description": "After authentication, verify user has permission to access the resource.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "security",
+      "recommendation": {
+        "title": "Add authorization checks",
+        "description": "After authentication, verify user has permission to access the resource.",
+        "library": "Authorization"
+      },
+      "catches": [
+        "User can access others' data",
+        "No ownership verification",
+        "Missing permission checks"
+      ],
+      "fix": [
+        "Add ownership checks",
+        "Verify user owns resource",
+        "Add role-based checks"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "(checkPermission|hasPermission|canAccess|isAuthorized|verifyOwnership|validateAccess)\\s*\\(",
+        "fileExtensions": [
+          ".ts",
+          ".js",
+          ".tsx",
+          ".jsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Authorization check found"
+      },
+      "projectTypes": [
+        "saas"
+      ]
+    },
+    {
+      "id": "SAAS_NO_TENANT_ISOLATION",
+      "name": "Potential missing tenant isolation",
+      "description": "Multi-tenant apps must filter by tenant ID to prevent data leaks between tenants.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "security",
+      "recommendation": {
+        "title": "Add tenant isolation",
+        "description": "Multi-tenant apps must filter by tenant ID to prevent data leaks between tenants.",
+        "library": "Database, Row-Level Security"
+      },
+      "catches": [
+        "No tenant ID filtering",
+        "Users can see other tenants' data",
+        "Missing RLS policies"
+      ],
+      "fix": [
+        "Add tenant_id to all queries",
+        "Implement RLS policies",
+        "Verify tenant context"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "(getTenantId|getOrganizationId|filterByTenant|verifyTenant|ensureTenantAccess)\\s*\\(",
+        "fileExtensions": [
+          ".ts",
+          ".js",
+          ".tsx",
+          ".jsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Tenant filtering found"
+      },
+      "projectTypes": [
+        "saas"
+      ]
+    },
+    {
+      "id": "SAAS_NO_GRACEFUL_SHUTDOWN",
+      "name": "No graceful shutdown handling",
+      "description": "Handle SIGTERM/SIGINT to close connections and finish processing requests before exiting.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "nodejs"
+      ],
+      "category": "reliability",
+      "recommendation": {
+        "title": "Implement graceful shutdown",
+        "description": "Handle SIGTERM/SIGINT to close connections and finish processing requests before exiting.",
+        "library": "Node.js"
+      },
+      "catches": [
+        "No SIGTERM handler",
+        "Connections dropped on shutdown",
+        "In-flight requests lost"
+      ],
+      "fix": [
+        "Handle SIGTERM/SIGINT",
+        "Close database connections",
+        "Finish in-flight requests"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "process\\.(on|once)\\s*\\(\\s*['\"`]SIGTERM"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Graceful shutdown handler found"
+      },
+      "projectTypes": [
+        "saas"
+      ]
+    },
+    {
+      "id": "SAAS_NO_HEALTH_CHECK",
+      "name": "No health check endpoint",
+      "description": "Health checks (/health, /ready) are needed for load balancers and orchestration.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "express",
+        "fastify"
+      ],
+      "category": "reliability",
+      "recommendation": {
+        "title": "Add health check endpoint",
+        "description": "Health checks (/health, /ready) are needed for load balancers and orchestration.",
+        "library": "Kubernetes, Load Balancers"
+      },
+      "catches": [
+        "No /health endpoint",
+        "Load balancer can't check status",
+        "Missing liveness probe"
+      ],
+      "fix": [
+        "Add /health and /ready endpoints",
+        "Check dependencies in health check",
+        "Configure Kubernetes probes"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "['\"`]/(health|ready|liveness|ping)['\"`]"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Health check endpoint found"
+      },
+      "projectTypes": [
+        "saas"
+      ]
+    },
+    {
+      "id": "SAAS_NO_API_VERSION",
+      "name": "API not versioned",
+      "description": "APIs should be versioned (/v1/, /v2/) to allow breaking changes without affecting clients.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "express",
+        "fastify"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Version your API",
+        "description": "APIs should be versioned (/v1/, /v2/) to allow breaking changes without affecting clients.",
+        "library": "API Design"
+      },
+      "catches": [
+        "No API versioning",
+        "Breaking changes affect all clients",
+        "No way to deprecate safely"
+      ],
+      "fix": [
+        "Add /v1/, /v2/ to routes",
+        "Version in header Accept",
+        "Plan deprecation strategy"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "['\"`]/(v1|v2|v3)/"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "API versioning found"
+      },
+      "projectTypes": [
+        "saas"
+      ]
+    },
+    {
+      "id": "SAAS_NO_ERROR_RESPONSE",
+      "name": "No standardized error handler",
+      "description": "Errors should follow consistent format across all endpoints.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "express",
+        "fastify"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Standardize error responses",
+        "description": "Errors should follow consistent format across all endpoints.",
+        "library": "API Design"
+      },
+      "catches": [
+        "Inconsistent error formats",
+        "No error middleware",
+        "Different error responses per route"
+      ],
+      "fix": [
+        "Create error middleware",
+        "Standardize error format",
+        "Use error classes"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "errorMiddleware|errorHandler|ErrorResponse"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Error handler found"
+      },
+      "projectTypes": [
+        "saas"
+      ]
+    },
+    {
+      "id": "SAAS_NO_REQUEST_ID",
+      "name": "No request ID tracking",
+      "description": "Add X-Request-ID headers for request tracing across services.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "reliability",
+      "recommendation": {
+        "title": "Add request ID tracking",
+        "description": "Add X-Request-ID headers for request tracing across services.",
+        "library": "Logging, Tracing"
+      },
+      "catches": [
+        "No request tracing",
+        "Hard to debug across services",
+        "Missing correlation IDs"
+      ],
+      "fix": [
+        "Add X-Request-ID header",
+        "Pass request ID to logs",
+        "Use OpenTelemetry"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "requestId|request-id|traceId|correlationId"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Request tracking found"
+      },
+      "projectTypes": [
+        "saas"
+      ]
+    },
+    {
+      "id": "SAAS_NO_CORS_CONFIG",
+      "name": "Missing or overly permissive CORS",
+      "description": "CORS should whitelist specific origins, not use wildcard * in production.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "express",
+        "fastify"
+      ],
+      "category": "security",
+      "recommendation": {
+        "title": "Configure CORS properly",
+        "description": "CORS should whitelist specific origins, not use wildcard * in production.",
+        "library": "CORS"
+      },
+      "catches": [
+        "CORS not configured",
+        "Using wildcard origin",
+        "Too permissive"
+      ],
+      "fix": [
+        "Configure allowed origins",
+        "Use environment-based config",
+        "Never use * in production"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "cors\\s*\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "CORS configured"
+      },
+      "projectTypes": [
+        "saas"
+      ]
+    },
+    {
+      "id": "SAAS_SESSION_FIXATION",
+      "name": "Session fixation vulnerability",
+      "description": "Session IDs should be regenerated after authentication to prevent fixation attacks.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "express"
+      ],
+      "category": "security",
+      "recommendation": {
+        "title": "Regenerate session on login",
+        "description": "Session IDs should be regenerated after authentication to prevent fixation attacks.",
+        "library": "Sessions"
+      },
+      "catches": [
+        "Session not regenerated on login",
+        "Session fixation possible",
+        "Same ID before and after auth"
+      ],
+      "fix": [
+        "Call req.session.regenerate() on login",
+        "Create new session after auth",
+        "Use secure session config"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "session\\.regenerate|req\\.session\\.regenerate"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Session regeneration found"
+      },
+      "projectTypes": [
+        "saas"
+      ]
+    },
+    {
+      "id": "SAAS_NO_INPUT_SANITIZATION",
+      "name": "Missing input sanitization",
+      "description": "All user input should be validated and sanitized before use.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "security",
+      "recommendation": {
+        "title": "Sanitize all inputs",
+        "description": "All user input should be validated and sanitized before use.",
+        "library": "Validation, Sanitization"
+      },
+      "catches": [
+        "No input validation",
+        "Raw user input used",
+        "Vulnerable to injection"
+      ],
+      "fix": [
+        "Use Zod or Yup schemas",
+        "Validate all inputs",
+        "Sanitize before use"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "(validateSchema|sanitizeInput|validateInput|parseAndValidate|request\\.validate)\\s*\\(",
+        "fileExtensions": [
+          ".ts",
+          ".js",
+          ".tsx",
+          ".jsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Input validation found"
+      },
+      "projectTypes": [
+        "saas"
+      ]
+    },
+    {
+      "id": "SEC_GOOD_CSRF_PROTECTION",
+      "name": "Uses CSRF protection",
+      "description": "This code uses CSRF protection - good security practice for state-changing requests.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "express"
+      ],
+      "category": "security",
+      "recommendation": {
+        "title": "Good: CSRF protection in use",
+        "description": "This code properly protects against CSRF attacks.",
+        "library": "CSRF"
+      },
+      "catches": [],
+      "fix": [],
+      "condition": {
+        "type": "regex",
+        "pattern": "csurf|csrf|xsrf|anti-csrf"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "info",
+        "message": "CSRF protection found (good security practice)"
+      },
+      "projectTypes": [
+        "saas"
+      ]
+    },
+    {
+      "id": "SAAS_NO_CSRF",
+      "name": "Missing CSRF protection for state-changing routes",
+      "description": "Express POST/PUT/DELETE routes should use CSRF protection. Check for csurf middleware or express-jwt with csrf.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "express"
+      ],
+      "category": "security",
+      "recommendation": {
+        "title": "Add CSRF protection",
+        "description": "State-changing requests need CSRF tokens for browser clients.",
+        "library": "CSRF"
+      },
+      "catches": [
+        "No CSRF tokens",
+        "Vulnerable to cross-site requests",
+        "State-changing ops unprotected"
+      ],
+      "fix": [
+        "Use csurf or node-csurf middleware",
+        "Add CSRF token to forms",
+        "Use SameSite cookies"
+      ],
+      "conditions": [
+        {
+          "type": "regex",
+          "pattern": "\\.(post|put|patch|delete)\\s*\\("
+        },
+        {
+          "type": "regex",
+          "pattern": "csurf|csrf|xsrf|anti-csrf",
+          "inverse": true
+        }
+      ],
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "CSRF protection found"
+      },
+      "projectTypes": [
+        "saas"
+      ]
+    },
+    {
+      "id": "SAAS_NO_HTTPS",
+      "name": "Missing HTTPS enforcement",
+      "description": "Redirect HTTP to HTTPS and set HSTS header.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "security",
+      "recommendation": {
+        "title": "Enforce HTTPS",
+        "description": "Redirect HTTP to HTTPS and set HSTS header.",
+        "library": "TLS, Helmet"
+      },
+      "catches": [
+        "No HTTPS redirect",
+        "Traffic can be intercepted",
+        "No HSTS header"
+      ],
+      "fix": [
+        "Redirect HTTP to HTTPS",
+        "Add HSTS header",
+        "Use Helmet"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "(helmet\\(|contentSecurityPolicy|hsts|forceHTTPS|requireHTTPS)",
+        "fileExtensions": [
+          ".ts",
+          ".js",
+          ".tsx",
+          ".jsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "HTTPS/Helmet configuration found"
+      },
+      "projectTypes": [
+        "saas"
+      ]
+    },
+    {
+      "id": "SAAS_NO_CONNECTION_POOL",
+      "name": "No database connection pooling",
+      "description": "Without connection pooling, each request creates a new connection causing latency.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "performance",
+      "recommendation": {
+        "title": "Use connection pooling",
+        "description": "Without connection pooling, each request creates a new connection causing latency.",
+        "library": "Database, Pg, MySQL"
+      },
+      "catches": [
+        "New connection per request",
+        "Connection overhead",
+        "Database latency"
+      ],
+      "fix": [
+        "Use connection pool",
+        "Configure pool size",
+        "Reuse connections"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "pool|Pool"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Connection pooling found"
+      },
+      "projectTypes": [
+        "saas"
+      ]
+    },
+    {
+      "id": "SAAS_NO_IDEMPOTENCY",
+      "name": "No idempotency for mutations",
+      "description": "POST/PATCH/DELETE endpoints should support idempotency to handle retry safely.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "reliability",
+      "recommendation": {
+        "title": "Add idempotency keys",
+        "description": "POST/PATCH/DELETE endpoints should support idempotency to handle retry safely.",
+        "library": "API Design"
+      },
+      "catches": [
+        "No idempotency keys",
+        "Retries cause duplicate actions",
+        "Payments could be duplicated"
+      ],
+      "fix": [
+        "Add idempotency key to POST",
+        "Check key before processing",
+        "Store key with result"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "idempotency|Idempotency"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Idempotency handling found"
+      },
+      "projectTypes": [
+        "saas"
+      ]
+    }
+  ]
+}

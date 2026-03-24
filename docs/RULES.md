@@ -4,51 +4,51 @@ This document provides comprehensive details about all rules in Attune.
 
 ## Summary
 
-- **Total Rules**: 448
+- **Total Rules**: 547
 - **Categories**: 36
 
 ### By Severity
 
 | Severity | Count |
 |----------|-------|
-| Critical | 35 |
-| High | 115 |
-| Medium | 179 |
-| Low | 103 |
-| Info | 16 |
+| Critical | 44 |
+| High | 140 |
+| Medium | 217 |
+| Low | 124 |
+| Info | 22 |
 
 ### By Category
 
 | Category | Rules |
 |----------|-------|
-| security | 77 |
-| architecture | 70 |
-| performance | 56 |
-| accessibility | 36 |
+| security | 100 |
+| performance | 79 |
+| architecture | 78 |
+| accessibility | 37 |
 | typescript | 21 |
-| usability | 13 |
-| error-handling | 11 |
-| maintainability | 11 |
+| cleanliness | 20 |
+| error-handling | 19 |
+| reliability | 19 |
+| maintainability | 17 |
+| usability | 14 |
+| api | 11 |
 | css | 9 |
-| api | 8 |
 | cicd | 8 |
-| cleanliness | 8 |
 | docker | 8 |
 | graphql | 7 |
 | payments | 7 |
 | testing | 6 |
+| documentation | 6 |
 | email | 6 |
 | i18n | 6 |
 | kubernetes | 6 |
 | migrations | 6 |
-| reliability | 6 |
 | monitoring | 6 |
 | uploads | 6 |
 | websockets | 6 |
 | api-versioning | 5 |
 | cli | 5 |
 | cors | 5 |
-| documentation | 5 |
 | queues | 5 |
 | caching | 4 |
 | complexity | 4 |
@@ -84,9 +84,9 @@ Auto-playing audio/video must have controls and respect user preference.
 **Library**: WCAG 2.1 - Audio Control
 
 **Applies to**: All frameworks
+**File Extensions**: .tsx, .jsx, .html
 
-
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -112,7 +112,7 @@ CAPTCHA should have audio alternative or be replaceable with less exclusionary m
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -138,7 +138,7 @@ Avoid complex sentences and jargon. Aim for reading level appropriate for audien
 **Applies to**: All frameworks
 **File Extensions**: .html, .jsx, .tsx, .vue, .svelte
 
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -164,7 +164,7 @@ Navigation should be consistent across pages for predictability.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -190,7 +190,7 @@ Provide confirmation for important actions and reversible submissions.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -214,9 +214,9 @@ When errors are detected, suggest corrections.
 **Library**: WCAG 2.1 - Error Suggestion
 
 **Applies to**: All frameworks
+**File Extensions**: .tsx, .jsx
 
-
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -242,7 +242,35 @@ Error messages should clearly explain what went wrong.
 **Applies to**: react, vue, nextjs, nuxt, astro, svelte, angular
 
 
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
+
+---
+
+### A11Y_FOCUS_MANAGEMENT: Missing focus management after interactions
+
+**Severity**: MEDIUM | **Category**: accessibility
+
+After closing modals, navigating, or dynamic updates, move focus to a logical place so keyboard users don't lose their position.
+
+**What it catches:**
+- Focus not moved after modal close
+- Focus lost after dynamic content updates
+- Users lose their place in page
+- WCAG 2.1 B1 violation
+
+**How to fix:**
+- Move focus to relevant element after interaction
+- Use focus-visible for custom focus indicators
+- Manage focus programmatically for modals/dialogs
+- Test with keyboard only navigation
+
+**Recommendation**: Manage focus after interactions
+**Library**: WCAG 2.1 B1
+
+**Applies to**: react, vue, nextjs, nuxt, astro, svelte, angular
+
+
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -266,9 +294,9 @@ Tab order should follow visual layout from left to right, top to bottom.
 **Library**: WCAG 2.1 - Focus Order
 
 **Applies to**: All frameworks
+**File Extensions**: .tsx, .jsx, .html
 
-
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -292,9 +320,9 @@ Keyboard focus must have visible indicator at all times.
 **Library**: WCAG 2.1 - Focus Visible
 
 **Applies to**: All frameworks
+**File Extensions**: .css, .tsx, .jsx
 
-
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -318,9 +346,9 @@ Provide help text and clear instructions for complex forms.
 **Library**: WCAG 2.1 - Input Assistance
 
 **Applies to**: All frameworks
+**File Extensions**: .tsx, .jsx
 
-
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -346,7 +374,7 @@ Use <header>, <nav>, <main>, <footer> for screen reader navigation.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -370,9 +398,9 @@ Link purpose should be clear from link text alone or context.
 **Library**: WCAG 2.1 - Link Purpose
 
 **Applies to**: All frameworks
+**File Extensions**: .tsx, .jsx, .html
 
-
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -398,7 +426,7 @@ Users should have multiple ways to find pages (search, navigation, site map).
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -422,9 +450,9 @@ Links should not open new windows/tabs without warning.
 **Library**: WCAG 2.1 - On Focus
 
 **Applies to**: All frameworks
+**File Extensions**: .tsx, .jsx, .html
 
-
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -450,7 +478,7 @@ Each page should have a unique, descriptive title.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -476,7 +504,7 @@ Focus and hover should not cause unexpected content changes.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -501,7 +529,7 @@ Add media query for prefers-reduced-motion.
 **Applies to**: react, vue, nextjs, nuxt, astro, svelte, angular
 
 
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -525,9 +553,9 @@ Status messages should be announced without focus change using aria-live.
 **Library**: WCAG 2.1 - Status Messages
 
 **Applies to**: All frameworks
+**File Extensions**: .tsx, .jsx
 
-
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -553,7 +581,7 @@ Sessions with short timeouts should warn users.
 **Applies to**: react, vue, nextjs, nuxt, astro, svelte, angular
 
 
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -579,7 +607,7 @@ Buttons and links need accessible names. Use aria-label or aria-labelledby.
 **Applies to**: react, vue, nextjs, nuxt, astro, svelte, angular
 
 
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -605,7 +633,7 @@ Text should have 4.5:1 contrast ratio against background.
 **Applies to**: react, vue, nextjs, nuxt, astro, svelte, angular
 
 
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -631,7 +659,7 @@ Drag operations must have a keyboard alternative (click + move, or two clicks). 
 **Applies to**: All frameworks
 **File Extensions**: .tsx, .jsx, .vue, .svelte, .html
 
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -657,7 +685,7 @@ Interactive elements need visible focus indicators for keyboard users.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -683,7 +711,7 @@ When an element receives focus, it must not be completely hidden by other conten
 **Applies to**: All frameworks
 **File Extensions**: .css, .scss, .less, .html
 
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -709,7 +737,7 @@ Form inputs need associated labels for screen readers.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -735,7 +763,7 @@ Heading levels should not skip (e.g., h1 to h3 without h2).
 **Applies to**: react, vue, nextjs, nuxt, astro, svelte, angular
 
 
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -761,7 +789,7 @@ Images need alt text for screen readers. Use empty alt="" for decorative images.
 **Applies to**: react, vue, nextjs, nuxt, astro, svelte, angular
 
 
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -787,7 +815,7 @@ All interactive elements must be keyboard accessible.
 **Applies to**: react, vue, nextjs, nuxt, astro, svelte, angular
 
 
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -812,7 +840,7 @@ Add lang attribute to the html element for screen readers.
 **Applies to**: react, vue, nextjs, nuxt, astro, svelte, angular
 
 
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -838,7 +866,7 @@ Links should describe their destination. Avoid "click here" or "read more".
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -863,7 +891,7 @@ Use aria-live for content that updates dynamically.
 **Applies to**: react, vue, nextjs, nuxt, astro, svelte, angular
 
 
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -889,7 +917,7 @@ Add a skip link to allow keyboard users to bypass navigation.
 **Applies to**: react, vue, nextjs, nuxt, astro, svelte, angular
 **File Extensions**: .html, .tsx, .jsx, .vue, .svelte, .astro
 
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -915,7 +943,7 @@ Clickable targets must be at least 24 by 24 CSS pixels. Small targets are diffic
 **Applies to**: All frameworks
 **File Extensions**: .css, .scss, .less, .html, .tsx, .jsx, .vue, .svelte
 
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -941,7 +969,7 @@ Text should reflow when users adjust line-height, letter-spacing, or word-spacin
 **Applies to**: All frameworks
 **File Extensions**: .css, .scss, .less
 
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -967,7 +995,7 @@ Content should not require horizontal scrolling at 320px width. Use word-wrap, o
 **Applies to**: All frameworks
 **File Extensions**: .css, .scss, .less
 
-**Source**: `src/rules/data/accessibility.json`
+**Source**: `src/rules/functions/accessibility.json`
 
 ---
 
@@ -993,7 +1021,7 @@ Touch targets should be at least 44x44 pixels for accessibility.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/mobile.json`
+**Source**: `src/rules/functions/mobile.json`
 
 ---
 
@@ -1021,7 +1049,7 @@ Deprecated endpoints should include Deprecation and Sunset headers.
 **Applies to**: express, fastify, nextjs, nuxt
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/api.json`
+**Source**: `src/rules/functions/api.json`
 
 ---
 
@@ -1047,7 +1075,7 @@ API should return typed error responses for proper error handling.
 **Applies to**: express, fastify, nextjs, nuxt
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/api.json`
+**Source**: `src/rules/functions/api.json`
 
 ---
 
@@ -1073,7 +1101,7 @@ Add ETag headers to enable conditional requests and caching.
 **Applies to**: express, fastify, nextjs, nuxt
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/api.json`
+**Source**: `src/rules/functions/api.json`
 
 ---
 
@@ -1099,7 +1127,7 @@ POST/PUT/DELETE endpoints should support idempotency keys to prevent duplicate o
 **Applies to**: express, fastify, nextjs, nuxt
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/api.json`
+**Source**: `src/rules/functions/api.json`
 
 ---
 
@@ -1125,7 +1153,7 @@ Large data sets should be paginated.
 **Applies to**: express, fastify, nextjs, nuxt
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/api.json`
+**Source**: `src/rules/functions/api.json`
 
 ---
 
@@ -1151,7 +1179,7 @@ APIs should have rate limiting to prevent abuse.
 **Applies to**: express, fastify
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/api.json`
+**Source**: `src/rules/functions/api.json`
 
 ---
 
@@ -1177,7 +1205,7 @@ Add X-Request-ID or correlation ID for request tracing.
 **Applies to**: express, fastify, nextjs, nuxt
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/api.json`
+**Source**: `src/rules/functions/api.json`
 
 ---
 
@@ -1203,7 +1231,61 @@ Public APIs should go through an API gateway rather than directly calling intern
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/api.json`
+**Source**: `src/rules/functions/api.json`
+
+---
+
+### FASTAPI_MISSING_RESPONSE_MODEL: Missing response_model in FastAPI endpoint
+
+**Severity**: MEDIUM | **Category**: api
+
+Define response models for automatic documentation and validation.
+
+
+
+**Recommendation**: Add response_model to FastAPI endpoints
+**Library**: FastAPI
+
+**Applies to**: fastapi
+
+
+**Source**: `src/rules/functions/fastapi.json`
+
+---
+
+### FLASK_RESPONSE_FORMAT: Inconsistent JSON response format
+
+**Severity**: LOW | **Category**: api
+
+Create a helper function for consistent API responses.
+
+
+
+**Recommendation**: Use consistent JSON wrapper
+**Library**: Flask
+
+**Applies to**: flask
+
+
+**Source**: `src/rules/functions/flask.json`
+
+---
+
+### STARLETTE_NO_RESPONSE_MODEL: Missing response_model
+
+**Severity**: MEDIUM | **Category**: api
+
+Use response_model parameter for type validation.
+
+
+
+**Recommendation**: Add response_model
+**Library**: Starlette
+
+**Applies to**: starlette
+
+
+**Source**: `src/rules/functions/starlette.json`
 
 ---
 
@@ -1231,7 +1313,7 @@ Mark deprecated versions with Sunset header and documentation.
 **Applies to**: All frameworks
 **File Extensions**: ts, js, yaml, yml
 
-**Source**: `src/rules/data/api-versioning.json`
+**Source**: `src/rules/functions/api-versioning.json`
 
 ---
 
@@ -1257,7 +1339,7 @@ Header versioning is harder to discover and test.
 **Applies to**: All frameworks
 **File Extensions**: ts, js
 
-**Source**: `src/rules/data/api-versioning.json`
+**Source**: `src/rules/functions/api-versioning.json`
 
 ---
 
@@ -1283,7 +1365,7 @@ Latest alias makes testing and migration easier.
 **Applies to**: All frameworks
 **File Extensions**: ts, js
 
-**Source**: `src/rules/data/api-versioning.json`
+**Source**: `src/rules/functions/api-versioning.json`
 
 ---
 
@@ -1309,7 +1391,7 @@ Include version in URL (e.g., /v1/users) for backward compatibility.
 **Applies to**: express, fastify, nextjs, nuxt
 **File Extensions**: ts, js
 
-**Source**: `src/rules/data/api-versioning.json`
+**Source**: `src/rules/functions/api-versioning.json`
 
 ---
 
@@ -1335,7 +1417,7 @@ Document breaking changes between versions.
 **Applies to**: All frameworks
 **File Extensions**: md, ts, js
 
-**Source**: `src/rules/data/api-versioning.json`
+**Source**: `src/rules/functions/api-versioning.json`
 
 ---
 
@@ -1363,7 +1445,7 @@ useEffect with data fetching should be replaced with TanStack Query for better c
 **Applies to**: react, nextjs
 
 
-**Source**: `src/rules/data/ai-patterns.json`
+**Source**: `src/rules/functions/ai-patterns.json`
 
 ---
 
@@ -1389,7 +1471,7 @@ Generic try/catch with Something went wrong message. Add specific error handling
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/ai-patterns.json`
+**Source**: `src/rules/functions/ai-patterns.json`
 
 ---
 
@@ -1415,7 +1497,7 @@ Multiple console.log statements without context. Use structured logging with app
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/ai-patterns.json`
+**Source**: `src/rules/functions/ai-patterns.json`
 
 ---
 
@@ -1441,7 +1523,7 @@ Props passed through 3+ levels. Consider React Context or component composition.
 **Applies to**: react, nextjs
 
 
-**Source**: `src/rules/data/ai-patterns.json`
+**Source**: `src/rules/functions/ai-patterns.json`
 
 ---
 
@@ -1467,7 +1549,7 @@ Always unsubscribe from observables to prevent memory leaks. Use takeUntilDestro
 **Applies to**: angular
 
 
-**Source**: `src/rules/data/angular.json`
+**Source**: `src/rules/functions/angular.json`
 
 ---
 
@@ -1493,7 +1575,7 @@ Classes with only getters/setters are anemic. Add domain logic to models.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/architecture.json`
+**Source**: `src/rules/functions/architecture.json`
 
 ---
 
@@ -1519,33 +1601,31 @@ Components should be focused. Split into smaller, composable components.
 **Applies to**: react, vue, svelte, angular
 **File Extensions**: .tsx, .jsx, .vue, .svelte
 
-**Source**: `src/rules/data/architecture.json`
+**Source**: `src/rules/functions/architecture.json`
 
 ---
 
-### ARCH_CIRCULAR_DEP: Circular dependency detected
+### ARCH_CIRCULAR_DEP: Relative imports or barrel exports detected
 
-**Severity**: HIGH | **Category**: architecture
+**Severity**: INFO | **Category**: architecture
 
-Circular dependencies cause tight coupling and make testing difficult. Refactor to use dependency injection.
+Relative imports and barrel exports (index.ts re-exports) are common patterns. Only investigate if you're experiencing actual circular dependency issues. True circular dependencies involve A importing B which imports A.
 
 **What it catches:**
-- Circular dependencies
-- Tight coupling
-- Testing difficulties
+- Relative imports
+- Barrel exports (index.ts re-exports)
 
 **How to fix:**
-- Use dependency injection
-- Extract shared logic
-- Refactor to reduce coupling
+- This is often normal code organization - barrel exports are a standard pattern
+- Only investigate if actual circular dependency issues arise
 
-**Recommendation**: Break circular dependencies
+**Recommendation**: Review imports for actual circular dependencies
 **Library**: Architecture
 
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/architecture.json`
+**Source**: `src/rules/functions/architecture.json`
 
 ---
 
@@ -1571,7 +1651,7 @@ Controllers should only handle HTTP concerns. Move database logic to repositorie
 **Applies to**: express, fastify, nodejs
 
 
-**Source**: `src/rules/data/architecture.json`
+**Source**: `src/rules/functions/architecture.json`
 
 ---
 
@@ -1597,7 +1677,7 @@ Raw SQL in routes couples to database. Use repository pattern.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/architecture.json`
+**Source**: `src/rules/functions/architecture.json`
 
 ---
 
@@ -1623,7 +1703,7 @@ Methods that access too much data from other classes should be moved there.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/architecture.json`
+**Source**: `src/rules/functions/architecture.json`
 
 ---
 
@@ -1649,7 +1729,7 @@ Classes that do too much should be split into focused, single-responsibility cla
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/architecture.json`
+**Source**: `src/rules/functions/architecture.json`
 
 ---
 
@@ -1675,7 +1755,7 @@ Modules that depend on too many other modules indicate poor separation. Split in
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/architecture.json`
+**Source**: `src/rules/functions/architecture.json`
 
 ---
 
@@ -1701,7 +1781,7 @@ Route handlers should delegate to service layer. Keep them thin.
 **Applies to**: express, fastify
 
 
-**Source**: `src/rules/data/architecture.json`
+**Source**: `src/rules/functions/architecture.json`
 
 ---
 
@@ -1727,7 +1807,7 @@ Direct implementations scattered throughout code. Use abstractions/interfaces.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .d.ts
 
-**Source**: `src/rules/data/architecture.json`
+**Source**: `src/rules/functions/architecture.json`
 
 ---
 
@@ -1753,7 +1833,7 @@ Business logic should be in a service layer, not in routes or controllers.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/architecture.json`
+**Source**: `src/rules/functions/architecture.json`
 
 ---
 
@@ -1779,7 +1859,7 @@ Modules with no dependencies may be dead code. Verify and remove.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/architecture.json`
+**Source**: `src/rules/functions/architecture.json`
 
 ---
 
@@ -1805,7 +1885,7 @@ Props passed through 3+ levels indicate need for context or state management.
 **Applies to**: react, vue, svelte
 **File Extensions**: .tsx, .jsx, .vue, .svelte, .ts
 
-**Source**: `src/rules/data/architecture.json`
+**Source**: `src/rules/functions/architecture.json`
 
 ---
 
@@ -1829,9 +1909,9 @@ Deeply nested, tangled code is hard to maintain. Refactor to clear structure.
 **Library**: Clean Code
 
 **Applies to**: All frameworks
+**File Extensions**: .ts, .js, .tsx, .jsx
 
-
-**Source**: `src/rules/data/architecture.json`
+**Source**: `src/rules/functions/architecture.json`
 
 ---
 
@@ -1857,7 +1937,43 @@ Excessive chaining (a.getB().getC().getD()) violates Demeter. Use delegates.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/architecture.json`
+**Source**: `src/rules/functions/architecture.json`
+
+---
+
+### CELERY_TASK_BASE: Task not inheriting from base class
+
+**Severity**: LOW | **Category**: architecture
+
+Define a base task class with common configuration.
+
+
+
+**Recommendation**: Create a base task class
+**Library**: Celery
+
+**Applies to**: celery
+
+
+**Source**: `src/rules/functions/celery.json`
+
+---
+
+### CELERY_TASK_ROUTING: No task routing configured
+
+**Severity**: LOW | **Category**: architecture
+
+Use task_routes to direct tasks to specific queues.
+
+
+
+**Recommendation**: Configure task routing
+**Library**: Celery
+
+**Applies to**: celery
+
+
+**Source**: `src/rules/functions/celery.json`
 
 ---
 
@@ -1883,7 +1999,7 @@ Circular dependencies cause coupling issues. Refactor to remove them.
 **Applies to**: nextjs, nuxt, remix, svelte, vue
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/complexity.json`
+**Source**: `src/rules/functions/complexity.json`
 
 ---
 
@@ -1907,9 +2023,9 @@ Global state causes unexpected side effects. Use dependency injection.
 **Library**: Best practices
 
 **Applies to**: All frameworks
-**File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/complexity.json`
+
+**Source**: `src/rules/functions/complexity.json`
 
 ---
 
@@ -1935,7 +2051,7 @@ Express apps should have error handling middleware.
 **Applies to**: express
 
 
-**Source**: `src/rules/data/express.json`
+**Source**: `src/rules/functions/express.json`
 
 ---
 
@@ -1961,7 +2077,43 @@ Express route handlers should be async for proper error handling.
 **Applies to**: express
 
 
-**Source**: `src/rules/data/express.json`
+**Source**: `src/rules/functions/express.json`
+
+---
+
+### FASTAPI_MISSING_DEPENDS: Database connection not using dependency injection
+
+**Severity**: MEDIUM | **Category**: architecture
+
+Use Depends() to inject database connections for proper cleanup.
+
+
+
+**Recommendation**: Use dependency injection for database
+**Library**: FastAPI
+
+**Applies to**: fastapi
+
+
+**Source**: `src/rules/functions/fastapi.json`
+
+---
+
+### FASTAPI_NO_VERSIONING: Missing API versioning
+
+**Severity**: LOW | **Category**: architecture
+
+Use /api/v1/ path prefix or header versioning.
+
+
+
+**Recommendation**: Add API versioning
+**Library**: FastAPI
+
+**Applies to**: fastapi
+
+
+**Source**: `src/rules/functions/fastapi.json`
 
 ---
 
@@ -1987,7 +2139,43 @@ Fastify route handlers should use async/await with proper error handling.
 **Applies to**: fastify
 
 
-**Source**: `src/rules/data/fastify.json`
+**Source**: `src/rules/functions/fastify.json`
+
+---
+
+### FLASK_APP_FACTORY_PATTERN: Flask app created at module level without factory pattern
+
+**Severity**: MEDIUM | **Category**: architecture
+
+Use application factory pattern (create_app) to avoid circular imports and improve testability.
+
+
+
+**Recommendation**: Use Flask application factory pattern
+**Library**: Flask
+
+**Applies to**: flask
+
+
+**Source**: `src/rules/functions/flask.json`
+
+---
+
+### FLASK_GLOBAL_DB: Database connection at module level
+
+**Severity**: MEDIUM | **Category**: architecture
+
+Create database sessions per request using g or scoped_session.
+
+
+
+**Recommendation**: Use request-scoped database sessions
+**Library**: Flask
+
+**Applies to**: flask
+
+
+**Source**: `src/rules/functions/flask.json`
 
 ---
 
@@ -2013,7 +2201,7 @@ Controllers should handle HTTP, not business logic.
 **Applies to**: express, fastify
 
 
-**Source**: `src/rules/data/mvc.json`
+**Source**: `src/rules/functions/mvc.json`
 
 ---
 
@@ -2039,7 +2227,7 @@ Models should be focused and not contain unrelated logic.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/mvc.json`
+**Source**: `src/rules/functions/mvc.json`
 
 ---
 
@@ -2065,7 +2253,7 @@ Parallel routes need a default.tsx to handle unmatched slots.
 **Applies to**: nextjs
 **File Extensions**: .tsx, .jsx, .ts, .js
 
-**Source**: `src/rules/data/nextjs.json`
+**Source**: `src/rules/functions/nextjs.json`
 
 ---
 
@@ -2091,7 +2279,7 @@ useState/useEffect can only be used in Client Components. Add 'use client' or re
 **Applies to**: nextjs
 
 
-**Source**: `src/rules/data/nextjs.json`
+**Source**: `src/rules/functions/nextjs.json`
 
 ---
 
@@ -2117,7 +2305,7 @@ Server actions should be marked with 'use server' directive.
 **Applies to**: nextjs
 
 
-**Source**: `src/rules/data/nextjs.json`
+**Source**: `src/rules/functions/nextjs.json`
 
 ---
 
@@ -2143,7 +2331,7 @@ Server routes should use async/await for proper error handling.
 **Applies to**: nuxt
 
 
-**Source**: `src/rules/data/nuxt.json`
+**Source**: `src/rules/functions/nuxt.json`
 
 ---
 
@@ -2169,7 +2357,7 @@ Async functions in render cause issues. Use useEffect for async operations.
 **Applies to**: react, nextjs
 
 
-**Source**: `src/rules/data/react.json`
+**Source**: `src/rules/functions/react.json`
 
 ---
 
@@ -2195,7 +2383,7 @@ Mutating context value directly breaks reactivity. Use setState.
 **Applies to**: react, nextjs
 
 
-**Source**: `src/rules/data/react.json`
+**Source**: `src/rules/functions/react.json`
 
 ---
 
@@ -2221,7 +2409,7 @@ Direct DOM manipulation bypasses React reconciliation. Use refs sparingly.
 **Applies to**: react, nextjs
 
 
-**Source**: `src/rules/data/react.json`
+**Source**: `src/rules/functions/react.json`
 
 ---
 
@@ -2247,7 +2435,7 @@ Duplicate keys cause incorrect rendering and reconciliation issues.
 **Applies to**: react, nextjs
 **File Extensions**: .jsx, .tsx
 
-**Source**: `src/rules/data/react.json`
+**Source**: `src/rules/functions/react.json`
 
 ---
 
@@ -2273,7 +2461,7 @@ forwardRef without useImperativeHandle can leak implementation details.
 **Applies to**: react, nextjs
 
 
-**Source**: `src/rules/data/react.json`
+**Source**: `src/rules/functions/react.json`
 
 ---
 
@@ -2299,7 +2487,7 @@ React hooks must be called unconditionally at the top level of a component.
 **Applies to**: react, nextjs
 
 
-**Source**: `src/rules/data/react.json`
+**Source**: `src/rules/functions/react.json`
 
 ---
 
@@ -2325,7 +2513,7 @@ Components with random values in render cause unnecessary re-renders and break r
 **Applies to**: react, nextjs
 
 
-**Source**: `src/rules/data/react.json`
+**Source**: `src/rules/functions/react.json`
 
 ---
 
@@ -2351,7 +2539,7 @@ useEffect with empty deps array that updates state can cause infinite loop.
 **Applies to**: react, nextjs
 
 
-**Source**: `src/rules/data/react.json`
+**Source**: `src/rules/functions/react.json`
 
 ---
 
@@ -2377,7 +2565,7 @@ useEffect missing dependencies in deps array. This can cause stale closures.
 **Applies to**: react, nextjs
 
 
-**Source**: `src/rules/data/react.json`
+**Source**: `src/rules/functions/react.json`
 
 ---
 
@@ -2403,7 +2591,7 @@ Missing key prop in list rendering. Keys help React identify changed items.
 **Applies to**: react, nextjs
 
 
-**Source**: `src/rules/data/react.json`
+**Source**: `src/rules/functions/react.json`
 
 ---
 
@@ -2429,7 +2617,7 @@ Mutating state directly breaks React. Always use setState with new object.
 **Applies to**: react, nextjs
 
 
-**Source**: `src/rules/data/react.json`
+**Source**: `src/rules/functions/react.json`
 
 ---
 
@@ -2455,7 +2643,7 @@ shouldComponentUpdate is deprecated. Use React.memo for function components.
 **Applies to**: react, nextjs
 
 
-**Source**: `src/rules/data/react.json`
+**Source**: `src/rules/functions/react.json`
 
 ---
 
@@ -2481,7 +2669,7 @@ useCallback without proper dependencies can lead to stale closures.
 **Applies to**: react, nextjs
 
 
-**Source**: `src/rules/data/react.json`
+**Source**: `src/rules/functions/react.json`
 
 ---
 
@@ -2507,7 +2695,7 @@ Client-only code in loader runs on server. Move to clientLoader or useEffect.
 **Applies to**: remix
 
 
-**Source**: `src/rules/data/remix.json`
+**Source**: `src/rules/functions/remix.json`
 
 ---
 
@@ -2533,7 +2721,7 @@ Loaders should have error handling for proper error states.
 **Applies to**: remix
 
 
-**Source**: `src/rules/data/remix.json`
+**Source**: `src/rules/functions/remix.json`
 
 ---
 
@@ -2559,7 +2747,7 @@ Routes should have ErrorBoundary for graceful error handling.
 **Applies to**: remix
 
 
-**Source**: `src/rules/data/remix.json`
+**Source**: `src/rules/functions/remix.json`
 
 ---
 
@@ -2585,7 +2773,7 @@ APIs should be versioned (/v1/, /v2/) to allow breaking changes without affectin
 **Applies to**: express, fastify
 
 
-**Source**: `src/rules/data/saas.json`
+**Source**: `src/rules/functions/saas.json`
 
 ---
 
@@ -2611,7 +2799,7 @@ Errors should follow consistent format across all endpoints.
 **Applies to**: express, fastify
 
 
-**Source**: `src/rules/data/saas.json`
+**Source**: `src/rules/functions/saas.json`
 
 ---
 
@@ -2637,7 +2825,7 @@ SolidJS reactivity requires reassignment, not mutation. Use [...arr] pattern.
 **Applies to**: solidjs
 
 
-**Source**: `src/rules/data/solidjs.json`
+**Source**: `src/rules/functions/solidjs.json`
 
 ---
 
@@ -2663,7 +2851,7 @@ SolidJS For component needs a key function for proper list updates.
 **Applies to**: solidjs
 
 
-**Source**: `src/rules/data/solidjs.json`
+**Source**: `src/rules/functions/solidjs.json`
 
 ---
 
@@ -2689,7 +2877,43 @@ SolidJS uses signals, not hooks like React. Do not use useState, useEffect.
 **Applies to**: solidjs
 
 
-**Source**: `src/rules/data/solidjs.json`
+**Source**: `src/rules/functions/solidjs.json`
+
+---
+
+### STARLETTE_NO_DEPENDENCY_INJECTION: Not using dependency injection
+
+**Severity**: MEDIUM | **Category**: architecture
+
+Use Depends() to inject dependencies.
+
+
+
+**Recommendation**: Use Depends() for dependencies
+**Library**: Starlette
+
+**Applies to**: starlette
+
+
+**Source**: `src/rules/functions/starlette.json`
+
+---
+
+### STARLETTE_NO_MIDDLEWARE_ORDER: Middleware order may affect security
+
+**Severity**: LOW | **Category**: architecture
+
+Put security middleware (CORS, CSP) after SessionMiddleware.
+
+
+
+**Recommendation**: Review middleware order
+**Library**: Starlette
+
+**Applies to**: starlette
+
+
+**Source**: `src/rules/functions/starlette.json`
 
 ---
 
@@ -2715,7 +2939,7 @@ Await blocks should have catch for error handling.
 **Applies to**: svelte
 
 
-**Source**: `src/rules/data/svelte.json`
+**Source**: `src/rules/functions/svelte.json`
 
 ---
 
@@ -2741,7 +2965,7 @@ Context must be set in onMount or asynchronously.
 **Applies to**: svelte
 
 
-**Source**: `src/rules/data/svelte.json`
+**Source**: `src/rules/functions/svelte.json`
 
 ---
 
@@ -2767,7 +2991,7 @@ Always cleanup subscriptions and timers in onDestroy.
 **Applies to**: svelte
 
 
-**Source**: `src/rules/data/svelte.json`
+**Source**: `src/rules/functions/svelte.json`
 
 ---
 
@@ -2793,7 +3017,7 @@ Use event forwarding instead of manual forwarding.
 **Applies to**: svelte
 
 
-**Source**: `src/rules/data/svelte.json`
+**Source**: `src/rules/functions/svelte.json`
 
 ---
 
@@ -2819,7 +3043,7 @@ Global styles should be in global CSS files.
 **Applies to**: svelte
 
 
-**Source**: `src/rules/data/svelte.json`
+**Source**: `src/rules/functions/svelte.json`
 
 ---
 
@@ -2845,7 +3069,7 @@ Use $state with proper immutability patterns.
 **Applies to**: svelte
 **File Extensions**: .svelte, .ts
 
-**Source**: `src/rules/data/svelte.json`
+**Source**: `src/rules/functions/svelte.json`
 
 ---
 
@@ -2871,7 +3095,7 @@ Svelte reactivity works with assignment, not mutation. Use assignment to trigger
 **Applies to**: svelte
 
 
-**Source**: `src/rules/data/svelte.json`
+**Source**: `src/rules/functions/svelte.json`
 
 ---
 
@@ -2897,7 +3121,7 @@ Spreading props to slots can cause maintenance issues.
 **Applies to**: svelte
 
 
-**Source**: `src/rules/data/svelte.json`
+**Source**: `src/rules/functions/svelte.json`
 
 ---
 
@@ -2923,7 +3147,7 @@ Always unsubscribe from stores in onDestroy to prevent memory leaks.
 **Applies to**: svelte
 
 
-**Source**: `src/rules/data/svelte.json`
+**Source**: `src/rules/functions/svelte.json`
 
 ---
 
@@ -2949,7 +3173,7 @@ Query procedures should be pure. Use mutation for side effects (database writes,
 **Applies to**: nextjs, react
 
 
-**Source**: `src/rules/data/trpc.json`
+**Source**: `src/rules/functions/trpc.json`
 
 ---
 
@@ -2975,7 +3199,7 @@ Composables with side effects should be explicit about them.
 **Applies to**: vue, nuxt
 **File Extensions**: .vue, .ts, .js
 
-**Source**: `src/rules/data/vue.json`
+**Source**: `src/rules/functions/vue.json`
 
 ---
 
@@ -3001,7 +3225,7 @@ Mixins are deprecated. Use composables instead.
 **Applies to**: vue, nuxt
 
 
-**Source**: `src/rules/data/vue.json`
+**Source**: `src/rules/functions/vue.json`
 
 ---
 
@@ -3027,7 +3251,7 @@ Props should be treated as read-only. Use a local copy if you need to modify it.
 **Applies to**: vue, nuxt
 
 
-**Source**: `src/rules/data/vue.json`
+**Source**: `src/rules/functions/vue.json`
 
 ---
 
@@ -3053,7 +3277,7 @@ Provide/inject should maintain reactivity.
 **Applies to**: vue, nuxt
 **File Extensions**: .vue, .ts
 
-**Source**: `src/rules/data/vue.json`
+**Source**: `src/rules/functions/vue.json`
 
 ---
 
@@ -3079,7 +3303,7 @@ Use ref() for primitives and reactive() for objects.
 **Applies to**: vue, nuxt
 
 
-**Source**: `src/rules/data/vue.json`
+**Source**: `src/rules/functions/vue.json`
 
 ---
 
@@ -3105,7 +3329,7 @@ Mutating objects directly breaks Vue reactivity. Use reactive() properly.
 **Applies to**: vue, nuxt
 **File Extensions**: .vue, .ts, .js
 
-**Source**: `src/rules/data/vue.json`
+**Source**: `src/rules/functions/vue.json`
 
 ---
 
@@ -3131,7 +3355,7 @@ v-for should always have a unique key for proper list rendering.
 **Applies to**: vue, nuxt
 
 
-**Source**: `src/rules/data/vue.json`
+**Source**: `src/rules/functions/vue.json`
 
 ---
 
@@ -3157,7 +3381,7 @@ If you need the initial value in watch, use immediate: true.
 **Applies to**: vue, nuxt
 
 
-**Source**: `src/rules/data/vue.json`
+**Source**: `src/rules/functions/vue.json`
 
 ---
 
@@ -3185,7 +3409,7 @@ Have a clear strategy for when cached data becomes stale.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/caching.json`
+**Source**: `src/rules/functions/caching.json`
 
 ---
 
@@ -3211,7 +3435,7 @@ Key prefixes prevent collisions and aid debugging.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/caching.json`
+**Source**: `src/rules/functions/caching.json`
 
 ---
 
@@ -3237,7 +3461,7 @@ Cache entries should have expiration times.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/caching.json`
+**Source**: `src/rules/functions/caching.json`
 
 ---
 
@@ -3263,7 +3487,7 @@ Serve stale content while revalidating in background.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/caching.json`
+**Source**: `src/rules/functions/caching.json`
 
 ---
 
@@ -3291,7 +3515,7 @@ Save build outputs for debugging failed deployments.
 **Applies to**: All frameworks
 **File Extensions**: .yml, .yaml
 
-**Source**: `src/rules/data/cicd.json`
+**Source**: `src/rules/functions/cicd.json`
 
 ---
 
@@ -3317,7 +3541,7 @@ Cache node_modules, build outputs for faster CI runs.
 **Applies to**: All frameworks
 **File Extensions**: .yml, .yaml
 
-**Source**: `src/rules/data/cicd.json`
+**Source**: `src/rules/functions/cicd.json`
 
 ---
 
@@ -3343,7 +3567,7 @@ Never hardcode secrets in CI configs. Use secret variables.
 **Applies to**: All frameworks
 **File Extensions**: .yml, .yaml
 
-**Source**: `src/rules/data/cicd.json`
+**Source**: `src/rules/functions/cicd.json`
 
 ---
 
@@ -3369,7 +3593,7 @@ Fail fast on critical jobs, not on lint/test matrix.
 **Applies to**: All frameworks
 **File Extensions**: .yml, .yaml
 
-**Source**: `src/rules/data/cicd.json`
+**Source**: `src/rules/functions/cicd.json`
 
 ---
 
@@ -3395,7 +3619,7 @@ Run ESLint in CI to catch style issues before merge.
 **Applies to**: All frameworks
 **File Extensions**: .yml, .yaml
 
-**Source**: `src/rules/data/cicd.json`
+**Source**: `src/rules/functions/cicd.json`
 
 ---
 
@@ -3421,7 +3645,7 @@ Run ESLint in CI to catch style issues before merge.
 **Applies to**: All frameworks
 **File Extensions**: .npmrc
 
-**Source**: `src/rules/data/cicd.json`
+**Source**: `src/rules/functions/cicd.json`
 
 ---
 
@@ -3447,7 +3671,7 @@ Run npm audit, Snyk, or Dependabot in CI.
 **Applies to**: All frameworks
 **File Extensions**: .yml, .yaml
 
-**Source**: `src/rules/data/cicd.json`
+**Source**: `src/rules/functions/cicd.json`
 
 ---
 
@@ -3473,11 +3697,47 @@ Prevent hung jobs from blocking CI. Set reasonable timeouts.
 **Applies to**: All frameworks
 **File Extensions**: .yml, .yaml
 
-**Source**: `src/rules/data/cicd.json`
+**Source**: `src/rules/functions/cicd.json`
 
 ---
 
 ## Cleanliness
+
+### AIOHTTP_NO_LOGGING: Not using structured logging
+
+**Severity**: LOW | **Category**: cleanliness
+
+Use aiohttp-debugtoolbar or logging module.
+
+
+
+**Recommendation**: Use structured logging
+**Library**: aiohttp
+
+**Applies to**: aiohttp
+
+
+**Source**: `src/rules/functions/aiohttp.json`
+
+---
+
+### CELERY_NO_LOGGING: Task not using proper logging
+
+**Severity**: LOW | **Category**: cleanliness
+
+Use self.logger or current_task.logger for logging.
+
+
+
+**Recommendation**: Use Celery's logger
+**Library**: Celery
+
+**Applies to**: celery
+
+
+**Source**: `src/rules/functions/celery.json`
+
+---
 
 ### CLEAN_COMMENTED_CODE: Commented out code
 
@@ -3501,7 +3761,7 @@ Commented out code reduces readability. Remove it or use version control.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/cleanliness.json`
+**Source**: `src/rules/functions/cleanliness.json`
 
 ---
 
@@ -3527,15 +3787,15 @@ Use proper error logging instead of console.log for errors.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/cleanliness.json`
+**Source**: `src/rules/functions/cleanliness.json`
 
 ---
 
 ### CLEAN_CONSOLE_LOG: Console.log in code
 
-**Severity**: LOW | **Category**: cleanliness
+**Severity**: INFO | **Category**: cleanliness
 
-Console.log should be replaced with proper logging library.
+Console.log should be replaced with proper logging library for web apps/services. For CLI tools, console.log is appropriate and expected - this is not an issue for CLI projects.
 
 **What it catches:**
 - console.log in production code
@@ -3543,17 +3803,17 @@ Console.log should be replaced with proper logging library.
 - Hard to debug in production
 
 **How to fix:**
-- Use logging library (winston, pino)
-- Add log levels
-- Configure for production
+- For web apps/services: Use logging library (winston, pino)
+- For CLI tools: console.log is appropriate - no change needed
+- Consider log levels for production
 
-**Recommendation**: Use proper logging
+**Recommendation**: Use proper logging (for web apps)
 **Library**: winston, pino
 
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/cleanliness.json`
+**Source**: `src/rules/functions/cleanliness.json`
 
 ---
 
@@ -3579,7 +3839,7 @@ Dead code reduces maintainability. Remove unreachable code.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/cleanliness.json`
+**Source**: `src/rules/functions/cleanliness.json`
 
 ---
 
@@ -3605,7 +3865,7 @@ Use a structured logging library instead of console.log.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/cleanliness.json`
+**Source**: `src/rules/functions/cleanliness.json`
 
 ---
 
@@ -3631,7 +3891,7 @@ Console.log statements should be removed in production.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js, .jsx, .tsx
 
-**Source**: `src/rules/data/complexity.json`
+**Source**: `src/rules/functions/complexity.json`
 
 ---
 
@@ -3657,7 +3917,25 @@ Unused code should be removed. It confuses readers and bloats builds.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/complexity.json`
+**Source**: `src/rules/functions/complexity.json`
+
+---
+
+### FLASK_PRINT_STATEMENT: Using print instead of logging
+
+**Severity**: LOW | **Category**: cleanliness
+
+Use current_app.logger or logging module.
+
+
+
+**Recommendation**: Use Flask's logging
+**Library**: Flask
+
+**Applies to**: flask
+
+
+**Source**: `src/rules/functions/flask.json`
 
 ---
 
@@ -3683,7 +3961,169 @@ Debug statements should be removed or replaced with proper logging.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/logging.json`
+**Source**: `src/rules/functions/logging.json`
+
+---
+
+### PYDANTIC_OPTIONAL_REQUIRED: Field marked both Optional and required
+
+**Severity**: LOW | **Category**: cleanliness
+
+Optional fields should have default=None.
+
+
+
+**Recommendation**: Fix Optional field defaults
+**Library**: Pydantic
+
+**Applies to**: pydantic, fastapi
+
+
+**Source**: `src/rules/functions/pydantic.json`
+
+---
+
+### PYDANTIC_ROOT_VALIDATOR: Using deprecated root_validator
+
+**Severity**: LOW | **Category**: cleanliness
+
+Use @model_validator (Pydantic v2) instead of @root_validator.
+
+
+
+**Recommendation**: Use model_validator
+**Library**: Pydantic
+
+**Applies to**: pydantic, fastapi
+
+
+**Source**: `src/rules/functions/pydantic.json`
+
+---
+
+### PYDANTIC_VALIDATOR_IMPORT: Using deprecated validator import
+
+**Severity**: LOW | **Category**: cleanliness
+
+Use @field_validator (Pydantic v2) instead of @validator.
+
+
+
+**Recommendation**: Use field_validator
+**Library**: Pydantic
+
+**Applies to**: pydantic, fastapi
+
+
+**Source**: `src/rules/functions/pydantic.json`
+
+---
+
+### PYTHON_FILE_NOT_CLOSED: File not properly closed
+
+**Severity**: MEDIUM | **Category**: cleanliness
+
+Use 'with' statement to automatically close files.
+
+
+
+**Recommendation**: Use context manager for files
+**Library**: Python
+
+**Applies to**: python
+
+
+**Source**: `src/rules/functions/python.json`
+
+---
+
+### PYTHON_IGNORED_EXCEPTION: Ignored exception variable
+
+**Severity**: LOW | **Category**: cleanliness
+
+Either use the exception variable or use 'except:' without 'as'.
+
+
+
+**Recommendation**: Use exception variable or omit 'as' clause
+**Library**: Python
+
+**Applies to**: python
+
+
+**Source**: `src/rules/functions/python.json`
+
+---
+
+### PYTHON_IMPORT_STAR: Using 'from module import *'
+
+**Severity**: LOW | **Category**: cleanliness
+
+Use 'from module import specific_name' instead.
+
+
+
+**Recommendation**: Use explicit imports
+**Library**: Python
+
+**Applies to**: python
+
+
+**Source**: `src/rules/functions/python.json`
+
+---
+
+### PYTHON_NONE_COMPARISON: Incorrect None comparison
+
+**Severity**: LOW | **Category**: cleanliness
+
+Use 'is None' instead of '== None' for identity comparison.
+
+
+
+**Recommendation**: Use 'is None' for None comparison
+**Library**: Python
+
+**Applies to**: python
+
+
+**Source**: `src/rules/functions/python.json`
+
+---
+
+### PYTHON_TYPE_VS_ISINSTANCE: Using type() instead of isinstance()
+
+**Severity**: MEDIUM | **Category**: cleanliness
+
+Use isinstance() instead of type() to properly handle subclasses.
+
+
+
+**Recommendation**: Use isinstance() for type checking
+**Library**: Python
+
+**Applies to**: python
+
+
+**Source**: `src/rules/functions/python.json`
+
+---
+
+### STARLETTE_ROUTE_NO_NAME: Route without name
+
+**Severity**: LOW | **Category**: cleanliness
+
+Add name= parameter for reverse URL lookup.
+
+
+
+**Recommendation**: Name routes
+**Library**: Starlette
+
+**Applies to**: starlette
+
+
+**Source**: `src/rules/functions/starlette.json`
 
 ---
 
@@ -3711,7 +4151,7 @@ Handle errors gracefully and exit with proper codes.
 **Applies to**: All frameworks
 **File Extensions**: .ts
 
-**Source**: `src/rules/data/cli.json`
+**Source**: `src/rules/functions/cli.json`
 
 ---
 
@@ -3737,13 +4177,13 @@ CLIs should have --help option.
 **Applies to**: All frameworks
 **File Extensions**: .ts
 
-**Source**: `src/rules/data/cli.json`
+**Source**: `src/rules/functions/cli.json`
 
 ---
 
 ### CLI_NO_OUTPUT: CLI produces no output
 
-**Severity**: MEDIUM | **Category**: cli
+**Severity**: INFO | **Category**: cli
 
 CLI tools should provide feedback to users.
 
@@ -3763,7 +4203,7 @@ CLI tools should provide feedback to users.
 **Applies to**: All frameworks
 **File Extensions**: .ts
 
-**Source**: `src/rules/data/cli.json`
+**Source**: `src/rules/functions/cli.json`
 
 ---
 
@@ -3789,7 +4229,7 @@ CLIs should have --version option.
 **Applies to**: All frameworks
 **File Extensions**: .ts
 
-**Source**: `src/rules/data/cli.json`
+**Source**: `src/rules/functions/cli.json`
 
 ---
 
@@ -3815,7 +4255,7 @@ Use a library like yargs, commander, or meow for robust argument parsing.
 **Applies to**: All frameworks
 **File Extensions**: .ts
 
-**Source**: `src/rules/data/cli.json`
+**Source**: `src/rules/functions/cli.json`
 
 ---
 
@@ -3843,7 +4283,7 @@ Files over 500 lines are hard to maintain. Consider splitting into smaller modul
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/complexity.json`
+**Source**: `src/rules/functions/complexity.json`
 
 ---
 
@@ -3869,7 +4309,7 @@ High cyclomatic complexity indicates complex logic. Consider refactoring.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/complexity.json`
+**Source**: `src/rules/functions/complexity.json`
 
 ---
 
@@ -3895,7 +4335,7 @@ Deeply nested code is hard to read. Consider early returns or extraction.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/complexity.json`
+**Source**: `src/rules/functions/complexity.json`
 
 ---
 
@@ -3921,7 +4361,7 @@ Too many parameters make functions hard to use. Consider passing an object.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/complexity.json`
+**Source**: `src/rules/functions/complexity.json`
 
 ---
 
@@ -3949,7 +4389,7 @@ Cannot use credentials with wildcard origin. Specify exact origins.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/cors.json`
+**Source**: `src/rules/functions/cors.json`
 
 ---
 
@@ -3975,7 +4415,7 @@ CORS should be explicitly configured, not left permissive.
 **Applies to**: express, fastify, nextjs, nuxt
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/cors.json`
+**Source**: `src/rules/functions/cors.json`
 
 ---
 
@@ -4001,7 +4441,7 @@ Custom headers need to be exposed to be accessible from frontend.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/cors.json`
+**Source**: `src/rules/functions/cors.json`
 
 ---
 
@@ -4027,7 +4467,7 @@ Setting Max-Age reduces preflight requests.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/cors.json`
+**Source**: `src/rules/functions/cors.json`
 
 ---
 
@@ -4053,7 +4493,7 @@ Allowing all origins (* ) is a security risk. Specify allowed origins.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js, .json
 
-**Source**: `src/rules/data/cors.json`
+**Source**: `src/rules/functions/cors.json`
 
 ---
 
@@ -4081,7 +4521,7 @@ Colors, font sizes, and spacing values used multiple times should be defined as 
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/css.json`
+**Source**: `src/rules/functions/css.json`
 
 ---
 
@@ -4107,7 +4547,7 @@ The gap property is cleaner than margin hacks for flex/grid containers.
 **Applies to**: All frameworks
 **File Extensions**: .css, .scss, .less
 
-**Source**: `src/rules/data/css.json`
+**Source**: `src/rules/functions/css.json`
 
 ---
 
@@ -4133,7 +4573,7 @@ font-display prevents invisible text while fonts load.
 **Applies to**: All frameworks
 **File Extensions**: .css, .scss, .less
 
-**Source**: `src/rules/data/css.json`
+**Source**: `src/rules/functions/css.json`
 
 ---
 
@@ -4159,7 +4599,7 @@ Use CSS modules, CSS-in-JS, or scoped styles to prevent global namespace polluti
 **Applies to**: react, vue, svelte, angular
 **File Extensions**: .css, .scss, .less
 
-**Source**: `src/rules/data/css.json`
+**Source**: `src/rules/functions/css.json`
 
 ---
 
@@ -4185,7 +4625,7 @@ Hardcoded colors prevent theming. Use CSS variables.
 **Applies to**: All frameworks
 **File Extensions**: .css, .scss, .less
 
-**Source**: `src/rules/data/css.json`
+**Source**: `src/rules/functions/css.json`
 
 ---
 
@@ -4211,7 +4651,7 @@ Hardcoded colors prevent theming. Use CSS variables.
 **Applies to**: All frameworks
 **File Extensions**: .css, .scss, .less, .tsx, .jsx, .vue, .svelte
 
-**Source**: `src/rules/data/css.json`
+**Source**: `src/rules/functions/css.json`
 
 ---
 
@@ -4237,7 +4677,7 @@ Inline styles prevent CSS optimization and reduce maintainability.
 **Applies to**: react, vue, svelte, angular
 **File Extensions**: .tsx, .jsx, .vue, .svelte
 
-**Source**: `src/rules/data/css.json`
+**Source**: `src/rules/functions/css.json`
 
 ---
 
@@ -4263,7 +4703,7 @@ Hardcoded pixel values make responsive design harder. Use CSS variables.
 **Applies to**: All frameworks
 **File Extensions**: .css, .scss, .less
 
-**Source**: `src/rules/data/css.json`
+**Source**: `src/rules/functions/css.json`
 
 ---
 
@@ -4289,7 +4729,7 @@ High specificity selectors are hard to override and maintain.
 **Applies to**: All frameworks
 **File Extensions**: .css, .scss, .less
 
-**Source**: `src/rules/data/css.json`
+**Source**: `src/rules/functions/css.json`
 
 ---
 
@@ -4317,7 +4757,7 @@ Lockfiles ensure consistent dependency versions across environments.
 **Applies to**: All frameworks
 **File Extensions**: package!-lock.json, yarn.lock, pnpm-lock.yaml
 
-**Source**: `src/rules/data/dependencies.json`
+**Source**: `src/rules/functions/dependencies.json`
 
 ---
 
@@ -4343,7 +4783,7 @@ Repository field links package to source code.
 **Applies to**: All frameworks
 **File Extensions**: package.json
 
-**Source**: `src/rules/data/dependencies.json`
+**Source**: `src/rules/functions/dependencies.json`
 
 ---
 
@@ -4369,7 +4809,7 @@ Set "private": true to prevent accidental publishing.
 **Applies to**: All frameworks
 **File Extensions**: package.json
 
-**Source**: `src/rules/data/dependencies.json`
+**Source**: `src/rules/functions/dependencies.json`
 
 ---
 
@@ -4397,7 +4837,7 @@ Using latest can cause unpredictable builds. Pin to specific versions.
 **Applies to**: All frameworks
 **File Extensions**: Dockerfile
 
-**Source**: `src/rules/data/docker.json`
+**Source**: `src/rules/functions/docker.json`
 
 ---
 
@@ -4423,7 +4863,7 @@ Combine apt-get install and cleanup in same RUN to reduce image size.
 **Applies to**: All frameworks
 **File Extensions**: Dockerfile
 
-**Source**: `src/rules/data/docker.json`
+**Source**: `src/rules/functions/docker.json`
 
 ---
 
@@ -4449,7 +4889,7 @@ Health checks allow Docker to monitor container health.
 **Applies to**: All frameworks
 **File Extensions**: Dockerfile
 
-**Source**: `src/rules/data/docker.json`
+**Source**: `src/rules/functions/docker.json`
 
 ---
 
@@ -4475,7 +4915,7 @@ Labels help with container management and organization.
 **Applies to**: All frameworks
 **File Extensions**: Dockerfile
 
-**Source**: `src/rules/data/docker.json`
+**Source**: `src/rules/functions/docker.json`
 
 ---
 
@@ -4501,7 +4941,7 @@ Multi-stage builds reduce final image size by excluding build dependencies.
 **Applies to**: All frameworks
 **File Extensions**: Dockerfile
 
-**Source**: `src/rules/data/docker.json`
+**Source**: `src/rules/functions/docker.json`
 
 ---
 
@@ -4527,7 +4967,7 @@ Exposing unnecessary ports increases attack surface.
 **Applies to**: All frameworks
 **File Extensions**: Dockerfile
 
-**Source**: `src/rules/data/docker.json`
+**Source**: `src/rules/functions/docker.json`
 
 ---
 
@@ -4553,7 +4993,7 @@ Running as root is a security risk. Use USER directive.
 **Applies to**: All frameworks
 **File Extensions**: Dockerfile
 
-**Source**: `src/rules/data/docker.json`
+**Source**: `src/rules/functions/docker.json`
 
 ---
 
@@ -4579,7 +5019,7 @@ Sudo is unnecessary when running as non-root user.
 **Applies to**: All frameworks
 **File Extensions**: Dockerfile
 
-**Source**: `src/rules/data/docker.json`
+**Source**: `src/rules/functions/docker.json`
 
 ---
 
@@ -4607,7 +5047,7 @@ API endpoints should be documented with OpenAPI/Swagger.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/documentation.json`
+**Source**: `src/rules/functions/documentation.json`
 
 ---
 
@@ -4633,7 +5073,7 @@ All environment variables used in code should be documented in .env.example.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/documentation.json`
+**Source**: `src/rules/functions/documentation.json`
 
 ---
 
@@ -4659,7 +5099,7 @@ Open source projects should have a CONTRIBUTING guide.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/documentation.json`
+**Source**: `src/rules/functions/documentation.json`
 
 ---
 
@@ -4685,7 +5125,7 @@ Projects using environment variables should have a .env.example file documenting
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/documentation.json`
+**Source**: `src/rules/functions/documentation.json`
 
 ---
 
@@ -4709,9 +5149,27 @@ Every project should have a README explaining what it is and how to use it.
 **Library**: Documentation
 
 **Applies to**: All frameworks
+**File Extensions**: .md, .rst, .txt
+
+**Source**: `src/rules/functions/documentation.json`
+
+---
+
+### PYDANTIC_MISSING_FIELD_DESC: Pydantic Field missing description
+
+**Severity**: LOW | **Category**: documentation
+
+Add description= to Field() for API documentation.
 
 
-**Source**: `src/rules/data/documentation.json`
+
+**Recommendation**: Add Field description
+**Library**: Pydantic
+
+**Applies to**: pydantic, fastapi
+
+
+**Source**: `src/rules/functions/pydantic.json`
 
 ---
 
@@ -4739,7 +5197,7 @@ DKIM and SPF prevent email spoofing.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js, .yaml, .yml
 
-**Source**: `src/rules/data/email.json`
+**Source**: `src/rules/functions/email.json`
 
 ---
 
@@ -4765,7 +5223,7 @@ Set proper From and Reply-To addresses.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/email.json`
+**Source**: `src/rules/functions/email.json`
 
 ---
 
@@ -4791,7 +5249,7 @@ Templates allow non-devs to edit emails and support i18n.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/email.json`
+**Source**: `src/rules/functions/email.json`
 
 ---
 
@@ -4817,7 +5275,7 @@ Track opens and clicks to measure engagement.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/email.json`
+**Source**: `src/rules/functions/email.json`
 
 ---
 
@@ -4843,7 +5301,7 @@ Commercial emails must have working unsubscribe (CAN-SPAM, GDPR).
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/email.json`
+**Source**: `src/rules/functions/email.json`
 
 ---
 
@@ -4869,11 +5327,29 @@ Use SendGrid, AWS SES, Mailgun. Direct SMTP is unreliable.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/email.json`
+**Source**: `src/rules/functions/email.json`
 
 ---
 
 ## Error-handling
+
+### AIOHTTP_NO_ERROR_HANDLER: Missing custom error handlers
+
+**Severity**: MEDIUM | **Category**: error-handling
+
+Use app.router.register_error_handler() for custom errors.
+
+
+
+**Recommendation**: Add exception handlers
+**Library**: aiohttp
+
+**Applies to**: aiohttp
+
+
+**Source**: `src/rules/functions/aiohttp.json`
+
+---
 
 ### COMP_EMPTY_CATCH: Empty catch block
 
@@ -4897,7 +5373,25 @@ Empty catch blocks hide errors. Add proper error handling.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/complexity.json`
+**Source**: `src/rules/functions/complexity.json`
+
+---
+
+### DJANGO_GET_WITHOUT_TRY: Model.get() without try-except
+
+**Severity**: HIGH | **Category**: error-handling
+
+Wrap .get() in try-except or use .filter().first().
+
+
+
+**Recommendation**: Handle DoesNotExist exception
+**Library**: Django
+
+**Applies to**: django
+
+
+**Source**: `src/rules/functions/django.json`
 
 ---
 
@@ -4921,9 +5415,9 @@ Not awaiting async functions can lead to race conditions.
 **Library**: Error handling
 
 **Applies to**: All frameworks
+**File Extensions**: .ts, .js, .tsx, .jsx
 
-
-**Source**: `src/rules/data/error-handling.json`
+**Source**: `src/rules/functions/error-handling.json`
 
 ---
 
@@ -4949,7 +5443,7 @@ Async functions should be awaited or have their promises handled properly.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/error-handling.json`
+**Source**: `src/rules/functions/error-handling.json`
 
 ---
 
@@ -4975,7 +5469,7 @@ Empty catch blocks silently swallow errors. Add error handling or logging.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/error-handling.json`
+**Source**: `src/rules/functions/error-handling.json`
 
 ---
 
@@ -5001,7 +5495,7 @@ Functions that perform async operations, I/O, or external calls should have erro
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/error-handling.json`
+**Source**: `src/rules/functions/error-handling.json`
 
 ---
 
@@ -5027,7 +5521,7 @@ Finally blocks ensure cleanup code runs regardless of errors.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/error-handling.json`
+**Source**: `src/rules/functions/error-handling.json`
 
 ---
 
@@ -5053,7 +5547,7 @@ React apps should have error boundaries to catch rendering errors.
 **Applies to**: react, nextjs
 
 
-**Source**: `src/rules/data/error-handling.json`
+**Source**: `src/rules/functions/error-handling.json`
 
 ---
 
@@ -5077,9 +5571,9 @@ Async operations should have proper error handling. Note: This is a suggestion -
 **Library**: Error handling
 
 **Applies to**: All frameworks
+**File Extensions**: .ts, .js, .tsx, .jsx
 
-
-**Source**: `src/rules/data/error-handling.json`
+**Source**: `src/rules/functions/error-handling.json`
 
 ---
 
@@ -5105,7 +5599,7 @@ Unhandled promise rejections can crash your app.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/error-handling.json`
+**Source**: `src/rules/functions/error-handling.json`
 
 ---
 
@@ -5131,7 +5625,7 @@ Empty catch blocks hide errors. Log or handle them properly.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/error-handling.json`
+**Source**: `src/rules/functions/error-handling.json`
 
 ---
 
@@ -5157,7 +5651,115 @@ Throwing in callbacks can cause unhandled exceptions. Use error parameters inste
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/error-handling.json`
+**Source**: `src/rules/functions/error-handling.json`
+
+---
+
+### FASTAPI_NO_ERROR_HANDLER: Missing custom error handlers
+
+**Severity**: MEDIUM | **Category**: error-handling
+
+Use app.add_exception_handler for custom error responses.
+
+
+
+**Recommendation**: Add custom error handlers
+**Library**: FastAPI
+
+**Applies to**: fastapi
+
+
+**Source**: `src/rules/functions/fastapi.json`
+
+---
+
+### FLASK_NO_ERROR_HANDLERS: Missing custom error handlers
+
+**Severity**: MEDIUM | **Category**: error-handling
+
+Use @app.errorhandler(404) for custom error pages.
+
+
+
+**Recommendation**: Add error handlers
+**Library**: Flask
+
+**Applies to**: flask
+
+
+**Source**: `src/rules/functions/flask.json`
+
+---
+
+### PYTHON_BARE_RAISE: Bare raise in except block
+
+**Severity**: MEDIUM | **Category**: error-handling
+
+Use 'raise ... from ...' or ensure raise is inside an except block.
+
+
+
+**Recommendation**: Use raise from or proper exception handling
+**Library**: Python
+
+**Applies to**: python
+
+
+**Source**: `src/rules/functions/python.json`
+
+---
+
+### PYTHON_BROAD_EXCEPTION: Catching overly broad exception
+
+**Severity**: HIGH | **Category**: error-handling
+
+Catch specific exceptions rather than broad Exception or BaseException.
+
+
+
+**Recommendation**: Catch specific exceptions
+**Library**: Python
+
+**Applies to**: python, django, fastapi, flask, sqlalchemy, celery
+
+
+**Source**: `src/rules/functions/python.json`
+
+---
+
+### PYTHON_FUNCTION_NO_ERROR_HANDLING: Function without error handling
+
+**Severity**: MEDIUM | **Category**: error-handling
+
+Functions performing I/O should have try-except blocks.
+
+
+
+**Recommendation**: Add error handling to functions
+**Library**: Python
+
+**Applies to**: python, django, fastapi, flask, sqlalchemy, celery
+
+
+**Source**: `src/rules/functions/python.json`
+
+---
+
+### STARLETTE_NO_ERROR_HANDLER: Missing exception handlers
+
+**Severity**: MEDIUM | **Category**: error-handling
+
+Use app.add_exception_handler() for custom errors.
+
+
+
+**Recommendation**: Add exception handlers
+**Library**: Starlette
+
+**Applies to**: starlette
+
+
+**Source**: `src/rules/functions/starlette.json`
 
 ---
 
@@ -5185,7 +5787,7 @@ Forms should have both client-side and server-side validation.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/forms.json`
+**Source**: `src/rules/functions/forms.json`
 
 ---
 
@@ -5211,7 +5813,7 @@ Use event.preventDefault() on form submission.
 **Applies to**: react, vue
 
 
-**Source**: `src/rules/data/forms.json`
+**Source**: `src/rules/functions/forms.json`
 
 ---
 
@@ -5239,7 +5841,7 @@ Disable GraphQL introspection in production to prevent schema exposure.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/graphql.json`
+**Source**: `src/rules/functions/graphql.json`
 
 ---
 
@@ -5265,7 +5867,7 @@ Return structured payload types from mutations for better type safety.
 **Applies to**: All frameworks
 **File Extensions**: .graphql, .gql, .ts
 
-**Source**: `src/rules/data/graphql.json`
+**Source**: `src/rules/functions/graphql.json`
 
 ---
 
@@ -5291,7 +5893,7 @@ N+1 queries occur when resolvers fetch related data individually. Use DataLoader
 **Applies to**: All frameworks
 **File Extensions**: .graphql, .gql, .ts, .js
 
-**Source**: `src/rules/data/graphql.json`
+**Source**: `src/rules/functions/graphql.json`
 
 ---
 
@@ -5317,7 +5919,7 @@ GraphQL queries can benefit from caching to reduce server load.
 **Applies to**: All frameworks
 **File Extensions**: .graphql, .gql, .ts
 
-**Source**: `src/rules/data/graphql.json`
+**Source**: `src/rules/functions/graphql.json`
 
 ---
 
@@ -5343,7 +5945,7 @@ Use GraphQL Input types for mutations with multiple arguments.
 **Applies to**: All frameworks
 **File Extensions**: .graphql, .gql, .ts
 
-**Source**: `src/rules/data/graphql.json`
+**Source**: `src/rules/functions/graphql.json`
 
 ---
 
@@ -5369,7 +5971,7 @@ Hardcoded values in queries reduce cacheability and allow injection.
 **Applies to**: All frameworks
 **File Extensions**: .graphql, .gql, .ts
 
-**Source**: `src/rules/data/graphql.json`
+**Source**: `src/rules/functions/graphql.json`
 
 ---
 
@@ -5395,7 +5997,7 @@ Unlimited query depth can cause denial of service. Add max depth validation.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js, .json
 
-**Source**: `src/rules/data/graphql.json`
+**Source**: `src/rules/functions/graphql.json`
 
 ---
 
@@ -5423,7 +6025,7 @@ Subscriptions should require authentication like queries/mutations.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js, .graphql, .gql
 
-**Source**: `src/rules/data/graphql-subscriptions.json`
+**Source**: `src/rules/functions/graphql-subscriptions.json`
 
 ---
 
@@ -5449,7 +6051,7 @@ Limit concurrent subscriptions per user to prevent abuse.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/graphql-subscriptions.json`
+**Source**: `src/rules/functions/graphql-subscriptions.json`
 
 ---
 
@@ -5475,7 +6077,7 @@ Validate connection params and payload data.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js, .graphql, .gql
 
-**Source**: `src/rules/data/graphql-subscriptions.json`
+**Source**: `src/rules/functions/graphql-subscriptions.json`
 
 ---
 
@@ -5503,7 +6105,7 @@ Hardcoded strings prevent localization. Use translation functions.
 **Applies to**: react, vue, svelte, angular
 **File Extensions**: .tsx, .jsx
 
-**Source**: `src/rules/data/i18n.json`
+**Source**: `src/rules/functions/i18n.json`
 
 ---
 
@@ -5529,7 +6131,7 @@ Date formats vary by locale. Use Intl.DateTimeFormat.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js, .tsx, .jsx
 
-**Source**: `src/rules/data/i18n.json`
+**Source**: `src/rules/functions/i18n.json`
 
 ---
 
@@ -5555,7 +6157,7 @@ Configure fallback when translation is missing.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js, .json
 
-**Source**: `src/rules/data/i18n.json`
+**Source**: `src/rules/functions/i18n.json`
 
 ---
 
@@ -5581,7 +6183,7 @@ Define supported locales for the application.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js, .json
 
-**Source**: `src/rules/data/i18n.json`
+**Source**: `src/rules/functions/i18n.json`
 
 ---
 
@@ -5607,7 +6209,7 @@ Number formats (decimal separators) vary by locale.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js, .tsx, .jsx
 
-**Source**: `src/rules/data/i18n.json`
+**Source**: `src/rules/functions/i18n.json`
 
 ---
 
@@ -5633,7 +6235,7 @@ Different languages have different plural rules.
 **Applies to**: All frameworks
 **File Extensions**: .json, .ts
 
-**Source**: `src/rules/data/i18n.json`
+**Source**: `src/rules/functions/i18n.json`
 
 ---
 
@@ -5661,7 +6263,7 @@ HPA enables automatic scaling based on load.
 **Applies to**: All frameworks
 **File Extensions**: yaml, yml
 
-**Source**: `src/rules/data/kubernetes.json`
+**Source**: `src/rules/functions/kubernetes.json`
 
 ---
 
@@ -5687,7 +6289,7 @@ Liveness probes detect hung containers that need restart.
 **Applies to**: All frameworks
 **File Extensions**: yaml, yml
 
-**Source**: `src/rules/data/kubernetes.json`
+**Source**: `src/rules/functions/kubernetes.json`
 
 ---
 
@@ -5713,7 +6315,7 @@ Ensure minimum replicas during voluntary disruptions.
 **Applies to**: All frameworks
 **File Extensions**: yaml, yml
 
-**Source**: `src/rules/data/kubernetes.json`
+**Source**: `src/rules/functions/kubernetes.json`
 
 ---
 
@@ -5739,7 +6341,7 @@ Readiness probes prevent traffic to unhealthy pods.
 **Applies to**: All frameworks
 **File Extensions**: yaml, yml
 
-**Source**: `src/rules/data/kubernetes.json`
+**Source**: `src/rules/functions/kubernetes.json`
 
 ---
 
@@ -5765,7 +6367,7 @@ Prevent resource starvation and set QoS class.
 **Applies to**: All frameworks
 **File Extensions**: yaml, yml
 
-**Source**: `src/rules/data/kubernetes.json`
+**Source**: `src/rules/functions/kubernetes.json`
 
 ---
 
@@ -5791,7 +6393,7 @@ Run containers as non-root with read-only filesystem.
 **Applies to**: All frameworks
 **File Extensions**: yaml, yml
 
-**Source**: `src/rules/data/kubernetes.json`
+**Source**: `src/rules/functions/kubernetes.json`
 
 ---
 
@@ -5819,7 +6421,7 @@ Functions should be simple and focused on a single task.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/maintainability.json`
+**Source**: `src/rules/functions/maintainability.json`
 
 ---
 
@@ -5845,7 +6447,7 @@ Groups of variables passed together should be extracted into their own class or 
 **Applies to**: All frameworks
 **File Extensions**: .ts
 
-**Source**: `src/rules/data/maintainability.json`
+**Source**: `src/rules/functions/maintainability.json`
 
 ---
 
@@ -5871,7 +6473,7 @@ Deeply nested code is hard to read and maintain.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/maintainability.json`
+**Source**: `src/rules/functions/maintainability.json`
 
 ---
 
@@ -5898,7 +6500,7 @@ Potential DRY violation - duplicate code chunks found across multiple files. Ext
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/maintainability.json`
+**Source**: `src/rules/functions/maintainability.json`
 
 ---
 
@@ -5924,7 +6526,7 @@ Functions that access too much data from other objects should be moved closer to
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/maintainability.json`
+**Source**: `src/rules/functions/maintainability.json`
 
 ---
 
@@ -5950,7 +6552,7 @@ Objects that do too much should be split into smaller, focused objects.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/maintainability.json`
+**Source**: `src/rules/functions/maintainability.json`
 
 ---
 
@@ -5974,9 +6576,9 @@ Hardcoded SQL queries reduce maintainability. Use query builders.
 **Library**: Knex, Prisma
 
 **Applies to**: All frameworks
+**File Extensions**: .ts, .js
 
-
-**Source**: `src/rules/data/maintainability.json`
+**Source**: `src/rules/functions/maintainability.json`
 
 ---
 
@@ -6002,7 +6604,7 @@ Hardcoded values should be extracted to configuration files.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/maintainability.json`
+**Source**: `src/rules/functions/maintainability.json`
 
 ---
 
@@ -6028,7 +6630,7 @@ Files should be kept under 500 lines for maintainability.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/maintainability.json`
+**Source**: `src/rules/functions/maintainability.json`
 
 ---
 
@@ -6052,9 +6654,9 @@ Magic numbers reduce readability. Use named constants instead.
 **Library**: Constants
 
 **Applies to**: All frameworks
+**File Extensions**: .ts, .js, .tsx, .jsx
 
-
-**Source**: `src/rules/data/maintainability.json`
+**Source**: `src/rules/functions/maintainability.json`
 
 ---
 
@@ -6080,7 +6682,115 @@ Manual useState for each form field reduces maintainability. Use form libraries.
 **Applies to**: react, vue, svelte
 
 
-**Source**: `src/rules/data/maintainability.json`
+**Source**: `src/rules/functions/maintainability.json`
+
+---
+
+### PYDANTIC_BARE_TYPE: Using bare type annotation
+
+**Severity**: LOW | **Category**: maintainability
+
+Use field: Optional[Type] = None instead of field: Type = None.
+
+
+
+**Recommendation**: Use Optional for nullable fields
+**Library**: Pydantic
+
+**Applies to**: pydantic, fastapi
+
+
+**Source**: `src/rules/functions/pydantic.json`
+
+---
+
+### PYDANTIC_MUTABLE_DEFAULT: Mutable default in Pydantic model
+
+**Severity**: HIGH | **Category**: maintainability
+
+Use default_factory for mutable defaults.
+
+
+
+**Recommendation**: Use Field with default_factory
+**Library**: Pydantic
+
+**Applies to**: pydantic, fastapi
+
+
+**Source**: `src/rules/functions/pydantic.json`
+
+---
+
+### PYTHON_ANY_TYPE: Using Any type
+
+**Severity**: MEDIUM | **Category**: maintainability
+
+Replace Any with specific types or use generics.
+
+
+
+**Recommendation**: Use specific types instead of Any
+**Library**: Python
+
+**Applies to**: python
+
+
+**Source**: `src/rules/functions/python.json`
+
+---
+
+### PYTHON_GLOBAL_VARIABLE: Modifying global variable
+
+**Severity**: MEDIUM | **Category**: maintainability
+
+Pass variables as parameters or use a class/config.
+
+
+
+**Recommendation**: Avoid global variables
+**Library**: Python
+
+**Applies to**: python
+
+
+**Source**: `src/rules/functions/python.json`
+
+---
+
+### PYTHON_MISSING_TYPE_HINTS: Missing type hints on function parameters
+
+**Severity**: MEDIUM | **Category**: maintainability
+
+Add type hints like def foo(x: int) -> str:
+
+
+
+**Recommendation**: Add type hints to function parameters
+**Library**: Python
+
+**Applies to**: python
+
+
+**Source**: `src/rules/functions/python.json`
+
+---
+
+### PYTHON_MUTABLE_DEFAULT: Mutable default argument in function
+
+**Severity**: HIGH | **Category**: maintainability
+
+Use None as default and initialize inside function body
+
+
+
+**Recommendation**: Avoid mutable default arguments
+**Library**: Python
+
+**Applies to**: python, django, fastapi, flask, sqlalchemy, celery
+
+
+**Source**: `src/rules/functions/python.json`
 
 ---
 
@@ -6108,7 +6818,7 @@ DROP TABLE, TRUNCATE, DELETE without WHERE need backups.
 **Applies to**: All frameworks
 **File Extensions**: .sql
 
-**Source**: `src/rules/data/migrations.json`
+**Source**: `src/rules/functions/migrations.json`
 
 ---
 
@@ -6134,7 +6844,7 @@ CONCURRENTLY creates indexes without locking writes.
 **Applies to**: All frameworks
 **File Extensions**: .sql
 
-**Source**: `src/rules/data/migrations.json`
+**Source**: `src/rules/functions/migrations.json`
 
 ---
 
@@ -6160,7 +6870,7 @@ Always provide up() and down() or use .sql with reverse.
 **Applies to**: All frameworks
 **File Extensions**: ts, js, .sql
 
-**Source**: `src/rules/data/migrations.json`
+**Source**: `src/rules/functions/migrations.json`
 
 ---
 
@@ -6186,7 +6896,7 @@ Group objects in schemas for better organization.
 **Applies to**: All frameworks
 **File Extensions**: .sql, ts, js
 
-**Source**: `src/rules/data/migrations.json`
+**Source**: `src/rules/functions/migrations.json`
 
 ---
 
@@ -6212,7 +6922,7 @@ Seed data ensures consistent reference data across environments.
 **Applies to**: All frameworks
 **File Extensions**: ts, js, .sql
 
-**Source**: `src/rules/data/migrations.json`
+**Source**: `src/rules/functions/migrations.json`
 
 ---
 
@@ -6238,7 +6948,7 @@ Timestamp-based names ensure consistent ordering across environments.
 **Applies to**: All frameworks
 **File Extensions**: ts, js, .sql
 
-**Source**: `src/rules/data/migrations.json`
+**Source**: `src/rules/functions/migrations.json`
 
 ---
 
@@ -6266,7 +6976,7 @@ Set up alerts for critical metrics and errors.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js, .yaml, .yml
 
-**Source**: `src/rules/data/monitoring.json`
+**Source**: `src/rules/functions/monitoring.json`
 
 ---
 
@@ -6292,7 +7002,7 @@ Use Sentry, Bugsnag, or similar for error monitoring.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/monitoring.json`
+**Source**: `src/rules/functions/monitoring.json`
 
 ---
 
@@ -6318,7 +7028,7 @@ Close connections and finish processing before exiting.
 **Applies to**: express, fastify, nodejs
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/monitoring.json`
+**Source**: `src/rules/functions/monitoring.json`
 
 ---
 
@@ -6344,7 +7054,7 @@ Health checks are required for container orchestration (K8s, ECS).
 **Applies to**: express, fastify, nextjs, nuxt
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/monitoring.json`
+**Source**: `src/rules/functions/monitoring.json`
 
 ---
 
@@ -6370,7 +7080,7 @@ Expose metrics for monitoring and alerting.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/monitoring.json`
+**Source**: `src/rules/functions/monitoring.json`
 
 ---
 
@@ -6396,7 +7106,7 @@ Trace requests across services for debugging.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/monitoring.json`
+**Source**: `src/rules/functions/monitoring.json`
 
 ---
 
@@ -6424,7 +7134,7 @@ Trace requests across services for debugging.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/payments.json`
+**Source**: `src/rules/functions/payments.json`
 
 ---
 
@@ -6450,33 +7160,7 @@ Prevent duplicate charges by using idempotency keys for payment requests.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/payments.json`
-
----
-
-### PAY_NO_REFUND: Missing refund functionality
-
-**Severity**: MEDIUM | **Category**: payments
-
-Have a clear refund process for returns and disputes.
-
-**What it catches:**
-- No refund process
-- Customer complaints
-- Disputes and chargebacks
-
-**How to fix:**
-- Implement refund API endpoint
-- Handle partial refunds
-- Track refund status
-
-**Recommendation**: Implement refund process
-**Library**: Stripe refunds
-
-**Applies to**: All frameworks
-**File Extensions**: .ts, .js
-
-**Source**: `src/rules/data/payments.json`
+**Source**: `src/rules/functions/payments.json`
 
 ---
 
@@ -6502,7 +7186,7 @@ Payment providers retry failed webhooks. Files with webhook/stripe/payment patte
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/payments.json`
+**Source**: `src/rules/functions/payments.json`
 
 ---
 
@@ -6528,7 +7212,33 @@ Always verify webhook signatures to prevent spoofed payment events.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/payments.json`
+**Source**: `src/rules/functions/payments.json`
+
+---
+
+### PAY_REFUND: Missing refund functionality
+
+**Severity**: MEDIUM | **Category**: payments
+
+Have a clear refund process for returns and disputes.
+
+**What it catches:**
+- No refund process
+- Customer complaints
+- Disputes and chargebacks
+
+**How to fix:**
+- Implement refund API endpoint
+- Handle partial refunds
+- Track refund status
+
+**Recommendation**: Implement refund process
+**Library**: Stripe refunds
+
+**Applies to**: All frameworks
+**File Extensions**: .ts, .js
+
+**Source**: `src/rules/functions/payments.json`
 
 ---
 
@@ -6554,7 +7264,7 @@ Sandbox keys won't process real payments.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js, .env
 
-**Source**: `src/rules/data/payments.json`
+**Source**: `src/rules/functions/payments.json`
 
 ---
 
@@ -6578,9 +7288,9 @@ Never store card details. Use provider tokenization (Stripe tokens, etc.)
 **Library**: Stripe Elements, payment tokens
 
 **Applies to**: All frameworks
-**File Extensions**: .ts, .js, .tsx, .jsx
+**File Extensions**: .ts, .js, .tsx, .jsx, .py
 
-**Source**: `src/rules/data/payments.json`
+**Source**: `src/rules/functions/payments.json`
 
 ---
 
@@ -6608,7 +7318,97 @@ Server-only modules imported in client code increase bundle size. Use dynamic im
 **Applies to**: nextjs
 
 
-**Source**: `src/rules/data/ai-patterns.json`
+**Source**: `src/rules/functions/ai-patterns.json`
+
+---
+
+### AIOHTTP_NO_GZIP: Missing gzip compression
+
+**Severity**: LOW | **Category**: performance
+
+Use aiohttp-compress or configure middleware.
+
+
+
+**Recommendation**: Enable compression
+**Library**: aiohttp
+
+**Applies to**: aiohttp
+
+
+**Source**: `src/rules/functions/aiohttp.json`
+
+---
+
+### AIOHTTP_SESSION_CREATE: Creating ClientSession inside handler
+
+**Severity**: HIGH | **Category**: performance
+
+Create ClientSession at app startup, close at shutdown.
+
+
+
+**Recommendation**: Use application-scoped session
+**Library**: aiohttp
+
+**Applies to**: aiohttp
+
+
+**Source**: `src/rules/functions/aiohttp.json`
+
+---
+
+### AIOHTTP_STATIC_ROOT: Static files without proper cache headers
+
+**Severity**: MEDIUM | **Category**: performance
+
+Add Cache-Control headers for static assets.
+
+
+
+**Recommendation**: Configure cache headers
+**Library**: aiohttp
+
+**Applies to**: aiohttp
+
+
+**Source**: `src/rules/functions/aiohttp.json`
+
+---
+
+### AIOHTTP_STREAMING: Not using streaming for large responses
+
+**Severity**: MEDIUM | **Category**: performance
+
+Use web.StreamResponse for large files.
+
+
+
+**Recommendation**: Use streaming responses
+**Library**: aiohttp
+
+**Applies to**: aiohttp
+
+
+**Source**: `src/rules/functions/aiohttp.json`
+
+---
+
+### AIOHTTP_SYNC_DB: Synchronous database in aiohttp handler
+
+**Severity**: HIGH | **Category**: performance
+
+Use asyncpg, aiomysql, or aiosqlite instead.
+
+
+
+**Recommendation**: Use async database drivers
+**Library**: aiohttp
+
+**Applies to**: aiohttp
+
+
+**Source**: `src/rules/functions/aiohttp.json`
 
 ---
 
@@ -6634,7 +7434,7 @@ Manual change detection can cause performance issues. Use OnPush and async pipe.
 **Applies to**: angular
 
 
-**Source**: `src/rules/data/angular.json`
+**Source**: `src/rules/functions/angular.json`
 
 ---
 
@@ -6660,7 +7460,7 @@ Pipes should be pure by default for performance.
 **Applies to**: angular
 
 
-**Source**: `src/rules/data/angular.json`
+**Source**: `src/rules/functions/angular.json`
 
 ---
 
@@ -6686,7 +7486,7 @@ Method calls in templates run on every change detection. Use pipes or computed p
 **Applies to**: angular
 
 
-**Source**: `src/rules/data/angular.json`
+**Source**: `src/rules/functions/angular.json`
 
 ---
 
@@ -6712,7 +7512,7 @@ Only hydrate components that need interactivity. Avoid client:load on static con
 **Applies to**: astro
 
 
-**Source**: `src/rules/data/astro.json`
+**Source**: `src/rules/functions/astro.json`
 
 ---
 
@@ -6738,7 +7538,7 @@ Choose appropriate directive: client:load, client:visible, client:idle, etc.
 **Applies to**: astro
 
 
-**Source**: `src/rules/data/astro.json`
+**Source**: `src/rules/functions/astro.json`
 
 ---
 
@@ -6764,7 +7564,25 @@ Static pages should use prerender for better performance.
 **Applies to**: astro
 
 
-**Source**: `src/rules/data/astro.json`
+**Source**: `src/rules/functions/astro.json`
+
+---
+
+### CELERY_SYNC_CODE: Synchronous code in Celery task
+
+**Severity**: HIGH | **Category**: performance
+
+Use aiohttp instead of requests, or configure as async task.
+
+
+
+**Recommendation**: Use async-friendly libraries
+**Library**: Celery
+
+**Applies to**: celery
+
+
+**Source**: `src/rules/functions/celery.json`
 
 ---
 
@@ -6790,7 +7608,7 @@ Eager loading all relations causes performance issues. Load only needed relation
 **Applies to**: nextjs, nuxt, remix
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/database.json`
+**Source**: `src/rules/functions/database.json`
 
 ---
 
@@ -6816,7 +7634,7 @@ Missing index on frequently queried columns.
 **Applies to**: nextjs, nuxt, express, fastify, remix
 **File Extensions**: .ts, .prisma
 
-**Source**: `src/rules/data/database.json`
+**Source**: `src/rules/functions/database.json`
 
 ---
 
@@ -6840,9 +7658,9 @@ Use eager loading or JOINs to avoid N+1 queries.
 **Library**: Prisma, Drizzle
 
 **Applies to**: All frameworks
-**File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/database.json`
+
+**Source**: `src/rules/functions/database.json`
 
 ---
 
@@ -6868,7 +7686,151 @@ include() without where loads all relations. Add filtering.
 **Applies to**: nextjs, nuxt, remix
 **File Extensions**: .ts
 
-**Source**: `src/rules/data/database.json`
+**Source**: `src/rules/functions/database.json`
+
+---
+
+### DJANGO_BULK_CREATE: Multiple objects created in loop
+
+**Severity**: MEDIUM | **Category**: performance
+
+Use Model.objects.bulk_create() for inserting multiple records.
+
+
+
+**Recommendation**: Use bulk_create for multiple inserts
+**Library**: Django
+
+**Applies to**: django
+
+
+**Source**: `src/rules/functions/django.json`
+
+---
+
+### DJANGO_N_PLUS_ONE: N+1 query problem in Django
+
+**Severity**: HIGH | **Category**: performance
+
+Use select_related() or prefetch_related() to prevent N+1 queries.
+
+
+
+**Recommendation**: Fix N+1 queries with eager loading
+**Library**: Django
+
+**Applies to**: django
+
+
+**Source**: `src/rules/functions/django.json`
+
+---
+
+### DJANGO_QUERY_IN_LOOP: Database query inside loop
+
+**Severity**: HIGH | **Category**: performance
+
+Use bulk_create(), filter with __in, or prefetch_related.
+
+
+
+**Recommendation**: Use bulk operations or prefetch
+**Library**: Django
+
+**Applies to**: django
+
+
+**Source**: `src/rules/functions/django.json`
+
+---
+
+### FASTAPI_NO_PAGINATION: Missing pagination for list endpoints
+
+**Severity**: MEDIUM | **Category**: performance
+
+Use skip/limit or page/page_size parameters.
+
+
+
+**Recommendation**: Add pagination to list endpoints
+**Library**: FastAPI
+
+**Applies to**: fastapi
+
+
+**Source**: `src/rules/functions/fastapi.json`
+
+---
+
+### FASTAPI_SYNC_DB_ASYNC: Sync database operation in async FastAPI handler
+
+**Severity**: HIGH | **Category**: performance
+
+Use async database drivers (like databases, asyncpg) or run sync operations in a thread pool.
+
+
+
+**Recommendation**: Use async database operations in async handlers
+**Library**: FastAPI
+
+**Applies to**: fastapi
+
+
+**Source**: `src/rules/functions/fastapi.json`
+
+---
+
+### FASTAPI_SYNC_IN_ASYNC: Synchronous function called in async endpoint
+
+**Severity**: HIGH | **Category**: performance
+
+Use aiosqlite, asyncpg, or run sync code with await run_in_executor().
+
+
+
+**Recommendation**: Use async libraries or run in thread pool
+**Library**: FastAPI
+
+**Applies to**: fastapi
+
+
+**Source**: `src/rules/functions/fastapi.json`
+
+---
+
+### FLASK_JSON_SORTED: JSON not sorted for consistent responses
+
+**Severity**: LOW | **Category**: performance
+
+Set JSON_SORT_KEYS=True for consistent API responses.
+
+
+
+**Recommendation**: Enable JSON_SORT_KEYS
+**Library**: Flask
+
+**Applies to**: flask
+
+
+**Source**: `src/rules/functions/flask.json`
+
+---
+
+### FLASK_NO_PAGINATION: Missing pagination
+
+**Severity**: MEDIUM | **Category**: performance
+
+Use page and per_page parameters.
+
+
+
+**Recommendation**: Add pagination
+**Library**: Flask
+
+**Applies to**: flask
+
+
+**Source**: `src/rules/functions/flask.json`
 
 ---
 
@@ -6894,7 +7856,7 @@ Avoid unnecessary background processing to preserve battery.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/mobile.json`
+**Source**: `src/rules/functions/mobile.json`
 
 ---
 
@@ -6920,7 +7882,7 @@ Dynamic data should have explicit cache configuration.
 **Applies to**: nextjs
 
 
-**Source**: `src/rules/data/nextjs.json`
+**Source**: `src/rules/functions/nextjs.json`
 
 ---
 
@@ -6946,7 +7908,7 @@ Dynamic data should have explicit cache configuration.
 **Applies to**: nextjs
 
 
-**Source**: `src/rules/data/nextjs.json`
+**Source**: `src/rules/functions/nextjs.json`
 
 ---
 
@@ -6972,7 +7934,7 @@ Heavy components should be lazy loaded with dynamic imports.
 **Applies to**: nextjs
 
 
-**Source**: `src/rules/data/nextjs.json`
+**Source**: `src/rules/functions/nextjs.json`
 
 ---
 
@@ -6998,7 +7960,7 @@ Use next/font/google for optimized font loading.
 **Applies to**: nextjs
 
 
-**Source**: `src/rules/data/nextjs.json`
+**Source**: `src/rules/functions/nextjs.json`
 
 ---
 
@@ -7024,7 +7986,7 @@ next/image should have proper optimization configuration.
 **Applies to**: nextjs
 
 
-**Source**: `src/rules/data/nextjs.json`
+**Source**: `src/rules/functions/nextjs.json`
 
 ---
 
@@ -7050,7 +8012,7 @@ State in shared layouts causes all pages to re-render. Move state to client comp
 **Applies to**: nextjs
 
 
-**Source**: `src/rules/data/nextjs.json`
+**Source**: `src/rules/functions/nextjs.json`
 
 ---
 
@@ -7076,7 +8038,7 @@ Dynamic metadata should use generateMetadata function.
 **Applies to**: nextjs
 
 
-**Source**: `src/rules/data/nextjs.json`
+**Source**: `src/rules/functions/nextjs.json`
 
 ---
 
@@ -7102,7 +8064,7 @@ fetch() without cache option may cause unnecessary fetches.
 **Applies to**: nextjs
 
 
-**Source**: `src/rules/data/nextjs.json`
+**Source**: `src/rules/functions/nextjs.json`
 
 ---
 
@@ -7128,7 +8090,7 @@ Large bundles hurt load time. Use dynamic imports for code splitting.
 **Applies to**: react, nextjs, vue, svelte
 
 
-**Source**: `src/rules/data/performance.json`
+**Source**: `src/rules/functions/performance.json`
 
 ---
 
@@ -7154,7 +8116,7 @@ Using .bind() in render creates new functions on each render.
 **Applies to**: react
 
 
-**Source**: `src/rules/data/performance.json`
+**Source**: `src/rules/functions/performance.json`
 
 ---
 
@@ -7180,7 +8142,7 @@ Expensive operations should be cached.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/performance.json`
+**Source**: `src/rules/functions/performance.json`
 
 ---
 
@@ -7206,7 +8168,7 @@ Decorators can impact performance. Use them carefully.
 **Applies to**: All frameworks
 **File Extensions**: .ts
 
-**Source**: `src/rules/data/performance.json`
+**Source**: `src/rules/functions/performance.json`
 
 ---
 
@@ -7232,7 +8194,7 @@ Frequent events like scroll/resize should be debounced.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/performance.json`
+**Source**: `src/rules/functions/performance.json`
 
 ---
 
@@ -7258,7 +8220,7 @@ Heavy dependencies impact bundle size. Consider alternatives.
 **Applies to**: All frameworks
 **File Extensions**: .json, .js
 
-**Source**: `src/rules/data/performance.json`
+**Source**: `src/rules/functions/performance.json`
 
 ---
 
@@ -7284,7 +8246,7 @@ Duplicate dependencies increase bundle size. Use dedupe.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/performance.json`
+**Source**: `src/rules/functions/performance.json`
 
 ---
 
@@ -7310,7 +8272,7 @@ Event listeners should be removed when no longer needed to prevent memory leaks.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/performance.json`
+**Source**: `src/rules/functions/performance.json`
 
 ---
 
@@ -7336,7 +8298,7 @@ Excessive logging can impact performance.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/performance.json`
+**Source**: `src/rules/functions/performance.json`
 
 ---
 
@@ -7362,7 +8324,7 @@ Expensive computations in render methods slow down rendering.
 **Applies to**: react, vue
 
 
-**Source**: `src/rules/data/performance.json`
+**Source**: `src/rules/functions/performance.json`
 
 ---
 
@@ -7388,7 +8350,7 @@ Images should be optimized and lazy loaded.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/performance.json`
+**Source**: `src/rules/functions/performance.json`
 
 ---
 
@@ -7414,7 +8376,7 @@ Mutating objects creates side effects. Use immutable patterns.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/performance.json`
+**Source**: `src/rules/functions/performance.json`
 
 ---
 
@@ -7440,7 +8402,7 @@ Long lists should use virtualization for performance.
 **Applies to**: react, vue, svelte, angular
 **File Extensions**: .tsx, .jsx, .vue, .svelte
 
-**Source**: `src/rules/data/performance.json`
+**Source**: `src/rules/functions/performance.json`
 
 ---
 
@@ -7466,7 +8428,7 @@ Global variables and uncached arrays can cause memory leaks.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/performance.json`
+**Source**: `src/rules/functions/performance.json`
 
 ---
 
@@ -7492,7 +8454,7 @@ Static assets should have cache headers for better performance.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/performance.json`
+**Source**: `src/rules/functions/performance.json`
 
 ---
 
@@ -7518,7 +8480,7 @@ List endpoints without pagination can return too much data.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/performance.json`
+**Source**: `src/rules/functions/performance.json`
 
 ---
 
@@ -7544,7 +8506,7 @@ Critical resources should be preloaded.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/performance.json`
+**Source**: `src/rules/functions/performance.json`
 
 ---
 
@@ -7570,7 +8532,7 @@ Inefficient regex can slow down execution. Compile regexes outside loops.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/performance.json`
+**Source**: `src/rules/functions/performance.json`
 
 ---
 
@@ -7596,7 +8558,7 @@ Creating new RegExp inside loops causes repeated compilation. Move outside and r
 **Applies to**: All frameworks
 **File Extensions**: .ts, .tsx, .js, .jsx
 
-**Source**: `src/rules/data/typescript.json`
+**Source**: `src/rules/functions/typescript.json`
 
 ---
 
@@ -7622,7 +8584,7 @@ Server-only modules should not be imported in client code.
 **Applies to**: nextjs
 **File Extensions**: .ts, .tsx, .js, .jsx
 
-**Source**: `src/rules/data/performance.json`
+**Source**: `src/rules/functions/performance.json`
 
 ---
 
@@ -7648,7 +8610,7 @@ Use async/await for I/O operations to avoid blocking.
 **Applies to**: nodejs, express, fastify
 
 
-**Source**: `src/rules/data/performance.json`
+**Source**: `src/rules/functions/performance.json`
 
 ---
 
@@ -7674,7 +8636,7 @@ Third-party scripts impact load time. Audit and defer non-essential ones.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/performance.json`
+**Source**: `src/rules/functions/performance.json`
 
 ---
 
@@ -7700,7 +8662,7 @@ Ensure ES modules and sideEffects: false for better tree shaking.
 **Applies to**: All frameworks
 **File Extensions**: .json
 
-**Source**: `src/rules/data/performance.json`
+**Source**: `src/rules/functions/performance.json`
 
 ---
 
@@ -7726,7 +8688,7 @@ Unused dependencies bloat the project. Use depcheck tool.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/performance.json`
+**Source**: `src/rules/functions/performance.json`
 
 ---
 
@@ -7752,7 +8714,61 @@ Heavy computations should be moved to web workers.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/performance.json`
+**Source**: `src/rules/functions/performance.json`
+
+---
+
+### PYDANTIC_STR_FIELD: String field without max_length
+
+**Severity**: LOW | **Category**: performance
+
+Add max_length for better validation and performance.
+
+
+
+**Recommendation**: Add max_length to string fields
+**Library**: Pydantic
+
+**Applies to**: pydantic, fastapi
+
+
+**Source**: `src/rules/functions/pydantic.json`
+
+---
+
+### PYTHON_STRING_CONCAT_LOOP: String concatenation in loop
+
+**Severity**: MEDIUM | **Category**: performance
+
+Use ''.join(list) instead of + in loops for better performance.
+
+
+
+**Recommendation**: Use str.join() for string concatenation
+**Library**: Python
+
+**Applies to**: python
+
+
+**Source**: `src/rules/functions/python.json`
+
+---
+
+### PYTHON_TIME_SLEEP_ASYNC: Using time.sleep() in async code
+
+**Severity**: HIGH | **Category**: performance
+
+Use asyncio.sleep() instead of time.sleep() to avoid blocking the event loop.
+
+
+
+**Recommendation**: Use asyncio.sleep() in async code
+**Library**: Python
+
+**Applies to**: python, fastapi
+
+
+**Source**: `src/rules/functions/python.json`
 
 ---
 
@@ -7778,7 +8794,7 @@ Binding functions in render creates new functions on each render. Use useCallbac
 **Applies to**: react, nextjs
 
 
-**Source**: `src/rules/data/react.json`
+**Source**: `src/rules/functions/react.json`
 
 ---
 
@@ -7804,7 +8820,7 @@ Non-reactive values computed in render cause unnecessary re-renders.
 **Applies to**: react, nextjs
 
 
-**Source**: `src/rules/data/react.json`
+**Source**: `src/rules/functions/react.json`
 
 ---
 
@@ -7830,7 +8846,7 @@ N+1 queries occur when fetching records then looping to get related data. Use JO
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/saas.json`
+**Source**: `src/rules/functions/saas.json`
 
 ---
 
@@ -7856,7 +8872,7 @@ Frequently accessed data should be cached to reduce database load.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/saas.json`
+**Source**: `src/rules/functions/saas.json`
 
 ---
 
@@ -7882,7 +8898,7 @@ Without connection pooling, each request creates a new connection causing latenc
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/saas.json`
+**Source**: `src/rules/functions/saas.json`
 
 ---
 
@@ -7908,7 +8924,7 @@ Without pagination, list endpoints can return unbounded results causing memory i
 **Applies to**: express, fastify, nextjs
 
 
-**Source**: `src/rules/data/saas.json`
+**Source**: `src/rules/functions/saas.json`
 
 ---
 
@@ -7934,7 +8950,115 @@ Synchronous operations block the event loop. Use async/await for I/O operations.
 **Applies to**: nodejs
 
 
-**Source**: `src/rules/data/saas.json`
+**Source**: `src/rules/functions/saas.json`
+
+---
+
+### SQLA_LAZY_LOADING: Relationship using default lazy loading
+
+**Severity**: MEDIUM | **Category**: performance
+
+Use lazy='joined' or lazy='selectin' for eager loading.
+
+
+
+**Recommendation**: Specify lazy strategy for relationships
+**Library**: SQLAlchemy
+
+**Applies to**: sqlalchemy
+
+
+**Source**: `src/rules/functions/sqlalchemy.json`
+
+---
+
+### SQLA_N_PLUS_ONE: N+1 query problem in SQLAlchemy
+
+**Severity**: HIGH | **Category**: performance
+
+Use eager loading strategies (joinedload, selectinload) to prevent N+1 queries.
+
+
+
+**Recommendation**: Fix N+1 queries with eager loading
+**Library**: SQLAlchemy
+
+**Applies to**: sqlalchemy
+
+
+**Source**: `src/rules/functions/sqlalchemy.json`
+
+---
+
+### SQLA_NO_ENGINES: Engine created without pool settings
+
+**Severity**: LOW | **Category**: performance
+
+Set pool_size and max_overflow for production.
+
+
+
+**Recommendation**: Configure connection pool
+**Library**: SQLAlchemy
+
+**Applies to**: sqlalchemy
+
+
+**Source**: `src/rules/functions/sqlalchemy.json`
+
+---
+
+### SQLA_QUERY_IN_LOOP: Database query inside loop
+
+**Severity**: HIGH | **Category**: performance
+
+Use session.bulk_insert_mappings or batch operations.
+
+
+
+**Recommendation**: Use bulk operations or subqueries
+**Library**: SQLAlchemy
+
+**Applies to**: sqlalchemy
+
+
+**Source**: `src/rules/functions/sqlalchemy.json`
+
+---
+
+### STARLETTE_NO_PAGINATION: Missing pagination for list endpoints
+
+**Severity**: MEDIUM | **Category**: performance
+
+Use offset/limit or cursor-based pagination.
+
+
+
+**Recommendation**: Add pagination
+**Library**: Starlette
+
+**Applies to**: starlette
+
+
+**Source**: `src/rules/functions/starlette.json`
+
+---
+
+### STARLETTE_SYNC_IN_ASYNC: Synchronous blocking code in async endpoint
+
+**Severity**: HIGH | **Category**: performance
+
+Use httpx or aiohttp instead of requests.
+
+
+
+**Recommendation**: Use async HTTP client
+**Library**: Starlette
+
+**Applies to**: starlette
+
+
+**Source**: `src/rules/functions/starlette.json`
 
 ---
 
@@ -7960,7 +9084,7 @@ Use transitions for better UX with conditionally rendered elements.
 **Applies to**: svelte
 
 
-**Source**: `src/rules/data/svelte.json`
+**Source**: `src/rules/functions/svelte.json`
 
 ---
 
@@ -7986,7 +9110,7 @@ Decorators can impact performance. Use them carefully.
 **Applies to**: All frameworks
 **File Extensions**: .ts
 
-**Source**: `src/rules/data/typescript.json`
+**Source**: `src/rules/functions/typescript.json`
 
 ---
 
@@ -8012,7 +9136,7 @@ Async components should have a loading component.
 **Applies to**: vue, nuxt
 
 
-**Source**: `src/rules/data/vue.json`
+**Source**: `src/rules/functions/vue.json`
 
 ---
 
@@ -8038,7 +9162,7 @@ Deep selectors in scoped CSS can cause maintenance issues.
 **Applies to**: vue, nuxt
 
 
-**Source**: `src/rules/data/vue.json`
+**Source**: `src/rules/functions/vue.json`
 
 ---
 
@@ -8066,7 +9190,7 @@ Prevent duplicate jobs using idempotency keys.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/queues.json`
+**Source**: `src/rules/functions/queues.json`
 
 ---
 
@@ -8092,7 +9216,7 @@ Prioritize critical jobs over background tasks.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/queues.json`
+**Source**: `src/rules/functions/queues.json`
 
 ---
 
@@ -8118,7 +9242,7 @@ Queue jobs should have explicit retry/attempts configuration. Note: This rule ch
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/queues.json`
+**Source**: `src/rules/functions/queues.json`
 
 ---
 
@@ -8144,7 +9268,7 @@ Jobs should have timeouts to prevent hanging processes.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/queues.json`
+**Source**: `src/rules/functions/queues.json`
 
 ---
 
@@ -8170,7 +9294,7 @@ Long-running tasks should be queued, not processed synchronously.
 **Applies to**: express, fastify, nextjs, nuxt
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/queues.json`
+**Source**: `src/rules/functions/queues.json`
 
 ---
 
@@ -8198,11 +9322,155 @@ Missing dependencies in useEffect can cause stale closure bugs.
 **Applies to**: react, nextjs
 
 
-**Source**: `src/rules/data/react.json`
+**Source**: `src/rules/functions/react.json`
 
 ---
 
 ## Reliability
+
+### AIOHTTP_TIMEOUT: Missing timeout for HTTP requests
+
+**Severity**: MEDIUM | **Category**: reliability
+
+Use aiohttp.ClientTimeout for all requests.
+
+
+
+**Recommendation**: Configure timeouts
+**Library**: aiohttp
+
+**Applies to**: aiohttp
+
+
+**Source**: `src/rules/functions/aiohttp.json`
+
+---
+
+### CELERY_HARD_TIMEOUT: Soft time limit only, missing hard limit
+
+**Severity**: MEDIUM | **Category**: reliability
+
+Use both time_limit and soft_time_limit for graceful handling.
+
+
+
+**Recommendation**: Set both time limits
+**Library**: Celery
+
+**Applies to**: celery
+
+
+**Source**: `src/rules/functions/celery.json`
+
+---
+
+### CELERY_NO_ACKS_LATE: Task acks_late not enabled
+
+**Severity**: MEDIUM | **Category**: reliability
+
+Set acks_late=True to ensure tasks aren't lost on worker failure.
+
+
+
+**Recommendation**: Enable acks_late
+**Library**: Celery
+
+**Applies to**: celery
+
+
+**Source**: `src/rules/functions/celery.json`
+
+---
+
+### CELERY_NO_RETRY: Task without retry configuration
+
+**Severity**: MEDIUM | **Category**: reliability
+
+Use autoretry_for, retry_backoff, or manual retry().
+
+
+
+**Recommendation**: Configure task retries
+**Library**: Celery
+
+**Applies to**: celery
+
+
+**Source**: `src/rules/functions/celery.json`
+
+---
+
+### CELERY_RESULT_BACKEND: No result backend configured
+
+**Severity**: MEDIUM | **Category**: reliability
+
+Set CELERY_RESULT_BACKEND for task result storage.
+
+
+
+**Recommendation**: Configure result backend
+**Library**: Celery
+
+**Applies to**: celery
+
+
+**Source**: `src/rules/functions/celery.json`
+
+---
+
+### CELERY_TASK_TIME_LIMIT: Missing task time limit
+
+**Severity**: MEDIUM | **Category**: reliability
+
+Configure task_time_limit to prevent tasks from running indefinitely.
+
+
+
+**Recommendation**: Set task time limits
+**Library**: Celery
+
+**Applies to**: celery
+
+
+**Source**: `src/rules/functions/celery.json`
+
+---
+
+### DJANGO_MISSING_ON_DELETE: ForeignKey without on_delete
+
+**Severity**: HIGH | **Category**: reliability
+
+Always specify on_delete (e.g., on_delete=models.CASCADE).
+
+
+
+**Recommendation**: Specify on_delete for ForeignKey
+**Library**: Django
+
+**Applies to**: django
+
+
+**Source**: `src/rules/functions/django.json`
+
+---
+
+### DJANGO_MISSING_TRANSACTION: Missing transaction.atomic for database operations
+
+**Severity**: HIGH | **Category**: reliability
+
+Wrap multiple database operations in transaction.atomic() to ensure atomicity.
+
+
+
+**Recommendation**: Use transaction.atomic for database operations
+**Library**: Django
+
+**Applies to**: django
+
+
+**Source**: `src/rules/functions/django.json`
+
+---
 
 ### MOBILE_OFFLINE_FIRST: No offline support for critical features
 
@@ -8226,7 +9494,43 @@ Critical features should work offline using service workers.
 **Applies to**: pwa
 
 
-**Source**: `src/rules/data/mobile.json`
+**Source**: `src/rules/functions/mobile.json`
+
+---
+
+### PYDANTIC_NESTED_NO_VALIDATION: Nested Pydantic model without validation
+
+**Severity**: MEDIUM | **Category**: reliability
+
+Ensure nested models inherit from BaseModel.
+
+
+
+**Recommendation**: Use BaseModel for nested types
+**Library**: Pydantic
+
+**Applies to**: pydantic, fastapi
+
+
+**Source**: `src/rules/functions/pydantic.json`
+
+---
+
+### PYDANTIC_NO_VALIDATION: Pydantic model without validation
+
+**Severity**: MEDIUM | **Category**: reliability
+
+Add model_config = ConfigDict(...) for validation settings.
+
+
+
+**Recommendation**: Configure model validation
+**Library**: Pydantic
+
+**Applies to**: pydantic, fastapi
+
+
+**Source**: `src/rules/functions/pydantic.json`
 
 ---
 
@@ -8252,7 +9556,7 @@ Handle SIGTERM/SIGINT to close connections and finish processing requests before
 **Applies to**: nodejs
 
 
-**Source**: `src/rules/data/saas.json`
+**Source**: `src/rules/functions/saas.json`
 
 ---
 
@@ -8278,7 +9582,7 @@ Health checks (/health, /ready) are needed for load balancers and orchestration.
 **Applies to**: express, fastify
 
 
-**Source**: `src/rules/data/saas.json`
+**Source**: `src/rules/functions/saas.json`
 
 ---
 
@@ -8304,7 +9608,7 @@ POST/PATCH/DELETE endpoints should support idempotency to handle retry safely.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/saas.json`
+**Source**: `src/rules/functions/saas.json`
 
 ---
 
@@ -8330,7 +9634,61 @@ Add X-Request-ID headers for request tracing across services.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/saas.json`
+**Source**: `src/rules/functions/saas.json`
+
+---
+
+### SQLA_AUTOFLUSH: Auto-flush may cause premature commits
+
+**Severity**: MEDIUM | **Category**: reliability
+
+Use autoflush=False and explicit flush() when needed.
+
+
+
+**Recommendation**: Control flush behavior
+**Library**: SQLAlchemy
+
+**Applies to**: sqlalchemy
+
+
+**Source**: `src/rules/functions/sqlalchemy.json`
+
+---
+
+### SQLA_NO_COMMIT: Transaction not committed
+
+**Severity**: HIGH | **Category**: reliability
+
+Call session.commit() after making changes.
+
+
+
+**Recommendation**: Commit transactions explicitly
+**Library**: SQLAlchemy
+
+**Applies to**: sqlalchemy
+
+
+**Source**: `src/rules/functions/sqlalchemy.json`
+
+---
+
+### SQLA_SESSION_NOT_CLOSED: Database session not properly closed
+
+**Severity**: HIGH | **Category**: reliability
+
+Use 'with Session() as session:' or session.remove() after use.
+
+
+
+**Recommendation**: Use context managers for sessions
+**Library**: SQLAlchemy
+
+**Applies to**: sqlalchemy
+
+
+**Source**: `src/rules/functions/sqlalchemy.json`
 
 ---
 
@@ -8356,7 +9714,7 @@ When calling procedures, handle errors properly.
 **Applies to**: nextjs, react
 
 
-**Source**: `src/rules/data/trpc.json`
+**Source**: `src/rules/functions/trpc.json`
 
 ---
 
@@ -8382,9 +9740,9 @@ Authentication is present but authorization checks are missing. Ensure users hav
 **Library**: CASL, authorization library
 
 **Applies to**: All frameworks
+**File Extensions**: .ts, .js, .tsx, .jsx
 
-
-**Source**: `src/rules/data/ai-patterns.json`
+**Source**: `src/rules/functions/ai-patterns.json`
 
 ---
 
@@ -8408,7 +9766,43 @@ Variables with NEXT_PUBLIC_ prefix are exposed to the browser. Use them only for
 **Applies to**: nextjs
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
+
+---
+
+### AIOHTTP_DEBUG_TRUE: Debug mode in production
+
+**Severity**: HIGH | **Category**: security
+
+Set debug=False in production.
+
+
+
+**Recommendation**: Disable debug in production
+**Library**: aiohttp
+
+**Applies to**: aiohttp
+
+
+**Source**: `src/rules/functions/aiohttp.json`
+
+---
+
+### AIOHTTP_NO_CORS: Missing CORS configuration
+
+**Severity**: MEDIUM | **Category**: security
+
+Use aiohttp.CorsMiddleware or aiohttp-security.
+
+
+
+**Recommendation**: Configure CORS middleware
+**Library**: aiohttp
+
+**Applies to**: aiohttp
+
+
+**Source**: `src/rules/functions/aiohttp.json`
 
 ---
 
@@ -8434,7 +9828,25 @@ Avoid sending sensitive data like passwords or tokens in HTTP headers.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/api.json`
+**Source**: `src/rules/functions/api.json`
+
+---
+
+### CELERY_PICKLE_SERIALIZER: Using pickle as Celery serializer
+
+**Severity**: CRITICAL | **Category**: security
+
+Set CELERY_TASK_SERIALIZER='json' for security.
+
+
+
+**Recommendation**: Use JSON serializer
+**Library**: Celery
+
+**Applies to**: celery
+
+
+**Source**: `src/rules/functions/celery.json`
 
 ---
 
@@ -8460,7 +9872,7 @@ Cookies with credentials should have Secure and HttpOnly flags set.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -8486,7 +9898,7 @@ Logging sensitive data (passwords, tokens, PII). Use redaction or exclude from l
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -8512,7 +9924,7 @@ API keys and secrets should be stored in environment variables, not in source co
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -8538,7 +9950,7 @@ Self-signed certificates should not be used in production. Use valid SSL certifi
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -8564,7 +9976,7 @@ Credentials in URL params are visible in browser history and logs. Use headers o
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -8588,9 +10000,63 @@ String concatenation in SQL queries creates SQL injection vulnerabilities. Use p
 **Library**: Prepared statements, ORM
 
 **Applies to**: All frameworks
-**File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/database.json`
+
+**Source**: `src/rules/functions/database.json`
+
+---
+
+### DJANGO_ALLOWED_HOSTS: ALLOWED_HOSTS not configured
+
+**Severity**: HIGH | **Category**: security
+
+Set ALLOWED_HOSTS to your domain in production.
+
+
+
+**Recommendation**: Configure ALLOWED_HOSTS
+**Library**: Django
+
+**Applies to**: django
+
+
+**Source**: `src/rules/functions/django.json`
+
+---
+
+### DJANGO_DEBUG_TRUE: DEBUG enabled in production
+
+**Severity**: CRITICAL | **Category**: security
+
+Set DEBUG=False in production settings.
+
+
+
+**Recommendation**: Disable DEBUG in production
+**Library**: Django
+
+**Applies to**: django
+
+
+**Source**: `src/rules/functions/django.json`
+
+---
+
+### DJANGO_PLAINTEXT_PASSWORD: Storing passwords without hashing
+
+**Severity**: CRITICAL | **Category**: security
+
+Use models.CharField() with make_password() or Django's User model.
+
+
+
+**Recommendation**: Use Django's password hashing
+**Library**: Django
+
+**Applies to**: django
+
+
+**Source**: `src/rules/functions/django.json`
 
 ---
 
@@ -8616,7 +10082,43 @@ Add Helmet middleware for security headers.
 **Applies to**: express
 
 
-**Source**: `src/rules/data/express.json`
+**Source**: `src/rules/functions/express.json`
+
+---
+
+### FASTAPI_DEBUG_TRUE: Debug mode potentially enabled
+
+**Severity**: HIGH | **Category**: security
+
+Don't use --reload in production.
+
+
+
+**Recommendation**: Disable debug in production
+**Library**: FastAPI
+
+**Applies to**: fastapi
+
+
+**Source**: `src/rules/functions/fastapi.json`
+
+---
+
+### FASTAPI_NO_CORS: Missing CORS configuration
+
+**Severity**: MEDIUM | **Category**: security
+
+Use app.add_middleware(CORSMiddleware, ...) to configure CORS.
+
+
+
+**Recommendation**: Configure CORS explicitly
+**Library**: FastAPI
+
+**Applies to**: fastapi
+
+
+**Source**: `src/rules/functions/fastapi.json`
 
 ---
 
@@ -8642,7 +10144,7 @@ Add rate limiting to protect against abuse.
 **Applies to**: fastify
 
 
-**Source**: `src/rules/data/fastify.json`
+**Source**: `src/rules/functions/fastify.json`
 
 ---
 
@@ -8668,7 +10170,61 @@ Fastify routes should have JSON schema for validation and serialization.
 **Applies to**: fastify
 
 
-**Source**: `src/rules/data/fastify.json`
+**Source**: `src/rules/functions/fastify.json`
+
+---
+
+### FLASK_DEBUG_TRUE: Debug mode enabled in production
+
+**Severity**: CRITICAL | **Category**: security
+
+Set debug=False in production or use a WSGI server.
+
+
+
+**Recommendation**: Disable debug in production
+**Library**: Flask
+
+**Applies to**: flask
+
+
+**Source**: `src/rules/functions/flask.json`
+
+---
+
+### FLASK_SECRET_KEY: Missing or weak Flask secret key
+
+**Severity**: HIGH | **Category**: security
+
+Use os.urandom(24).hex() to generate a secret key.
+
+
+
+**Recommendation**: Set a strong secret key
+**Library**: Flask
+
+**Applies to**: flask
+
+
+**Source**: `src/rules/functions/flask.json`
+
+---
+
+### FLASK_WTF_CSRF: CSRF protection not enabled
+
+**Severity**: HIGH | **Category**: security
+
+Use Flask-WTF and enable CSRF protection.
+
+
+
+**Recommendation**: Enable CSRF protection
+**Library**: Flask
+
+**Applies to**: flask
+
+
+**Source**: `src/rules/functions/flask.json`
 
 ---
 
@@ -8696,7 +10252,7 @@ Passwords, tokens, and PII should never be logged.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/logging.json`
+**Source**: `src/rules/functions/logging.json`
 
 ---
 
@@ -8722,7 +10278,7 @@ Runtime config public keys are exposed to the client. Use private keys for secre
 **Applies to**: nuxt
 
 
-**Source**: `src/rules/data/nuxt.json`
+**Source**: `src/rules/functions/nuxt.json`
 
 ---
 
@@ -8748,7 +10304,7 @@ IDOR risk: Verify user ownership before accessing or modifying resources.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -8774,7 +10330,7 @@ Encryption keys must be loaded from environment variables, never hardcoded.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -8800,7 +10356,7 @@ SQL injection risk. Use parameterized queries or an ORM.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -8826,7 +10382,7 @@ Command injection risk. Avoid shell execution with unsanitized input.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -8852,7 +10408,7 @@ Validate user inputs using Zod, Yup, or similar libraries.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -8878,7 +10434,7 @@ Debug mode should be disabled in production.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -8904,7 +10460,7 @@ Using outdated dependencies with known vulnerabilities. Run npm audit and update
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -8928,9 +10484,9 @@ Add password strength validation and requirements.
 **Library**: zxcvbn
 
 **Applies to**: All frameworks
+**File Extensions**: .ts, .js, .tsx, .jsx
 
-
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -8956,7 +10512,7 @@ File uploads must be validated. Check file type, size, and content.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -8980,9 +10536,9 @@ Log security-relevant events including login failures, access control violations
 **Library**: Logging
 
 **Applies to**: All frameworks
+**File Extensions**: .ts, .js, .tsx, .jsx
 
-
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -9008,7 +10564,97 @@ SSRF risk: Validate and sanitize URLs before fetching.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
+
+---
+
+### PYDANTIC_SENSITIVE: Pydantic field should be sensitive
+
+**Severity**: HIGH | **Category**: security
+
+Use Field(exclude=True) or exclude_from_serial=True.
+
+
+
+**Recommendation**: Mark sensitive fields
+**Library**: Pydantic
+
+**Applies to**: pydantic, fastapi
+
+
+**Source**: `src/rules/functions/pydantic.json`
+
+---
+
+### PYTHON_EVAL_USAGE: Using eval() or exec()
+
+**Severity**: CRITICAL | **Category**: security
+
+Use ast.literal_eval for safe evaluation or redesign to avoid code execution.
+
+
+
+**Recommendation**: Avoid eval() and exec()
+**Library**: Python
+
+**Applies to**: python
+
+
+**Source**: `src/rules/functions/python.json`
+
+---
+
+### PYTHON_HARDCODED_SECRET: Hardcoded secret or password
+
+**Severity**: CRITICAL | **Category**: security
+
+Store secrets in environment variables or a secrets manager.
+
+
+
+**Recommendation**: Use environment variables for secrets
+**Library**: Python
+
+**Applies to**: python, django, fastapi, flask
+
+
+**Source**: `src/rules/functions/python.json`
+
+---
+
+### PYTHON_PICKLE_SECURITY: Using pickle with untrusted data
+
+**Severity**: CRITICAL | **Category**: security
+
+Use JSON for data serialization. If pickle is required, validate source.
+
+
+
+**Recommendation**: Use JSON instead of pickle
+**Library**: Python
+
+**Applies to**: python
+
+
+**Source**: `src/rules/functions/python.json`
+
+---
+
+### PYTHON_SQL_INJECTION: Potential SQL injection
+
+**Severity**: CRITICAL | **Category**: security
+
+Use %s or %(name)s placeholders with parameters, not f-strings.
+
+
+
+**Recommendation**: Use parameterized queries
+**Library**: Python
+
+**Applies to**: python, django, fastapi, flask
+
+
+**Source**: `src/rules/functions/python.json`
 
 ---
 
@@ -9034,7 +10680,7 @@ API endpoints should require authentication unless explicitly public.
 **Applies to**: express, fastify
 
 
-**Source**: `src/rules/data/saas.json`
+**Source**: `src/rules/functions/saas.json`
 
 ---
 
@@ -9058,9 +10704,9 @@ After authentication, verify user has permission to access the resource.
 **Library**: Authorization
 
 **Applies to**: All frameworks
+**File Extensions**: .ts, .js, .tsx, .jsx
 
-
-**Source**: `src/rules/data/saas.json`
+**Source**: `src/rules/functions/saas.json`
 
 ---
 
@@ -9086,15 +10732,15 @@ CORS should whitelist specific origins, not use wildcard * in production.
 **Applies to**: express, fastify
 
 
-**Source**: `src/rules/data/saas.json`
+**Source**: `src/rules/functions/saas.json`
 
 ---
 
-### SAAS_NO_CSRF: Missing CSRF protection
+### SAAS_NO_CSRF: Missing CSRF protection for state-changing routes
 
 **Severity**: HIGH | **Category**: security
 
-State-changing requests need CSRF tokens for browser clients.
+Express POST/PUT/DELETE routes should use CSRF protection. Check for csurf middleware or express-jwt with csrf.
 
 **What it catches:**
 - No CSRF tokens
@@ -9112,7 +10758,7 @@ State-changing requests need CSRF tokens for browser clients.
 **Applies to**: express
 
 
-**Source**: `src/rules/data/saas.json`
+**Source**: `src/rules/functions/saas.json`
 
 ---
 
@@ -9136,9 +10782,9 @@ Redirect HTTP to HTTPS and set HSTS header.
 **Library**: TLS, Helmet
 
 **Applies to**: All frameworks
+**File Extensions**: .ts, .js, .tsx, .jsx
 
-
-**Source**: `src/rules/data/saas.json`
+**Source**: `src/rules/functions/saas.json`
 
 ---
 
@@ -9162,9 +10808,9 @@ All user input should be validated and sanitized before use.
 **Library**: Validation, Sanitization
 
 **Applies to**: All frameworks
+**File Extensions**: .ts, .js, .tsx, .jsx
 
-
-**Source**: `src/rules/data/saas.json`
+**Source**: `src/rules/functions/saas.json`
 
 ---
 
@@ -9190,7 +10836,7 @@ APIs without rate limiting are vulnerable to abuse and DDoS attacks.
 **Applies to**: express, fastify
 
 
-**Source**: `src/rules/data/saas.json`
+**Source**: `src/rules/functions/saas.json`
 
 ---
 
@@ -9214,9 +10860,9 @@ Multi-tenant apps must filter by tenant ID to prevent data leaks between tenants
 **Library**: Database, Row-Level Security
 
 **Applies to**: All frameworks
+**File Extensions**: .ts, .js, .tsx, .jsx
 
-
-**Source**: `src/rules/data/saas.json`
+**Source**: `src/rules/functions/saas.json`
 
 ---
 
@@ -9242,7 +10888,7 @@ Session IDs should be regenerated after authentication to prevent fixation attac
 **Applies to**: express
 
 
-**Source**: `src/rules/data/saas.json`
+**Source**: `src/rules/functions/saas.json`
 
 ---
 
@@ -9268,7 +10914,7 @@ Cryptographic signing and token generation should happen server-side, not in fro
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -9294,7 +10940,7 @@ Client-side validation can be bypassed. Always validate on the server as well.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -9318,9 +10964,9 @@ Using wildcard origin in CORS is insecure. Specify explicit origins.
 **Library**: CORS
 
 **Applies to**: All frameworks
+**File Extensions**: .ts, .js, .json
 
-
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -9346,7 +10992,7 @@ Seed scripts and migrations should not contain default admin accounts. Remove be
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -9372,7 +11018,7 @@ Configure npm/pnpm to prefer private registries over public for internal package
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -9380,16 +11026,18 @@ Configure npm/pnpm to prefer private registries over public for internal package
 
 **Severity**: CRITICAL | **Category**: security
 
-Deserializing untrusted data is dangerous. Use JSON.parse() or safe libraries.
+Avoid eval(), pickle, yaml.load, and unserialize with untrusted data.
 
 **What it catches:**
-- Using pickle.loads (Python) with untrusted data
-- Using ObjectInputStream with user data
-- Unsafe deserialization formats
+- Using eval() with string input
+- Using pickle.loads with untrusted data
+- Using yaml.load without safe loader
+- Using unserialize() with user data
 
 **How to fix:**
-- Use JSON.parse for data
-- Avoid pickle with untrusted input
+- Use JSON.parse for data serialization
+- Use yaml.safe_load for YAML
+- Avoid eval() with dynamic code
 - Use safe serialization formats
 
 **Recommendation**: Use safe deserialization
@@ -9398,7 +11046,7 @@ Deserializing untrusted data is dangerous. Use JSON.parse() or safe libraries.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -9422,9 +11070,9 @@ User input in regex can lead to ReDoS attacks. Validate and limit input.
 **Library**: Security
 
 **Applies to**: All frameworks
+**File Extensions**: .js, .ts, .tsx, .jsx
 
-
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -9450,7 +11098,7 @@ Dynamic import or require with user input can lead to RCE.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -9476,7 +11124,7 @@ eval(), new Function(), and similar functions with user input lead to RCE vulner
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -9502,7 +11150,43 @@ Web servers should deny access to .git directories to prevent repository exposur
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
+
+---
+
+### SEC_GOOD_CSRF_PROTECTION: Uses CSRF protection
+
+**Severity**: INFO | **Category**: security
+
+This code uses CSRF protection - good security practice for state-changing requests.
+
+
+
+**Recommendation**: Good: CSRF protection in use
+**Library**: CSRF
+
+**Applies to**: express
+
+
+**Source**: `src/rules/functions/saas.json`
+
+---
+
+### SEC_GOOD_PROTOTYPE_PROTECTION: Uses prototype pollution protection
+
+**Severity**: INFO | **Category**: security
+
+This code uses Object.freeze, cloneDeep, or Object.create(null) to prevent prototype pollution - good security practice.
+
+
+
+**Recommendation**: Good: Prototype pollution protection in use
+**Library**: Security
+
+**Applies to**: All frameworks
+
+
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -9528,7 +11212,7 @@ CSP helps prevent XSS and data injection attacks.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -9554,7 +11238,7 @@ Use Node.js crypto or libraries like crypto-js. Never implement custom encryptio
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -9580,7 +11264,7 @@ Math.random() is not cryptographically secure. Use crypto.randomBytes() or crypt
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js, .tsx, .jsx
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -9606,7 +11290,7 @@ JWTs and tokens should be stored in HttpOnly cookies, not localStorage or sessio
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -9632,7 +11316,7 @@ Temporary files should be created with secure random names in secure directories
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -9658,7 +11342,7 @@ JWT with 'none' algorithm is insecure. Use RS256 or HS256.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -9684,7 +11368,7 @@ Add security headers including Content-Security-Policy, X-Frame-Options, X-Conte
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -9710,7 +11394,7 @@ NoSQL queries should not accept user input directly. Use query builders or sanit
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -9736,7 +11420,7 @@ Dependency overrides can introduce malicious code. Audit all overrides.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -9762,7 +11446,7 @@ Redirect URLs must be validated against an allowlist. Never trust user-supplied 
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -9786,9 +11470,9 @@ User input used in file paths can lead to path traversal attacks. Validate and s
 **Library**: Security
 
 **Applies to**: All frameworks
+**File Extensions**: .js, .ts, .tsx, .jsx
 
-
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -9814,7 +11498,7 @@ Passwords must be hashed using bcrypt, argon2, or scrypt before storing in datab
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -9822,7 +11506,7 @@ Passwords must be hashed using bcrypt, argon2, or scrypt before storing in datab
 
 **Severity**: CRITICAL | **Category**: security
 
-User input merged into objects can pollute prototypes. Use safe merge libraries.
+User input merged into objects without sanitization can pollute prototypes. Avoid Object.assign with user data.
 
 **What it catches:**
 - User input merged into objects without sanitization
@@ -9840,7 +11524,7 @@ User input merged into objects can pollute prototypes. Use safe merge libraries.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -9866,7 +11550,7 @@ Use transactions or locking for operations that modify balances or counts.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -9892,7 +11576,7 @@ Remove headers like X-Powered-By that reveal server information.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -9918,7 +11602,7 @@ SQL queries should use parameterized inputs to prevent injection.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -9944,7 +11628,7 @@ HTTP Strict Transport Security forces HTTPS connections.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -9970,7 +11654,7 @@ Variable-time comparisons can leak timing information. Use crypto.timingSafeEqua
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -9996,7 +11680,7 @@ Login and authentication should use constant-time comparisons to prevent usernam
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -10022,7 +11706,7 @@ Use strict equality (===) instead of loose equality (==) in security checks.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -10048,7 +11732,7 @@ Check for typosquatting attacks in dependencies. Use exact versions.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -10074,7 +11758,7 @@ Account recovery should normalize Unicode characters to prevent homograph attack
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -10100,7 +11784,7 @@ Database update operations should whitelist allowed fields. Never spread user in
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -10126,7 +11810,7 @@ JWT tokens must have their signatures verified. Never trust decoded payload with
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -10152,7 +11836,7 @@ Error handlers should not expose raw error messages, stack traces, or internal d
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -10176,9 +11860,9 @@ Use strong cryptographic ciphers. Avoid weak ones like DES or RC4.
 **Library**: TLS
 
 **Applies to**: All frameworks
+**File Extensions**: .ts, .js, .json
 
-
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -10204,7 +11888,7 @@ JWT secrets must be long, random strings loaded from environment variables.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -10230,7 +11914,7 @@ Security tokens (password reset, session IDs) must use crypto.randomBytes() or c
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -10256,7 +11940,7 @@ Prevents MIME type sniffing attacks.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -10282,7 +11966,7 @@ Prevents clickjacking attacks by controlling iframe embedding.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -10308,7 +11992,7 @@ Using innerHTML can lead to XSS attacks. Use textContent or sanitize input.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
 
 ---
 
@@ -10334,7 +12018,97 @@ XXE attacks can read local files. Disable external entity processing.
 **Applies to**: All frameworks
 **File Extensions**: .js, .ts, .xml
 
-**Source**: `src/rules/data/security.json`
+**Source**: `src/rules/functions/security.json`
+
+---
+
+### SQLA_ECHO_TRUE: SQL echo enabled in production
+
+**Severity**: MEDIUM | **Category**: security
+
+Set echo=False in production.
+
+
+
+**Recommendation**: Disable SQL echo in production
+**Library**: SQLAlchemy
+
+**Applies to**: sqlalchemy
+
+
+**Source**: `src/rules/functions/sqlalchemy.json`
+
+---
+
+### SQLA_STRING_CONCAT: SQL built with string concatenation
+
+**Severity**: CRITICAL | **Category**: security
+
+Use :param format with text() or proper ORM queries.
+
+
+
+**Recommendation**: Use bound parameters
+**Library**: SQLAlchemy
+
+**Applies to**: sqlalchemy
+
+
+**Source**: `src/rules/functions/sqlalchemy.json`
+
+---
+
+### STARLETTE_DEBUG_TRUE: Debug mode in production
+
+**Severity**: HIGH | **Category**: security
+
+Set debug=False in production settings.
+
+
+
+**Recommendation**: Disable debug in production
+**Library**: Starlette
+
+**Applies to**: starlette
+
+
+**Source**: `src/rules/functions/starlette.json`
+
+---
+
+### STARLETTE_NO_CORS: Missing CORS configuration
+
+**Severity**: MEDIUM | **Category**: security
+
+Use app.add_middleware(CORSMiddleware, ...).
+
+
+
+**Recommendation**: Configure CORS
+**Library**: Starlette
+
+**Applies to**: starlette
+
+
+**Source**: `src/rules/functions/starlette.json`
+
+---
+
+### STARLETTE_SESSION_SECRET: Missing secret key for sessions
+
+**Severity**: HIGH | **Category**: security
+
+Provide secret_key parameter to SessionMiddleware.
+
+
+
+**Recommendation**: Set secret key
+**Library**: Starlette
+
+**Applies to**: starlette
+
+
+**Source**: `src/rules/functions/starlette.json`
 
 ---
 
@@ -10360,7 +12134,7 @@ Procedures should have Zod input schemas for validation.
 **Applies to**: nextjs, react
 
 
-**Source**: `src/rules/data/trpc.json`
+**Source**: `src/rules/functions/trpc.json`
 
 ---
 
@@ -10388,7 +12162,7 @@ Mutating global state leads to unpredictable behavior.
 **Applies to**: All frameworks
 **File Extensions**: .js, .ts, .tsx, .jsx
 
-**Source**: `src/rules/data/state.json`
+**Source**: `src/rules/functions/state.json`
 
 ---
 
@@ -10414,7 +12188,7 @@ Directly mutating state arrays won't trigger re-renders.
 **Applies to**: react
 
 
-**Source**: `src/rules/data/state.json`
+**Source**: `src/rules/functions/state.json`
 
 ---
 
@@ -10442,7 +12216,7 @@ No corresponding test file found. Add tests to ensure code reliability.
 **Applies to**: All frameworks
 **File Extensions**: .test.ts, .spec.ts, .test.js, .spec.js
 
-**Source**: `src/rules/data/ai-patterns.json`
+**Source**: `src/rules/functions/ai-patterns.json`
 
 ---
 
@@ -10466,9 +12240,9 @@ Configure test coverage to track code quality. Add coverage configuration to you
 **Library**: vitest, jest
 
 **Applies to**: All frameworks
-**File Extensions**: .ts, .js, .json
 
-**Source**: `src/rules/data/testing.json`
+
+**Source**: `src/rules/functions/testing.json`
 
 ---
 
@@ -10494,7 +12268,7 @@ Test coverage is below recommended threshold. Aim for 80%+ coverage.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/testing.json`
+**Source**: `src/rules/functions/testing.json`
 
 ---
 
@@ -10518,9 +12292,9 @@ Add coverage thresholds to enforce minimum code coverage standards in CI.
 **Library**: vitest, jest
 
 **Applies to**: All frameworks
+**File Extensions**: .json, .ts, .js
 
-
-**Source**: `src/rules/data/testing.json`
+**Source**: `src/rules/functions/testing.json`
 
 ---
 
@@ -10546,7 +12320,7 @@ Source files should have corresponding test files.
 **Applies to**: All frameworks
 **File Extensions**: .test.ts, .spec.ts, .test.js, .spec.js
 
-**Source**: `src/rules/data/testing.json`
+**Source**: `src/rules/functions/testing.json`
 
 ---
 
@@ -10572,7 +12346,7 @@ Projects with UI components should have E2E tests to verify user flows work corr
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/testing.json`
+**Source**: `src/rules/functions/testing.json`
 
 ---
 
@@ -10600,7 +12374,7 @@ Components should have typed props for better maintainability and catch bugs ear
 **Applies to**: react, nextjs
 
 
-**Source**: `src/rules/data/react.json`
+**Source**: `src/rules/functions/react.json`
 
 ---
 
@@ -10626,7 +12400,7 @@ Using `any` defeats TypeScript type safety. Use specific types or `unknown` if t
 **Applies to**: All frameworks
 **File Extensions**: .ts, .tsx
 
-**Source**: `src/rules/data/typescript.json`
+**Source**: `src/rules/functions/typescript.json`
 
 ---
 
@@ -10652,7 +12426,7 @@ Use discriminated unions for better type safety.
 **Applies to**: All frameworks
 **File Extensions**: .ts
 
-**Source**: `src/rules/data/typescript.json`
+**Source**: `src/rules/functions/typescript.json`
 
 ---
 
@@ -10676,9 +12450,9 @@ Numeric enums have issues. Use const objects or string enums instead.
 **Library**: TypeScript
 
 **Applies to**: All frameworks
+**File Extensions**: .ts, .tsx
 
-
-**Source**: `src/rules/data/typescript.json`
+**Source**: `src/rules/functions/typescript.json`
 
 ---
 
@@ -10704,7 +12478,7 @@ Import async functions from 'fs/promises' instead of 'fs'. The 'fs' module expor
 **Applies to**: All frameworks
 **File Extensions**: .ts, .tsx, .js, .jsx
 
-**Source**: `src/rules/data/typescript.json`
+**Source**: `src/rules/functions/typescript.json`
 
 ---
 
@@ -10728,9 +12502,9 @@ Consider using explicit generic type parameters for clarity. This is a suggestio
 **Library**: TypeScript
 
 **Applies to**: All frameworks
+**File Extensions**: .ts, .tsx
 
-
-**Source**: `src/rules/data/typescript.json`
+**Source**: `src/rules/functions/typescript.json`
 
 ---
 
@@ -10756,7 +12530,7 @@ Function parameters without type annotations default to `any`. Add explicit type
 **Applies to**: All frameworks
 **File Extensions**: .ts, .tsx
 
-**Source**: `src/rules/data/typescript.json`
+**Source**: `src/rules/functions/typescript.json`
 
 ---
 
@@ -10780,9 +12554,9 @@ Interface merging can cause unexpected behavior. Use type aliases instead.
 **Library**: TypeScript
 
 **Applies to**: All frameworks
+**File Extensions**: .ts, .tsx
 
-
-**Source**: `src/rules/data/typescript.json`
+**Source**: `src/rules/functions/typescript.json`
 
 ---
 
@@ -10808,33 +12582,29 @@ Exported functions should have explicit return types for better API documentatio
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/typescript.json`
+**Source**: `src/rules/functions/typescript.json`
 
 ---
 
-### TS_NEVER_TYPE: Unhandled exhaustive cases
+### TS_NEVER_TYPE: Exhaustive switch pattern detected
 
-**Severity**: HIGH | **Category**: typescript
+**Severity**: INFO | **Category**: typescript
 
-Use never type for exhaustive switch/case matching.
+Using never type for exhaustive switch/case matching is a recommended TypeScript pattern that ensures all cases are handled at compile time.
 
 **What it catches:**
-- Unhandled cases in switch
-- Not exhaustive
-- Runtime errors
+- Exhaustive switch using never type
 
 **How to fix:**
-- Use never type for exhaustiveness
-- Add all cases
-- Add compile-time checks
+- This is a TypeScript best practice - no action needed
 
-**Recommendation**: Ensure exhaustive matching
+**Recommendation**: Exhaustive switch is a best practice
 **Library**: TypeScript
 
 **Applies to**: All frameworks
+**File Extensions**: .ts, .tsx
 
-
-**Source**: `src/rules/data/typescript.json`
+**Source**: `src/rules/functions/typescript.json`
 
 ---
 
@@ -10860,7 +12630,7 @@ Variables without type annotations default to any. Enable strict mode.
 **Applies to**: All frameworks
 **File Extensions**: .json
 
-**Source**: `src/rules/data/typescript.json`
+**Source**: `src/rules/functions/typescript.json`
 
 ---
 
@@ -10884,9 +12654,9 @@ Deep optional chaining can be hard to reason about. Consider explicit checks.
 **Library**: TypeScript
 
 **Applies to**: All frameworks
+**File Extensions**: .ts, .tsx
 
-
-**Source**: `src/rules/data/typescript.json`
+**Source**: `src/rules/functions/typescript.json`
 
 ---
 
@@ -10910,9 +12680,9 @@ Consider putting required parameters before optional ones for clearer APIs. This
 **Library**: TypeScript
 
 **Applies to**: All frameworks
+**File Extensions**: .ts, .tsx
 
-
-**Source**: `src/rules/data/typescript.json`
+**Source**: `src/rules/functions/typescript.json`
 
 ---
 
@@ -10936,9 +12706,9 @@ Enable strictNullChecks to handle null/undefined properly.
 **Library**: TypeScript
 
 **Applies to**: All frameworks
+**File Extensions**: .ts, .tsx
 
-
-**Source**: `src/rules/data/typescript.json`
+**Source**: `src/rules/functions/typescript.json`
 
 ---
 
@@ -10964,7 +12734,7 @@ Synchronous fs operations (readFileSync, writeFileSync, etc.) block the event lo
 **Applies to**: All frameworks
 **File Extensions**: .ts, .tsx, .js, .jsx
 
-**Source**: `src/rules/data/typescript.json`
+**Source**: `src/rules/functions/typescript.json`
 
 ---
 
@@ -10988,9 +12758,9 @@ Type assertions bypass TypeScript type checking. Use proper types.
 **Library**: TypeScript
 
 **Applies to**: All frameworks
+**File Extensions**: .ts, .tsx
 
-
-**Source**: `src/rules/data/typescript.json`
+**Source**: `src/rules/functions/typescript.json`
 
 ---
 
@@ -11014,9 +12784,9 @@ Use type guards and narrowing to ensure type safety.
 **Library**: TypeScript
 
 **Applies to**: All frameworks
+**File Extensions**: .ts, .tsx
 
-
-**Source**: `src/rules/data/typescript.json`
+**Source**: `src/rules/functions/typescript.json`
 
 ---
 
@@ -11040,9 +12810,9 @@ typeof is unreliable for complex type checks. Use Array.isArray(), instanceof, o
 **Library**: TypeScript
 
 **Applies to**: All frameworks
+**File Extensions**: .ts, .tsx
 
-
-**Source**: `src/rules/data/typescript.json`
+**Source**: `src/rules/functions/typescript.json`
 
 ---
 
@@ -11068,7 +12838,7 @@ Unused variables and imports reduce code quality.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .tsx
 
-**Source**: `src/rules/data/typescript.json`
+**Source**: `src/rules/functions/typescript.json`
 
 ---
 
@@ -11094,7 +12864,7 @@ Emits should be declared in the component for type safety.
 **Applies to**: vue, nuxt
 **File Extensions**: .vue, .ts
 
-**Source**: `src/rules/data/vue.json`
+**Source**: `src/rules/functions/vue.json`
 
 ---
 
@@ -11120,7 +12890,7 @@ String-based actions reduce type safety. Use typed actions.
 **Applies to**: vue, nuxt
 
 
-**Source**: `src/rules/data/vue.json`
+**Source**: `src/rules/functions/vue.json`
 
 ---
 
@@ -11148,7 +12918,7 @@ Large files should use resumable uploads for reliability.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js, .tsx, .jsx
 
-**Source**: `src/rules/data/uploads.json`
+**Source**: `src/rules/functions/uploads.json`
 
 ---
 
@@ -11174,7 +12944,7 @@ Don't use original filename. Generate UUID to prevent overwrites and path traver
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/uploads.json`
+**Source**: `src/rules/functions/uploads.json`
 
 ---
 
@@ -11200,7 +12970,7 @@ Unlimited uploads can cause DoS. Set reasonable limits.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/uploads.json`
+**Source**: `src/rules/functions/uploads.json`
 
 ---
 
@@ -11226,7 +12996,7 @@ Store uploads in S3, GCS, or similar. Local storage is lost on restart.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/uploads.json`
+**Source**: `src/rules/functions/uploads.json`
 
 ---
 
@@ -11252,7 +13022,7 @@ Check MIME type and extension. Don't trust client-provided types.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/uploads.json`
+**Source**: `src/rules/functions/uploads.json`
 
 ---
 
@@ -11276,13 +13046,31 @@ Scan files for malware before processing or storing.
 **Library**: ClamAV, virus-scan
 
 **Applies to**: All frameworks
-**File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/uploads.json`
+
+**Source**: `src/rules/functions/uploads.json`
 
 ---
 
 ## Usability
+
+### DJANGO_MODEL_STR: Model without __str__ method
+
+**Severity**: LOW | **Category**: usability
+
+Add def __str__(self): return self.name or similar.
+
+
+
+**Recommendation**: Define __str__ method for models
+**Library**: Django
+
+**Applies to**: django
+
+
+**Source**: `src/rules/functions/django.json`
+
+---
 
 ### MOBILE_DEEP_LINK: No deep linking support
 
@@ -11306,7 +13094,7 @@ Support deep links to specific app screens from external URLs.
 **Applies to**: react-native, flutter
 
 
-**Source**: `src/rules/data/mobile.json`
+**Source**: `src/rules/functions/mobile.json`
 
 ---
 
@@ -11332,7 +13120,7 @@ Progressive Web Apps provide better mobile experience with install prompt.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/mobile.json`
+**Source**: `src/rules/functions/mobile.json`
 
 ---
 
@@ -11358,7 +13146,7 @@ Splash screens improve perceived startup time on mobile.
 **Applies to**: pwa
 
 
-**Source**: `src/rules/data/mobile.json`
+**Source**: `src/rules/functions/mobile.json`
 
 ---
 
@@ -11384,7 +13172,7 @@ Use env(safe-area-inset-*) for notches and system UI.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/mobile.json`
+**Source**: `src/rules/functions/mobile.json`
 
 ---
 
@@ -11410,7 +13198,7 @@ App should handle both portrait and landscape orientations.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/mobile.json`
+**Source**: `src/rules/functions/mobile.json`
 
 ---
 
@@ -11436,7 +13224,7 @@ Custom swipe gestures may conflict with browser navigation. Add prevention.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/mobile.json`
+**Source**: `src/rules/functions/mobile.json`
 
 ---
 
@@ -11462,7 +13250,7 @@ Viewport meta tag is required for proper mobile rendering.
 **Applies to**: All frameworks
 
 
-**Source**: `src/rules/data/mobile.json`
+**Source**: `src/rules/functions/mobile.json`
 
 ---
 
@@ -11488,7 +13276,7 @@ CLI should provide --help flag with usage information.
 **Applies to**: All frameworks
 **File Extensions**: .ts
 
-**Source**: `src/rules/data/usability.json`
+**Source**: `src/rules/functions/usability.json`
 
 ---
 
@@ -11514,7 +13302,7 @@ CLI should provide --version flag.
 **Applies to**: All frameworks
 **File Extensions**: .ts
 
-**Source**: `src/rules/data/usability.json`
+**Source**: `src/rules/functions/usability.json`
 
 ---
 
@@ -11540,7 +13328,7 @@ Destructive actions should require user confirmation.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/usability.json`
+**Source**: `src/rules/functions/usability.json`
 
 ---
 
@@ -11566,7 +13354,7 @@ Components should handle error states gracefully.
 **Applies to**: react, vue, svelte
 
 
-**Source**: `src/rules/data/usability.json`
+**Source**: `src/rules/functions/usability.json`
 
 ---
 
@@ -11592,7 +13380,7 @@ Long-running operations should show progress indicators.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/usability.json`
+**Source**: `src/rules/functions/usability.json`
 
 ---
 
@@ -11618,7 +13406,7 @@ CLI should suggest correct commands when users make typos.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/usability.json`
+**Source**: `src/rules/functions/usability.json`
 
 ---
 
@@ -11646,7 +13434,7 @@ WebSocket connections should be authenticated on handshake.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/websockets.json`
+**Source**: `src/rules/functions/websockets.json`
 
 ---
 
@@ -11672,7 +13460,7 @@ Heartbeats detect disconnected clients and prevent stale connections.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/websockets.json`
+**Source**: `src/rules/functions/websockets.json`
 
 ---
 
@@ -11698,7 +13486,7 @@ Use JSON with type field for better debugging and validation.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/websockets.json`
+**Source**: `src/rules/functions/websockets.json`
 
 ---
 
@@ -11724,7 +13512,7 @@ Limit message frequency per client to prevent abuse.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/websockets.json`
+**Source**: `src/rules/functions/websockets.json`
 
 ---
 
@@ -11750,7 +13538,7 @@ Auto-reconnect when connection is lost.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/websockets.json`
+**Source**: `src/rules/functions/websockets.json`
 
 ---
 
@@ -11776,7 +13564,7 @@ Broadcast to specific rooms rather than all connected clients.
 **Applies to**: All frameworks
 **File Extensions**: .ts, .js
 
-**Source**: `src/rules/data/websockets.json`
+**Source**: `src/rules/functions/websockets.json`
 
 ---
 

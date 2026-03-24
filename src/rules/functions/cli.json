@@ -1,0 +1,196 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "CLI_NO_OUTPUT",
+      "name": "CLI produces no output",
+      "description": "CLI tools should provide feedback to users.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "cli",
+      "recommendation": {
+        "title": "Add output to CLI",
+        "description": "CLI tools should provide feedback to users.",
+        "library": "CLI"
+      },
+      "catches": [
+        "CLI produces no output",
+        "User gets no feedback",
+        "Confusing user experience"
+      ],
+      "fix": [
+        "Add console output for feedback",
+        "Show progress for long operations",
+        "Print success/error messages"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "console\\.(log|error|warn|info)|print\\(|process\\.stdout|process\\.stderr",
+        "fileExtensions": [
+          ".ts"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "info",
+        "message": "CLI output found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "CLI_NO_ERROR_HANDLING",
+      "name": "CLI missing error handling",
+      "description": "Handle errors gracefully and exit with proper codes.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "cli",
+      "recommendation": {
+        "title": "Add error handling to CLI",
+        "description": "Handle errors gracefully and exit with proper codes.",
+        "library": "CLI"
+      },
+      "catches": [
+        "No error handling in CLI",
+        "Crashes without explanation",
+        "Poor exit codes"
+      ],
+      "fix": [
+        "Add error handling",
+        "Handle uncaught exceptions",
+        "Exit with proper codes"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "process\\.(exit|on\\()|process\\.on\\('uncaughtException'|process\\.on\\('unhandledRejection'",
+        "fileExtensions": [
+          ".ts"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Process event handler found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "CLI_NO_HELP",
+      "name": "CLI missing help",
+      "description": "CLIs should have --help option.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "cli",
+      "recommendation": {
+        "title": "Add help option to CLI",
+        "description": "CLIs should have --help option.",
+        "library": "CLI"
+      },
+      "catches": [
+        "No --help option",
+        "Users can't get help",
+        "Poor documentation"
+      ],
+      "fix": [
+        "Add --help option",
+        "Show usage information",
+        "Document all options"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "'--help'|\"-h\"|'--version'|\"-v\"",
+        "fileExtensions": [
+          ".ts"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Help or version flag found"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "CLI_NO_VERSION",
+      "name": "CLI missing version",
+      "description": "CLIs should have --version option.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "cli",
+      "recommendation": {
+        "title": "Add version option to CLI",
+        "description": "CLIs should have --version option.",
+        "library": "CLI"
+      },
+      "catches": [
+        "No --version option",
+        "Can't check version",
+        "Debugging issues"
+      ],
+      "fix": [
+        "Add --version option",
+        "Show version from package.json",
+        "Use -v shorthand"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "'--version'|\"-v\"|version:\\s*require\\(",
+        "fileExtensions": [
+          ".ts"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Version flag found"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "CLI_PARSER_MISSING",
+      "name": "CLI using manual argument parsing",
+      "description": "Use a library like yargs, commander, or meow for robust argument parsing.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "cli",
+      "recommendation": {
+        "title": "Use a CLI parser library",
+        "description": "Use a library like yargs, commander, or meow for robust argument parsing.",
+        "library": "CLI"
+      },
+      "catches": [
+        "Manual argument parsing",
+        "Error-prone and limited",
+        "No built-in help"
+      ],
+      "fix": [
+        "Use yargs or commander",
+        "Get free --help and --version",
+        "Handle arguments robustly"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "process\\.argv",
+        "fileExtensions": [
+          ".ts"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Consider using a CLI argument parser library"
+      },
+      "projectTypes": []
+    }
+  ]
+}

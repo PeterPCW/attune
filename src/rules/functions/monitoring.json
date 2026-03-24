@@ -1,0 +1,262 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "MON_NO_HEALTH_CHECK",
+      "name": "Missing health check endpoint",
+      "description": "Health checks are required for container orchestration (K8s, ECS).",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "express",
+        "fastify",
+        "nextjs",
+        "nuxt"
+      ],
+      "category": "monitoring",
+      "recommendation": {
+        "title": "Add health check endpoint",
+        "description": "Health checks are required for container orchestration (K8s, ECS).",
+        "library": "/health, /ready"
+      },
+      "catches": [
+        "K8s can't detect unhealthy pods",
+        "Load balancer sends traffic to failed instances",
+        "No readiness detection"
+      ],
+      "fix": [
+        "Create /health endpoint for liveness checks",
+        "Create /ready endpoint for readiness",
+        "Check dependencies in readiness check"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "/health|/ready|/live",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Health endpoint found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "MON_NO_METRICS",
+      "name": "Missing metrics endpoint",
+      "description": "Expose metrics for monitoring and alerting.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "monitoring",
+      "recommendation": {
+        "title": "Add Prometheus metrics",
+        "description": "Expose metrics for monitoring and alerting.",
+        "library": "prom-client, @opentelemetry"
+      },
+      "catches": [
+        "No visibility into app performance",
+        "Can't create dashboards",
+        "Missing alerting data"
+      ],
+      "fix": [
+        "Add /metrics endpoint with prom-client",
+        "Track request counts, durations, errors",
+        "Export in Prometheus format"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "prometheus|metrics|/metrics",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Metrics found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "MON_NO_GRACEFUL_SHUTDOWN",
+      "name": "Missing graceful shutdown",
+      "description": "Close connections and finish processing before exiting.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "express",
+        "fastify",
+        "nodejs"
+      ],
+      "category": "monitoring",
+      "recommendation": {
+        "title": "Handle SIGTERM gracefully",
+        "description": "Close connections and finish processing before exiting.",
+        "library": "Process events"
+      },
+      "catches": [
+        "Requests fail during shutdown",
+        "Database connections leak",
+        "In-flight requests broken"
+      ],
+      "fix": [
+        "Listen for SIGTERM/SIGINT signals",
+        "Stop accepting new requests",
+        "Close database connections gracefully"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "SIGTERM|SIGINT|process\\.on\\(",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Signal handling found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "MON_NO_ERROR_TRACKING",
+      "name": "Missing error tracking",
+      "description": "Use Sentry, Bugsnag, or similar for error monitoring.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "monitoring",
+      "recommendation": {
+        "title": "Add error tracking",
+        "description": "Use Sentry, Bugsnag, or similar for error monitoring.",
+        "library": "Sentry, Bugsnag"
+      },
+      "catches": [
+        "Errors go unnoticed in production",
+        "No stack traces for debugging",
+        "Can't track error frequency"
+      ],
+      "fix": [
+        "Integrate Sentry or Bugsnag",
+        "Capture uncaught exceptions",
+        "Add user context to errors"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "sentry|bugsnag|rollbar|errorTracking",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Error tracking found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "MON_NO_UPTRACE",
+      "name": "Missing distributed tracing",
+      "description": "Trace requests across services for debugging.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "monitoring",
+      "recommendation": {
+        "title": "Add distributed tracing",
+        "description": "Trace requests across services for debugging.",
+        "library": "OpenTelemetry, Jaeger, Zipkin"
+      },
+      "catches": [
+        "Can't trace requests across services",
+        "Hard to debug distributed issues",
+        "No request correlation"
+      ],
+      "fix": [
+        "Add OpenTelemetry SDK",
+        "Propagate trace context headers",
+        "Export to Jaeger or Zipkin"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "tracing|span|traceparent|opentelemetry",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Tracing found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "MON_NO_ALERTING",
+      "name": "Missing alerting configuration",
+      "description": "Set up alerts for critical metrics and errors.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "monitoring",
+      "recommendation": {
+        "title": "Configure alerting",
+        "description": "Set up alerts for critical metrics and errors.",
+        "library": "PagerDuty, OpsGenie"
+      },
+      "catches": [
+        "No notifications for outages",
+        "Errors not responded to",
+        "Downtime goes unnoticed"
+      ],
+      "fix": [
+        "Set up alerts in Prometheus/Grafana",
+        "Integrate PagerDuty or OpsGenie",
+        "Define alert thresholds"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "alert|notification|onCall",
+        "fileExtensions": [
+          ".ts",
+          ".js",
+          ".yaml",
+          ".yml"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Alerting found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

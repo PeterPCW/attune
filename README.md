@@ -1,11 +1,13 @@
 # Attune
 
-A local-first CLI tool for comprehensive code quality checks. Attune analyzes your codebase for security vulnerabilities, architectural issues, performance problems, and best practices across multiple frameworks.
+A local-first CLI tool for comprehensive code quality checks. Attune analyzes your codebase for security vulnerabilities, architectural issues, performance problems, and best practices across multiple frameworks and languages.
 
 ## Features
 
-- **448 Built-in Rules** covering security, performance, architecture, and code quality
-- **Multi-Framework Support**: React, Next.js, Vue, Svelte, Angular, Nuxt, Astro, Remix, SolidJS, Express, Fastify, tRPC
+- **500+ Built-in Rules** covering security, performance, architecture, and code quality
+- **Multi-Language Support**: JavaScript/TypeScript, Python (Django, FastAPI, Flask, SQLAlchemy, Celery)
+- **Multi-Framework Support**: React, Next.js, Vue, Svelte, Angular, Nuxt, Astro, Remix, SolidJS, Express, Fastify, tRPC, Django, FastAPI, Flask
+- **Project Type Detection**: Automatically detects CLI tools, libraries, web apps, SaaS, mobile, desktop apps
 - **Security Scanning**: OWASP Top 10, secret detection, SQL injection, command injection
 - **Architecture Patterns**: MVC, state management, component patterns
 - **Performance Checks**: Bundle size, memory leaks, async patterns
@@ -13,6 +15,9 @@ A local-first CLI tool for comprehensive code quality checks. Attune analyzes yo
 - **TypeScript**: Type safety, any usage, enum warnings
 - **Configurable**: .attunerc config file with CLI defaults
 - **Multiple Output Formats**: JSON, Markdown, HTML, SARIF
+- **Result Caching**: Faster incremental scans (enabled by default)
+- **Custom Rules**: Load your own rules via `--rules-path`
+- **Performance Metrics**: See scan timing with `--metrics`
 
 ## How Rules Work
 
@@ -75,6 +80,15 @@ attune analyze . --full
 
 # Skip config file, use .attuneignore only
 attune analyze . --no-config
+
+# Use custom rules from a file or directory
+attune analyze . --rules-path ./my-rules/
+
+# Fail on warnings (for CI pipelines)
+attune analyze . --fail-on-warnings
+
+# Show performance metrics
+attune analyze . --metrics
 ```
 
 ## Example Output
@@ -89,9 +103,11 @@ After fixing all issues:
 
 ## Configuration
 
-### .attunerc
+### Quick Start
 
-On first run, Attune creates a `.attunerc` file in your project root:
+On first run, Attune creates:
+- `.attunerc` - Default CLI flags
+- `.attuneignore` - Files to exclude
 
 ```bash
 # Example .attunerc
@@ -99,25 +115,40 @@ On first run, Attune creates a `.attunerc` file in your project root:
 --use-attuneignore
 ```
 
-Available config options (one per line, comments start with #):
+### .attunerc
 
-| Option | Description |
-|--------|-------------|
-| `--json` | Output as JSON |
-| `--html` | Output as HTML report |
-| `--markdown` | Output as Markdown |
-| `--lite` | Run lite checks (~25s) |
-| `--full` | Run full checks |
-| `--security` | Run security checks only |
-| `--architecture` | Run architecture checks only |
-| `--performance` | Run performance checks only |
-| `--testing` | Run testing checks only |
-| `--verbose` | Verbose output |
-| `--ignore-dev-deps` | Skip devDependencies in security checks |
-| `--public-safe` | Redact paths and secrets for sharing |
-| `--no-paths` | Strip file paths from output |
-| `--redact-secrets` | Redact detected secrets |
-| `--use-attuneignore` | Use .attuneignore patterns (default) |
+Stores default CLI flags. One per line, comments start with `#`.
+
+```bash
+# Example .attunerc
+--security    # Run security checks by default
+--cache       # Enable incremental caching
+```
+
+### .attuneignore
+
+Exclude files from scanning:
+
+```bash
+# Ignore test files
+**/__tests__/**
+**/*.test.ts
+
+# Ignore build outputs
+dist/
+```
+
+### Rule-Specific Ignores
+
+Skip specific rules on specific files:
+
+```bash
+# Format: RULE_ID:path
+OWASP_A08_INTEGRITY_FAIL:src/types/index.ts
+ERR_ASYNC_NO_AWAIT:src/cli/handlers/*.ts
+```
+
+For complete configuration options, see [docs/CONFIG.md](docs/CONFIG.md).
 
 ### .attuneignore
 
@@ -136,6 +167,28 @@ build/
 # Dependencies
 node_modules/
 ```
+
+#### Rule-Specific Ignores
+
+You can skip specific rules on specific files while still running other rules on those files. This is useful for handling false positives:
+
+```
+# Format: RULE_ID:path
+# Skip a specific rule on a specific file
+OWASP_A08_INTEGRITY_FAIL:src/types/index.ts
+
+# Skip a rule on multiple files using glob patterns
+ERR_ASYNC_NO_AWAIT:src/cli/handlers/*.ts
+
+# Multiple rule-specific ignores
+RULE_ID_1:path/to/file1.ts
+RULE_ID_2:path/to/file2.ts
+```
+
+This allows you to:
+- Fix false positives without disabling the entire rule
+- Keep other rules running on the same files
+- Fine-tune which rules apply where
 
 ### Scanning Modes
 
@@ -163,6 +216,10 @@ To prevent overwhelming reports, Attune limits each rule to a maximum of 10 find
 # Rule OWASP_A03_INJECTION: 150 findings, showing top 10. Use .attuneignore to suppress.
 ```
 
+## CLI Guide
+
+For detailed CLI usage, output format comparison, and common workflows, see [docs/GUIDE.md](docs/GUIDE.md).
+
 ## NPM Scripts
 
 Add to your `package.json`:
@@ -179,37 +236,23 @@ Add to your `package.json`:
 
 ## CLI Options
 
-| Option | Description |
-|--------|-------------|
-| `-l, --lite` | Run lite checks (~25s) |
-| `-f, --full` | Run full checks (bypasses config) |
-| `-s, --security` | Run security checks only |
-| `-a, --architecture` | Run architecture checks only |
-| `-p, --performance` | Run performance checks only |
-| `-t, --testing` | Run testing checks only |
-| `--framework <name>` | Specify framework (nextjs, react, vue, etc.) |
-| `--json` | Output as JSON |
-| `--markdown` | Output as Markdown |
-| `--html` | Output as HTML report |
-| `--sarif` | Output as SARIF |
-| `--config <file>` | Path to config file (default: .attunerc) |
-| `--no-config` | Ignore config file, use .attuneignore only |
-| `--public-safe` | Redact paths and secrets for public sharing |
-| `--silent-security` | Don't show success messages about security |
-| `--no-paths` | Strip file paths from output |
-| `--redact-secrets` | Redact detected secrets in code snippets |
-| `--ignore-dev-deps` | Skip devDependencies in vulnerability checks |
-| `--use-attuneignore` | Use .attuneignore patterns (default) |
-| `--output, -o <path>` | Output file path |
-| `--store-only` | Save to file without printing to console |
-| `-v, --verbose` | Verbose output |
-| `--max-file-size <mb>` | Max file size in MB to analyze (default: 1, set 0 for unlimited) |
-| `--max-findings <n>` | Max findings per rule (default: 10) |
+```bash
+# Common options
+attune analyze . --security      # Security only
+attune analyze . --json          # JSON output
+attune analyze . --cache         # Enable caching
+attune analyze . --fail-on-warnings  # CI mode
 
-For more advanced customization, see [CUSTOMIZING.md](./CUSTOMIZING.md).
+# Specify framework/project type
+attune analyze . --framework nextjs
+attune analyze . --project-type saas
+```
+
+For complete CLI options, see [docs/CONFIG.md](docs/CONFIG.md).
 
 ## Supported Frameworks
 
+### JavaScript/TypeScript
 - React
 - Next.js
 - Vue / Nuxt
@@ -221,6 +264,40 @@ For more advanced customization, see [CUSTOMIZING.md](./CUSTOMIZING.md).
 - Express
 - Fastify
 - tRPC
+
+### Python
+- Django
+- FastAPI
+- Flask
+- SQLAlchemy
+- Celery
+- Pydantic
+- aiohttp
+- Starlette
+
+## Supported Project Types
+
+Attune automatically detects the type of project and applies appropriate rules:
+
+- **CLI** - Command-line tools (docker, kubectl, git)
+- **Library** - Reusable packages (npm packages, Python libs)
+- **Web App** - Frontend-only web applications
+- **SaaS** - Full-stack applications with users, payments, database
+- **Mobile** - React Native, Flutter, native mobile apps
+- **Desktop** - Electron, Tauri, native desktop apps
+- **Dev Tool** - Developer tools (linters, bundlers, Attune)
+- **Firmware** - Embedded/IoT code (C, Rust, C++)
+
+## Further Reading
+
+| Guide | Description |
+|-------|-------------|
+| [docs/GUIDE.md](docs/GUIDE.md) | CLI usage, scan modes, common workflows |
+| [docs/CONFIG.md](docs/CONFIG.md) | Complete config options reference |
+| [docs/CUSTOM_RULES.md](docs/CUSTOM_RULES.md) | Creating custom rules |
+| [docs/CI_CD_REFERENCE.md](docs/CI_CD_REFERENCE.md) | CI/CD pipeline examples |
+| [docs/CACHING.md](docs/CACHING.md) | How result caching works |
+| [docs/RULES.md](docs/RULES.md) | All 500+ built-in rules |
 
 ## Exit Codes
 

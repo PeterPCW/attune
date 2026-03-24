@@ -1,0 +1,333 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "DJANGO_N_PLUS_ONE",
+      "name": "N+1 query problem in Django",
+      "description": "Use select_related() or prefetch_related() to prevent N+1 queries.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "django"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Fix N+1 queries with eager loading",
+        "description": "Use select_related() or prefetch_related() to prevent N+1 queries.",
+        "library": "Django"
+      },
+      "condition": {
+        "type": "exists",
+        "field": "content"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Check for findDjangoNPlusOne",
+        "helper": "findDjangoNPlusOne",
+        "params": {
+          "message": "N+1 query detected"
+        }
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "DJANGO_MISSING_TRANSACTION",
+      "name": "Missing transaction.atomic for database operations",
+      "description": "Wrap multiple database operations in transaction.atomic() to ensure atomicity.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "django"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "reliability",
+      "recommendation": {
+        "title": "Use transaction.atomic for database operations",
+        "description": "Wrap multiple database operations in transaction.atomic() to ensure atomicity.",
+        "library": "Django"
+      },
+      "condition": {
+        "type": "exists",
+        "field": "content"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Check for findDjangoMissingTransaction",
+        "helper": "findDjangoMissingTransaction",
+        "params": {
+          "message": "Missing transaction.atomic"
+        }
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "DJANGO_MISSING_ON_DELETE",
+      "name": "ForeignKey without on_delete",
+      "description": "Always specify on_delete (e.g., on_delete=models.CASCADE).",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "django"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "reliability",
+      "recommendation": {
+        "title": "Specify on_delete for ForeignKey",
+        "description": "Always specify on_delete (e.g., on_delete=models.CASCADE).",
+        "library": "Django"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "ForeignKey\\(\\)(?!.*on_delete)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "ForeignKey without on_delete argument"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "DJANGO_DEBUG_TRUE",
+      "name": "DEBUG enabled in production",
+      "description": "Set DEBUG=False in production settings.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "django"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "security",
+      "recommendation": {
+        "title": "Disable DEBUG in production",
+        "description": "Set DEBUG=False in production settings.",
+        "library": "Django"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "DEBUG\\s*=\\s*True"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "critical",
+        "message": "DEBUG mode enabled"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "DJANGO_PLAINTEXT_PASSWORD",
+      "name": "Storing passwords without hashing",
+      "description": "Use models.CharField() with make_password() or Django's User model.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "django"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "security",
+      "recommendation": {
+        "title": "Use Django's password hashing",
+        "description": "Use models.CharField() with make_password() or Django's User model.",
+        "library": "Django"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "password\\s*=\\s*models\\.CharField\\(\\)(?!.*make_password)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "critical",
+        "message": "Password field should use make_password or hashed field"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "DJANGO_QUERY_IN_LOOP",
+      "name": "Database query inside loop",
+      "description": "Use bulk_create(), filter with __in, or prefetch_related.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "django"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Use bulk operations or prefetch",
+        "description": "Use bulk_create(), filter with __in, or prefetch_related.",
+        "library": "Django"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "for\\s+\\w+\\s+in\\s+[X]:\\.objects\\.(get|filter|create|save)\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Database query inside loop"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "DJANGO_BULK_CREATE",
+      "name": "Multiple objects created in loop",
+      "description": "Use Model.objects.bulk_create() for inserting multiple records.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "django"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Use bulk_create for multiple inserts",
+        "description": "Use Model.objects.bulk_create() for inserting multiple records.",
+        "library": "Django"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "for\\s+\\w+\\s+in\\s+[X]:Model\\(\\)\\.save\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Consider using bulk_create for multiple inserts"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "DJANGO_GET_WITHOUT_TRY",
+      "name": "Model.get() without try-except",
+      "description": "Wrap .get() in try-except or use .filter().first().",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "django"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "error-handling",
+      "recommendation": {
+        "title": "Handle DoesNotExist exception",
+        "description": "Wrap .get() in try-except or use .filter().first().",
+        "library": "Django"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "\\.objects\\.get\\([X]\\)(?!.*except)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Model.get() should be wrapped in try-except"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "DJANGO_MODEL_STR",
+      "name": "Model without __str__ method",
+      "description": "Add def __str__(self): return self.name or similar.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "django"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "usability",
+      "recommendation": {
+        "title": "Define __str__ method for models",
+        "description": "Add def __str__(self): return self.name or similar.",
+        "library": "Django"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "class\\s+\\w+\\s*\\(models\\.Model\\):(?!.*__str__)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Model should define __str__ method"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "DJANGO_ALLOWED_HOSTS",
+      "name": "ALLOWED_HOSTS not configured",
+      "description": "Set ALLOWED_HOSTS to your domain in production.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "django"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "security",
+      "recommendation": {
+        "title": "Configure ALLOWED_HOSTS",
+        "description": "Set ALLOWED_HOSTS to your domain in production.",
+        "library": "Django"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "ALLOWED_HOSTS\\s*=\\s*\\[\\s*\\]"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "ALLOWED_HOSTS is empty"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

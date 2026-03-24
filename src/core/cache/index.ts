@@ -1,5 +1,8 @@
-import { readFileSync, writeFileSync, existsSync, mkdirSync, statSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync, statSync, readFile, renameSync } from 'fs';
 import { join, dirname } from 'path';
+import { createHash } from 'crypto';
+import { promisify } from 'util';
+import { stat } from 'fs/promises';
 
 export interface FileCache {
   [filePath: string]: {
@@ -82,7 +85,7 @@ export class CacheManager {
   }
 
   /**
-   * Load cache from disk
+   * Load cache from disk with validation
    */
   load(): ScanCache | null {
     if (!this.enabled) return null;
@@ -90,17 +93,52 @@ export class CacheManager {
     try {
       if (existsSync(this.cacheFile)) {
         const content = readFileSync(this.cacheFile, 'utf-8');
-        this.cache = JSON.parse(content) as ScanCache;
+        const parsed = JSON.parse(content) as ScanCache;
+
+        // Validate cache structure
+        if (!this.isValidCache(parsed)) {
+          console.log('Cache validation failed, starting fresh scan...');
+          this.clear();
+          return null;
+        }
+
+        this.cache = parsed;
         return this.cache;
       }
-    } catch {
-      // Cache file doesn't exist or is corrupted
+    } catch (e) {
+      // Cache file is corrupted - clear it and start fresh
+      console.log('Cache corrupted, starting fresh scan...');
+      this.clear();
     }
     return null;
   }
 
   /**
-   * Save cache to disk
+   * Validate cache structure
+   */
+  private isValidCache(cache: unknown): cache is ScanCache {
+    if (!cache || typeof cache !== 'object') return false;
+
+    const c = cache as Record<string, unknown>;
+
+    // Check required metadata fields
+    if (!c.metadata || typeof c.metadata !== 'object') return false;
+    const meta = c.metadata as Record<string, unknown>;
+    if (typeof meta.version !== 'string') return false;
+    if (typeof meta.lastScan !== 'number') return false;
+    if (typeof meta.projectRoot !== 'string') return false;
+
+    // Check files object
+    if (!c.files || typeof c.files !== 'object') return false;
+
+    // Version mismatch - cache is incompatible
+    if (meta.version !== CACHE_VERSION) return false;
+
+    return true;
+  }
+
+  /**
+   * Save cache to disk with atomic write
    */
   save(cache: ScanCache): void {
     if (!this.enabled) return;
@@ -110,9 +148,16 @@ export class CacheManager {
       if (!existsSync(this.cacheDir)) {
         mkdirSync(this.cacheDir, { recursive: true });
       }
-      writeFileSync(this.cacheFile, JSON.stringify(cache, null, 2));
-    } catch {
-      // Silently fail if cache can't be written
+
+      // Write to temp file first, then rename (atomic write)
+      const tempFile = this.cacheFile + '.tmp';
+      writeFileSync(tempFile, JSON.stringify(cache, null, 2));
+
+      // Atomic rename
+      renameSync(tempFile, this.cacheFile);
+    } catch (e) {
+      // Silently fail if cache can't be written - not critical
+      console.warn('Failed to save cache:', e instanceof Error ? e.message : String(e));
     }
   }
 

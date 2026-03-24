@@ -1,0 +1,966 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "PERF_BIG_BUNDLE",
+      "name": "Large bundle size",
+      "description": "Large bundles hurt load time. Use dynamic imports for code splitting.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react",
+        "nextjs",
+        "vue",
+        "svelte"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Code splitting for large bundles",
+        "description": "Large bundles hurt load time. Use dynamic imports for code splitting.",
+        "library": "Webpack, Vite"
+      },
+      "catches": [
+        "Large JavaScript bundles",
+        "No code splitting",
+        "Slow initial load times"
+      ],
+      "fix": [
+        "Use dynamic imports",
+        "Implement code splitting",
+        "Analyze bundle with source-map-explorer"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "lazy|dynamic|import\\(|code.?split|lazyload"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Code splitting found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PERF_SYNCHRONOUS",
+      "name": "Synchronous file operations",
+      "description": "Use async/await for I/O operations to avoid blocking.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "nodejs",
+        "express",
+        "fastify"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Avoid synchronous operations",
+        "description": "Use async/await for I/O operations to avoid blocking.",
+        "library": "Node.js"
+      },
+      "catches": [
+        "readFileSync usage",
+        "writeFileSync usage",
+        "Blocking the event loop"
+      ],
+      "fix": [
+        "Use async/await versions",
+        "Use fs.promises",
+        "Never block in Node.js"
+      ],
+      "conditions": [
+        {
+          "type": "regex",
+          "pattern": "readFileSync"
+        },
+        {
+          "type": "regex",
+          "pattern": "writeFileSync"
+        },
+        {
+          "type": "regex",
+          "pattern": "existsSync"
+        }
+      ],
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Synchronous file read - use async version instead"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PERF_MEMORY_LEAK",
+      "name": "Potential memory leak",
+      "description": "Global variables and uncached arrays can cause memory leaks.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "performance",
+      "recommendation": {
+        "title": "Check for potential memory leaks",
+        "description": "Global variables and uncached arrays can cause memory leaks.",
+        "library": "Node.js"
+      },
+      "catches": [
+        "Global variable usage",
+        "Unbounded arrays",
+        "Missing cleanup"
+      ],
+      "fix": [
+        "Avoid global variables",
+        "Clean up event listeners",
+        "Clear intervals/timeouts"
+      ],
+      "conditions": [
+        {
+          "type": "regex",
+          "pattern": "global\\."
+        },
+        {
+          "type": "regex",
+          "pattern": "globalThis\\."
+        }
+      ],
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Global variable mutation - can cause memory leaks"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PERF_IMMUTABLE",
+      "name": "Mutable object mutation",
+      "description": "Mutating objects creates side effects. Use immutable patterns.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "performance",
+      "recommendation": {
+        "title": "Prefer immutability",
+        "description": "Mutating objects creates side effects. Use immutable patterns.",
+        "library": "Immer, immutable.js"
+      },
+      "catches": [
+        "Array.push() mutations",
+        "Object mutations",
+        "Side effects"
+      ],
+      "fix": [
+        "Use spread operator",
+        "Use Immer for immutable updates",
+        "Prefer const over let"
+      ],
+      "conditions": [
+        {
+          "type": "regex",
+          "pattern": "\\.push\\s*\\("
+        },
+        {
+          "type": "regex",
+          "pattern": "\\.splice\\s*\\("
+        }
+      ],
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Array mutation detected - consider immutable patterns"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PERF_REGEX",
+      "name": "Inefficient regex in loop",
+      "description": "Inefficient regex can slow down execution. Compile regexes outside loops.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "performance",
+      "recommendation": {
+        "title": "Optimize regex patterns",
+        "description": "Inefficient regex can slow down execution. Compile regexes outside loops.",
+        "library": "Performance"
+      },
+      "catches": [
+        "Regex created inside loops",
+        "Inefficient pattern matching",
+        "Performance degradation"
+      ],
+      "fix": [
+        "Move regex outside loops",
+        "Compile regex once",
+        "Use regex literals"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "new RegExp|RegExp\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Regex outside loop found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PERF_CACHING",
+      "name": "Missing caching for expensive operations",
+      "description": "Expensive operations should be cached.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "performance",
+      "recommendation": {
+        "title": "Add caching for expensive operations",
+        "description": "Expensive operations should be cached.",
+        "library": "Performance"
+      },
+      "catches": [
+        "No caching implemented",
+        "Repeated expensive calls",
+        "Database hits every request"
+      ],
+      "fix": [
+        "Add memoization",
+        "Use Redis for distributed caching",
+        "Cache expensive computations"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "cache|memo|redis|Map\\(|Set\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Caching found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PERF_DEBOUNCE",
+      "name": "Undebounced event handler",
+      "description": "Frequent events like scroll/resize should be debounced.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "performance",
+      "recommendation": {
+        "title": "Debounce frequent events",
+        "description": "Frequent events like scroll/resize should be debounced.",
+        "library": "lodash.debounce"
+      },
+      "catches": [
+        "Events firing too often",
+        "No debounce on scroll/resize",
+        "Excessive handler calls"
+      ],
+      "fix": [
+        "Add lodash debounce",
+        "Throttle frequent events",
+        "Use useDebouncedCallback"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "addEventListener"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Event listener detected"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PERF_IMAGES",
+      "name": "Unoptimized images",
+      "description": "Images should be optimized and lazy loaded.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "performance",
+      "recommendation": {
+        "title": "Optimize images",
+        "description": "Images should be optimized and lazy loaded.",
+        "library": "next/image, vite-imagetools"
+      },
+      "catches": [
+        "Large image files",
+        "No lazy loading",
+        "Missing image optimization"
+      ],
+      "fix": [
+        "Use next/image",
+        "Add lazy loading",
+        "Compress images"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "Image|img|lazy|loading"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Image optimization found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PERF_LIST_VIRTUALIZATION",
+      "name": "Long list without virtualization",
+      "description": "Long lists should use virtualization for performance.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react",
+        "vue",
+        "svelte",
+        "angular"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Virtualize long lists",
+        "description": "Long lists should use virtualization for performance.",
+        "library": "react-window, vue-virtual-scroller"
+      },
+      "catches": [
+        "Rendering thousands of items",
+        "No list virtualization",
+        "Slow scrolling"
+      ],
+      "fix": [
+        "Use react-window",
+        "Virtualize large lists",
+        "Only render visible items"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "\\.map\\s*\\(",
+        "fileExtensions": [
+          ".tsx",
+          ".jsx",
+          ".vue",
+          ".svelte"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Consider virtualizing large lists with .map()"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PERF_PRELOAD",
+      "name": "Missing resource preload",
+      "description": "Critical resources should be preloaded.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "performance",
+      "recommendation": {
+        "title": "Preload critical resources",
+        "description": "Critical resources should be preloaded.",
+        "library": "HTML preload"
+      },
+      "catches": [
+        "No resource preloading",
+        "Delayed critical resources",
+        "Suboptimal loading"
+      ],
+      "fix": [
+        "Add preload links",
+        "Prefetch critical assets",
+        "Use link rel=preload"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "preload|prefetch|link.*rel.*preload"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Resource preload found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PERF_WEB_WORKER",
+      "name": "Heavy computation on main thread",
+      "description": "Heavy computations should be moved to web workers.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "performance",
+      "recommendation": {
+        "title": "Offload to web worker",
+        "description": "Heavy computations should be moved to web workers.",
+        "library": "Web Workers"
+      },
+      "catches": [
+        "Heavy computation blocking UI",
+        "No web workers",
+        "Janky animations"
+      ],
+      "fix": [
+        "Move to web worker",
+        "Use_comlink or similar",
+        "Offload heavy tasks"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "Worker|worker|postMessage"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Web worker found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PERF_DEPENDENCIES",
+      "name": "Heavy dependency detected",
+      "description": "Heavy dependencies impact bundle size. Consider alternatives.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "performance",
+      "recommendation": {
+        "title": "Check for heavy dependencies",
+        "description": "Heavy dependencies impact bundle size. Consider alternatives.",
+        "library": "Bundle analysis"
+      },
+      "catches": [
+        "Large dependencies",
+        "Bundle bloat",
+        "Slow installs"
+      ],
+      "fix": [
+        "Check bundlephobia",
+        "Use lighter alternatives",
+        "Tree-shake dependencies"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "webpack|bundlephobia|rollup",
+        "fileExtensions": [
+          ".json",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Bundle tool found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PERF_SERVER_IMPORTS",
+      "name": "Server-only imports in client code",
+      "description": "Server-only modules should not be imported in client code.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "nextjs"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Remove server-only imports from client",
+        "description": "Server-only modules should not be imported in client code.",
+        "library": "Next.js"
+      },
+      "catches": [
+        "Server code in client bundle",
+        "Prisma in client",
+        "Increased bundle size"
+      ],
+      "fix": [
+        "Use 'server only' directive",
+        "Keep server code in /app or /pages/api",
+        "Use dynamic imports for server modules"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "from\\s+['\"]\\.\\/server|getStaticProps|getServerSideProps|prisma\\/client",
+        "fileExtensions": [
+          ".ts",
+          ".tsx",
+          ".js",
+          ".jsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Server-only import found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PERF_CLASS_DECORATOR",
+      "name": "Class decorator impact",
+      "description": "Decorators can impact performance. Use them carefully.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "performance",
+      "recommendation": {
+        "title": "Consider decorator impact",
+        "description": "Decorators can impact performance. Use them carefully.",
+        "library": "TypeScript"
+      },
+      "catches": [
+        "Decorator overhead",
+        "Reflection usage",
+        "Runtime metadata"
+      ],
+      "fix": [
+        "Minimize decorator usage",
+        "Consider functional approach",
+        "Benchmark decorator impact"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "@\\w+\\(|export\\s+@",
+        "fileExtensions": [
+          ".ts"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Decorator usage found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PERF_EXPENSIVE_RENDER",
+      "name": "Expensive computation in render",
+      "description": "Expensive computations in render methods slow down rendering.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react",
+        "vue"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Move expensive computations out of render",
+        "description": "Expensive computations in render methods slow down rendering.",
+        "library": "React, Vue"
+      },
+      "catches": [
+        "Computations in render",
+        "No memoization",
+        "Unnecessary re-renders"
+      ],
+      "fix": [
+        "Add useMemo",
+        "Add useCallback",
+        "Memoize expensive calculations"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "useMemo|useCallback|computed|memo"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Memoization found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PERF_BIND_IN_RENDER",
+      "name": ".bind() in render method",
+      "description": "Using .bind() in render creates new functions on each render.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Avoid .bind() in render",
+        "description": "Using .bind() in render creates new functions on each render.",
+        "library": "React"
+      },
+      "catches": [
+        ".bind() in JSX",
+        "New function every render",
+        "Child re-renders"
+      ],
+      "fix": [
+        "Use arrow functions in class",
+        "Bind in constructor",
+        "Use useCallback"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "\\.bind\\(|=>\\s*{|arrow"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Function handling found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PERF_NO_CACHE_HEADERS",
+      "name": "No caching headers",
+      "description": "Static assets should have cache headers for better performance.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "performance",
+      "recommendation": {
+        "title": "Add caching headers",
+        "description": "Static assets should have cache headers for better performance.",
+        "library": "Caching"
+      },
+      "catches": [
+        "No cache headers",
+        "No ETag",
+        "Repeated downloads"
+      ],
+      "fix": [
+        "Add Cache-Control header",
+        "Use ETag",
+        "Configure static asset caching"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "cache-control|max-age|ETag|swr|unstable_cache"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Cache headers found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PERF_NO_PAGINATION_LIST",
+      "name": "No pagination on list endpoints",
+      "description": "List endpoints without pagination can return too much data.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "performance",
+      "recommendation": {
+        "title": "Add pagination to list endpoints",
+        "description": "List endpoints without pagination can return too much data.",
+        "library": "API"
+      },
+      "catches": [
+        "No pagination on APIs",
+        "Returning all records",
+        "Memory issues"
+      ],
+      "fix": [
+        "Add page/limit parameters",
+        "Implement cursor-based pagination",
+        "Limit result sets"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "\\.findMany\\(|\\.find\\(|router\\.(get|post|put|delete)\\(",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "API endpoint found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PERF_EXCESSIVE_LOGGING",
+      "name": "Excessive logging detected",
+      "description": "Excessive logging can impact performance.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "performance",
+      "recommendation": {
+        "title": "Reduce logging in production",
+        "description": "Excessive logging can impact performance.",
+        "library": "Logging"
+      },
+      "catches": [
+        "Too much console logging",
+        "Debug statements in code",
+        "Performance impact from logs"
+      ],
+      "fix": [
+        "Remove debug logs in production",
+        "Use proper log levels",
+        "Configure logging per environment"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "logger|debug|console\\.log"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Logging found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PERF_DUPLICATE_DEP",
+      "name": "Duplicate dependencies detected",
+      "description": "Duplicate dependencies increase bundle size. Use dedupe.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "performance",
+      "recommendation": {
+        "title": "Remove duplicate dependencies",
+        "description": "Duplicate dependencies increase bundle size. Use dedupe.",
+        "library": "npm"
+      },
+      "catches": [
+        "Same package multiple versions",
+        "Increased node_modules",
+        "Bundle duplication"
+      ],
+      "fix": [
+        "Run npm dedupe",
+        "Use yarn resolutions",
+        "Use pnpm"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "dedupe|overrides|lerna|yarn workspaces"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Dependency deduplication found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PERF_UNUSED_DEP",
+      "name": "Unused dependencies detected",
+      "description": "Unused dependencies bloat the project. Use depcheck tool.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "performance",
+      "recommendation": {
+        "title": "Remove unused dependencies",
+        "description": "Unused dependencies bloat the project. Use depcheck tool.",
+        "library": "depcheck"
+      },
+      "catches": [
+        "Unused packages in package.json",
+        "Bloated installs",
+        "Security risks"
+      ],
+      "fix": [
+        "Run depcheck",
+        "Remove unused packages",
+        "Use knip to find unused"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "depcheck|unimported|knip"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Unused dependency checking found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PERF_THIRD_PARTY_SCRIPT",
+      "name": "Third-party tracking scripts",
+      "description": "Third-party scripts impact load time. Audit and defer non-essential ones.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "performance",
+      "recommendation": {
+        "title": "Audit third-party scripts",
+        "description": "Third-party scripts impact load time. Audit and defer non-essential ones.",
+        "library": "Performance"
+      },
+      "catches": [
+        "Analytics scripts",
+        "Tracking pixels",
+        "Third-party embeds"
+      ],
+      "fix": [
+        "Defer third-party scripts",
+        "Load asynchronously",
+        "Audit necessity"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "analytics|gtag|segment|hotjar|intercom"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Third-party script found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PERF_TREE_SHAKING",
+      "name": "Potential tree shaking issues",
+      "description": "Ensure ES modules and sideEffects: false for better tree shaking.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "performance",
+      "recommendation": {
+        "title": "Enable tree shaking",
+        "description": "Ensure ES modules and sideEffects: false for better tree shaking.",
+        "library": "Webpack, Rollup"
+      },
+      "catches": [
+        "No sideEffects config",
+        "ES modules not used",
+        "Unused code included"
+      ],
+      "fix": [
+        "Add sideEffects: false",
+        "Use ES modules",
+        "Configure webpack/rollup"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "sideEffects\\s*:\\s*false",
+        "fileExtensions": [
+          ".json"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Tree shaking enabled"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PERF_EVENT_LISTENER_LEAK",
+      "name": "Event listener without cleanup",
+      "description": "Event listeners should be removed when no longer needed to prevent memory leaks.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "performance",
+      "recommendation": {
+        "title": "Clean up event listeners",
+        "description": "Event listeners should be removed when no longer needed to prevent memory leaks.",
+        "library": "Event handling"
+      },
+      "catches": [
+        "addEventListener without removeEventListener",
+        "Memory leaks from event listeners",
+        "Detached DOM elements with listeners"
+      ],
+      "fix": [
+        "Add removeEventListener in cleanup",
+        "Use AbortController for addEventListener",
+        "Remove listeners on component unmount (React)"
+      ],
+      "condition": {
+        "type": "exists",
+        "field": "content"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Check for findEventListenerWithoutCleanup",
+        "helper": "findEventListenerWithoutCleanup",
+        "params": {
+          "message": "Event listener may cause memory leak - no cleanup found"
+        }
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

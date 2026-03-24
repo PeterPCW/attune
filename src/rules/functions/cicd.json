@@ -1,0 +1,308 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "CI_NO_CACHE",
+      "name": "CI not using caching",
+      "description": "Cache node_modules, build outputs for faster CI runs.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "cicd",
+      "recommendation": {
+        "title": "Enable dependency caching",
+        "description": "Cache node_modules, build outputs for faster CI runs.",
+        "library": "GitHub Actions cache, GitLab cache"
+      },
+      "catches": [
+        "No caching in CI pipeline",
+        "Slow CI runs",
+        "Wasted build time"
+      ],
+      "fix": [
+        "Add cache for node_modules",
+        "Cache build outputs",
+        "Use restore-keys for fallback"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "cache:|cache-files:|restore-keys:",
+        "fileExtensions": [
+          ".yml",
+          ".yaml"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Cache found"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "CI_NO_LINT",
+      "name": "CI not running linters",
+      "description": "Run ESLint in CI to catch style issues before merge.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "cicd",
+      "recommendation": {
+        "title": "Run lint in CI",
+        "description": "Run ESLint in CI to catch style issues before merge.",
+        "library": "ESLint, CI pipeline"
+      },
+      "catches": [
+        "Linting not in CI pipeline",
+        "Style issues reach production",
+        "No automated code review"
+      ],
+      "fix": [
+        "Add ESLint to CI pipeline",
+        "Run before merge",
+        "Block on lint errors"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "eslint|lint|flake8|pylint",
+        "fileExtensions": [
+          ".yml",
+          ".yaml"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Linter found in CI"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "CI_NO_SECURITY_SCAN",
+      "name": "CI not running security scans",
+      "description": "Run npm audit, Snyk, or Dependabot in CI.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "cicd",
+      "recommendation": {
+        "title": "Add security scanning",
+        "description": "Run npm audit, Snyk, or Dependabot in CI.",
+        "library": "npm audit, Snyk, Dependabot"
+      },
+      "catches": [
+        "No security scanning in CI",
+        "Vulnerabilities reach production",
+        "No automated security checks"
+      ],
+      "fix": [
+        "Add npm audit to CI",
+        "Use Snyk or Dependabot",
+        "Block on high vulnerabilities"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "npm audit|snyk|dependabot|security|sast|sonar",
+        "fileExtensions": [
+          ".yml",
+          ".yaml"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Security scan found"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "CI_NO_FAIL_FAST",
+      "name": "CI not using fail-fast",
+      "description": "Fail fast on critical jobs, not on lint/test matrix.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "cicd",
+      "recommendation": {
+        "title": "Use fail-fast strategically",
+        "description": "Fail fast on critical jobs, not on lint/test matrix.",
+        "library": "GitHub Actions"
+      },
+      "catches": [
+        "No fail-fast strategy",
+        "All jobs run even after failure",
+        "Wasted CI time"
+      ],
+      "fix": [
+        "Use fail-fast for critical jobs",
+        "Don't use on lint/test matrix",
+        "Optimize CI time"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "fail-fast:|continue-on-error:",
+        "fileExtensions": [
+          ".yml",
+          ".yaml"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Fail-fast config found"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "CI_NO_TIMEOUT",
+      "name": "CI jobs missing timeout",
+      "description": "Prevent hung jobs from blocking CI. Set reasonable timeouts.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "cicd",
+      "recommendation": {
+        "title": "Set job timeouts",
+        "description": "Prevent hung jobs from blocking CI. Set reasonable timeouts.",
+        "library": "CI timeout"
+      },
+      "catches": [
+        "No timeout on CI jobs",
+        "Hung jobs block pipeline",
+        "Wasted resources"
+      ],
+      "fix": [
+        "Set timeout-minutes",
+        "Choose reasonable timeout",
+        "Handle timeouts gracefully"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "timeout-minutes:|timeout:",
+        "fileExtensions": [
+          ".yml",
+          ".yaml"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Timeout found"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "CI_NO_ARTIFACT",
+      "name": "CI not saving artifacts",
+      "description": "Save build outputs for debugging failed deployments.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "cicd",
+      "recommendation": {
+        "title": "Save build artifacts",
+        "description": "Save build outputs for debugging failed deployments.",
+        "library": "GitHub Actions artifacts"
+      },
+      "catches": [
+        "No artifacts saved",
+        "Can't debug failed builds",
+        "No build output for review"
+      ],
+      "fix": [
+        "Add upload-artifact step",
+        "Save build outputs",
+        "Configure retention period"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "artifacts:|upload-artifact|save_cache",
+        "fileExtensions": [
+          ".yml",
+          ".yaml"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Artifact saving found"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "CI_NO_ENV_SECRETS",
+      "name": "CI using secrets directly",
+      "description": "Never hardcode secrets in CI configs. Use secret variables.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "cicd",
+      "recommendation": {
+        "title": "Use CI secrets, not hardcoded values",
+        "description": "Never hardcode secrets in CI configs. Use secret variables.",
+        "library": "GitHub Secrets, GitLab CI Variables"
+      },
+      "catches": [
+        "Hardcoded secrets in CI",
+        "Secrets exposed in logs",
+        "Security vulnerability"
+      ],
+      "fix": [
+        "Use GitHub Secrets",
+        "Use environment variables",
+        "Never commit secrets"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "password:|api_key:|secret:|token:.*[a-zA-Z0-9]{20,}",
+        "fileExtensions": [
+          ".yml",
+          ".yaml"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Potential hardcoded secret - use secrets"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "CI_NO_NPMrc",
+      "name": "Missing .npmrc in CI",
+      "description": ".npmrc ensures consistent package resolution in CI.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "cicd",
+      "recommendation": {
+        "title": "Add .npmrc for consistent installs",
+        "description": ".npmrc ensures consistent package resolution in CI.",
+        "library": ".npmrc"
+      },
+      "catches": [
+        "No .npmrc in CI",
+        "Inconsistent package resolution",
+        "Potential install differences"
+      ],
+      "fix": [
+        "Add .npmrc file",
+        "Configure registry and settings",
+        "Commit to repo"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "\\.npmrc",
+        "fileExtensions": [
+          ".npmrc"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": ".npmrc found"
+      },
+      "projectTypes": []
+    }
+  ]
+}

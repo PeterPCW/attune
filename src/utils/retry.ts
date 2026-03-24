@@ -93,16 +93,6 @@ function wait(ms: number): Promise<void> {
 }
 
 /**
- * Synchronous busy wait (used when async is not available)
- */
-function busyWait(ms: number): void {
-  const end = Date.now() + ms;
-  while (Date.now() < end) {
-    // Intentional busy wait for sync retry
-  }
-}
-
-/**
  * Retry an async function with exponential backoff
  * @throws {Error} Re-throws the last error if all retries are exhausted
  */
@@ -135,8 +125,9 @@ export async function retry<T>(fn: () => Promise<T>, options: RetryOptions = {})
 }
 
 /**
- * Synchronous version of retry for use in non-async contexts
- * @throws {Error} Re-throws the last error if all retries are exhausted
+ * Synchronous retry - fail fast for file operations
+ * File system errors are rarely transient, so we don't retry with delay
+ * to avoid blocking the event loop with busy-wait
  */
 export function retrySync<T>(fn: () => T, options: RetryOptions = {}): T {
   const config = getConfig(options);
@@ -153,13 +144,13 @@ export function retrySync<T>(fn: () => T, options: RetryOptions = {}): T {
         break;
       }
 
-      // Don't retry non-transient errors
+      // Don't retry non-transient errors - fail fast
       if (!isRetryableError(error)) {
         throw error;
       }
 
-      // Wait before retrying
-      busyWait(calculateBackoffDelay(attempt, config));
+      // For sync operations, skip the delay on last retry only
+      // but still retry to handle transient busy errors
     }
   }
 

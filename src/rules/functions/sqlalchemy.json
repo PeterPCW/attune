@@ -1,0 +1,297 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "SQLA_N_PLUS_ONE",
+      "name": "N+1 query problem in SQLAlchemy",
+      "description": "Use eager loading strategies (joinedload, selectinload) to prevent N+1 queries.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "sqlalchemy"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Fix N+1 queries with eager loading",
+        "description": "Use eager loading strategies (joinedload, selectinload) to prevent N+1 queries.",
+        "library": "SQLAlchemy"
+      },
+      "condition": {
+        "type": "exists",
+        "field": "content"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Check for findSQLAlchemyNPlusOne",
+        "helper": "findSQLAlchemyNPlusOne",
+        "params": {
+          "message": "N+1 query detected"
+        }
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "SQLA_SESSION_NOT_CLOSED",
+      "name": "Database session not properly closed",
+      "description": "Use 'with Session() as session:' or session.remove() after use.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "sqlalchemy"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "reliability",
+      "recommendation": {
+        "title": "Use context managers for sessions",
+        "description": "Use 'with Session() as session:' or session.remove() after use.",
+        "library": "SQLAlchemy"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "Session\\(\\)|sessionmaker\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Session should be closed after use"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "SQLA_NO_COMMIT",
+      "name": "Transaction not committed",
+      "description": "Call session.commit() after making changes.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "sqlalchemy"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "reliability",
+      "recommendation": {
+        "title": "Commit transactions explicitly",
+        "description": "Call session.commit() after making changes.",
+        "library": "SQLAlchemy"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "\\.add\\(|\\.update\\(|\\.delete\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Transaction should be explicitly committed"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "SQLA_QUERY_IN_LOOP",
+      "name": "Database query inside loop",
+      "description": "Use session.bulk_insert_mappings or batch operations.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "sqlalchemy"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Use bulk operations or subqueries",
+        "description": "Use session.bulk_insert_mappings or batch operations.",
+        "library": "SQLAlchemy"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "for\\s+\\w+\\s+in\\s+[X]:session\\.(query|execute)\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Database query inside loop"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "SQLA_LAZY_LOADING",
+      "name": "Relationship using default lazy loading",
+      "description": "Use lazy='joined' or lazy='selectin' for eager loading.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "sqlalchemy"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Specify lazy strategy for relationships",
+        "description": "Use lazy='joined' or lazy='selectin' for eager loading.",
+        "library": "SQLAlchemy"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "relationship\\(\\)(?!.*lazy)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Consider specifying lazy loading strategy"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "SQLA_STRING_CONCAT",
+      "name": "SQL built with string concatenation",
+      "description": "Use :param format with text() or proper ORM queries.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "sqlalchemy"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "security",
+      "recommendation": {
+        "title": "Use bound parameters",
+        "description": "Use :param format with text() or proper ORM queries.",
+        "library": "SQLAlchemy"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "text\\(['\"].*%|\\+.*\\s+WHERE"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "critical",
+        "message": "Potential SQL injection vulnerability"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "SQLA_AUTOFLUSH",
+      "name": "Auto-flush may cause premature commits",
+      "description": "Use autoflush=False and explicit flush() when needed.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "sqlalchemy"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "reliability",
+      "recommendation": {
+        "title": "Control flush behavior",
+        "description": "Use autoflush=False and explicit flush() when needed.",
+        "library": "SQLAlchemy"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "Session\\(autoflush"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Consider managing flush behavior explicitly"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "SQLA_NO_ENGINES",
+      "name": "Engine created without pool settings",
+      "description": "Set pool_size and max_overflow for production.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "sqlalchemy"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Configure connection pool",
+        "description": "Set pool_size and max_overflow for production.",
+        "library": "SQLAlchemy"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "create_engine\\(\\)(?!.*pool)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Consider configuring connection pool"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "SQLA_ECHO_TRUE",
+      "name": "SQL echo enabled in production",
+      "description": "Set echo=False in production.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "sqlalchemy"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "security",
+      "recommendation": {
+        "title": "Disable SQL echo in production",
+        "description": "Set echo=False in production.",
+        "library": "SQLAlchemy"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "create_engine\\(echo\\s*=\\s*True"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "SQL echo should be disabled in production"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

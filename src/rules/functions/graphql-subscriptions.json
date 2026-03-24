@@ -1,0 +1,132 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "GQL_SUB_NO_AUTH",
+      "name": "GraphQL subscriptions not authenticated",
+      "description": "Subscriptions should require authentication like queries/mutations.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ],
+      "category": "graphql-subscriptions",
+      "recommendation": {
+        "title": "Authenticate subscriptions",
+        "description": "Subscriptions should require authentication like queries/mutations.",
+        "library": "Apollo Server, graphql-ws"
+      },
+      "catches": [
+        "Unauthenticated connections",
+        "Anyone can subscribe",
+        "Security issues"
+      ],
+      "fix": [
+        "Add auth to subscription resolvers",
+        "Validate tokens on connection",
+        "Check permissions"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "Subscription|@subscription",
+        "fileExtensions": [
+          ".ts",
+          ".js",
+          ".graphql",
+          ".gql"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "critical",
+        "message": "GraphQL subscription found - add auth"
+      }
+    },
+    {
+      "id": "GQL_SUB_NO_RATE_LIMIT",
+      "name": "GraphQL subscriptions missing rate limit",
+      "description": "Limit concurrent subscriptions per user to prevent abuse.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ],
+      "category": "graphql-subscriptions",
+      "recommendation": {
+        "title": "Limit subscription connections",
+        "description": "Limit concurrent subscriptions per user to prevent abuse.",
+        "library": "graphql-ws rate limit"
+      },
+      "catches": [
+        "Many concurrent connections",
+        "Server overload",
+        "Resource exhaustion"
+      ],
+      "fix": [
+        "Add connection limits",
+        "Throttle per user",
+        "Monitor connections"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "subscription|onConnect",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Subscription found"
+      }
+    },
+    {
+      "id": "GQL_SUB_NO_VALIDATION",
+      "name": "Subscription payload not validated",
+      "description": "Validate connection params and payload data.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ],
+      "category": "graphql-subscriptions",
+      "recommendation": {
+        "title": "Validate subscription payloads",
+        "description": "Validate connection params and payload data.",
+        "library": "graphql-ws"
+      },
+      "catches": [
+        "Invalid data processed",
+        "No type safety",
+        "Potential errors"
+      ],
+      "fix": [
+        "Validate connection params",
+        "Use schema validation",
+        "Check payload data"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "validate|validation|schema",
+        "fileExtensions": [
+          ".ts",
+          ".js",
+          ".graphql",
+          ".gql"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Validation found"
+      }
+    }
+  ]
+}

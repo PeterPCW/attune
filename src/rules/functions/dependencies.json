@@ -1,0 +1,129 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "DEPS_NO_LOCKFILE",
+      "name": "Missing lockfile",
+      "description": "Lockfiles ensure consistent dependency versions across environments.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "dependencies",
+      "recommendation": {
+        "title": "Use lockfiles for reproducible builds",
+        "description": "Lockfiles ensure consistent dependency versions across environments.",
+        "library": "package-lock.json, yarn.lock"
+      },
+      "catches": [
+        "No lockfile in project",
+        "Inconsistent dependency versions",
+        "Reproducibility issues"
+      ],
+      "fix": [
+        "Generate package-lock.json",
+        "Use yarn.lock or pnpm-lock.yaml",
+        "Commit lockfile to repo"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "lockfileVersion",
+        "fileExtensions": [
+          "package!-lock.json",
+          "yarn.lock",
+          "pnpm-lock.yaml"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Lockfile detected - good",
+        "helper": "findOnLines",
+        "params": {
+          "pattern": "lockfileVersion",
+          "message": "Lockfile missing - generate with npm install",
+          "fileExtensions": [
+            "package.json"
+          ],
+          "skipPaths": [
+            "node_modules"
+          ]
+        }
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "DEPS_PRIVATE",
+      "name": "Missing private field for private packages",
+      "description": "Set \"private\": true to prevent accidental publishing.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "dependencies",
+      "recommendation": {
+        "title": "Mark private packages as private",
+        "description": "Set \"private\": true to prevent accidental publishing.",
+        "library": "package.json"
+      },
+      "catches": [
+        "No private field in package.json",
+        "Risk of accidental publishing",
+        "Exposes internal package"
+      ],
+      "fix": [
+        "Add \"private\": true",
+        "Prevent accidental publish",
+        "Set in package.json"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "\"private\"",
+        "fileExtensions": [
+          "package.json"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Private field present"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "DEPS_NO_REPOS",
+      "name": "Missing repository field",
+      "description": "Repository field links package to source code.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "dependencies",
+      "recommendation": {
+        "title": "Add repository field",
+        "description": "Repository field links package to source code.",
+        "library": "package.json"
+      },
+      "catches": [
+        "No repository field",
+        "Package not linked to source",
+        "Hard to navigate"
+      ],
+      "fix": [
+        "Add repository field",
+        "Link to GitHub repo",
+        "Help users find source"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "\"repository\"",
+        "fileExtensions": [
+          "package.json"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Repository field present"
+      },
+      "projectTypes": []
+    }
+  ]
+}

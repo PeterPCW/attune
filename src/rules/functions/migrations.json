@@ -1,0 +1,253 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "MIGRATION_NO_TIMESTAMP",
+      "name": "Migration files not timestamped",
+      "description": "Timestamp-based names ensure consistent ordering across environments.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "migrations",
+      "recommendation": {
+        "title": "Use timestamped migrations",
+        "description": "Timestamp-based names ensure consistent ordering across environments.",
+        "library": "Knex, Prisma, TypeORM"
+      },
+      "catches": [
+        "Migration order unclear",
+        "Inconsistent ordering",
+        "Deployment conflicts"
+      ],
+      "fix": [
+        "Use timestamp prefixes",
+        "Use UUID-based names",
+        "Configure migration naming"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "\\d{14}_|\\d{10}_|timestamp",
+        "fileExtensions": [
+          "ts",
+          "js",
+          ".sql"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Timestamp found in migration name"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "MIGRATION_NO_ROLLBACK",
+      "name": "Migration without rollback",
+      "description": "Always provide up() and down() or use .sql with reverse.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "migrations",
+      "recommendation": {
+        "title": "Write reversible migrations",
+        "description": "Always provide up() and down() or use .sql with reverse.",
+        "library": "Migration framework"
+      },
+      "catches": [
+        "Can't revert changes",
+        "Database stuck",
+        "Failed deployments"
+      ],
+      "fix": [
+        "Write down() method",
+        "Add reversible SQL",
+        "Test rollback first"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "up\\s*\\(|down\\s*\\(|CREATE TABLE|ALTER TABLE",
+        "fileExtensions": [
+          "ts",
+          "js",
+          ".sql"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Migration found - add rollback"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "MIGRATION_NO_SEED",
+      "name": "Missing seed data",
+      "description": "Seed data ensures consistent reference data across environments.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "migrations",
+      "recommendation": {
+        "title": "Add seed data for reference tables",
+        "description": "Seed data ensures consistent reference data across environments.",
+        "library": "Knex seed, Prisma seed"
+      },
+      "catches": [
+        "Missing reference data",
+        "Inconsistent environments",
+        "Failed deployments"
+      ],
+      "fix": [
+        "Create seed files",
+        "Seed reference tables",
+        "Run seeds after migrate"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "seed|seeds|seed\\.ts|seed\\.js",
+        "fileExtensions": [
+          "ts",
+          "js",
+          ".sql"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Seed found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "MIGRATION_NO_IDX_CONCURRENTLY",
+      "name": "Index created without CONCURRENTLY",
+      "description": "CONCURRENTLY creates indexes without locking writes.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "migrations",
+      "recommendation": {
+        "title": "Use CONCURRENTLY for production indexes",
+        "description": "CONCURRENTLY creates indexes without locking writes.",
+        "library": "PostgreSQL"
+      },
+      "catches": [
+        "Table locks during index",
+        "Production downtime",
+        "Failed deployments"
+      ],
+      "fix": [
+        "Use CONCURRENTLY keyword",
+        "Schedule during low traffic",
+        "Test on staging first"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "CREATE INDEX|CONCURRENTLY",
+        "fileExtensions": [
+          ".sql"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Index creation - use CONCURRENTLY"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "MIGRATION_NO_SCHEMA",
+      "name": "Migration not using schema",
+      "description": "Group objects in schemas for better organization.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "migrations",
+      "recommendation": {
+        "title": "Use database schema",
+        "description": "Group objects in schemas for better organization.",
+        "library": "PostgreSQL, SQL Server"
+      },
+      "catches": [
+        "No schema organization",
+        "Flat namespace",
+        "Hard to manage"
+      ],
+      "fix": [
+        "Create schemas for groups",
+        "Set schema in migrations",
+        "Organize by feature"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "CREATE TABLE|schema:|SCHEMA",
+        "fileExtensions": [
+          ".sql",
+          "ts",
+          "js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Schema found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "MIGRATION_NO_BACKUP",
+      "name": "Risky operation without backup",
+      "description": "DROP TABLE, TRUNCATE, DELETE without WHERE need backups.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "migrations",
+      "recommendation": {
+        "title": "Backup before destructive changes",
+        "description": "DROP TABLE, TRUNCATE, DELETE without WHERE need backups.",
+        "library": "Database backup"
+      },
+      "catches": [
+        "Data loss",
+        "No recovery option",
+        "Permanent deletion"
+      ],
+      "fix": [
+        "Backup before destructive ops",
+        "Test on staging first",
+        "Have recovery plan"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "DROP TABLE|TRUNCATE|DELETE FROM [X] WHERE",
+        "fileExtensions": [
+          ".sql"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Destructive operation - backup first"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

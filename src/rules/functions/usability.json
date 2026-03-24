@@ -1,0 +1,249 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "USE_NO_ERROR_STATE",
+      "name": "No Error State",
+      "description": "Components should handle error states gracefully.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react",
+        "vue",
+        "svelte"
+      ],
+      "category": "usability",
+      "recommendation": {
+        "title": "Add error state handling",
+        "description": "Components should handle error states gracefully.",
+        "library": "Error handling"
+      },
+      "catches": [
+        "Crashed UI with no feedback",
+        "Blank screens on errors",
+        "Poor user experience"
+      ],
+      "fix": [
+        "Add error boundaries",
+        "Show error messages to users",
+        "Provide fallback UI"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "error|Error|catch|throw"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Error handling found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "USE_MISSING_HELP",
+      "name": "Missing CLI help",
+      "description": "CLI should provide --help flag with usage information.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "usability",
+      "recommendation": {
+        "title": "Add help command",
+        "description": "CLI should provide --help flag with usage information.",
+        "library": "CLI"
+      },
+      "catches": [
+        "Users can't get help",
+        "Hard to learn CLI",
+        "Poor documentation"
+      ],
+      "fix": [
+        "Add --help option",
+        "Show usage examples",
+        "Document all options"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "\\.option\\(['\"]-h, --help",
+        "fileExtensions": [
+          ".ts"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Help option found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "USE_MISSING_VERSION",
+      "name": "Missing CLI version",
+      "description": "CLI should provide --version flag.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "usability",
+      "recommendation": {
+        "title": "Add version flag",
+        "description": "CLI should provide --version flag.",
+        "library": "CLI"
+      },
+      "catches": [
+        "Users can't check version",
+        "Hard to debug issues",
+        "No version info"
+      ],
+      "fix": [
+        "Add --version option",
+        "Show current version",
+        "Configure version in package"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "\\.version\\(|'--version'|\"-v\"",
+        "fileExtensions": [
+          ".ts"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Version option found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "USE_NO_PROGRESS",
+      "name": "No progress indicator for long operations",
+      "description": "Long-running operations should show progress indicators.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "usability",
+      "recommendation": {
+        "title": "Add progress indicator",
+        "description": "Long-running operations should show progress indicators.",
+        "library": "CLI, UI"
+      },
+      "catches": [
+        "User unsure if app working",
+        "Appears frozen",
+        "Poor experience"
+      ],
+      "fix": [
+        "Add progress spinner/loader",
+        "Show percentage for known duration",
+        "Use loading states"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "ora\\(|chalk\\.cyan|inquirer|prompt\\(",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Progress or prompt found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "USE_NO_CONFIRMATION",
+      "name": "No confirmation for destructive actions",
+      "description": "Destructive actions should require user confirmation.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "usability",
+      "recommendation": {
+        "title": "Add confirmation prompts",
+        "description": "Destructive actions should require user confirmation.",
+        "library": "CLI"
+      },
+      "catches": [
+        "Accidental destructive action",
+        "Data loss",
+        "No chance to cancel"
+      ],
+      "fix": [
+        "Add confirmation prompt",
+        "Require explicit yes/no",
+        "Show what will happen"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "inquirer\\.|confirm\\(|chalk\\.red|process\\.exit\\(0\\)",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Confirmation or destructive action found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "USE_NO_SUGGESTIONS",
+      "name": "No command suggestions for typos",
+      "description": "CLI should suggest correct commands when users make typos.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "usability",
+      "recommendation": {
+        "title": "Add command suggestions",
+        "description": "CLI should suggest correct commands when users make typos.",
+        "library": "CLI"
+      },
+      "catches": [
+        "Typo leads to confusion",
+        "Users don't know correct command",
+        "Frustrating experience"
+      ],
+      "fix": [
+        "Enable suggestCommands",
+        "Show similar command names",
+        "Help users correct typos"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "suggestCommands|createCommand\\.|\\.distances\\(",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Command suggestion found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

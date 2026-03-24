@@ -1,0 +1,382 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "MOBILE_OFFLINE_FIRST",
+      "name": "No offline support for critical features",
+      "description": "Critical features should work offline using service workers.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "pwa"
+      ],
+      "category": "reliability",
+      "recommendation": {
+        "title": "Add offline support",
+        "description": "Critical features should work offline using service workers.",
+        "library": "Service Workers, Workbox"
+      },
+      "catches": [
+        "App unusable without internet",
+        "Poor user experience offline",
+        "Failed requests when offline"
+      ],
+      "fix": [
+        "Add service worker for caching",
+        "Use Workbox for offline support",
+        "Implement offline-first architecture"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "service-worker|workbox|offline|cache"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Offline support found"
+      },
+      "projectTypes": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    {
+      "id": "MOBILE_NO_SPLASH",
+      "name": "Missing splash screen",
+      "description": "Splash screens improve perceived startup time on mobile.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "pwa"
+      ],
+      "category": "usability",
+      "recommendation": {
+        "title": "Add splash screen",
+        "description": "Splash screens improve perceived startup time on mobile.",
+        "library": "PWA"
+      },
+      "catches": [
+        "White flash on app load",
+        "Poor perceived performance",
+        "Inconsistent user experience"
+      ],
+      "fix": [
+        "Add splash screen to manifest",
+        "Configure theme color",
+        "Set loading screen background"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "splash|launch|loading.?screen"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Splash screen found"
+      },
+      "projectTypes": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    {
+      "id": "MOBILE_VIEWPORT",
+      "name": "Missing viewport meta tag",
+      "description": "Viewport meta tag is required for proper mobile rendering.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "usability",
+      "recommendation": {
+        "title": "Add viewport meta tag",
+        "description": "Viewport meta tag is required for proper mobile rendering.",
+        "library": "HTML"
+      },
+      "catches": [
+        "Page not scaled for mobile",
+        "Tiny text on small screens",
+        "Poor mobile experience"
+      ],
+      "fix": [
+        "Add viewport meta tag to HTML head",
+        "Set width=device-width, initial-scale=1",
+        "Test on actual mobile devices"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "viewport|meta.*width=device"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Viewport meta found"
+      },
+      "projectTypes": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    {
+      "id": "MOBILE_TAP_SIZE",
+      "name": "Touch targets too small",
+      "description": "Touch targets should be at least 44x44 pixels for accessibility.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "accessibility",
+      "recommendation": {
+        "title": "Increase touch target size",
+        "description": "Touch targets should be at least 44x44 pixels for accessibility.",
+        "library": "CSS"
+      },
+      "catches": [
+        "Hard to tap small buttons",
+        "Accessibility violations",
+        "User frustration"
+      ],
+      "fix": [
+        "Increase button size to 44x44px minimum",
+        "Add adequate padding",
+        "Test touch targets on actual devices"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "min-height|min-width|padding|44px|48px"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Touch target sizing found"
+      },
+      "projectTypes": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    {
+      "id": "MOBILE_SWIPE_CONFLICT",
+      "name": "Swipe gestures may conflict with browser",
+      "description": "Custom swipe gestures may conflict with browser navigation. Add prevention.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "usability",
+      "recommendation": {
+        "title": "Handle swipe conflicts",
+        "description": "Custom swipe gestures may conflict with browser navigation. Add prevention.",
+        "library": "JavaScript"
+      },
+      "catches": [
+        "Browser navigation conflicts with app gestures",
+        "Unexpected back navigation",
+        "Poor gesture experience"
+      ],
+      "fix": [
+        "Call preventDefault on touchmove carefully",
+        "Use passive: false for event listeners",
+        "Test gestures on real devices"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "touchstart|touchmove|preventDefault|passive"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Touch handling found"
+      },
+      "projectTypes": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    {
+      "id": "MOBILE_NO_PWA",
+      "name": "PWA not installed",
+      "description": "Progressive Web Apps provide better mobile experience with install prompt.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "usability",
+      "recommendation": {
+        "title": "Consider PWA",
+        "description": "Progressive Web Apps provide better mobile experience with install prompt.",
+        "library": "PWA"
+      },
+      "catches": [
+        "No install prompt for PWA",
+        "Missing from home screen",
+        "No offline capability"
+      ],
+      "fix": [
+        "Create Web App Manifest",
+        "Register service worker",
+        "Add install prompt handling"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "manifest|service.?worker|PWA"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "PWA found"
+      },
+      "projectTypes": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    {
+      "id": "MOBILE_ORIENTATION",
+      "name": "No orientation handling",
+      "description": "App should handle both portrait and landscape orientations.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "usability",
+      "recommendation": {
+        "title": "Handle orientation changes",
+        "description": "App should handle both portrait and landscape orientations.",
+        "library": "CSS, JavaScript"
+      },
+      "catches": [
+        "Layout broken in landscape",
+        "Content hidden on orientation change",
+        "Poor multi-orientation support"
+      ],
+      "fix": [
+        "Add CSS media queries for orientation",
+        "Test in both orientations",
+        "Use responsive layouts"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "orientation|media.?query|landscape|portrait"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Orientation handling found"
+      },
+      "projectTypes": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    {
+      "id": "MOBILE_NOTCH_IGNORE",
+      "name": "Notch/safe area not handled",
+      "description": "Use env(safe-area-inset-*) for notches and system UI.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "usability",
+      "recommendation": {
+        "title": "Handle safe areas",
+        "description": "Use env(safe-area-inset-*) for notches and system UI.",
+        "library": "CSS"
+      },
+      "catches": [
+        "Content hidden under notch",
+        "Buttons behind status bar",
+        "UI obscured by device cutouts"
+      ],
+      "fix": [
+        "Use safe-area-inset CSS properties",
+        "Add env(safe-area-inset-*) padding",
+        "Test on devices with notches"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "safe-area|env\\(|padding-top|env\\(safe"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Safe area handling found"
+      },
+      "projectTypes": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    {
+      "id": "MOBILE_BATTERY_DRAIN",
+      "name": "Background processes may drain battery",
+      "description": "Avoid unnecessary background processing to preserve battery.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "performance",
+      "recommendation": {
+        "title": "Optimize background processes",
+        "description": "Avoid unnecessary background processing to preserve battery.",
+        "library": "Performance"
+      },
+      "catches": [
+        "Battery drains quickly",
+        "Background timers running unnecessarily",
+        "Poor battery life experience"
+      ],
+      "fix": [
+        "Use Page Visibility API",
+        "Pause animations when hidden",
+        "Clear intervals on page hide"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "visibilitychange|background|performance"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Background optimization found"
+      },
+      "projectTypes": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    {
+      "id": "MOBILE_DEEP_LINK",
+      "name": "No deep linking support",
+      "description": "Support deep links to specific app screens from external URLs.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react-native",
+        "flutter"
+      ],
+      "category": "usability",
+      "recommendation": {
+        "title": "Add deep linking",
+        "description": "Support deep links to specific app screens from external URLs.",
+        "library": "Deep Linking"
+      },
+      "catches": [
+        "No direct links to app screens",
+        "Users can't share specific content",
+        "Poor discoverability"
+      ],
+      "fix": [
+        "Implement URL schemes",
+        "Add universal links (iOS) / app links (Android)",
+        "Handle links in navigation"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "deep.?link|linking|uri|scheme"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Deep linking found"
+      },
+      "projectTypes": [
+        "mobile",
+        "desktop"
+      ]
+    }
+  ]
+}

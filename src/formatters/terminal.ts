@@ -1,12 +1,9 @@
 import chalk from 'chalk';
 import { Finding, ScanMetadata } from '../types/index.js';
+import { groupBySeverity, groupByCategory } from '../utils/findings.js';
 
 export function formatTerminal(findings: Finding[], metadata: ScanMetadata): string {
-  const critical = findings.filter(f => f.severity === 'critical');
-  const high = findings.filter(f => f.severity === 'high');
-  const medium = findings.filter(f => f.severity === 'medium');
-  const low = findings.filter(f => f.severity === 'low');
-  const info = findings.filter(f => f.severity === 'info');
+  const { critical, high, medium, low, info } = groupBySeverity(findings);
 
   let output = `📊 Attune ${metadata.full ? 'Full' : 'Lite'} Report\n`;
   output += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
@@ -44,11 +41,34 @@ export function formatTerminal(findings: Finding[], metadata: ScanMetadata): str
 
   if (medium.length > 0) {
     output += chalk.blue(`🔵 Medium Issues (${medium.length})\n`);
+    for (const f of medium.slice(0, 10)) {
+      output += `   • ${f.ruleId}: ${f.file}${f.line ? `:${f.line}` : ''}\n`;
+    }
+    if (medium.length > 10) {
+      output += `   ... and ${medium.length - 10} more\n`;
+    }
     output += '\n';
   }
 
-  if (low.length + info.length > 0) {
-    output += chalk.gray(`ℹ️ Low/Info (${low.length + info.length})\n`);
+  if (low.length > 0) {
+    output += chalk.gray(`⚪ Low Issues (${low.length})\n`);
+    for (const f of low.slice(0, 10)) {
+      output += `   • ${f.ruleId}: ${f.file}${f.line ? `:${f.line}` : ''}\n`;
+    }
+    if (low.length > 10) {
+      output += `   ... and ${low.length - 10} more\n`;
+    }
+    output += '\n';
+  }
+
+  if (info.length > 0) {
+    output += chalk.gray(`ℹ️ Info (${info.length})\n`);
+    for (const f of info.slice(0, 10)) {
+      output += `   • ${f.ruleId}: ${f.file}${f.line ? `:${f.line}` : ''}\n`;
+    }
+    if (info.length > 10) {
+      output += `   ... and ${info.length - 10} more\n`;
+    }
     output += '\n';
   }
 

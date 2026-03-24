@@ -1,0 +1,301 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "FASTAPI_SYNC_DB_ASYNC",
+      "name": "Sync database operation in async FastAPI handler",
+      "description": "Use async database drivers (like databases, asyncpg) or run sync operations in a thread pool.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "fastapi"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Use async database operations in async handlers",
+        "description": "Use async database drivers (like databases, asyncpg) or run sync operations in a thread pool.",
+        "library": "FastAPI"
+      },
+      "condition": {
+        "type": "exists",
+        "field": "content"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Check for findFastAPISyncDbInAsync",
+        "helper": "findFastAPISyncDbInAsync",
+        "params": {
+          "message": "Sync DB in async handler"
+        }
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "FASTAPI_MISSING_RESPONSE_MODEL",
+      "name": "Missing response_model in FastAPI endpoint",
+      "description": "Define response models for automatic documentation and validation.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "fastapi"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "api",
+      "recommendation": {
+        "title": "Add response_model to FastAPI endpoints",
+        "description": "Define response models for automatic documentation and validation.",
+        "library": "FastAPI"
+      },
+      "condition": {
+        "type": "exists",
+        "field": "content"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Check for findFastAPIMissingResponseModel",
+        "helper": "findFastAPIMissingResponseModel",
+        "params": {
+          "message": "Missing response_model"
+        }
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "FASTAPI_NO_PAGINATION",
+      "name": "Missing pagination for list endpoints",
+      "description": "Use skip/limit or page/page_size parameters.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "fastapi"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Add pagination to list endpoints",
+        "description": "Use skip/limit or page/page_size parameters.",
+        "library": "FastAPI"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "@app\\.get\\(\"\"\\)(?!.*skip|.*limit|.*offset|.*page)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Consider adding pagination to list endpoints"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "FASTAPI_NO_CORS",
+      "name": "Missing CORS configuration",
+      "description": "Use app.add_middleware(CORSMiddleware, ...) to configure CORS.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "fastapi"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "security",
+      "recommendation": {
+        "title": "Configure CORS explicitly",
+        "description": "Use app.add_middleware(CORSMiddleware, ...) to configure CORS.",
+        "library": "FastAPI"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "app\\s*=\\s*FastAPI\\(\\)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Missing CORS configuration"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "FASTAPI_NO_ERROR_HANDLER",
+      "name": "Missing custom error handlers",
+      "description": "Use app.add_exception_handler for custom error responses.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "fastapi"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "error-handling",
+      "recommendation": {
+        "title": "Add custom error handlers",
+        "description": "Use app.add_exception_handler for custom error responses.",
+        "library": "FastAPI"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "app\\s*=\\s*FastAPI\\(\\)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Consider adding custom exception handlers"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "FASTAPI_DEBUG_TRUE",
+      "name": "Debug mode potentially enabled",
+      "description": "Don't use --reload in production.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "fastapi"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "security",
+      "recommendation": {
+        "title": "Disable debug in production",
+        "description": "Don't use --reload in production.",
+        "library": "FastAPI"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "uvicorn\\s+--reload|app\\s*=\\s*FastAPI\\(debug\\s*=\\s*True"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Debug mode should be disabled in production"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "FASTAPI_SYNC_IN_ASYNC",
+      "name": "Synchronous function called in async endpoint",
+      "description": "Use aiosqlite, asyncpg, or run sync code with await run_in_executor().",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "fastapi"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Use async libraries or run in thread pool",
+        "description": "Use aiosqlite, asyncpg, or run sync code with await run_in_executor().",
+        "library": "FastAPI"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "async\\s+def\\s+\\w+requests\\.|async\\s+def\\s+\\w+psycopg2\\.|async\\s+def\\s+\\w+sqlite3\\."
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Synchronous blocking call in async function"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "FASTAPI_MISSING_DEPENDS",
+      "name": "Database connection not using dependency injection",
+      "description": "Use Depends() to inject database connections for proper cleanup.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "fastapi"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Use dependency injection for database",
+        "description": "Use Depends() to inject database connections for proper cleanup.",
+        "library": "FastAPI"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "async\\s+def\\s+\\w+\\(\\):(?!Depends)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Consider using dependency injection for database"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "FASTAPI_NO_VERSIONING",
+      "name": "Missing API versioning",
+      "description": "Use /api/v1/ path prefix or header versioning.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "fastapi"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Add API versioning",
+        "description": "Use /api/v1/ path prefix or header versioning.",
+        "library": "FastAPI"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "app\\s*=\\s*FastAPI\\(\\)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Consider adding API versioning"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

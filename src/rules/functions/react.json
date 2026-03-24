@@ -1,0 +1,709 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "REACT_MISSING_DEPS",
+      "name": "useEffect without exhaustive deps",
+      "description": "useEffect missing dependencies in deps array. This can cause stale closures.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react",
+        "nextjs"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Add exhaustive deps to useEffect",
+        "description": "useEffect missing dependencies in deps array. This can cause stale closures.",
+        "library": "React"
+      },
+      "catches": [
+        "Missing dependencies in useEffect",
+        "Stale closures",
+        "Buggy behavior"
+      ],
+      "fix": [
+        "Add all dependencies to deps array",
+        "Use eslint-plugin-react-hooks",
+        "Fix missing dependencies"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "useEffect\\s*\\(\\s*\\(\\)\\s*=>\\s*\\{\\}\\s*,\\s*\\[\\s*\\]"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "useEffect with empty deps using state - missing dependencies"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "REACT_INFINITE_LOOP",
+      "name": "useEffect with empty deps + state",
+      "description": "useEffect with empty deps array that updates state can cause infinite loop.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react",
+        "nextjs"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Fix infinite loop in useEffect",
+        "description": "useEffect with empty deps array that updates state can cause infinite loop.",
+        "library": "React"
+      },
+      "catches": [
+        "Infinite loop in useEffect",
+        "State updates on every render",
+        "App freezes"
+      ],
+      "fix": [
+        "Add dependencies to deps array",
+        "Use useMemo for derived state",
+        "Fix dependency array"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "useEffect\\s*\\(\\s*\\(\\s*\\)\\s*=>\\s*\\{[^}]{0,500}set\\w+\\s*\\([X]\\)\\}\\s*,\\s*\\[\\s*\\]\\s*\\)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "critical",
+        "message": "Potential infinite loop - useEffect with empty deps calling setState"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "REACT_HOOK_RULE_VIOLATION",
+      "name": "Hooks called conditionally",
+      "description": "React hooks must be called unconditionally at the top level of a component.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react",
+        "nextjs"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Move hooks outside conditionals",
+        "description": "React hooks must be called unconditionally at the top level of a component.",
+        "library": "React"
+      },
+      "catches": [
+        "Hooks called conditionally",
+        "Violates Rules of Hooks",
+        "Undefined behavior"
+      ],
+      "fix": [
+        "Move hooks to top level",
+        "Don't call in conditions",
+        "Follow Rules of Hooks"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "if\\s*\\([X]\\)\\s*\\{use(State|Effect|Callback|Ref|Memo)\\s*\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "critical",
+        "message": "React hooks called conditionally - must be called unconditionally"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "REACT_MISSING_KEY",
+      "name": "Map without keys",
+      "description": "Missing key prop in list rendering. Keys help React identify changed items.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react",
+        "nextjs"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Add key prop to list items",
+        "description": "Missing key prop in list rendering. Keys help React identify changed items.",
+        "library": "React"
+      },
+      "catches": [
+        "Missing key prop in list",
+        "Performance issues",
+        "Wrong item updates"
+      ],
+      "fix": [
+        "Add unique key prop",
+        "Use stable IDs",
+        "Avoid index as key"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "\\.map\\(\\)\\s*\\{?\\}?"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "List mapping without key prop"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "REACT_STALE_CLOSURE",
+      "name": "useCallback without proper deps",
+      "description": "useCallback without proper dependencies can lead to stale closures.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react",
+        "nextjs"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Add proper dependencies to useCallback",
+        "description": "useCallback without proper dependencies can lead to stale closures.",
+        "library": "React"
+      },
+      "catches": [
+        "Missing deps in useCallback",
+        "Stale closure values",
+        "Buggy callbacks"
+      ],
+      "fix": [
+        "Add all dependencies",
+        "Use useCallback properly",
+        "Fix dependency array"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "useCallback\\s*\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "useCallback may have missing dependencies"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "REACT_UNNECESSARY_RERENDER",
+      "name": "Expensive computation in render",
+      "description": "Non-reactive values computed in render cause unnecessary re-renders.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react",
+        "nextjs"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Use useMemo for expensive computations",
+        "description": "Non-reactive values computed in render cause unnecessary re-renders.",
+        "library": "React"
+      },
+      "catches": [
+        "Expensive computation in render body",
+        "Non-reactive values recalculated every render",
+        "Performance issues"
+      ],
+      "fix": [
+        "Wrap computation in useMemo",
+        "Use useCallback for functions",
+        "Move expensive logic outside component"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "\\.(map|filter|reduce)\\s*\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Expensive computation without useMemo - may cause unnecessary re-renders"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "REACT_IMPURE_COMPONENT",
+      "name": "Component with random values",
+      "description": "Components with random values in render cause unnecessary re-renders and break reconciliation.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react",
+        "nextjs"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Remove random values from render",
+        "description": "Components with random values in render cause unnecessary re-renders and break reconciliation.",
+        "library": "React"
+      },
+      "catches": [
+        "Random values in component body",
+        "Different render output each time",
+        "Break React reconciliation"
+      ],
+      "fix": [
+        "Move random values to useMemo with dependencies",
+        "Generate random values in parent and pass as props",
+        "Use useEffect for initialization"
+      ],
+      "conditions": [
+        {
+          "type": "regex",
+          "pattern": "Math\\.random\\("
+        },
+        {
+          "type": "regex",
+          "pattern": "Date\\.now\\(\\)"
+        }
+      ],
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Random values in component may cause unnecessary re-renders"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "REACT_DUPLICATE_KEY",
+      "name": "Duplicate keys in lists",
+      "description": "Duplicate keys cause incorrect rendering and reconciliation issues.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react",
+        "nextjs"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Fix duplicate keys in lists",
+        "description": "Duplicate keys cause incorrect rendering and reconciliation issues.",
+        "library": "React"
+      },
+      "catches": [
+        "Duplicate keys in list rendering",
+        "Incorrect DOM updates",
+        "Wrong item rendering"
+      ],
+      "fix": [
+        "Use unique IDs from data",
+        "Generate IDs with a proper ID generator",
+        "Avoid using array index as key"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "\\{key\\s*:|\\.map\\s*\\(",
+        "fileExtensions": [
+          ".jsx",
+          ".tsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "List rendering found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "REACT_SHOULD_COMPONENT_UPDATE",
+      "name": "Legacy shouldComponentUpdate",
+      "description": "shouldComponentUpdate is deprecated. Use React.memo for function components.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react",
+        "nextjs"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Use React.memo instead of shouldComponentUpdate",
+        "description": "shouldComponentUpdate is deprecated. Use React.memo for function components.",
+        "library": "React"
+      },
+      "catches": [
+        "Using deprecated lifecycle method",
+        "Class component optimization",
+        "Old React patterns"
+      ],
+      "fix": [
+        "Convert to functional component with React.memo",
+        "Use memo with custom comparison",
+        "Refactor to hooks"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "shouldComponentUpdate"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "shouldComponentUpdate is deprecated - use React.memo instead"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "REACT_DIRECT_MANIPULATION",
+      "name": "Direct DOM manipulation",
+      "description": "Direct DOM manipulation bypasses React reconciliation. Use refs sparingly.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react",
+        "nextjs"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Avoid direct DOM manipulation",
+        "description": "Direct DOM manipulation bypasses React reconciliation. Use refs sparingly.",
+        "library": "React"
+      },
+      "catches": [
+        "Direct DOM access with getElementById",
+        "Bypassing React reconciliation",
+        "State/UI desync"
+      ],
+      "fix": [
+        "Use useRef for DOM access",
+        "Use state for UI changes",
+        "Let React handle DOM updates"
+      ],
+      "conditions": [
+        {
+          "type": "regex",
+          "pattern": "document\\.getElementById"
+        },
+        {
+          "type": "regex",
+          "pattern": "document\\.querySelector"
+        }
+      ],
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Direct DOM manipulation bypasses React - use refs sparingly"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "REACT_CONTEXT_REWRITE",
+      "name": "Mutating context value",
+      "description": "Mutating context value directly breaks reactivity. Use setState.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react",
+        "nextjs"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Don't mutate context value",
+        "description": "Mutating context value directly breaks reactivity. Use setState.",
+        "library": "React"
+      },
+      "catches": [
+        "Mutating context value directly",
+        "Breaking React reactivity",
+        "Consumers not re-rendering"
+      ],
+      "fix": [
+        "Use setState to update context",
+        "Use useReducer for complex updates",
+        "Create update methods in context provider"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "createContext|useContext|Context"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Context API found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "REACT_FORWARD_REF_LEAK",
+      "name": "forwardRef without useImperativeHandle",
+      "description": "forwardRef without useImperativeHandle can leak implementation details.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react",
+        "nextjs"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Use useImperativeHandle with forwardRef",
+        "description": "forwardRef without useImperativeHandle can leak implementation details.",
+        "library": "React"
+      },
+      "catches": [
+        "Exposing internal ref to parent",
+        "Leaking component implementation",
+        "Breaking encapsulation"
+      ],
+      "fix": [
+        "Use useImperativeHandle to expose specific methods",
+        "Limit what parent can access",
+        "Consider not using ref at all"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "forwardRef"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Consider using useImperativeHandle with forwardRef for better encapsulation"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "REACT_ASYNC_IN_RENDER",
+      "name": "Async function in render",
+      "description": "Async functions in render cause issues. Use useEffect for async operations.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react",
+        "nextjs"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Don't use async functions in render",
+        "description": "Async functions in render cause issues. Use useEffect for async operations.",
+        "library": "React"
+      },
+      "catches": [
+        "Async function defined in render",
+        "setState called during render",
+        "Violating React rendering rules"
+      ],
+      "fix": [
+        "Move async logic to useEffect",
+        "Use event handlers for async actions",
+        "Call setState in callbacks, not directly in render"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "async|await|useEffect"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Async handling found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "REACT_BIND_IN_RENDER",
+      "name": ".bind() in render method",
+      "description": "Binding functions in render creates new functions on each render. Use useCallback.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react",
+        "nextjs"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Don't bind in render",
+        "description": "Binding functions in render creates new functions on each render. Use useCallback.",
+        "library": "React"
+      },
+      "catches": [
+        "Creating new function on every render",
+        "Unnecessary re-renders of child components",
+        "Memory overhead"
+      ],
+      "fix": [
+        "Use useCallback hook",
+        "Bind in constructor (class components)",
+        "Use arrow functions in class properties"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "\\.bind\\s*\\(\\s*this"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Binding in render creates new function each render - use useCallback"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "REACT_SETSTATE_OBJ_MUTATION",
+      "name": "Mutating state object directly",
+      "description": "Mutating state directly breaks React. Always use setState with new object.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react",
+        "nextjs"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Don't mutate state object",
+        "description": "Mutating state directly breaks React. Always use setState with new object.",
+        "library": "React"
+      },
+      "catches": [
+        "Mutating state object directly",
+        "setState not triggering re-render",
+        "State not updating properly"
+      ],
+      "fix": [
+        "Create new object with spread operator",
+        "Use Immer for immutable updates",
+        "Always return new object from setState"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "set\\w+\\s*\\(\\s*\\{\\.\\.\\."
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "State mutation detected - create new object instead of spreading"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "REACT_COMPONENT_NO_TYPES",
+      "name": "Component without PropTypes or TypeScript",
+      "description": "Components should have typed props for better maintainability and catch bugs early.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react",
+        "nextjs"
+      ],
+      "category": "typescript",
+      "recommendation": {
+        "title": "Add types to React components",
+        "description": "Components should have typed props for better maintainability and catch bugs early.",
+        "library": "React, TypeScript"
+      },
+      "catches": [
+        "React components without PropTypes",
+        "Missing TypeScript types for props",
+        "No type safety on components"
+      ],
+      "fix": [
+        "Add TypeScript interface for Props",
+        "Use PropTypes for runtime validation",
+        "Define component prop types"
+      ],
+      "condition": {
+        "type": "exists",
+        "field": "content"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Check for findComponentWithoutTypes",
+        "helper": "findComponentWithoutTypes",
+        "params": {
+          "message": "Component should have PropTypes or TypeScript interface for props"
+        }
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "REACT_EFFECT_MISSING_DEPS",
+      "name": "useEffect may have missing dependencies",
+      "description": "Missing dependencies in useEffect can cause stale closure bugs.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react",
+        "nextjs"
+      ],
+      "category": "react",
+      "recommendation": {
+        "title": "Add exhaustive deps to useEffect",
+        "description": "Missing dependencies in useEffect can cause stale closure bugs.",
+        "library": "React"
+      },
+      "catches": [
+        "useEffect with missing dependency array",
+        "Stale closure bugs",
+        "Missing dependencies in deps array"
+      ],
+      "fix": [
+        "Add all used variables to deps array",
+        "Use useCallback for functions in deps",
+        "Consider splitting into multiple effects"
+      ],
+      "condition": {
+        "type": "exists",
+        "field": "content"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Check for findMissingDependencyArray",
+        "helper": "findMissingDependencyArray",
+        "params": {
+          "message": "useEffect may have missing dependencies - review deps array"
+        }
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

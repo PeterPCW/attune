@@ -1,0 +1,839 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "TS_ANY_USAGE",
+      "name": "Using 'any' type",
+      "description": "Using `any` defeats TypeScript type safety. Use specific types or `unknown` if truly dynamic.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "typescript",
+      "recommendation": {
+        "title": "Avoid using `any` type",
+        "description": "Using `any` defeats TypeScript type safety. Use specific types or `unknown` if truly dynamic.",
+        "library": "TypeScript"
+      },
+      "catches": [
+        "Using 'any' type",
+        "No type safety",
+        "Defeats TypeScript purpose"
+      ],
+      "fix": [
+        "Use specific types",
+        "Use 'unknown' for dynamic",
+        "Define interfaces"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": ":\\s*any\\b",
+        "fileExtensions": [
+          ".ts",
+          ".tsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Using 'any' type - use specific type instead"
+      },
+      "languages": [
+        "typescript"
+      ],
+      "projectTypes": []
+    },
+    {
+      "id": "TS_IMPLICIT_ANY",
+      "name": "Implicit any in function params",
+      "description": "Function parameters without type annotations default to `any`. Add explicit types.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "typescript",
+      "recommendation": {
+        "title": "Add type annotation for implicit any",
+        "description": "Function parameters without type annotations default to `any`. Add explicit types.",
+        "library": "TypeScript"
+      },
+      "catches": [
+        "Implicit any in function params",
+        "No type checking",
+        "Runtime errors"
+      ],
+      "fix": [
+        "Add explicit types",
+        "Enable strict mode",
+        "Fix parameter types"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "function\\s+\\w+\\s*\\(([X])\\)",
+        "fileExtensions": [
+          ".ts",
+          ".tsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Function parameter without type annotation"
+      },
+      "languages": [
+        "typescript"
+      ],
+      "projectTypes": []
+    },
+    {
+      "id": "TS_OPTIONAL_CHAIN",
+      "name": "Unsafe optional chaining depth",
+      "description": "Deep optional chaining can be hard to reason about. Consider explicit checks.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "typescript",
+      "recommendation": {
+        "title": "Avoid unsafe optional chaining depth",
+        "description": "Deep optional chaining can be hard to reason about. Consider explicit checks.",
+        "library": "TypeScript"
+      },
+      "catches": [
+        "Deep optional chaining",
+        "Hard to reason about",
+        "Potential runtime errors"
+      ],
+      "fix": [
+        "Use early returns",
+        "Restructure objects",
+        "Add null checks"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "\\?\\.\\?\\.\\?\\.",
+        "fileExtensions": [
+          ".ts",
+          ".tsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Deep optional chaining detected - consider early return or object restructuring"
+      },
+      "languages": [
+        "typescript"
+      ],
+      "projectTypes": []
+    },
+    {
+      "id": "TS_TYPE_ASSERTION",
+      "name": "Type assertion overriding TypeScript",
+      "description": "Type assertions bypass TypeScript type checking. Use proper types.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "typescript",
+      "recommendation": {
+        "title": "Avoid type assertions",
+        "description": "Type assertions bypass TypeScript type checking. Use proper types.",
+        "library": "TypeScript"
+      },
+      "catches": [
+        "Type assertion used",
+        "Bypasses type checking",
+        "Potential runtime errors"
+      ],
+      "fix": [
+        "Use proper typing",
+        "Avoid 'as' assertions",
+        "Define interfaces"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": " as ",
+        "fileExtensions": [
+          ".ts",
+          ".tsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Type assertion used - consider proper typing instead"
+      },
+      "languages": [
+        "typescript"
+      ],
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "TS_ENUM_USAGE",
+      "name": "Numeric enum usage",
+      "description": "Numeric enums have issues. Use const objects or string enums instead.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "typescript",
+      "recommendation": {
+        "title": "Avoid numeric enums",
+        "description": "Numeric enums have issues. Use const objects or string enums instead.",
+        "library": "TypeScript"
+      },
+      "catches": [
+        "Numeric enum used",
+        "Reverse mapping issues",
+        "Bundle size"
+      ],
+      "fix": [
+        "Use string enums",
+        "Use const objects",
+        "Use union types"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "enum\\s+\\w+\\s*\\{",
+        "fileExtensions": [
+          ".ts",
+          ".tsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Numeric enum detected - consider const object or string enum"
+      },
+      "languages": [
+        "typescript"
+      ],
+      "projectTypes": []
+    },
+    {
+      "id": "TS_INTERFACE_MERGE",
+      "name": "Interface merging",
+      "description": "Interface merging can cause unexpected behavior. Use type aliases instead.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "typescript",
+      "recommendation": {
+        "title": "Avoid interface merging",
+        "description": "Interface merging can cause unexpected behavior. Use type aliases instead.",
+        "library": "TypeScript"
+      },
+      "catches": [
+        "Interface merging used",
+        "Unexpected behavior",
+        "Hard to debug"
+      ],
+      "fix": [
+        "Use type aliases",
+        "Avoid interface merging",
+        "Be explicit about types"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "interface",
+        "fileExtensions": [
+          ".ts",
+          ".tsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Interface usage found"
+      },
+      "languages": [
+        "typescript"
+      ],
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "TS_DECORATOR_PERFORMANCE",
+      "name": "Class decorator impact",
+      "description": "Decorators can impact performance. Use them carefully.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "performance",
+      "recommendation": {
+        "title": "Consider decorator impact",
+        "description": "Decorators can impact performance. Use them carefully.",
+        "library": "TypeScript"
+      },
+      "catches": [
+        "Decorators used",
+        "Performance overhead",
+        "Reflection usage"
+      ],
+      "fix": [
+        "Use decorators carefully",
+        "Benchmark impact",
+        "Consider alternatives"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "@\\w+\\(|@\\w+\\s+class",
+        "fileExtensions": [
+          ".ts"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Decorator usage found"
+      },
+      "languages": [
+        "typescript"
+      ],
+      "projectTypes": []
+    },
+    {
+      "id": "TS_GENERIC_INFER",
+      "name": "Consider explicit generic types",
+      "description": "Consider using explicit generic type parameters for clarity. This is a suggestion - ignore if your pattern is intentional.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "typescript",
+      "recommendation": {
+        "title": "Consider explicit generic types",
+        "description": "Consider using explicit generic type parameters for clarity. This is a suggestion - ignore if your pattern is intentional.",
+        "library": "TypeScript"
+      },
+      "catches": [
+        "Generic inference may be unclear",
+        "Type 'any' inferred in generics",
+        "Hard to understand generic types"
+      ],
+      "fix": [
+        "Add explicit type parameters",
+        "Fix generic constraints",
+        "Improve type inference"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "<T>|<K, V>|<any>",
+        "fileExtensions": [
+          ".ts",
+          ".tsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "info",
+        "message": "Generic type usage - consider explicit type parameters"
+      },
+      "languages": [
+        "typescript"
+      ],
+      "projectTypes": []
+    },
+    {
+      "id": "TS_NO_IMPLICIT_ANY",
+      "name": "Implicit any type",
+      "description": "Variables without type annotations default to any. Enable strict mode.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "typescript",
+      "recommendation": {
+        "title": "Enable noImplicitAny",
+        "description": "Variables without type annotations default to any. Enable strict mode.",
+        "library": "TypeScript"
+      },
+      "catches": [
+        "Implicit any type",
+        "No type checking",
+        "Runtime errors"
+      ],
+      "fix": [
+        "Enable noImplicitAny",
+        "Add explicit types",
+        "Use strict mode"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "tsconfig",
+        "fileExtensions": [
+          ".json"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "TypeScript config reference found"
+      },
+      "languages": [
+        "typescript"
+      ],
+      "projectTypes": []
+    },
+    {
+      "id": "TS_STRICT_NULL",
+      "name": "Missing strict null checks",
+      "description": "Enable strictNullChecks to handle null/undefined properly.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "typescript",
+      "recommendation": {
+        "title": "Enable strictNullChecks",
+        "description": "Enable strictNullChecks to handle null/undefined properly.",
+        "library": "TypeScript"
+      },
+      "catches": [
+        "No strict null checks",
+        "Null/undefined not handled",
+        "Runtime errors"
+      ],
+      "fix": [
+        "Enable strictNullChecks",
+        "Handle null/undefined",
+        "Use optional chaining"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "!\\?|!\\.|!== undefined",
+        "fileExtensions": [
+          ".ts",
+          ".tsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "info",
+        "message": "Non-null assertion used - consider handling null/undefined explicitly"
+      },
+      "languages": [
+        "typescript"
+      ],
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "TS_UNUSED_VARS",
+      "name": "Unused variables or imports",
+      "description": "Unused variables and imports reduce code quality.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "typescript",
+      "recommendation": {
+        "title": "Remove unused code",
+        "description": "Unused variables and imports reduce code quality.",
+        "library": "TypeScript"
+      },
+      "catches": [
+        "Unused variables/imports",
+        "Dead code",
+        "Code bloat"
+      ],
+      "fix": [
+        "Remove unused code",
+        "Use noUnusedLocals",
+        "Clean up imports"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "//\\s*@ts-ignore|//\\s*@ts-expect-error",
+        "fileExtensions": [
+          ".ts",
+          ".tsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "TypeScript ignore comment found"
+      },
+      "languages": [
+        "typescript"
+      ],
+      "projectTypes": []
+    },
+    {
+      "id": "TS_TYPE_NARROWING",
+      "name": "Insufficient type narrowing",
+      "description": "Use type guards and narrowing to ensure type safety.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "typescript",
+      "recommendation": {
+        "title": "Use proper type narrowing",
+        "description": "Use type guards and narrowing to ensure type safety.",
+        "library": "TypeScript"
+      },
+      "catches": [
+        "No type narrowing",
+        "Type not narrowed",
+        "Potential errors"
+      ],
+      "fix": [
+        "Use type guards",
+        "Add instanceof checks",
+        "Use typeof"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "if\\s*\\(\\s*instanceof\\s+",
+        "fileExtensions": [
+          ".ts",
+          ".tsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "info",
+        "message": "instanceof check found - good for type narrowing"
+      },
+      "languages": [
+        "typescript"
+      ],
+      "projectTypes": []
+    },
+    {
+      "id": "TS_DISCRIMINATED_UNIONS",
+      "name": "Missing discriminated unions",
+      "description": "Use discriminated unions for better type safety.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "typescript",
+      "recommendation": {
+        "title": "Use discriminated unions",
+        "description": "Use discriminated unions for better type safety.",
+        "library": "TypeScript"
+      },
+      "catches": [
+        "No discriminated unions",
+        "Hard to narrow types",
+        "Missing type safety"
+      ],
+      "fix": [
+        "Add discriminant property",
+        "Use discriminated unions",
+        "Improve type narrowing"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "type\\s+\\w+\\s*=\\s*\\w+\\s*\\|",
+        "fileExtensions": [
+          ".ts"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Union type found"
+      },
+      "languages": [
+        "typescript"
+      ],
+      "projectTypes": []
+    },
+    {
+      "id": "TS_NEVER_TYPE",
+      "name": "Exhaustive switch pattern detected",
+      "description": "Using never type for exhaustive switch/case matching is a recommended TypeScript pattern that ensures all cases are handled at compile time.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "typescript",
+      "recommendation": {
+        "title": "Exhaustive switch is a best practice",
+        "description": "Using never type for exhaustive switch/case matching is a recommended TypeScript pattern that ensures all cases are handled at compile time.",
+        "library": "TypeScript"
+      },
+      "catches": [
+        "Exhaustive switch using never type"
+      ],
+      "fix": [
+        "This is a TypeScript best practice - no action needed"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "never|exhaustive|switch|case",
+        "fileExtensions": [
+          ".ts",
+          ".tsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "info",
+        "message": "Exhaustive matching found"
+      },
+      "languages": [
+        "typescript"
+      ],
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "TS_OPTIONAL_PARAMS",
+      "name": "Consider parameter ordering",
+      "description": "Consider putting required parameters before optional ones for clearer APIs. This is a suggestion - ignore if intentional.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "typescript",
+      "recommendation": {
+        "title": "Consider parameter ordering",
+        "description": "Consider putting required parameters before optional ones for clearer APIs. This is a suggestion - ignore if intentional.",
+        "library": "TypeScript"
+      },
+      "catches": [
+        "Optional params before required",
+        "Confusing API design",
+        "TypeScript pattern suggestion"
+      ],
+      "fix": [
+        "Reorder parameters",
+        "Put required first",
+        "Use optional at end"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "\\w+\\s*\\?\\s*:\\s*\\w+",
+        "fileExtensions": [
+          ".ts",
+          ".tsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "info",
+        "message": "Ternary with optional param pattern found"
+      },
+      "languages": [
+        "typescript"
+      ],
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "TS_FS_PROMISES",
+      "name": "Missing fs/promises import",
+      "description": "Import async functions from 'fs/promises' instead of 'fs'. The 'fs' module exports callback-based functions, not promises.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "typescript",
+      "recommendation": {
+        "title": "Use fs/promises for async file operations",
+        "description": "Import async functions from 'fs/promises' instead of 'fs'. The 'fs' module exports callback-based functions, not promises.",
+        "library": "TypeScript"
+      },
+      "catches": [
+        "Using callback-based fs",
+        "No async/await support",
+        "Code complexity"
+      ],
+      "fix": [
+        "Import from fs/promises",
+        "Use async/await",
+        "Simplify code"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "import\\s+\\{\\}\\s+from\\s+['\"]fs['\"]",
+        "fileExtensions": [
+          ".ts",
+          ".tsx",
+          ".js",
+          ".jsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Using callback-based fs functions - import from 'fs/promises' for async/await support"
+      },
+      "languages": [
+        "typescript"
+      ],
+      "projectTypes": []
+    },
+    {
+      "id": "TS_SYNC_FS_ASYNC",
+      "name": "Synchronous fs in async function",
+      "description": "Synchronous fs operations (readFileSync, writeFileSync, etc.) block the event loop. Use async versions from fs/promises.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "typescript",
+      "recommendation": {
+        "title": "Use async fs functions in async contexts",
+        "description": "Synchronous fs operations (readFileSync, writeFileSync, etc.) block the event loop. Use async versions from fs/promises.",
+        "library": "Node.js"
+      },
+      "catches": [
+        "Sync fs in async function",
+        "Blocks event loop",
+        "Poor performance"
+      ],
+      "fix": [
+        "Use fs/promises",
+        "Use async/await",
+        "Don't block event loop"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "async\\s+function\\{(?:readFileSync|writeFileSync|mkdirSync|rmSync|readdirSync|statSync|existsSync|copyFileSync|appendFileSync)\\s*\\(",
+        "fileExtensions": [
+          ".ts",
+          ".tsx",
+          ".js",
+          ".jsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Synchronous fs operation in async function - use fs/promises instead"
+      },
+      "languages": [
+        "typescript"
+      ],
+      "projectTypes": []
+    },
+    {
+      "id": "TS_TYPEOF_SAFETY",
+      "name": "Unsafe typeof comparison",
+      "description": "typeof is unreliable for complex type checks. Use Array.isArray(), instanceof, or strict equality checks.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "typescript",
+      "recommendation": {
+        "title": "Use proper type checking",
+        "description": "typeof is unreliable for complex type checks. Use Array.isArray(), instanceof, or strict equality checks.",
+        "library": "TypeScript"
+      },
+      "catches": [
+        "Unsafe typeof comparison",
+        "Unreliable type checks",
+        "Potential bugs"
+      ],
+      "fix": [
+        "Use Array.isArray()",
+        "Use instanceof",
+        "Use strict equality"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "typeof\\s+\\w+\\s*===?\\s*['\"](?:object|function)['\"]",
+        "fileExtensions": [
+          ".ts",
+          ".tsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "typeof comparison for object/function is unreliable - use instanceof or Array.isArray()"
+      },
+      "languages": [
+        "typescript"
+      ],
+      "projectTypes": []
+    },
+    {
+      "id": "PERF_REGEX_LOOP",
+      "name": "Regex created inside loop",
+      "description": "Creating new RegExp inside loops causes repeated compilation. Move outside and reuse.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "performance",
+      "recommendation": {
+        "title": "Move regex outside loop",
+        "description": "Creating new RegExp inside loops causes repeated compilation. Move outside and reuse.",
+        "library": "Performance"
+      },
+      "catches": [
+        "Regex created in loop",
+        "Repeated compilation",
+        "Performance issues"
+      ],
+      "fix": [
+        "Move regex outside loop",
+        "Compile once",
+        "Reuse regex"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "(?:for|while|forEach|map|filter|reduce)\\s*\\(\\{new\\s+RegExp",
+        "fileExtensions": [
+          ".ts",
+          ".tsx",
+          ".js",
+          ".jsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Regex created inside loop - move outside for better performance"
+      },
+      "languages": [
+        "typescript"
+      ],
+      "projectTypes": []
+    },
+    {
+      "id": "TS_MISSING_RETURN_TYPE",
+      "name": "Exported function missing return type",
+      "description": "Exported functions should have explicit return types for better API documentation and type safety.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "typescript",
+      "recommendation": {
+        "title": "Add return types to exported functions",
+        "description": "Exported functions should have explicit return types for better API documentation and type safety.",
+        "library": "TypeScript"
+      },
+      "catches": [
+        "Exported functions without return type",
+        "Missing type annotations",
+        "Inferred types that may change"
+      ],
+      "fix": [
+        "Add return type annotation",
+        "Use explicit types for exports",
+        "Document function signatures"
+      ],
+      "condition": {
+        "type": "exists",
+        "field": "content"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Check for findMissingReturnType",
+        "helper": "findMissingReturnType",
+        "params": {
+          "message": "Exported function should have explicit return type"
+        }
+      },
+      "languages": [
+        "typescript"
+      ],
+      "projectTypes": []
+    }
+  ]
+}

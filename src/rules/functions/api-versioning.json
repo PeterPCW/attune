@@ -1,0 +1,218 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "API_VERSION_MISSING",
+      "name": "API missing version in URL",
+      "description": "Include version in URL (e.g., /v1/users) for backward compatibility.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "express",
+        "fastify",
+        "nextjs",
+        "nuxt"
+      ],
+      "category": "api-versioning",
+      "recommendation": {
+        "title": "Version APIs in URL",
+        "description": "Include version in URL (e.g., /v1/users) for backward compatibility.",
+        "library": "API versioning"
+      },
+      "catches": [
+        "API endpoints without version in URL",
+        "Breaking changes affect all clients",
+        "No backward compatibility"
+      ],
+      "fix": [
+        "Add version to URL (e.g., /v1/users)",
+        "Plan versioning strategy",
+        "Document version lifecycle"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "/v\\d+|/api/v\\d+",
+        "fileExtensions": [
+          "ts",
+          "js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "API version found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "API_VERSION_HEADER",
+      "name": "Using header versioning only",
+      "description": "Header versioning is harder to discover and test.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "api-versioning",
+      "recommendation": {
+        "title": "Prefer URL versioning",
+        "description": "Header versioning is harder to discover and test.",
+        "library": "API versioning"
+      },
+      "catches": [
+        "Header-based versioning only",
+        "Harder to discover and test",
+        "Less visible to consumers"
+      ],
+      "fix": [
+        "Use URL versioning (/v1/)",
+        "Use header as secondary",
+        "Document versioning approach"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "Accept.*version|X-API-Version",
+        "fileExtensions": [
+          "ts",
+          "js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Header versioning found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "API_VERSION_DEPRECATED",
+      "name": "Old API version not deprecated",
+      "description": "Mark deprecated versions with Sunset header and documentation.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "api-versioning",
+      "recommendation": {
+        "title": "Deprecate old versions",
+        "description": "Mark deprecated versions with Sunset header and documentation.",
+        "library": "API versioning"
+      },
+      "catches": [
+        "Old API versions not deprecated",
+        "Clients don't know to migrate",
+        "Long-term maintenance burden"
+      ],
+      "fix": [
+        "Add Sunset header",
+        "Document deprecation timeline",
+        "Provide migration guide"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "Sunset:|deprecat|@deprecated",
+        "fileExtensions": [
+          "ts",
+          "js",
+          "yaml",
+          "yml"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Deprecation found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "API_VERSION_NO_CHANGE_LOG",
+      "name": "Missing changelog for API versions",
+      "description": "Document breaking changes between versions.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "api-versioning",
+      "recommendation": {
+        "title": "Maintain changelog",
+        "description": "Document breaking changes between versions.",
+        "library": "API documentation"
+      },
+      "catches": [
+        "No changelog for API versions",
+        "Clients can't see changes",
+        "Difficult to migrate"
+      ],
+      "fix": [
+        "Maintain version changelog",
+        "Document breaking changes",
+        "Provide migration notes"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "changelog|CHANGELOG|whats-new",
+        "fileExtensions": [
+          "md",
+          "ts",
+          "js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Changelog found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "API_VERSION_LATEST",
+      "name": "No /latest endpoint versioning",
+      "description": "Latest alias makes testing and migration easier.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "api-versioning",
+      "recommendation": {
+        "title": "Support /latest for easier testing",
+        "description": "Latest alias makes testing and migration easier.",
+        "library": "API versioning"
+      },
+      "catches": [
+        "No /latest alias",
+        "Harder to test latest version",
+        "Migration more difficult"
+      ],
+      "fix": [
+        "Add /latest or /current endpoint",
+        "Point to latest stable version",
+        "Document alias usage"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "/latest|/current",
+        "fileExtensions": [
+          "ts",
+          "js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Latest version alias found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

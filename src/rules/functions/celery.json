@@ -1,0 +1,329 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "CELERY_TASK_TIME_LIMIT",
+      "name": "Missing task time limit",
+      "description": "Configure task_time_limit to prevent tasks from running indefinitely.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "celery"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "reliability",
+      "recommendation": {
+        "title": "Set task time limits",
+        "description": "Configure task_time_limit to prevent tasks from running indefinitely.",
+        "library": "Celery"
+      },
+      "condition": {
+        "type": "exists",
+        "field": "content"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Check for findCeleryTaskWithoutTimeLimit",
+        "helper": "findCeleryTaskWithoutTimeLimit",
+        "params": {
+          "message": "Task without time limit"
+        }
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "CELERY_PICKLE_SERIALIZER",
+      "name": "Using pickle as Celery serializer",
+      "description": "Set CELERY_TASK_SERIALIZER='json' for security.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "celery"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "security",
+      "recommendation": {
+        "title": "Use JSON serializer",
+        "description": "Set CELERY_TASK_SERIALIZER='json' for security.",
+        "library": "Celery"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "CELERY_TASK_SERIALIZER\\s*=\\s*['\"]pickle['\"]|task_serializer\\s*=\\s*['\"]pickle['\"]"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "critical",
+        "message": "Using pickle serializer is a security risk"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "CELERY_NO_RETRY",
+      "name": "Task without retry configuration",
+      "description": "Use autoretry_for, retry_backoff, or manual retry().",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "celery"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "reliability",
+      "recommendation": {
+        "title": "Configure task retries",
+        "description": "Use autoretry_for, retry_backoff, or manual retry().",
+        "library": "Celery"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "@app\\.task$|^@celery\\.task$"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Task should have retry configuration"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "CELERY_SYNC_CODE",
+      "name": "Synchronous code in Celery task",
+      "description": "Use aiohttp instead of requests, or configure as async task.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "celery"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Use async-friendly libraries",
+        "description": "Use aiohttp instead of requests, or configure as async task.",
+        "library": "Celery"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "@app\\.taskrequests\\.|@app\\.tasktime\\.sleep\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Synchronous blocking code in task"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "CELERY_NO_ACKS_LATE",
+      "name": "Task acks_late not enabled",
+      "description": "Set acks_late=True to ensure tasks aren't lost on worker failure.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "celery"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "reliability",
+      "recommendation": {
+        "title": "Enable acks_late",
+        "description": "Set acks_late=True to ensure tasks aren't lost on worker failure.",
+        "library": "Celery"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "@app\\.task$|^@celery\\.task$"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Consider enabling acks_late for reliability"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "CELERY_TASK_BASE",
+      "name": "Task not inheriting from base class",
+      "description": "Define a base task class with common configuration.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "celery"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Create a base task class",
+        "description": "Define a base task class with common configuration.",
+        "library": "Celery"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "@app\\.task\\s*\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Consider creating a base task class"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "CELERY_RESULT_BACKEND",
+      "name": "No result backend configured",
+      "description": "Set CELERY_RESULT_BACKEND for task result storage.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "celery"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "reliability",
+      "recommendation": {
+        "title": "Configure result backend",
+        "description": "Set CELERY_RESULT_BACKEND for task result storage.",
+        "library": "Celery"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "app\\s*=\\s*Celery\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Consider configuring result backend"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "CELERY_NO_LOGGING",
+      "name": "Task not using proper logging",
+      "description": "Use self.logger or current_task.logger for logging.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "celery"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "cleanliness",
+      "recommendation": {
+        "title": "Use Celery's logger",
+        "description": "Use self.logger or current_task.logger for logging.",
+        "library": "Celery"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "@app\\.taskprint\\s*\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Use logging instead of print in tasks"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "CELERY_TASK_ROUTING",
+      "name": "No task routing configured",
+      "description": "Use task_routes to direct tasks to specific queues.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "celery"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Configure task routing",
+        "description": "Use task_routes to direct tasks to specific queues.",
+        "library": "Celery"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "app\\s*=\\s*Celery\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Consider adding task routing"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "CELERY_HARD_TIMEOUT",
+      "name": "Soft time limit only, missing hard limit",
+      "description": "Use both time_limit and soft_time_limit for graceful handling.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "celery"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "reliability",
+      "recommendation": {
+        "title": "Set both time limits",
+        "description": "Use both time_limit and soft_time_limit for graceful handling.",
+        "library": "Celery"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "time_limit\\s*=|soft_time_limit\\s*="
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Consider adding both soft and hard time limits"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,276 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "PAY_NO_WEBHOOK_VERIFY",
+      "name": "Webhook not verified",
+      "description": "Always verify webhook signatures to prevent spoofed payment events.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "projectTypes": ["webapp", "saas", "mobile", "desktop"],
+      "category": "payments",
+      "recommendation": {
+        "title": "Verify webhook signatures",
+        "description": "Always verify webhook signatures to prevent spoofed payment events.",
+        "library": "Stripe, PayPal webhooks"
+      },
+      "catches": [
+        "Fake webhook events",
+        "Spoofed payment events",
+        "Financial fraud"
+      ],
+      "fix": [
+        "Verify webhook signature",
+        "Use provider's verification lib",
+        "Validate event payload"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "webhook|stripe|signature|constructEvent",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "critical",
+        "message": "Webhook found - verify signature"
+      }
+    },
+    {
+      "id": "PAY_NO_IDEMPOTENCY",
+      "name": "Payment request without idempotency",
+      "description": "Prevent duplicate charges by using idempotency keys for payment requests.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "projectTypes": ["webapp", "saas", "mobile", "desktop"],
+      "category": "payments",
+      "recommendation": {
+        "title": "Use idempotency keys",
+        "description": "Prevent duplicate charges by using idempotency keys for payment requests.",
+        "library": "Stripe idempotency"
+      },
+      "catches": [
+        "Duplicate charges",
+        "Customer charged twice",
+        "Financial loss"
+      ],
+      "fix": [
+        "Add idempotency key to requests",
+        "Use unique key per transaction",
+        "Handle retry safely"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "idempotency|Idempotency-Key",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "critical",
+        "message": "Idempotency found"
+      }
+    },
+    {
+      "id": "PAY_NO_3DS",
+      "name": "3D Secure not implemented",
+      "description": "3D Secure is required for SCA compliance in EU.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "projectTypes": ["webapp", "saas", "mobile", "desktop"],
+      "category": "payments",
+      "recommendation": {
+        "title": "Implement 3D Secure",
+        "description": "3D Secure is required for SCA compliance in EU.",
+        "library": "Stripe 3D Secure"
+      },
+      "catches": [
+        "Not SCA compliant",
+        "Payments rejected",
+        "Legal issues"
+      ],
+      "fix": [
+        "Enable 3D Secure",
+        "Handle authentication flow",
+        "Configure payment intents"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "3ds|3-D Secure|threeDSecure|authentication",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "3D Secure found"
+      }
+    },
+    {
+      "id": "PAY_STORED_CARD",
+      "name": "Storing card details directly",
+      "description": "Never store card details. Use provider tokenization (Stripe tokens, etc.)",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "projectTypes": ["webapp", "saas", "mobile", "desktop"],
+      "category": "payments",
+      "recommendation": {
+        "title": "Use payment provider tokenization",
+        "description": "Never store card details. Use provider tokenization (Stripe tokens, etc.)",
+        "library": "Stripe Elements, payment tokens"
+      },
+      "catches": [
+        "Storing card data",
+        "PCI DSS violation",
+        "Security breach risk"
+      ],
+      "fix": [
+        "Use Stripe Elements or similar",
+        "Store only token, not card data",
+        "Never touch raw card data"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "(card|cvv|pan)\\s*(number|#|no|num)?\\s*[=:>]\\s*['\"]?\\d{4,}",
+        "fileExtensions": [
+          ".ts",
+          ".js",
+          ".tsx",
+          ".jsx",
+          ".py"
+        ]
+      },
+      "excludePaths": ["test", "tests", "__tests__", "coverage", "docs/", "*.test.*", "*.spec.*"],
+      "action": {
+        "type": "flag",
+        "severity": "critical",
+        "message": "Card data found - use tokenization"
+      }
+    },
+    {
+      "id": "PAY_REFUND",
+      "name": "Missing refund functionality",
+      "description": "Have a clear refund process for returns and disputes.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "projectTypes": ["webapp", "saas", "mobile", "desktop"],
+      "category": "payments",
+      "recommendation": {
+        "title": "Implement refund process",
+        "description": "Have a clear refund process for returns and disputes.",
+        "library": "Stripe refunds"
+      },
+      "catches": [
+        "No refund process",
+        "Customer complaints",
+        "Disputes and chargebacks"
+      ],
+      "fix": [
+        "Implement refund API endpoint",
+        "Handle partial refunds",
+        "Track refund status"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "refund|Refund",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Refund found"
+      }
+    },
+    {
+      "id": "PAY_NO_WEBHOOK_RETRY",
+      "name": "Webhook handler missing retry logic",
+      "description": "Payment providers retry failed webhooks. Files with webhook/stripe/payment patterns should handle duplicates. Note: Files without payment-related patterns are ignored.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "projectTypes": ["webapp", "saas", "mobile", "desktop"],
+      "category": "payments",
+      "recommendation": {
+        "title": "Handle webhook retries",
+        "description": "Payment providers retry failed webhooks. Files with webhook/stripe/payment patterns should handle duplicates. Note: Files without payment-related patterns are ignored.",
+        "library": "Webhook idempotency"
+      },
+      "catches": [
+        "Webhook handlers without retry/idempotency handling",
+        "Missed payment events",
+        "Duplicate processing"
+      ],
+      "fix": [
+        "Check event ID for duplicates",
+        "Store processed events",
+        "Handle idempotently"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "webhook|stripe|payment|webhookHandler|paymentEvent",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Payment/webhook handler found - verify idempotency handling"
+      }
+    },
+    {
+      "id": "PAY_SANDBOX_PROD",
+      "name": "Sandbox API keys in production",
+      "description": "Sandbox keys won't process real payments.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "projectTypes": ["webapp", "saas", "mobile", "desktop"],
+      "category": "payments",
+      "recommendation": {
+        "title": "Use production keys only in prod",
+        "description": "Sandbox keys won't process real payments.",
+        "library": "Environment config"
+      },
+      "catches": [
+        "Sandbox keys in production",
+        "Payments don't process",
+        "Real money lost"
+      ],
+      "fix": [
+        "Use live keys in production",
+        "Check environment config",
+        "Verify keys match env"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "sk_test|sandbox|stripe\\.com",
+        "fileExtensions": [
+          ".ts",
+          ".js",
+          ".env"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "critical",
+        "message": "Sandbox key detected"
+      }
+    }
+  ]
+}

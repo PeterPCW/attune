@@ -1,12 +1,9 @@
 import { Finding, ScanMetadata } from '../types/index.js';
 import REPORT_CSS from './report-styles.js';
+import { groupBySeverity, groupByCategory } from '../utils/findings.js';
 
 export function formatHtml(findings: Finding[], metadata: ScanMetadata): string {
-  const critical = findings.filter(f => f.severity === 'critical');
-  const high = findings.filter(f => f.severity === 'high');
-  const medium = findings.filter(f => f.severity === 'medium');
-  const low = findings.filter(f => f.severity === 'low');
-  const info = findings.filter(f => f.severity === 'info');
+  const { critical, high, medium, low, info } = groupBySeverity(findings);
 
   const total = findings.length;
   const score = total === 0 ? 100 : Math.max(0, 100 - (critical.length * 10 + high.length * 5 + medium.length * 2 + low.length * 1));
@@ -16,9 +13,10 @@ export function formatHtml(findings: Finding[], metadata: ScanMetadata): string 
   const sortedFindings = [...findings].sort((a, b) => severityOrder[a.severity] - severityOrder[b.severity]);
 
   // Category breakdown
+  const groupedByCategory = groupByCategory(findings);
   const byCategory: Record<string, number> = {};
-  for (const f of findings) {
-    byCategory[f.category] = (byCategory[f.category] || 0) + 1;
+  for (const [category, categoryFindings] of Object.entries(groupedByCategory)) {
+    byCategory[category] = categoryFindings.length;
   }
 
   // Severity colors

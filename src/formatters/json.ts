@@ -1,4 +1,5 @@
 import { Finding, ScanMetadata } from '../types/index.js';
+import { countBySeverity } from '../utils/findings.js';
 
 // Maximum findings to include in JSON output to prevent memory issues
 const MAX_JSON_FINDINGS = 500;
@@ -7,6 +8,8 @@ export function formatJson(findings: Finding[], metadata: ScanMetadata): string 
   // Limit findings to prevent JSON.stringify memory issues on large scans
   const limitedFindings = findings.slice(0, MAX_JSON_FINDINGS);
   const truncated = findings.length > MAX_JSON_FINDINGS;
+
+  const severityCounts = countBySeverity(findings);
 
   const output: {
     version: string;
@@ -26,11 +29,7 @@ export function formatJson(findings: Finding[], metadata: ScanMetadata): string 
       rulesRun: metadata.rulesRun
     },
     summary: {
-      critical: findings.filter(f => f.severity === 'critical').length,
-      high: findings.filter(f => f.severity === 'high').length,
-      medium: findings.filter(f => f.severity === 'medium').length,
-      low: findings.filter(f => f.severity === 'low').length,
-      info: findings.filter(f => f.severity === 'info').length,
+      ...severityCounts,
       total: findings.length
     },
     findings: limitedFindings.map(f => ({

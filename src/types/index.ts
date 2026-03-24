@@ -16,13 +16,145 @@ export type Category =
   | 'documentation'
   | 'database'
   | 'error-handling'
-  | 'reliability';
+  | 'reliability'
+  | 'api'
+  | 'css'
+  | 'payments'
+  | 'forms'
+  | 'queues'
+  | 'monitoring'
+  | 'caching'
+  | 'migrations'
+  | 'i18n'
+  | 'kubernetes'
+  | 'docker'
+  | 'cicd'
+  | 'graphql'
+  | 'uploads'
+  | 'websockets'
+  | 'email'
+  | 'state'
+  | 'cli';
 
 // Framework types
 export type Framework =
   | 'nextjs' | 'react' | 'vue' | 'nuxt' | 'svelte' | 'remix'
   | 'astro' | 'solidjs' | 'angular' | 'express' | 'fastify'
-  | 'nodejs' | 'library';
+  | 'nodejs' | 'library'
+  | 'python' | 'django' | 'fastapi' | 'flask' | 'sqlalchemy' | 'celery';
+
+// Project type - distinguishes different types of projects
+export type ProjectType = 'cli' | 'devtool' | 'library' | 'webapp' | 'saas' | 'mobile' | 'desktop' | 'firmware';
+
+// Language - for filtering language-specific rules
+export type Language = 'python' | 'typescript' | 'javascript';
+
+// Mapping of which categories apply to which project types
+export const PROJECT_TYPE_CATEGORIES: Record<ProjectType, string[]> = {
+  // User-facing command line tools (docker, kubectl, git)
+  cli: [
+    'typescript',
+    'complexity',
+    'maintainability',
+    'cleanliness',
+    'documentation',
+    'error-handling',
+    'security',
+    'performance'
+  ],
+  // Developer tools (linters, bundlers, Attune, prettier)
+  devtool: [
+    'typescript',
+    'complexity',
+    'maintainability',
+    'cleanliness',
+    'documentation',
+    'error-handling',
+    'security',
+    'performance',
+    'usability'
+  ],
+  // Reusable packages (npm packages, Python libs)
+  library: [
+    'typescript',
+    'complexity',
+    'maintainability',
+    'cleanliness',
+    'documentation',
+    'error-handling',
+    'security',
+    'performance',
+    'accessibility'
+  ],
+  // Frontend-only web apps (no backend)
+  webapp: [
+    'security',
+    'performance',
+    'accessibility',
+    'typescript',
+    'usability',
+    'maintainability',
+    'cleanliness',
+    'error-handling',
+    'database',
+    'api'
+  ],
+  // Full-stack SaaS with users, payments, database
+  saas: [
+    'security',
+    'performance',
+    'accessibility',
+    'typescript',
+    'usability',
+    'maintainability',
+    'cleanliness',
+    'error-handling',
+    'database',
+    'api',
+    'payments',
+    'migrations',
+    'caching',
+    'monitoring'
+  ],
+  // Mobile apps (React Native, Flutter, native)
+  mobile: [
+    'security',
+    'performance',
+    'accessibility',
+    'typescript',
+    'usability',
+    'maintainability',
+    'cleanliness',
+    'error-handling',
+    'database',
+    'api',
+    'mobile'
+  ],
+  // Desktop apps (Electron, Tauri, native)
+  desktop: [
+    'security',
+    'performance',
+    'accessibility',
+    'typescript',
+    'usability',
+    'maintainability',
+    'cleanliness',
+    'error-handling',
+    'database',
+    'api',
+    'mobile'
+  ],
+  // Embedded/IoT firmware (C, Rust, C++ for microcontrollers)
+  firmware: [
+    'security',
+    'performance',
+    'complexity',
+    'maintainability',
+    'cleanliness',
+    'error-handling',
+    'documentation'
+  ]
+};
 
 // Finding represents a single detected issue
 export interface Finding {
@@ -60,6 +192,9 @@ export interface DetectionRule {
   category: Category;
   severity: Severity;
   frameworks: Framework[]; // Empty = all frameworks
+  projectTypes?: ProjectType[]; // Empty = all project types
+  languages?: Language[]; // Empty = all languages
+  excludePaths?: string[]; // Paths to exclude from this rule (e.g., ["test", "docs"])
 
   detect(context: AnalysisContext): Finding[];
 
@@ -77,6 +212,7 @@ export interface DetectionRule {
 export interface AnalysisContext {
   projectRoot: string;
   framework: Framework;
+  projectType?: ProjectType;
   files: SourceFile[];
   packageJson: PackageJson | null;
   options?: CliOptions;
@@ -94,6 +230,9 @@ export interface PackageJson {
   dependencies: Record<string, string>;
   devDependencies: Record<string, string>;
   scripts?: Record<string, string>;
+  bin?: Record<string, string>;
+  peerDependencies?: Record<string, string>;
+  [key: string]: unknown;
 }
 
 // Framework plugin interface
@@ -152,6 +291,7 @@ export interface CliOptions {
   performance?: boolean;
   testing?: boolean;
   framework?: Framework;
+  projectType?: ProjectType;  // Override auto-detected project type
   json?: boolean;
   html?: boolean;
   markdown?: boolean;
@@ -174,6 +314,12 @@ export interface CliOptions {
   cache?: boolean;          // Enable/disable result caching (default: true)
   // File size limit (in bytes, for regex rules)
   maxFileSize?: number;    // Maximum file size to analyze in bytes (default: 1MB)
+  // Metrics
+  metrics?: boolean;        // Output performance metrics after scan
+  // Custom rules
+  rulesPath?: string;       // Path to custom rules JSON file or directory
+  // CI options
+  failOnWarnings?: boolean; // Exit with error code if warnings or higher found
 }
 
 // Formatter interface

@@ -1,0 +1,316 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "AI_EFFECT_SPAGHETTI",
+      "name": "useEffect with data fetching without caching",
+      "description": "useEffect with data fetching should be replaced with TanStack Query for better caching, error handling, and loading states.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react",
+        "nextjs"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Use TanStack Query for data fetching",
+        "description": "useEffect with data fetching should be replaced with TanStack Query for better caching, error handling, and loading states.",
+        "library": "@tanstack/react-query"
+      },
+      "catches": [
+        "Data fetching in useEffect without caching",
+        "No loading/error states",
+        "Refetching on every render"
+      ],
+      "fix": [
+        "Use TanStack Query for data fetching",
+        "Add caching and deduplication",
+        "Handle loading/error states"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "useEffect\\s*\\(\\s*\\(\\s*\\)\\s*=>\\s*\\{[\\s\\S]*?fetch\\s*\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "useEffect with fetch - consider TanStack Query for caching"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "AI_PROP_DRILLING",
+      "name": "Props passed through 3+ levels",
+      "description": "Props passed through 3+ levels. Consider React Context or component composition.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react",
+        "nextjs"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Use context or composition to avoid prop drilling",
+        "description": "Props passed through 3+ levels. Consider React Context or component composition.",
+        "library": "React Context"
+      },
+      "catches": [
+        "Props passed through 3+ levels",
+        "Unnecessary prop passing",
+        "Hard to maintain components"
+      ],
+      "fix": [
+        "Use React Context",
+        "Use component composition",
+        "Break up large components"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "function\\s+\\w+Props.*\\{\\s*\\w+\\.\\w+\\.\\w+"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Potential prop drilling - consider context or composition"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "AI_GENERIC_ERROR",
+      "name": "Generic try/catch with Something went wrong",
+      "description": "Generic try/catch with Something went wrong message. Add specific error handling.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Add specific error handling",
+        "description": "Generic try/catch with Something went wrong message. Add specific error handling.",
+        "library": "Custom error types"
+      },
+      "catches": [
+        "Generic error messages",
+        "No specific error handling",
+        "Users don't know what went wrong"
+      ],
+      "fix": [
+        "Add specific error types",
+        "Show actionable error messages",
+        "Handle different error cases"
+      ],
+      "conditions": [
+        {
+          "type": "regex",
+          "pattern": "catch\\s*\\(\\)\\s*\\{console\\.log\\s*\\(\\s*['\"\\`]Something went wrong"
+        },
+        {
+          "type": "regex",
+          "pattern": "catch\\s*\\(\\)\\s*\\{alert\\s*\\(\\s*['\"\\`]Something went wrong"
+        },
+        {
+          "type": "regex",
+          "pattern": "catch\\s*\\(\\)\\s*\\{throw\\s+new\\s+Error\\s*\\(\\s*['\"\\`]Something went wrong"
+        }
+      ],
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Generic error message - add specific error handling"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "AI_GENERIC_TOAST",
+      "name": "Multiple console.log without context",
+      "description": "Multiple console.log statements without context. Use structured logging with appropriate log levels.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Add context to console.log statements",
+        "description": "Multiple console.log statements without context. Use structured logging with appropriate log levels.",
+        "library": "pino, winston"
+      },
+      "catches": [
+        "Multiple console.log without context",
+        "Hard to debug in production",
+        "No structured logging"
+      ],
+      "fix": [
+        "Use structured logging library",
+        "Add log levels (info, warn, error)",
+        "Include context in logs"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "console\\.(log|debug|info)\\s*\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "info",
+        "message": "Multiple console.log statements - use structured logging with context"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "AI_NO_TESTS",
+      "name": "Files without corresponding tests",
+      "description": "No corresponding test file found. Add tests to ensure code reliability.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "testing",
+      "recommendation": {
+        "title": "Add tests for this file",
+        "description": "No corresponding test file found. Add tests to ensure code reliability.",
+        "library": "vitest, jest"
+      },
+      "catches": [
+        "No test file for source file",
+        "Code not covered by tests",
+        "Higher risk of bugs"
+      ],
+      "fix": [
+        "Add corresponding test file",
+        "Write unit/integration tests",
+        "Aim for good coverage"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "describe\\(|it\\(|test\\(",
+        "fileExtensions": [
+          ".test.ts",
+          ".spec.ts",
+          ".test.js",
+          ".spec.js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "info",
+        "message": "Test file found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "AI_CLIENT_BUNDLE_BLOAT",
+      "name": "Server-only imports in client code",
+      "description": "Server-only modules imported in client code increase bundle size. Use dynamic imports or move server logic.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "nextjs"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Avoid server-only imports in client code",
+        "description": "Server-only modules imported in client code increase bundle size. Use dynamic imports or move server logic.",
+        "library": "Next.js"
+      },
+      "catches": [
+        "Server-only modules in client bundle",
+        "Increased bundle size",
+        "fs, path, crypto in browser"
+      ],
+      "fix": [
+        "Use dynamic imports for server modules",
+        "Move server logic to server components",
+        "Use 'server only' directive"
+      ],
+      "conditions": [
+        {
+          "type": "regex",
+          "pattern": "import\\s+.*\\s+from\\s+['\"]node:"
+        },
+        {
+          "type": "regex",
+          "pattern": "import\\s+.*\\s+from\\s+['\"]fs['\"]"
+        },
+        {
+          "type": "regex",
+          "pattern": "import\\s+.*\\s+from\\s+['\"]path['\"]"
+        },
+        {
+          "type": "regex",
+          "pattern": "import\\s+.*\\s+from\\s+['\"]crypto['\"]"
+        },
+        {
+          "type": "regex",
+          "pattern": "require\\s*\\(\\s*['\"]node:"
+        },
+        {
+          "type": "regex",
+          "pattern": "require\\s*\\(\\s*['\"]fs['\"]"
+        }
+      ],
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Server-only module imported in client code - this increases bundle size"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "AI_AUTH_WITHOUT_AUTHZ",
+      "name": "Authentication without authorization check",
+      "description": "Authentication is present but authorization checks are missing. Ensure users have permission for actions.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "security",
+      "recommendation": {
+        "title": "Add authorization checks",
+        "description": "Authentication is present but authorization checks are missing. Ensure users have permission for actions.",
+        "library": "CASL, authorization library"
+      },
+      "catches": [
+        "Authentication without authorization",
+        "Users can access unauthorized resources",
+        "Potential data breaches"
+      ],
+      "fix": [
+        "Add permission checks",
+        "Verify ownership",
+        "Use authorization library"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "(verifyAuth|checkAuth|validateSession|authenticateUser|ensureAuthenticated)\\s*\\(",
+        "fileExtensions": [
+          ".ts",
+          ".js",
+          ".tsx",
+          ".jsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Authentication found but no authorization checks - add permission checks"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "FORM_NO_VALIDATION",
+      "name": "Form missing validation",
+      "description": "Forms should have both client-side and server-side validation.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "forms",
+      "recommendation": {
+        "title": "Add form validation",
+        "description": "Forms should have both client-side and server-side validation.",
+        "library": "Form handling"
+      },
+      "catches": [
+        "No form validation",
+        "Invalid data submitted",
+        "Security issues"
+      ],
+      "fix": [
+        "Add client-side validation",
+        "Add server-side validation",
+        "Use form library"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "<form>"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Form may be missing validation"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "FORM_SUBMIT_PREVENT",
+      "name": "Form submit not prevented",
+      "description": "Use event.preventDefault() on form submission.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react",
+        "vue"
+      ],
+      "category": "forms",
+      "recommendation": {
+        "title": "Prevent default form submission",
+        "description": "Use event.preventDefault() on form submission.",
+        "library": "Form handling"
+      },
+      "catches": [
+        "Form submit not prevented",
+        "Page reload on submit",
+        "SPA navigation broken"
+      ],
+      "fix": [
+        "Call event.preventDefault()",
+        "Handle submission in JS",
+        "Use onSubmit handler"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "onSubmit\\s*=\\s*\\{"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Form onSubmit handler should call preventDefault"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

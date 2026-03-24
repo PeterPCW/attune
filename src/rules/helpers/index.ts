@@ -1,5 +1,6 @@
 import { Finding, AnalysisContext, SourceFile } from '../../types/index.js';
 import { astHelperRegistry } from './ast-helpers.js';
+import { pythonHelperRegistry } from '../python/python-helpers.js';
 
 // ============================================
 // Helper Function Types
@@ -18,6 +19,7 @@ export interface FindOnLinesParams {
   message: string;
   fileExtensions?: string[];
   skipPaths?: string[];
+  frameworks?: string[];
 }
 
 export interface FindWithExclusionsParams {
@@ -418,7 +420,7 @@ export function findReactHook(
           id: `hook-${file.path}-${i + 1}`,
           ruleId: '',
           severity: 'medium',
-          category: 'react',
+          category: 'typescript',
           file: file.path,
           line: i + 1,
           message,
@@ -463,7 +465,7 @@ export function findInlineHandler(
           id: `handler-${file.path}-${i + 1}`,
           ruleId: '',
           severity: 'medium',
-          category: 'react',
+          category: 'typescript',
           file: file.path,
           line: i + 1,
           message,
@@ -906,7 +908,8 @@ export function findDuplicateCode(
 // Helper Registry
 // ============================================
 
-export const helperRegistry: Record<string, (context: AnalysisContext, params: unknown) => Finding[]> = {
+// Use a more flexible type to allow functions with specific param types
+const typedHelperRegistry: Record<string, any> = {
   findOnLines,
   findHardcodedSecret,
   findWithExclusions,
@@ -934,7 +937,11 @@ export const helperRegistry: Record<string, (context: AnalysisContext, params: u
   findDuplicateCode,
   // AST-based helpers
   ...astHelperRegistry,
+  // Python helpers
+  ...pythonHelperRegistry,
 };
+
+export const helperRegistry: Record<string, (context: AnalysisContext, params: unknown) => Finding[]> = typedHelperRegistry;
 
 // ============================================
 // Complexity Helpers

@@ -1,0 +1,202 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "TEST_COVERAGE_CONFIG",
+      "name": "Missing test coverage configuration",
+      "description": "Configure test coverage to track code quality. Add coverage configuration to your test runner.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "testing",
+      "recommendation": {
+        "title": "Add test coverage configuration",
+        "description": "Configure test coverage to track code quality. Add coverage configuration to your test runner.",
+        "library": "vitest, jest"
+      },
+      "catches": [
+        "No visibility into code coverage",
+        "Can't track tested code",
+        "Unknown test quality"
+      ],
+      "fix": [
+        "Add coverage config to test runner",
+        "Run coverage with tests",
+        "Generate coverage reports"
+      ],
+      "conditions": [
+        {
+          "type": "regex",
+          "pattern": "vitest\\.config\\.\" ?ts|jest\\.config\\.\" ?ts|coverage.*provider",
+          "fileExtensions": [
+            ".ts",
+            ".js"
+          ]
+        },
+        {
+          "type": "regex",
+          "pattern": "\"coverage\"",
+          "fileExtensions": [
+            ".json"
+          ]
+        }
+      ],
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Test coverage configuration found"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "TEST_COVERAGE_THRESHOLDS",
+      "name": "Missing coverage thresholds",
+      "description": "Add coverage thresholds to enforce minimum code coverage standards in CI.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "testing",
+      "recommendation": {
+        "title": "Set minimum coverage thresholds",
+        "description": "Add coverage thresholds to enforce minimum code coverage standards in CI.",
+        "library": "vitest, jest"
+      },
+      "catches": [
+        "No enforcement of coverage",
+        "Low coverage accepted",
+        "Code quality issues"
+      ],
+      "fix": [
+        "Set coverage thresholds in config",
+        "Fail CI below threshold",
+        "Aim for 80%+ coverage"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "coverageThreshold",
+        "fileExtensions": [
+          ".json",
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Coverage threshold configuration found"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "TEST_COVERAGE_LOW",
+      "name": "Test coverage below threshold",
+      "description": "Test coverage is below recommended threshold. Aim for 80%+ coverage.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "testing",
+      "recommendation": {
+        "title": "Improve test coverage",
+        "description": "Test coverage is below recommended threshold. Aim for 80%+ coverage.",
+        "library": "vitest, jest"
+      },
+      "catches": [
+        "Code not tested",
+        "Potential bugs undetected",
+        "Low confidence in code"
+      ],
+      "fix": [
+        "Write more tests",
+        "Aim for 80%+ coverage",
+        "Prioritize critical paths"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "it\\.only|test\\.only|describe\\.only"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Test with .only found - may indicate incomplete testing"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "TEST_FILES_MISSING",
+      "name": "Files without corresponding tests",
+      "description": "Source files should have corresponding test files.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "testing",
+      "recommendation": {
+        "title": "Add test files",
+        "description": "Source files should have corresponding test files.",
+        "library": "Testing"
+      },
+      "catches": [
+        "No tests for source files",
+        "Untested functionality",
+        "Risk of regressions"
+      ],
+      "fix": [
+        "Create test files for source",
+        "Name tests matching source",
+        "Cover critical paths"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "describe\\(|it\\(|test\\(",
+        "fileExtensions": [
+          ".test.ts",
+          ".spec.ts",
+          ".test.js",
+          ".spec.js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Test file found"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "TEST_NO_E2E",
+      "name": "No E2E tests for UI project",
+      "description": "Projects with UI components should have E2E tests to verify user flows work correctly.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "testing",
+      "recommendation": {
+        "title": "Add E2E tests",
+        "description": "Projects with UI components should have E2E tests to verify user flows work correctly.",
+        "library": "Playwright, Cypress"
+      },
+      "catches": [
+        "No E2E tests for UI",
+        "No browser testing",
+        "User flows not tested"
+      ],
+      "fix": [
+        "Add Playwright or Cypress",
+        "Write E2E tests for key user flows",
+        "Test critical paths in real browser"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "playwright|cypress|e2e|@playwright|chromium\\.launch"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "E2E test setup found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

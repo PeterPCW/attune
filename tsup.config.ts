@@ -16,8 +16,8 @@ export default defineConfig({
     copy({
       resolveFrom: 'cwd',
       assets: {
-        from: ['src/rules/data/*.json'],
-        to: ['dist/rules/data'],
+        from: ['src/rules/functions/*.json'],
+        to: ['dist/rules/functions'],
       },
     }),
   ]

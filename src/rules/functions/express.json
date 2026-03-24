@@ -1,0 +1,122 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "EXPRESS_SYNC_ROUTE",
+      "name": "Synchronous code in async route handler",
+      "description": "Express route handlers should be async for proper error handling.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "express"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Use async/await in route handlers",
+        "description": "Express route handlers should be async for proper error handling.",
+        "library": "Express"
+      },
+      "catches": [
+        "Synchronous code in route handler",
+        "Blocks event loop",
+        "Poor performance"
+      ],
+      "fix": [
+        "Use async/await in routes",
+        "Avoid sync operations",
+        "Use worker threads if needed"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "app\\.(get|post|put|delete|patch)\\s*\\(\\s*['\"`]"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Route handler should be async for proper error handling"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "EXPRESS_ERROR_HANDLER",
+      "name": "Missing error handler middleware",
+      "description": "Express apps should have error handling middleware.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "express"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Add error handler middleware",
+        "description": "Express apps should have error handling middleware.",
+        "library": "Express"
+      },
+      "catches": [
+        "No error handler middleware",
+        "Unhandled errors crash app",
+        "Poor error responses"
+      ],
+      "fix": [
+        "Add error handler middleware",
+        "Handle async errors",
+        "Return proper error responses"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "app\\.use\\s*\\(\\s*function\\s*\\(\\s*err"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Error handler middleware found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "EXPRESS_HELMET_MISSING",
+      "name": "Missing security headers",
+      "description": "Add Helmet middleware for security headers.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "express"
+      ],
+      "category": "security",
+      "recommendation": {
+        "title": "Add security headers with Helmet",
+        "description": "Add Helmet middleware for security headers.",
+        "library": "helmet"
+      },
+      "catches": [
+        "No security headers",
+        "Missing Helmet middleware",
+        "Security vulnerabilities"
+      ],
+      "fix": [
+        "Add Helmet middleware",
+        "Configure security headers",
+        "Enable HSTS"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "helmet\\s*\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Helmet security middleware found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "SOLID_REACTIVITY_WRONG",
+      "name": "Using React patterns in Solid",
+      "description": "SolidJS uses signals, not hooks like React. Do not use useState, useEffect.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "solidjs"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Use SolidJS reactivity correctly",
+        "description": "SolidJS uses signals, not hooks like React. Do not use useState, useEffect.",
+        "library": "SolidJS"
+      },
+      "catches": [
+        "Using React hooks in SolidJS",
+        "Wrong reactivity patterns",
+        "Code not working as expected"
+      ],
+      "fix": [
+        "Use createSignal instead of useState",
+        "Use createEffect instead of useEffect",
+        "Use createMemo instead of useMemo"
+      ],
+      "conditions": [
+        {
+          "type": "regex",
+          "pattern": "useState"
+        },
+        {
+          "type": "regex",
+          "pattern": "useEffect"
+        },
+        {
+          "type": "regex",
+          "pattern": "useCallback"
+        },
+        {
+          "type": "regex",
+          "pattern": "useMemo"
+        },
+        {
+          "type": "regex",
+          "pattern": "useRef"
+        },
+        {
+          "type": "regex",
+          "pattern": "useContext"
+        }
+      ],
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "React useState detected in SolidJS - use createSignal instead"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "SOLID_ARRAY_MUTATION",
+      "name": "Mutating arrays in reactivity",
+      "description": "SolidJS reactivity requires reassignment, not mutation. Use [...arr] pattern.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "solidjs"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Use immutable patterns for arrays",
+        "description": "SolidJS reactivity requires reassignment, not mutation. Use [...arr] pattern.",
+        "library": "SolidJS"
+      },
+      "catches": [
+        "UI not updating on array changes",
+        "Mutation not detected",
+        "Wrong reactivity"
+      ],
+      "fix": [
+        "Use spread operator: [...arr, newItem]",
+        "Use setStore for nested reactivity",
+        "Create new arrays, don't mutate"
+      ],
+      "conditions": [
+        {
+          "type": "regex",
+          "pattern": "\\.push\\s*\\("
+        },
+        {
+          "type": "regex",
+          "pattern": "\\.pop\\s*\\("
+        },
+        {
+          "type": "regex",
+          "pattern": "\\.splice\\s*\\("
+        }
+      ],
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Array mutation - use [...arr] spread instead"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "SOLID_FOR_KEY",
+      "name": "For loop without key",
+      "description": "SolidJS For component needs a key function for proper list updates.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "solidjs"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Add key to For component",
+        "description": "SolidJS For component needs a key function for proper list updates.",
+        "library": "SolidJS"
+      },
+      "catches": [
+        "Missing key function in For",
+        "Incorrect list updates",
+        "Performance issues"
+      ],
+      "fix": [
+        "Add key function to For component",
+        "Use unique ID from data",
+        "Avoid array index as key"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "<For"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "For component detected"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

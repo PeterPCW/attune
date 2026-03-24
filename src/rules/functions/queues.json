@@ -1,0 +1,215 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "QUEUE_NO_TIMEOUT",
+      "name": "Job missing timeout",
+      "description": "Jobs should have timeouts to prevent hanging processes.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "queues",
+      "recommendation": {
+        "title": "Set job timeouts",
+        "description": "Jobs should have timeouts to prevent hanging processes.",
+        "library": "Bull, Agenda, Redis"
+      },
+      "catches": [
+        "Jobs running forever",
+        "Process hangs",
+        "No failure detection"
+      ],
+      "fix": [
+        "Add timeout to job options",
+        "Set reasonable timeout values",
+        "Handle timeout errors"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "queue\\.|bull|agenda|job\\.",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Queue job found - consider timeout"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "QUEUE_NO_RETRIES",
+      "name": "Job missing retry configuration",
+      "description": "Queue jobs should have explicit retry/attempts configuration. Note: This rule checks if queue-related files have retry config. Files without queue patterns are ignored.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "queues",
+      "recommendation": {
+        "title": "Configure job retries",
+        "description": "Queue jobs should have explicit retry/attempts configuration. Note: This rule checks if queue-related files have retry config. Files without queue patterns are ignored.",
+        "library": "Bull, Agenda"
+      },
+      "catches": [
+        "Queue jobs without retry configuration",
+        "Failed jobs not retried",
+        "No recovery from errors"
+      ],
+      "fix": [
+        "Configure retry attempts",
+        "Set backoff strategy",
+        "Handle transient failures"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "queue\\.|bull|agenda|BullMQ|job\\Processor",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Queue job found - verify retry configuration"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "QUEUE_NO_DEDUP",
+      "name": "Job missing deduplication",
+      "description": "Prevent duplicate jobs using idempotency keys.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "queues",
+      "recommendation": {
+        "title": "Add job deduplication",
+        "description": "Prevent duplicate jobs using idempotency keys.",
+        "library": "Bull, Redis"
+      },
+      "catches": [
+        "Duplicate jobs processed",
+        "Wasted resources",
+        "Inconsistent state"
+      ],
+      "fix": [
+        "Add idempotency keys",
+        "Configure removeOnComplete",
+        "Use deduplication options"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "removeOnComplete|removeOnFail|dedup",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Deduplication config found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "QUEUE_NO_PRIORITY",
+      "name": "Job queue missing priority",
+      "description": "Prioritize critical jobs over background tasks.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "queues",
+      "recommendation": {
+        "title": "Use priority queues",
+        "description": "Prioritize critical jobs over background tasks.",
+        "library": "Bull"
+      },
+      "catches": [
+        "All jobs treated equally",
+        "Critical jobs delayed",
+        "Poor user experience"
+      ],
+      "fix": [
+        "Add priority to jobs",
+        "Create separate queues",
+        "Process by priority"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "priority|highPriority|lowPriority",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Priority configuration found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "QUEUE_SYNCHRONOUS",
+      "name": "Synchronous job in request handler",
+      "description": "Long-running tasks should be queued, not processed synchronously.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "express",
+        "fastify",
+        "nextjs",
+        "nuxt"
+      ],
+      "category": "queues",
+      "recommendation": {
+        "title": "Offload to background queue",
+        "description": "Long-running tasks should be queued, not processed synchronously.",
+        "library": "Bull, Agenda"
+      },
+      "catches": [
+        "Slow HTTP responses",
+        "Request timeouts",
+        "Poor user experience"
+      ],
+      "fix": [
+        "Add job to queue, don't await",
+        "Return immediately to user",
+        "Process in background"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "await\\s+.*\\.send\\(|\\.add\\(",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Queue call found in request handler"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

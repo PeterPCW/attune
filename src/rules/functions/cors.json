@@ -1,0 +1,216 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "CORS_NO_CONFIG",
+      "name": "Missing CORS configuration",
+      "description": "CORS should be explicitly configured, not left permissive.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "express",
+        "fastify",
+        "nextjs",
+        "nuxt"
+      ],
+      "category": "cors",
+      "recommendation": {
+        "title": "Configure CORS properly",
+        "description": "CORS should be explicitly configured, not left permissive.",
+        "library": "cors, @fastify/cors"
+      },
+      "catches": [
+        "API accessible from any domain",
+        "No control over who accesses API",
+        "Potential data exposure"
+      ],
+      "fix": [
+        "Configure allowed origins explicitly",
+        "Use environment variables for origins",
+        "Implement origin validation"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "cors\\(|cors:\\s*\\{",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "CORS configuration found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "CORS_WILDCARD",
+      "name": "CORS allows all origins",
+      "description": "Allowing all origins (* ) is a security risk. Specify allowed origins.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "cors",
+      "recommendation": {
+        "title": "Don't use wildcard origin in production",
+        "description": "Allowing all origins (* ) is a security risk. Specify allowed origins.",
+        "library": "CORS configuration"
+      },
+      "catches": [
+        "Any website can call API",
+        "Data exposed to unauthorized sites",
+        "Security vulnerabilities"
+      ],
+      "fix": [
+        "Specify exact allowed origins",
+        "Use array of allowed origins",
+        "Implement origin allowlist"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "origin:\\s*['\"]\\*['\"]|origin:\\s*true",
+        "fileExtensions": [
+          ".ts",
+          ".js",
+          ".json"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Wildcard CORS origin detected"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "CORS_CREDENTIALS",
+      "name": "CORS credentials with wildcard origin",
+      "description": "Cannot use credentials with wildcard origin. Specify exact origins.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "cors",
+      "recommendation": {
+        "title": "Fix credentials with wildcard",
+        "description": "Cannot use credentials with wildcard origin. Specify exact origins.",
+        "library": "CORS"
+      },
+      "catches": [
+        "Browser rejects credentials request",
+        "CORS error in browsers",
+        "API breaks for frontend"
+      ],
+      "fix": [
+        "Remove wildcard origin",
+        "Specify exact origins for credentials",
+        "Use origin whitelist"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "credentials:\\s*true.*origin:\\s*['\"]\\*",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "critical",
+        "message": "Credentials with wildcard origin is insecure"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "CORS_NO_EXPOSE_HEADERS",
+      "name": "Missing Access-Control-Expose-Headers",
+      "description": "Custom headers need to be exposed to be accessible from frontend.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "cors",
+      "recommendation": {
+        "title": "Expose custom headers",
+        "description": "Custom headers need to be exposed to be accessible from frontend.",
+        "library": "CORS"
+      },
+      "catches": [
+        "Custom headers not accessible",
+        "Can't read response headers",
+        "Broken frontend functionality"
+      ],
+      "fix": [
+        "Add exposeHeaders configuration",
+        "List needed custom headers",
+        "Allow frontend access"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "exposeHeaders",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Expose-Headers configured"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "CORS_NO_MAX_AGE",
+      "name": "Missing Access-Control-Max-Age",
+      "description": "Setting Max-Age reduces preflight requests.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "cors",
+      "recommendation": {
+        "title": "Set preflight cache duration",
+        "description": "Setting Max-Age reduces preflight requests.",
+        "library": "CORS"
+      },
+      "catches": [
+        "Extra preflight requests",
+        "Increased latency",
+        "Unnecessary OPTIONS calls"
+      ],
+      "fix": [
+        "Set maxAge to reasonable value (e.g., 86400)",
+        "Cache preflight for stable APIs",
+        "Balance security with performance"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "maxAge",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Max-Age header set"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

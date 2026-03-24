@@ -1,0 +1,399 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "SVELTE_STORE_SUBSCRIPTION",
+      "name": "Missing unsubscribe on destroy",
+      "description": "Always unsubscribe from stores in onDestroy to prevent memory leaks.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "svelte"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Unsubscribe from stores on destroy",
+        "description": "Always unsubscribe from stores in onDestroy to prevent memory leaks.",
+        "library": "Svelte"
+      },
+      "catches": [
+        "Memory leaks from subscriptions",
+        "Store updates after component destroy",
+        "Unexpected behavior"
+      ],
+      "fix": [
+        "Use onDestroy to unsubscribe",
+        "Use auto-subscribe with $ prefix",
+        "Store the unsubscribe function"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "\\$"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Store subscription detected"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "SVELTE_REACTIVITY_ASSIGN",
+      "name": "$: with mutation instead of reassignment",
+      "description": "Svelte reactivity works with assignment, not mutation. Use assignment to trigger updates.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "svelte"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Use assignment instead of mutation",
+        "description": "Svelte reactivity works with assignment, not mutation. Use assignment to trigger updates.",
+        "library": "Svelte"
+      },
+      "catches": [
+        "Reactivity not triggering",
+        "UI not updating",
+        "Mutation not detected"
+      ],
+      "fix": [
+        "Use assignment instead of mutation",
+        "Create new arrays/objects",
+        "Trigger reactivity with ="
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "\\$\\s*:"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Reactive statement detected"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "SVELTE_AWAIT_BLOCK_ERROR",
+      "name": "Await block without catch",
+      "description": "Await blocks should have catch for error handling.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "svelte"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Add error handling to await blocks",
+        "description": "Await blocks should have catch for error handling.",
+        "library": "Svelte"
+      },
+      "catches": [
+        "Unhandled promise rejections",
+        "Uncaught errors in async operations",
+        "Poor error handling"
+      ],
+      "fix": [
+        "Add catch block to await",
+        "Handle errors in try-catch",
+        "Show error state to user"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "await|catch"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Async handling found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "SVELTE_SLOT_PROP_SPREAD",
+      "name": "Spreading props to slots",
+      "description": "Spreading props to slots can cause maintenance issues.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "svelte"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Avoid spreading props to slots",
+        "description": "Spreading props to slots can cause maintenance issues.",
+        "library": "Svelte"
+      },
+      "catches": [
+        "Props passed unintentionally",
+        "Hard to trace data flow",
+        "Maintenance issues"
+      ],
+      "fix": [
+        "Pass explicit props to slots",
+        "Avoid spread operator on slots",
+        "Document slot prop interface"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "\\.\\.\\.|spread|props"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Props handling found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "SVELTE_EVENT_FORWARD",
+      "name": "Manual event forwarding",
+      "description": "Use event forwarding instead of manual forwarding.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "svelte"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Use event forwarding",
+        "description": "Use event forwarding instead of manual forwarding.",
+        "library": "Svelte"
+      },
+      "catches": [
+        "Boilerplate event handlers",
+        "Missing event forwarding",
+        "Extra code"
+      ],
+      "fix": [
+        "Use on:eventname on element",
+        "Forward events automatically",
+        "Avoid createEventDispatcher"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "on:|dispatch|createEventDispatcher"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Event handling found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "SVELTE_CONTEXT_LEAK",
+      "name": "Context used incorrectly",
+      "description": "Context must be set in onMount or asynchronously.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "svelte"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Fix context usage",
+        "description": "Context must be set in onMount or asynchronously.",
+        "library": "Svelte"
+      },
+      "catches": [
+        "Context not available",
+        "SSR issues",
+        "Undefined context values"
+      ],
+      "fix": [
+        "Set context in onMount",
+        "Use await after setContext",
+        "Check context exists before use"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "setContext|getContext|context"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Context API found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "SVELTE_DESTROYED_LIFECYCLE",
+      "name": "onDestroy without onMount pattern",
+      "description": "Always cleanup subscriptions and timers in onDestroy.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "svelte"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Add cleanup in onDestroy",
+        "description": "Always cleanup subscriptions and timers in onDestroy.",
+        "library": "Svelte"
+      },
+      "catches": [
+        "Memory leaks",
+        "Timers running after destroy",
+        "Subscriptions not cleaned"
+      ],
+      "fix": [
+        "Use onDestroy for cleanup",
+        "Clear intervals and timeouts",
+        "Unsubscribe from stores"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "onMount|onDestroy|onDestroy\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Lifecycle hook found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "SVELTE_GLOBAL_STYLE",
+      "name": "Global styles in component",
+      "description": "Global styles should be in global CSS files.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "svelte"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Avoid global styles in components",
+        "description": "Global styles should be in global CSS files.",
+        "library": "Svelte"
+      },
+      "catches": [
+        "Styles affecting other components",
+        "Unexpected style overrides",
+        "CSS pollution"
+      ],
+      "fix": [
+        "Move to global CSS file",
+        "Use scoped styles only",
+        "Avoid :global() unless needed"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "<style|:global\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Style handling found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "SVELTE_IMMUTABLE_TRACK",
+      "name": "$state without proper immutability",
+      "description": "Use $state with proper immutability patterns.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "svelte"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Use immutable tracking correctly",
+        "description": "Use $state with proper immutability patterns.",
+        "library": "Svelte"
+      },
+      "catches": [
+        "Reactivity not triggering",
+        "State changes not detected",
+        "Performance issues"
+      ],
+      "fix": [
+        "Use immutable patterns with $state",
+        "Assign new values, don't mutate",
+        "Use $state.snapshot for cloning"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "\\$state\\(|\\$state\\[",
+        "fileExtensions": [
+          ".svelte",
+          ".ts"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Svelte state found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "SVELTE_TRANSITION_MISSING",
+      "name": "Missing transition on conditionally rendered",
+      "description": "Use transitions for better UX with conditionally rendered elements.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "svelte"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Add transitions to conditionally rendered elements",
+        "description": "Use transitions for better UX with conditionally rendered elements.",
+        "library": "Svelte"
+      },
+      "catches": [
+        "Abrupt UI changes",
+        "Poor user experience",
+        "Jarring transitions"
+      ],
+      "fix": [
+        "Add transition:fn to elements",
+        "Use in:transition for entering",
+        "Use out:transition for leaving"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "transition|in:|animate:"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Transition found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

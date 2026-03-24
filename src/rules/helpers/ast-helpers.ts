@@ -338,7 +338,7 @@ export function findMissingReturnType(
 
         // Check if return type is present (look ahead on same line)
         const line = lines[startLine - 1];
-        const hasReturnType = /:\s*\w+[\[\]|<>]?\s*$|:\s*Promise\s*</.test(line);
+        const hasReturnType = /:\s*\w+[[\]|<>]?\s*$|:\s*Promise\s*</.test(line);
 
         if (!hasReturnType) {
           findings.push({
@@ -472,7 +472,7 @@ export function findMissingDependencyArray(
 
       // Empty dependency array is intentional, but missing array entirely is often a bug
       // This is a heuristic - we flag when we can't find a clear dependency indicator
-      const hasDeps = /\]\s*[,\)]/.test(nextChars);
+      const hasDeps = /\]\s*[,)]/.test(nextChars);
 
       // Only flag if there's async operations or variables used
       if (!hasDeps && (/\bawait\s+|\buseState\b|\buseContext\b/.test(effectBody))) {
@@ -480,7 +480,7 @@ export function findMissingDependencyArray(
           id: `missing-deps-${file.path}-${startLine}`,
           ruleId: '',
           severity: 'medium',
-          category: 'react',
+          category: 'typescript',
           file: file.path,
           line: startLine,
           message: `${message}`,
@@ -497,7 +497,7 @@ export function findMissingDependencyArray(
 // AST Helper Registry
 // ============================================
 
-export const astHelperRegistry: Record<string, (context: AnalysisContext, params: unknown) => Finding[]> = {
+const typedAstHelperRegistry: Record<string, any> = {
   findFunctionWithoutErrorHandling,
   findComponentWithoutTypes,
   findAsyncWithoutAwait,
@@ -505,3 +505,5 @@ export const astHelperRegistry: Record<string, (context: AnalysisContext, params
   findEventListenerWithoutCleanup,
   findMissingDependencyArray,
 };
+
+export const astHelperRegistry: Record<string, (context: AnalysisContext, params: unknown) => Finding[]> = typedAstHelperRegistry;

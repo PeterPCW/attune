@@ -1,0 +1,122 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "ASTRO_CLIENT_LOAD",
+      "name": "Hydrating everything",
+      "description": "Only hydrate components that need interactivity. Avoid client:load on static content.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "astro"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Use client directives only when needed",
+        "description": "Only hydrate components that need interactivity. Avoid client:load on static content.",
+        "library": "Astro"
+      },
+      "catches": [
+        "Unnecessary client hydration",
+        "Larger bundle size",
+        "Slower initial load"
+      ],
+      "fix": [
+        "Use client directives only when needed",
+        "Avoid client:load on static content",
+        "Use client:visible for below-fold content"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "client:"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Client directive detected - use only when needed"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "ASTRO_NO_PRERENDER",
+      "name": "Missing prerender",
+      "description": "Static pages should use prerender for better performance.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "astro"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Add prerender for static pages",
+        "description": "Static pages should use prerender for better performance.",
+        "library": "Astro"
+      },
+      "catches": [
+        "Static pages not prerendered",
+        "Server-side rendering on each request",
+        "Wasted resources"
+      ],
+      "fix": [
+        "Add prerender to static pages",
+        "Use static adapter",
+        "Pre-generate pages at build time"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "export\\s+const\\s+prerender\\s*=\\s*true"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Page with prerender enabled for static generation"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "ASTRO_DIRECTIVE_WRONG",
+      "name": "Wrong hydration directive",
+      "description": "Choose appropriate directive: client:load, client:visible, client:idle, etc.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "astro"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Use correct hydration directive",
+        "description": "Choose appropriate directive: client:load, client:visible, client:idle, etc.",
+        "library": "Astro"
+      },
+      "catches": [
+        "Wrong hydration directive used",
+        "Inefficient loading",
+        "Poor performance"
+      ],
+      "fix": [
+        "Use client:visible for below-fold content",
+        "Use client:idle for non-critical",
+        "Use client:load only for above-fold"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "client:load"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Using client:load - consider client:visible or client:idle for better performance"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

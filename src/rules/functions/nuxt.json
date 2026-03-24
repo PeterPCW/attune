@@ -1,0 +1,83 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "NUXT_CONFIG_PUBLIC",
+      "name": "Secrets in public config",
+      "description": "Runtime config public keys are exposed to the client. Use private keys for secrets.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "nuxt"
+      ],
+      "category": "security",
+      "recommendation": {
+        "title": "Move secrets out of public config",
+        "description": "Runtime config public keys are exposed to the client. Use private keys for secrets.",
+        "library": "Nuxt"
+      },
+      "catches": [
+        "API keys exposed to client",
+        "Secrets leaked in browser",
+        "Security vulnerabilities"
+      ],
+      "fix": [
+        "Move secrets to runtimeConfig.private",
+        "Access private config server-side only",
+        "Never put secrets in public section"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "runtimeConfigpublic"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "critical",
+        "message": "Runtime config with public section detected"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "NUXT_SERVER_ROUTE_SYNC",
+      "name": "Sync code in server route",
+      "description": "Server routes should use async/await for proper error handling.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "nuxt"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Use async/await in server routes",
+        "description": "Server routes should use async/await for proper error handling.",
+        "library": "Nuxt"
+      },
+      "catches": [
+        "Blocking event loop",
+        "Poor server performance",
+        "Can't handle async operations"
+      ],
+      "fix": [
+        "Use async/await in defineEventHandler",
+        "Return promises from handlers",
+        "Handle errors with try-catch"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "defineEventHandler"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Server route handler detected"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

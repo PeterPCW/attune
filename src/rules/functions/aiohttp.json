@@ -1,0 +1,325 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "AIOHTTP_SYNC_DB",
+      "name": "Synchronous database in aiohttp handler",
+      "description": "Use asyncpg, aiomysql, or aiosqlite instead.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "aiohttp"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Use async database drivers",
+        "description": "Use asyncpg, aiomysql, or aiosqlite instead.",
+        "library": "aiohttp"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "async\\s+def\\s+.*handler.*:(?:psycopg2|mysql|sqlite3)\\."
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Synchronous database driver in async handler"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "AIOHTTP_NO_CORS",
+      "name": "Missing CORS configuration",
+      "description": "Use aiohttp.CorsMiddleware or aiohttp-security.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "aiohttp"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "security",
+      "recommendation": {
+        "title": "Configure CORS middleware",
+        "description": "Use aiohttp.CorsMiddleware or aiohttp-security.",
+        "library": "aiohttp"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "web\\.Application\\(\\)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Missing CORS middleware"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "AIOHTTP_NO_ERROR_HANDLER",
+      "name": "Missing custom error handlers",
+      "description": "Use app.router.register_error_handler() for custom errors.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "aiohttp"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "error-handling",
+      "recommendation": {
+        "title": "Add exception handlers",
+        "description": "Use app.router.register_error_handler() for custom errors.",
+        "library": "aiohttp"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "web\\.Application\\(\\)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Consider adding exception handlers"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "AIOHTTP_STREAMING",
+      "name": "Not using streaming for large responses",
+      "description": "Use web.StreamResponse for large files.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "aiohttp"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Use streaming responses",
+        "description": "Use web.StreamResponse for large files.",
+        "library": "aiohttp"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "return\\s+web\\.Response\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Consider streaming for large responses"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "AIOHTTP_TIMEOUT",
+      "name": "Missing timeout for HTTP requests",
+      "description": "Use aiohttp.ClientTimeout for all requests.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "aiohttp"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "reliability",
+      "recommendation": {
+        "title": "Configure timeouts",
+        "description": "Use aiohttp.ClientTimeout for all requests.",
+        "library": "aiohttp"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "aiohttp\\.ClientSession\\(\\)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Consider adding timeout configuration"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "AIOHTTP_NO_GZIP",
+      "name": "Missing gzip compression",
+      "description": "Use aiohttp-compress or configure middleware.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "aiohttp"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Enable compression",
+        "description": "Use aiohttp-compress or configure middleware.",
+        "library": "aiohttp"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "web\\.Application\\(\\)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Consider enabling compression"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "AIOHTTP_STATIC_ROOT",
+      "name": "Static files without proper cache headers",
+      "description": "Add Cache-Control headers for static assets.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "aiohttp"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Configure cache headers",
+        "description": "Add Cache-Control headers for static assets.",
+        "library": "aiohttp"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "StaticRoute\\|static\\.add_routes"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Add cache headers for static files"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "AIOHTTP_SESSION_CREATE",
+      "name": "Creating ClientSession inside handler",
+      "description": "Create ClientSession at app startup, close at shutdown.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "aiohttp"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Use application-scoped session",
+        "description": "Create ClientSession at app startup, close at shutdown.",
+        "library": "aiohttp"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "async\\s+def\\s+\\w+.*:ClientSession\\(\\)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "ClientSession should be created once, not per request"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "AIOHTTP_DEBUG_TRUE",
+      "name": "Debug mode in production",
+      "description": "Set debug=False in production.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "aiohttp"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "security",
+      "recommendation": {
+        "title": "Disable debug in production",
+        "description": "Set debug=False in production.",
+        "library": "aiohttp"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "web\\.run_app\\(debug\\s*=\\s*True"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Debug mode should be disabled in production"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "AIOHTTP_NO_LOGGING",
+      "name": "Not using structured logging",
+      "description": "Use aiohttp-debugtoolbar or logging module.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "aiohttp"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "cleanliness",
+      "recommendation": {
+        "title": "Use structured logging",
+        "description": "Use aiohttp-debugtoolbar or logging module.",
+        "library": "aiohttp"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "print\\s*\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Use logging instead of print"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

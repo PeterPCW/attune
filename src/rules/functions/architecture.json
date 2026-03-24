@@ -1,0 +1,613 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "ARCH_CIRCULAR_DEP",
+      "name": "Relative imports or barrel exports detected",
+      "description": "Relative imports and barrel exports (index.ts re-exports) are common patterns. Only investigate if you're experiencing actual circular dependency issues. True circular dependencies involve A importing B which imports A.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Review imports for actual circular dependencies",
+        "description": "Relative imports and barrel exports (index.ts re-exports) are common patterns. Only investigate if you're experiencing actual circular dependency issues. True circular dependencies involve A importing B which imports A.",
+        "library": "Architecture"
+      },
+      "catches": [
+        "Relative imports",
+        "Barrel exports (index.ts re-exports)"
+      ],
+      "fix": [
+        "This is often normal code organization - barrel exports are a standard pattern",
+        "Only investigate if actual circular dependency issues arise"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "export\\s+\\{[X]\\}\\s+from\\s+['\"]\\.\\/[X]['\"]",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "info",
+        "message": "Relative import or barrel export found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "ARCH_HUB_MODULE",
+      "name": "Hub module with too many dependencies",
+      "description": "Modules that depend on too many other modules indicate poor separation. Split into smaller modules.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Split hub modules",
+        "description": "Modules that depend on too many other modules indicate poor separation. Split into smaller modules.",
+        "library": "Architecture"
+      },
+      "catches": [
+        "Module depends on many others",
+        "Poor separation of concerns",
+        "Hard to maintain"
+      ],
+      "fix": [
+        "Split into smaller modules",
+        "Extract related functionality",
+        "Reduce dependencies"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "services?|repositories?|controllers?|handlers?"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Layered structure found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "ARCH_ORPHAN_MODULE",
+      "name": "Orphan/unused module",
+      "description": "Modules with no dependencies may be dead code. Verify and remove.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Remove orphan modules",
+        "description": "Modules with no dependencies may be dead code. Verify and remove.",
+        "library": "Architecture"
+      },
+      "catches": [
+        "Orphan module with no dependencies",
+        "May be dead code",
+        "Unnecessary bundle size"
+      ],
+      "fix": [
+        "Verify if module is used",
+        "Remove dead code",
+        "Add exports if needed"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "services?|repositories?|controllers?|handlers?"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Layered structure found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "ARCH_DB_IN_CONTROLLER",
+      "name": "Database access in controller",
+      "description": "Controllers should only handle HTTP concerns. Move database logic to repositories/services.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "express",
+        "fastify",
+        "nodejs"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Move database logic to service layer",
+        "description": "Controllers should only handle HTTP concerns. Move database logic to repositories/services.",
+        "library": "Layered Architecture"
+      },
+      "catches": [
+        "Database logic in controller",
+        "Poor separation of concerns",
+        "Hard to test"
+      ],
+      "fix": [
+        "Move DB logic to service/repository",
+        "Keep controllers thin",
+        "Separate HTTP and data concerns"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "prisma|drizzle|knex|query|sql"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Database layer found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "ARCH_LOGIC_IN_ROUTE",
+      "name": "Business logic in route handler",
+      "description": "Route handlers should delegate to service layer. Keep them thin.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "express",
+        "fastify"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Extract business logic",
+        "description": "Route handlers should delegate to service layer. Keep them thin.",
+        "library": "Service Layer"
+      },
+      "catches": [
+        "Business logic in routes",
+        "Hard to test and reuse",
+        "Duplicated logic"
+      ],
+      "fix": [
+        "Extract to service layer",
+        "Keep routes thin",
+        "Delegate to business logic"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "async|await|Promise"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Async handling found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "ARCH_NO_SERVICE_LAYER",
+      "name": "Missing service layer",
+      "description": "Business logic should be in a service layer, not in routes or controllers.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Add service layer",
+        "description": "Business logic should be in a service layer, not in routes or controllers.",
+        "library": "Layered Architecture"
+      },
+      "catches": [
+        "No service layer",
+        "Logic in routes/controllers",
+        "Poor separation"
+      ],
+      "fix": [
+        "Create service layer",
+        "Move business logic",
+        "Keep routes thin"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "service"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Service layer found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "ARCH_DIRECT_SQL",
+      "name": "Raw SQL in route handlers",
+      "description": "Raw SQL in routes couples to database. Use repository pattern.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Use repository pattern",
+        "description": "Raw SQL in routes couples to database. Use repository pattern.",
+        "library": "Repository Pattern"
+      },
+      "catches": [
+        "Raw SQL in routes",
+        "Database coupling",
+        "Hard to maintain"
+      ],
+      "fix": [
+        "Use repository pattern",
+        "Move SQL to repositories",
+        "Abstract database access"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "SELECT\\s+|INSERT\\s+|UPDATE\\s+|DELETE\\s+",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Raw SQL query found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "ARCH_ANEMIC_MODEL",
+      "name": "Anemic domain model",
+      "description": "Classes with only getters/setters are anemic. Add domain logic to models.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Add behavior to domain models",
+        "description": "Classes with only getters/setters are anemic. Add domain logic to models.",
+        "library": "Domain-Driven Design"
+      },
+      "catches": [
+        "Classes with only getters/setters",
+        "No business logic in models",
+        "Anemic domain model"
+      ],
+      "fix": [
+        "Add domain logic to models",
+        "Use domain-driven design",
+        "Move logic from services"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "class\\s+[A-Z]\\w*\\{\\s*(get\\s+\\w+\\(|set\\s+\\w+\\()",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Class with getters/setters found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "ARCH_FEATURE_ENVY",
+      "name": "Feature envy anti-pattern",
+      "description": "Methods that access too much data from other classes should be moved there.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Move method to data class",
+        "description": "Methods that access too much data from other classes should be moved there.",
+        "library": "Refactoring"
+      },
+      "catches": [
+        "Method accesses too much from other class",
+        "Feature envy code smell",
+        "Poor encapsulation"
+      ],
+      "fix": [
+        "Move method to data class",
+        "Extract related logic",
+        "Improve encapsulation"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "this\\."
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Method access found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "ARCH_VIOLATES_DEMETER",
+      "name": "Law of Demeter violation",
+      "description": "Excessive chaining (a.getB().getC().getD()) violates Demeter. Use delegates.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Avoid method chaining",
+        "description": "Excessive chaining (a.getB().getC().getD()) violates Demeter. Use delegates.",
+        "library": "Law of Demeter"
+      },
+      "catches": [
+        "Excessive method chaining",
+        "Law of Demeter violation",
+        "Tight coupling"
+      ],
+      "fix": [
+        "Use delegate methods",
+        "Reduce chaining",
+        "Improve encapsulation"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "\\.get\\(|\\.set\\(|getter|setter"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Property access found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "ARCH_GOD_CLASS",
+      "name": "God class detected",
+      "description": "Classes that do too much should be split into focused, single-responsibility classes.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Split god class",
+        "description": "Classes that do too much should be split into focused, single-responsibility classes.",
+        "library": "SOLID - SRP"
+      },
+      "catches": [
+        "Class does too much",
+        "Violates single responsibility",
+        "Hard to maintain"
+      ],
+      "fix": [
+        "Split into smaller classes",
+        "Apply single responsibility",
+        "Extract related functionality"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "class\\s+[A-Z][a-zA-Z0-9]*\\{[^}]{1000,}",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Large class found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "ARCH_SPAGHETTI_CODE",
+      "name": "Spaghetti code structure",
+      "description": "Deeply nested, tangled code is hard to maintain. Refactor to clear structure.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Refactor to clean structure",
+        "description": "Deeply nested, tangled code is hard to maintain. Refactor to clear structure.",
+        "library": "Clean Code"
+      },
+      "catches": [
+        "Deeply nested code",
+        "Tangled control flow",
+        "Hard to maintain"
+      ],
+      "fix": [
+        "Refactor to clean structure",
+        "Reduce nesting",
+        "Use early returns"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "(\\{\\{\\{\\{\\{)",
+        "fileExtensions": [
+          ".ts",
+          ".js",
+          ".tsx",
+          ".jsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "info",
+        "message": "Deeply nested code (5+ levels) - consider refactoring"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "ARCH_BIG_COMPONENT",
+      "name": "Component too large",
+      "description": "Components should be focused. Split into smaller, composable components.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react",
+        "vue",
+        "svelte",
+        "angular"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Split large components",
+        "description": "Components should be focused. Split into smaller, composable components.",
+        "library": "Component Design"
+      },
+      "catches": [
+        "Component too large",
+        "Hard to maintain",
+        "Multiple responsibilities"
+      ],
+      "fix": [
+        "Split into smaller components",
+        "Extract sub-components",
+        "Use composition"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "export\\s+(default\\s+)?(function|const)\\s+[A-Z]|^export\\s+class\\s+[A-Z]",
+        "fileExtensions": [
+          ".tsx",
+          ".jsx",
+          ".vue",
+          ".svelte"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Component definition found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "ARCH_PROP_DRILLING",
+      "name": "Props drilling through many levels",
+      "description": "Props passed through 3+ levels indicate need for context or state management.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react",
+        "vue",
+        "svelte"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Use context or state management",
+        "description": "Props passed through 3+ levels indicate need for context or state management.",
+        "library": "React Context, Vue/Nuxt Store"
+      },
+      "catches": [
+        "Props passed through many levels",
+        "Prop drilling code smell",
+        "Hard to maintain"
+      ],
+      "fix": [
+        "Use React Context",
+        "Use state management",
+        "Use composition"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "createContext\\(|useContext\\(|provide\\(|inject\\(",
+        "fileExtensions": [
+          ".tsx",
+          ".jsx",
+          ".vue",
+          ".svelte",
+          ".ts"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Context or provide/inject found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "ARCH_NO_ABSTRACTION",
+      "name": "Missing abstraction layer",
+      "description": "Direct implementations scattered throughout code. Use abstractions/interfaces.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Add abstraction layers",
+        "description": "Direct implementations scattered throughout code. Use abstractions/interfaces.",
+        "library": "Dependency Inversion"
+      },
+      "catches": [
+        "Direct implementations everywhere",
+        "No abstractions/interfaces",
+        "Tight coupling"
+      ],
+      "fix": [
+        "Add interfaces",
+        "Use dependency injection",
+        "Abstract implementations"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "export\\s+interface\\s+|abstract\\s+class\\s+",
+        "fileExtensions": [
+          ".ts",
+          ".d.ts"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Abstraction found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

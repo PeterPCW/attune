@@ -1,0 +1,125 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "TRPC_PROCEDURE_SIDE_EFFECT",
+      "name": "Mutation in query procedure",
+      "description": "Query procedures should be pure. Use mutation for side effects (database writes, etc.).",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "nextjs",
+        "react"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Use mutation for side effects",
+        "description": "Query procedures should be pure. Use mutation for side effects (database writes, etc.).",
+        "library": "tRPC"
+      },
+      "catches": [
+        "Database writes in query",
+        "Side effects in read operations",
+        "Caching issues"
+      ],
+      "fix": [
+        "Use procedure.mutation for writes",
+        "Keep queries pure",
+        "Separate read and write logic"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "procedure\\.query"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "tRPC query procedure detected"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "TRPC_NO_INPUT_SCHEMA",
+      "name": "Procedure without input schema",
+      "description": "Procedures should have Zod input schemas for validation.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "nextjs",
+        "react"
+      ],
+      "category": "security",
+      "recommendation": {
+        "title": "Add input validation schema",
+        "description": "Procedures should have Zod input schemas for validation.",
+        "library": "Zod"
+      },
+      "catches": [
+        "No input validation",
+        "Invalid data processed",
+        "Security vulnerabilities"
+      ],
+      "fix": [
+        "Add Zod schema to input",
+        "Validate all procedure inputs",
+        "Use .input(zodSchema)"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "procedure\\."
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "tRPC procedure detected"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "TRPC_NO_ERROR_HANDLING",
+      "name": "No error handling in caller",
+      "description": "When calling procedures, handle errors properly.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "nextjs",
+        "react"
+      ],
+      "category": "reliability",
+      "recommendation": {
+        "title": "Add error handling in caller",
+        "description": "When calling procedures, handle errors properly.",
+        "library": "tRPC"
+      },
+      "catches": [
+        "Uncaught errors crash app",
+        "Poor error messages to users",
+        "No error recovery"
+      ],
+      "fix": [
+        "Wrap calls in try-catch",
+        "Use onError callback",
+        "Show user-friendly error messages"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "trpc\\."
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "tRPC usage detected"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

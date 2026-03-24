@@ -14,7 +14,7 @@
 import { readdirSync, readFileSync } from 'fs';
 import { join, relative } from 'path';
 
-const RULES_DIR = join(process.cwd(), 'src/rules/data');
+const RULES_DIR = join(process.cwd(), 'src/rules/functions');
 
 // Parse command line args
 const args = process.argv.slice(2);

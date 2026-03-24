@@ -1,0 +1,503 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "VUE_PROP_DEFAULT_MUTATION",
+      "name": "Mutating prop in component",
+      "description": "Props should be treated as read-only. Use a local copy if you need to modify it.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "vue",
+        "nuxt"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Do not mutate props",
+        "description": "Props should be treated as read-only. Use a local copy if you need to modify it.",
+        "library": "Vue"
+      },
+      "catches": [
+        "Modifying props directly",
+        "Parent component state corruption",
+        "Vue warnings in console"
+      ],
+      "fix": [
+        "Create local copy with ref/reactive",
+        "Emit events to parent for changes",
+        "Use v-model with props"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "props\\."
+      },
+      "action": {
+        "type": "flag",
+        "severity": "critical",
+        "message": "Props access detected"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "VUE_V_FOR_INDEX",
+      "name": "v-for without key",
+      "description": "v-for should always have a unique key for proper list rendering.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "vue",
+        "nuxt"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Add key to v-for",
+        "description": "v-for should always have a unique key for proper list rendering.",
+        "library": "Vue"
+      },
+      "catches": [
+        "Missing key on list items",
+        "Incorrect DOM updates",
+        "Performance issues"
+      ],
+      "fix": [
+        "Add :key with unique ID",
+        "Avoid using index as key",
+        "Use stable identifiers"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "v-for"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "v-for directive detected"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "VUE_WATCH_IMMEDIATE",
+      "name": "watch without immediate option",
+      "description": "If you need the initial value in watch, use immediate: true.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "vue",
+        "nuxt"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Use immediate option for watch on mount",
+        "description": "If you need the initial value in watch, use immediate: true.",
+        "library": "Vue"
+      },
+      "catches": [
+        "Watch doesn't run on initial value",
+        "Missing initial setup logic",
+        "Confusing behavior"
+      ],
+      "fix": [
+        "Add immediate: true to watch",
+        "Consider using watchEffect for simpler cases",
+        "Handle both initial and change cases"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "watch\\s*\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "watch function detected"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "VUE_REACTIVITY_LEAK",
+      "name": "Unreactive object mutation",
+      "description": "Mutating objects directly breaks Vue reactivity. Use reactive() properly.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "vue",
+        "nuxt"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Fix unreactive object mutation",
+        "description": "Mutating objects directly breaks Vue reactivity. Use reactive() properly.",
+        "library": "Vue"
+      },
+      "catches": [
+        "Changes not detected by Vue",
+        "UI doesn't update",
+        "Hard-to-debug issues"
+      ],
+      "fix": [
+        "Use ref() for reactive primitives",
+        "Use reactive() for objects properly",
+        "Assign new values, don't mutate"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "reactive|ref|watch|computed",
+        "fileExtensions": [
+          ".vue",
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Reactivity API found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "VUE_COMPOSABLE_SIDE_EFFECT",
+      "name": "Composable with side effects",
+      "description": "Composables with side effects should be explicit about them.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "vue",
+        "nuxt"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Avoid side effects in composables",
+        "description": "Composables with side effects should be explicit about them.",
+        "library": "Vue"
+      },
+      "catches": [
+        "Hidden dependencies in composables",
+        "Hard to test composables",
+        "Unexpected behavior"
+      ],
+      "fix": [
+        "Document side effects clearly",
+        "Return cleanup functions",
+        "Consider pure composables first"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "use[A-Z]\\w+\\(|export\\s+function\\s+use",
+        "fileExtensions": [
+          ".vue",
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Composable function found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "VUE_SCOPE_CSS",
+      "name": "Deep selectors in scoped CSS",
+      "description": "Deep selectors in scoped CSS can cause maintenance issues.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "vue",
+        "nuxt"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Avoid deep selectors in scoped CSS",
+        "description": "Deep selectors in scoped CSS can cause maintenance issues.",
+        "library": "Vue"
+      },
+      "catches": [
+        "Styles leaking to other components",
+        "Hard to maintain styles",
+        "Scoped CSS bypassed"
+      ],
+      "fix": [
+        "Use scoped CSS without deep selectors",
+        "Pass classes to child components",
+        "Refactor component structure"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": ">>>"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Deep selector in scoped CSS"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "VUE_ASYNC_COMPONENT",
+      "name": "Async component without loading",
+      "description": "Async components should have a loading component.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "vue",
+        "nuxt"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Add loading component for async components",
+        "description": "Async components should have a loading component.",
+        "library": "Vue"
+      },
+      "catches": [
+        "Blank space while loading",
+        "Poor user experience",
+        "Layout shift"
+      ],
+      "fix": [
+        "Add loading component with defineAsyncComponent",
+        "Use Suspense with async components",
+        "Add delay option"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "loading|lazy|Suspense"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Async handling found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "VUE_EMIT_WITHOUT_DECLARE",
+      "name": "Emits without declaration",
+      "description": "Emits should be declared in the component for type safety.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "vue",
+        "nuxt"
+      ],
+      "category": "typescript",
+      "recommendation": {
+        "title": "Declare emits in component",
+        "description": "Emits should be declared in the component for type safety.",
+        "library": "Vue"
+      },
+      "catches": [
+        "No type safety for emits",
+        "Can't see emitted events",
+        "Runtime errors"
+      ],
+      "fix": [
+        "Use defineEmits with type-safe events",
+        "Define emits in component options",
+        "Use TypeScript for full typing"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "defineEmits\\(|emits:\\s*\\[",
+        "fileExtensions": [
+          ".vue",
+          ".ts"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Emits declaration found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "VUE_REACTIVE_PRIMITIVE",
+      "name": "Wrong reactivity primitive",
+      "description": "Use ref() for primitives and reactive() for objects.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "vue",
+        "nuxt"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Use correct reactivity primitive",
+        "description": "Use ref() for primitives and reactive() for objects.",
+        "library": "Vue"
+      },
+      "catches": [
+        "Using wrong primitive type",
+        "Reactivity not working",
+        "Unnecessary unwrapping"
+      ],
+      "fix": [
+        "Use ref() for primitives (string, number, boolean)",
+        "Use reactive() for objects",
+        "Use shallowRef for large arrays"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "ref|reactive|shallowRef"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Reactivity primitive found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "VUE_PROVIDE_INJECT",
+      "name": "Provide/inject without reactivity",
+      "description": "Provide/inject should maintain reactivity.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "vue",
+        "nuxt"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Use provide/inject correctly",
+        "description": "Provide/inject should maintain reactivity.",
+        "library": "Vue"
+      },
+      "catches": [
+        "Values not updating in descendants",
+        "Provide/inject not working",
+        "Static values passed"
+      ],
+      "fix": [
+        "Pass ref() or reactive() objects",
+        "Use toRef/toRefs for reactivity",
+        "Consider using Pinia instead"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "provide\\(|inject\\(|provide:\\s*\\[|inject:\\s*\\[",
+        "fileExtensions": [
+          ".vue",
+          ".ts"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Provide/inject found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "VUE_STORE_ACTION_TYPE",
+      "name": "String-based store actions",
+      "description": "String-based actions reduce type safety. Use typed actions.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "vue",
+        "nuxt"
+      ],
+      "category": "typescript",
+      "recommendation": {
+        "title": "Use typed store actions",
+        "description": "String-based actions reduce type safety. Use typed actions.",
+        "library": "Pinia"
+      },
+      "catches": [
+        "No type safety for actions",
+        "Hard to refactor",
+        "Magic strings"
+      ],
+      "fix": [
+        "Use Pinia with TypeScript",
+        "Define action types explicitly",
+        "Use composition API stores"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "store|pinia|action|dispatch"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Store found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "VUE_MIXINS_DEPRECATED",
+      "name": "Using deprecated mixins",
+      "description": "Mixins are deprecated. Use composables instead.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "vue",
+        "nuxt"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Avoid using mixins",
+        "description": "Mixins are deprecated. Use composables instead.",
+        "library": "Vue"
+      },
+      "catches": [
+        "Using deprecated Vue feature",
+        "Name collisions",
+        "Hard to debug"
+      ],
+      "fix": [
+        "Extract logic to composables",
+        "Use composables instead of mixins",
+        "Refactor to composition API"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "mixins\\s*:"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Mixins usage detected - consider composables instead"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

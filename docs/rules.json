@@ -1,15 +1,15 @@
 {
   "version": "1.0.0",
-  "generated": "2026-03-09T01:45:19.928Z",
+  "generated": "2026-03-22T03:11:27.442Z",
   "summary": {
-    "total": 448,
+    "total": 547,
     "categories": 36,
     "severities": {
-      "critical": 35,
-      "high": 115,
-      "medium": 179,
-      "low": 103,
-      "info": 16
+      "critical": 44,
+      "high": 140,
+      "medium": 217,
+      "low": 124,
+      "info": 22
     }
   },
   "rules": [
@@ -48,8 +48,7 @@
         ".svelte",
         ".astro"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -79,8 +78,7 @@
         "Use appropriate language code for the content"
       ],
       "fileExtensions": [],
-      "hasPatterns": false,
-      "hasHelpers": true,
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -111,8 +109,7 @@
         "Test with keyboard only navigation"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -142,8 +139,7 @@
         "Use polite or assertive based on urgency"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -173,8 +169,7 @@
         "Disable or reduce animations for users who prefer it"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -205,8 +200,7 @@
         "Allow users to adjust timeout settings"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -237,8 +231,40 @@
         "Use plain language"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
+      "sourceFile": "accessibility"
+    },
+    {
+      "id": "A11Y_FOCUS_MANAGEMENT",
+      "name": "Missing focus management after interactions",
+      "category": "accessibility",
+      "severity": "medium",
+      "frameworks": [
+        "react",
+        "vue",
+        "nextjs",
+        "nuxt",
+        "astro",
+        "svelte",
+        "angular"
+      ],
+      "description": "After closing modals, navigating, or dynamic updates, move focus to a logical place so keyboard users don't lose their position.",
+      "title": "Manage focus after interactions",
+      "library": "WCAG 2.1 B1",
+      "catches": [
+        "Focus not moved after modal close",
+        "Focus lost after dynamic content updates",
+        "Users lose their place in page",
+        "WCAG 2.1 B1 violation"
+      ],
+      "fix": [
+        "Move focus to relevant element after interaction",
+        "Use focus-visible for custom focus indicators",
+        "Manage focus programmatically for modals/dialogs",
+        "Test with keyboard only navigation"
+      ],
+      "fileExtensions": [],
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -269,8 +295,7 @@
         "Use proper hierarchy for outline"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -301,8 +326,7 @@
         "Describe image content in alt text"
       ],
       "fileExtensions": [],
-      "hasPatterns": false,
-      "hasHelpers": true,
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -333,8 +357,7 @@
         "Ensure icon buttons have labels"
       ],
       "fileExtensions": [],
-      "hasPatterns": false,
-      "hasHelpers": true,
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -357,8 +380,7 @@
         "Make link purpose clear"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -389,8 +411,7 @@
         "Use contrast checker tools"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -413,8 +434,7 @@
         "Use visible focus styles"
       ],
       "fileExtensions": [],
-      "hasPatterns": false,
-      "hasHelpers": true,
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -437,8 +457,7 @@
         "Use aria-label as fallback"
       ],
       "fileExtensions": [],
-      "hasPatterns": false,
-      "hasHelpers": true,
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -467,8 +486,7 @@
         ".vue",
         ".svelte"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -491,8 +509,7 @@
         "Maintain consistent layout"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -515,8 +532,7 @@
         "Provide controls for dynamic content"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -539,8 +555,7 @@
         "Allow undo functionality"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -562,9 +577,11 @@
         "Provide clear instructions",
         "Show examples where helpful"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".tsx",
+        ".jsx"
+      ],
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -586,9 +603,12 @@
         "Use tabindex carefully",
         "Test with keyboard navigation"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".tsx",
+        ".jsx",
+        ".html"
+      ],
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -611,8 +631,7 @@
         "Make titles descriptive"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -635,8 +654,7 @@
         "Use role attributes as fallback"
       ],
       "fileExtensions": [],
-      "hasPatterns": false,
-      "hasHelpers": true,
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -658,9 +676,12 @@
         "Add controls to media elements",
         "Respect prefers-reduced-motion"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".tsx",
+        ".jsx",
+        ".html"
+      ],
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -683,8 +704,7 @@
         "Use invisible CAPTCHA when possible"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -706,9 +726,12 @@
         "Add aria-label for context",
         "Avoid ambiguous link text"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".tsx",
+        ".jsx",
+        ".html"
+      ],
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -731,8 +754,7 @@
         "Use navigation menus"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -754,9 +776,12 @@
         "Don't hide focus with CSS",
         "Use high contrast focus styles"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".css",
+        ".tsx",
+        ".jsx"
+      ],
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -778,9 +803,12 @@
         "Use rel=\"noopener noreferrer\"",
         "Announce link behavior to screen readers"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".tsx",
+        ".jsx",
+        ".html"
+      ],
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -802,9 +830,11 @@
         "Provide format examples",
         "Validate in real-time"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".tsx",
+        ".jsx"
+      ],
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -826,9 +856,11 @@
         "Announce important updates",
         "Don't steal focus for status"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".tsx",
+        ".jsx"
+      ],
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -860,8 +892,7 @@
         ".vue",
         ".svelte"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -890,8 +921,7 @@
         ".svelte",
         ".html"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -919,8 +949,7 @@
         ".less",
         ".html"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -947,8 +976,7 @@
         ".scss",
         ".less"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -975,8 +1003,7 @@
         ".scss",
         ".less"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "accessibility"
     },
     {
@@ -1002,8 +1029,7 @@
         "Handle loading/error states"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "ai-patterns"
     },
     {
@@ -1029,8 +1055,7 @@
         "Break up large components"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "ai-patterns"
     },
     {
@@ -1053,8 +1078,7 @@
         "Handle different error cases"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "ai-patterns"
     },
     {
@@ -1077,8 +1101,7 @@
         "Include context in logs"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "ai-patterns"
     },
     {
@@ -1106,8 +1129,7 @@
         ".test.js",
         ".spec.js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "ai-patterns"
     },
     {
@@ -1132,8 +1154,7 @@
         "Use 'server only' directive"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "ai-patterns"
     },
     {
@@ -1155,10 +1176,184 @@
         "Verify ownership",
         "Use authorization library"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".ts",
+        ".js",
+        ".tsx",
+        ".jsx"
+      ],
+      "hasCondition": true,
       "sourceFile": "ai-patterns"
+    },
+    {
+      "id": "AIOHTTP_SYNC_DB",
+      "name": "Synchronous database in aiohttp handler",
+      "category": "performance",
+      "severity": "high",
+      "frameworks": [
+        "aiohttp"
+      ],
+      "description": "Use asyncpg, aiomysql, or aiosqlite instead.",
+      "title": "Use async database drivers",
+      "library": "aiohttp",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "aiohttp"
+    },
+    {
+      "id": "AIOHTTP_NO_CORS",
+      "name": "Missing CORS configuration",
+      "category": "security",
+      "severity": "medium",
+      "frameworks": [
+        "aiohttp"
+      ],
+      "description": "Use aiohttp.CorsMiddleware or aiohttp-security.",
+      "title": "Configure CORS middleware",
+      "library": "aiohttp",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "aiohttp"
+    },
+    {
+      "id": "AIOHTTP_NO_ERROR_HANDLER",
+      "name": "Missing custom error handlers",
+      "category": "error-handling",
+      "severity": "medium",
+      "frameworks": [
+        "aiohttp"
+      ],
+      "description": "Use app.router.register_error_handler() for custom errors.",
+      "title": "Add exception handlers",
+      "library": "aiohttp",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "aiohttp"
+    },
+    {
+      "id": "AIOHTTP_STREAMING",
+      "name": "Not using streaming for large responses",
+      "category": "performance",
+      "severity": "medium",
+      "frameworks": [
+        "aiohttp"
+      ],
+      "description": "Use web.StreamResponse for large files.",
+      "title": "Use streaming responses",
+      "library": "aiohttp",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "aiohttp"
+    },
+    {
+      "id": "AIOHTTP_TIMEOUT",
+      "name": "Missing timeout for HTTP requests",
+      "category": "reliability",
+      "severity": "medium",
+      "frameworks": [
+        "aiohttp"
+      ],
+      "description": "Use aiohttp.ClientTimeout for all requests.",
+      "title": "Configure timeouts",
+      "library": "aiohttp",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "aiohttp"
+    },
+    {
+      "id": "AIOHTTP_NO_GZIP",
+      "name": "Missing gzip compression",
+      "category": "performance",
+      "severity": "low",
+      "frameworks": [
+        "aiohttp"
+      ],
+      "description": "Use aiohttp-compress or configure middleware.",
+      "title": "Enable compression",
+      "library": "aiohttp",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "aiohttp"
+    },
+    {
+      "id": "AIOHTTP_STATIC_ROOT",
+      "name": "Static files without proper cache headers",
+      "category": "performance",
+      "severity": "medium",
+      "frameworks": [
+        "aiohttp"
+      ],
+      "description": "Add Cache-Control headers for static assets.",
+      "title": "Configure cache headers",
+      "library": "aiohttp",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "aiohttp"
+    },
+    {
+      "id": "AIOHTTP_SESSION_CREATE",
+      "name": "Creating ClientSession inside handler",
+      "category": "performance",
+      "severity": "high",
+      "frameworks": [
+        "aiohttp"
+      ],
+      "description": "Create ClientSession at app startup, close at shutdown.",
+      "title": "Use application-scoped session",
+      "library": "aiohttp",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "aiohttp"
+    },
+    {
+      "id": "AIOHTTP_DEBUG_TRUE",
+      "name": "Debug mode in production",
+      "category": "security",
+      "severity": "high",
+      "frameworks": [
+        "aiohttp"
+      ],
+      "description": "Set debug=False in production.",
+      "title": "Disable debug in production",
+      "library": "aiohttp",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "aiohttp"
+    },
+    {
+      "id": "AIOHTTP_NO_LOGGING",
+      "name": "Not using structured logging",
+      "category": "cleanliness",
+      "severity": "low",
+      "frameworks": [
+        "aiohttp"
+      ],
+      "description": "Use aiohttp-debugtoolbar or logging module.",
+      "title": "Use structured logging",
+      "library": "aiohttp",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "aiohttp"
     },
     {
       "id": "ANGULAR_SUBSCRIBE_LEAK",
@@ -1182,8 +1377,7 @@
         "Use async pipe instead"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "angular"
     },
     {
@@ -1208,8 +1402,7 @@
         "Avoid detectChanges() calls"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "angular"
     },
     {
@@ -1234,8 +1427,7 @@
         "Move logic to component"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "angular"
     },
     {
@@ -1260,8 +1452,7 @@
         "Use OnPush change detection"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "angular"
     },
     {
@@ -1292,8 +1483,7 @@
         "ts",
         "js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "api-versioning"
     },
     {
@@ -1319,8 +1509,7 @@
         "ts",
         "js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "api-versioning"
     },
     {
@@ -1348,8 +1537,7 @@
         "yaml",
         "yml"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "api-versioning"
     },
     {
@@ -1376,8 +1564,7 @@
         "ts",
         "js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "api-versioning"
     },
     {
@@ -1403,8 +1590,7 @@
         "ts",
         "js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "api-versioning"
     },
     {
@@ -1435,8 +1621,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "api"
     },
     {
@@ -1467,8 +1652,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "api"
     },
     {
@@ -1497,8 +1681,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "api"
     },
     {
@@ -1521,8 +1704,7 @@
         "Don't log sensitive headers"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "api"
     },
     {
@@ -1548,8 +1730,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "api"
     },
     {
@@ -1580,8 +1761,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "api"
     },
     {
@@ -1612,8 +1792,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "api"
     },
     {
@@ -1644,8 +1823,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "api"
     },
     {
@@ -1676,35 +1854,31 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "api"
     },
     {
       "id": "ARCH_CIRCULAR_DEP",
-      "name": "Circular dependency detected",
+      "name": "Relative imports or barrel exports detected",
       "category": "architecture",
-      "severity": "high",
+      "severity": "info",
       "frameworks": [],
-      "description": "Circular dependencies cause tight coupling and make testing difficult. Refactor to use dependency injection.",
-      "title": "Break circular dependencies",
+      "description": "Relative imports and barrel exports (index.ts re-exports) are common patterns. Only investigate if you're experiencing actual circular dependency issues. True circular dependencies involve A importing B which imports A.",
+      "title": "Review imports for actual circular dependencies",
       "library": "Architecture",
       "catches": [
-        "Circular dependencies",
-        "Tight coupling",
-        "Testing difficulties"
+        "Relative imports",
+        "Barrel exports (index.ts re-exports)"
       ],
       "fix": [
-        "Use dependency injection",
-        "Extract shared logic",
-        "Refactor to reduce coupling"
+        "This is often normal code organization - barrel exports are a standard pattern",
+        "Only investigate if actual circular dependency issues arise"
       ],
       "fileExtensions": [
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "architecture"
     },
     {
@@ -1727,8 +1901,7 @@
         "Reduce dependencies"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "architecture"
     },
     {
@@ -1751,8 +1924,7 @@
         "Add exports if needed"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "architecture"
     },
     {
@@ -1779,8 +1951,7 @@
         "Separate HTTP and data concerns"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "architecture"
     },
     {
@@ -1806,8 +1977,7 @@
         "Delegate to business logic"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "architecture"
     },
     {
@@ -1830,8 +2000,7 @@
         "Keep routes thin"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "architecture"
     },
     {
@@ -1857,8 +2026,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "architecture"
     },
     {
@@ -1884,8 +2052,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "architecture"
     },
     {
@@ -1908,8 +2075,7 @@
         "Improve encapsulation"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "architecture"
     },
     {
@@ -1932,8 +2098,7 @@
         "Improve encapsulation"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "architecture"
     },
     {
@@ -1959,8 +2124,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "architecture"
     },
     {
@@ -1982,9 +2146,13 @@
         "Reduce nesting",
         "Use early returns"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".ts",
+        ".js",
+        ".tsx",
+        ".jsx"
+      ],
+      "hasCondition": true,
       "sourceFile": "architecture"
     },
     {
@@ -2017,8 +2185,7 @@
         ".vue",
         ".svelte"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "architecture"
     },
     {
@@ -2051,8 +2218,7 @@
         ".svelte",
         ".ts"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "architecture"
     },
     {
@@ -2078,8 +2244,7 @@
         ".ts",
         ".d.ts"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "architecture"
     },
     {
@@ -2104,8 +2269,7 @@
         "Use client:visible for below-fold content"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "astro"
     },
     {
@@ -2130,8 +2294,7 @@
         "Pre-generate pages at build time"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "astro"
     },
     {
@@ -2156,8 +2319,7 @@
         "Use client:load only for above-fold"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "astro"
     },
     {
@@ -2183,8 +2345,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "caching"
     },
     {
@@ -2210,8 +2371,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "caching"
     },
     {
@@ -2237,8 +2397,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "caching"
     },
     {
@@ -2264,9 +2423,178 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "caching"
+    },
+    {
+      "id": "CELERY_TASK_TIME_LIMIT",
+      "name": "Missing task time limit",
+      "category": "reliability",
+      "severity": "medium",
+      "frameworks": [
+        "celery"
+      ],
+      "description": "Configure task_time_limit to prevent tasks from running indefinitely.",
+      "title": "Set task time limits",
+      "library": "Celery",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "celery"
+    },
+    {
+      "id": "CELERY_PICKLE_SERIALIZER",
+      "name": "Using pickle as Celery serializer",
+      "category": "security",
+      "severity": "critical",
+      "frameworks": [
+        "celery"
+      ],
+      "description": "Set CELERY_TASK_SERIALIZER='json' for security.",
+      "title": "Use JSON serializer",
+      "library": "Celery",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "celery"
+    },
+    {
+      "id": "CELERY_NO_RETRY",
+      "name": "Task without retry configuration",
+      "category": "reliability",
+      "severity": "medium",
+      "frameworks": [
+        "celery"
+      ],
+      "description": "Use autoretry_for, retry_backoff, or manual retry().",
+      "title": "Configure task retries",
+      "library": "Celery",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "celery"
+    },
+    {
+      "id": "CELERY_SYNC_CODE",
+      "name": "Synchronous code in Celery task",
+      "category": "performance",
+      "severity": "high",
+      "frameworks": [
+        "celery"
+      ],
+      "description": "Use aiohttp instead of requests, or configure as async task.",
+      "title": "Use async-friendly libraries",
+      "library": "Celery",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "celery"
+    },
+    {
+      "id": "CELERY_NO_ACKS_LATE",
+      "name": "Task acks_late not enabled",
+      "category": "reliability",
+      "severity": "medium",
+      "frameworks": [
+        "celery"
+      ],
+      "description": "Set acks_late=True to ensure tasks aren't lost on worker failure.",
+      "title": "Enable acks_late",
+      "library": "Celery",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "celery"
+    },
+    {
+      "id": "CELERY_TASK_BASE",
+      "name": "Task not inheriting from base class",
+      "category": "architecture",
+      "severity": "low",
+      "frameworks": [
+        "celery"
+      ],
+      "description": "Define a base task class with common configuration.",
+      "title": "Create a base task class",
+      "library": "Celery",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "celery"
+    },
+    {
+      "id": "CELERY_RESULT_BACKEND",
+      "name": "No result backend configured",
+      "category": "reliability",
+      "severity": "medium",
+      "frameworks": [
+        "celery"
+      ],
+      "description": "Set CELERY_RESULT_BACKEND for task result storage.",
+      "title": "Configure result backend",
+      "library": "Celery",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "celery"
+    },
+    {
+      "id": "CELERY_NO_LOGGING",
+      "name": "Task not using proper logging",
+      "category": "cleanliness",
+      "severity": "low",
+      "frameworks": [
+        "celery"
+      ],
+      "description": "Use self.logger or current_task.logger for logging.",
+      "title": "Use Celery's logger",
+      "library": "Celery",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "celery"
+    },
+    {
+      "id": "CELERY_TASK_ROUTING",
+      "name": "No task routing configured",
+      "category": "architecture",
+      "severity": "low",
+      "frameworks": [
+        "celery"
+      ],
+      "description": "Use task_routes to direct tasks to specific queues.",
+      "title": "Configure task routing",
+      "library": "Celery",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "celery"
+    },
+    {
+      "id": "CELERY_HARD_TIMEOUT",
+      "name": "Soft time limit only, missing hard limit",
+      "category": "reliability",
+      "severity": "medium",
+      "frameworks": [
+        "celery"
+      ],
+      "description": "Use both time_limit and soft_time_limit for graceful handling.",
+      "title": "Set both time limits",
+      "library": "Celery",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "celery"
     },
     {
       "id": "CI_NO_CACHE",
@@ -2291,8 +2619,7 @@
         ".yml",
         ".yaml"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "cicd"
     },
     {
@@ -2318,8 +2645,7 @@
         ".yml",
         ".yaml"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "cicd"
     },
     {
@@ -2345,8 +2671,7 @@
         ".yml",
         ".yaml"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "cicd"
     },
     {
@@ -2372,8 +2697,7 @@
         ".yml",
         ".yaml"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "cicd"
     },
     {
@@ -2399,8 +2723,7 @@
         ".yml",
         ".yaml"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "cicd"
     },
     {
@@ -2426,8 +2749,7 @@
         ".yml",
         ".yaml"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "cicd"
     },
     {
@@ -2453,8 +2775,7 @@
         ".yml",
         ".yaml"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "cicd"
     },
     {
@@ -2479,8 +2800,7 @@
       "fileExtensions": [
         ".npmrc"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "cicd"
     },
     {
@@ -2503,18 +2823,17 @@
         "Delete unused code"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "cleanliness"
     },
     {
       "id": "CLEAN_CONSOLE_LOG",
       "name": "Console.log in code",
       "category": "cleanliness",
-      "severity": "low",
+      "severity": "info",
       "frameworks": [],
-      "description": "Console.log should be replaced with proper logging library.",
-      "title": "Use proper logging",
+      "description": "Console.log should be replaced with proper logging library for web apps/services. For CLI tools, console.log is appropriate and expected - this is not an issue for CLI projects.",
+      "title": "Use proper logging (for web apps)",
       "library": "winston, pino",
       "catches": [
         "console.log in production code",
@@ -2522,13 +2841,12 @@
         "Hard to debug in production"
       ],
       "fix": [
-        "Use logging library (winston, pino)",
-        "Add log levels",
-        "Configure for production"
+        "For web apps/services: Use logging library (winston, pino)",
+        "For CLI tools: console.log is appropriate - no change needed",
+        "Consider log levels for production"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "cleanliness"
     },
     {
@@ -2554,8 +2872,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "cleanliness"
     },
     {
@@ -2578,8 +2895,7 @@
         "Set appropriate log levels"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "cleanliness"
     },
     {
@@ -2602,15 +2918,14 @@
         "Add log levels"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "cleanliness"
     },
     {
       "id": "CLI_NO_OUTPUT",
       "name": "CLI produces no output",
       "category": "cli",
-      "severity": "medium",
+      "severity": "info",
       "frameworks": [],
       "description": "CLI tools should provide feedback to users.",
       "title": "Add output to CLI",
@@ -2628,8 +2943,7 @@
       "fileExtensions": [
         ".ts"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "cli"
     },
     {
@@ -2654,8 +2968,7 @@
       "fileExtensions": [
         ".ts"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "cli"
     },
     {
@@ -2680,8 +2993,7 @@
       "fileExtensions": [
         ".ts"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "cli"
     },
     {
@@ -2706,8 +3018,7 @@
       "fileExtensions": [
         ".ts"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "cli"
     },
     {
@@ -2732,8 +3043,7 @@
       "fileExtensions": [
         ".ts"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "cli"
     },
     {
@@ -2759,8 +3069,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "complexity"
     },
     {
@@ -2786,8 +3095,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "complexity"
     },
     {
@@ -2809,16 +3117,8 @@
         "Pass state explicitly",
         "Use context/state management"
       ],
-      "fileExtensions": [
-        ".ts",
-        ".js",
-        ".ts",
-        ".js",
-        ".ts",
-        ".js"
-      ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [],
+      "hasCondition": false,
       "sourceFile": "complexity"
     },
     {
@@ -2844,8 +3144,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "complexity"
     },
     {
@@ -2877,8 +3176,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "complexity"
     },
     {
@@ -2904,8 +3202,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "complexity"
     },
     {
@@ -2933,8 +3230,7 @@
         ".jsx",
         ".tsx"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "complexity"
     },
     {
@@ -2957,8 +3253,7 @@
         "Organize by feature"
       ],
       "fileExtensions": [],
-      "hasPatterns": false,
-      "hasHelpers": true,
+      "hasCondition": true,
       "sourceFile": "complexity"
     },
     {
@@ -2981,8 +3276,7 @@
         "Use early returns"
       ],
       "fileExtensions": [],
-      "hasPatterns": false,
-      "hasHelpers": true,
+      "hasCondition": true,
       "sourceFile": "complexity"
     },
     {
@@ -3013,8 +3307,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "cors"
     },
     {
@@ -3041,8 +3334,7 @@
         ".js",
         ".json"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "cors"
     },
     {
@@ -3068,8 +3360,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "cors"
     },
     {
@@ -3095,8 +3386,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "cors"
     },
     {
@@ -3122,8 +3412,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "cors"
     },
     {
@@ -3156,8 +3445,7 @@
         ".vue",
         ".svelte"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "css"
     },
     {
@@ -3189,8 +3477,7 @@
         ".scss",
         ".less"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "css"
     },
     {
@@ -3221,8 +3508,7 @@
         ".vue",
         ".svelte"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "css"
     },
     {
@@ -3249,8 +3535,7 @@
         ".scss",
         ".less"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "css"
     },
     {
@@ -3277,8 +3562,7 @@
         ".scss",
         ".less"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "css"
     },
     {
@@ -3305,8 +3589,7 @@
         ".scss",
         ".less"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "css"
     },
     {
@@ -3333,8 +3616,7 @@
         ".scss",
         ".less"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "css"
     },
     {
@@ -3361,8 +3643,7 @@
         ".scss",
         ".less"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "css"
     },
     {
@@ -3385,8 +3666,7 @@
         "Centralize values"
       ],
       "fileExtensions": [],
-      "hasPatterns": false,
-      "hasHelpers": true,
+      "hasCondition": true,
       "sourceFile": "css"
     },
     {
@@ -3408,12 +3688,8 @@
         "Use JOINs",
         "Batch queries"
       ],
-      "fileExtensions": [
-        ".ts",
-        ".js"
-      ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [],
+      "hasCondition": false,
       "sourceFile": "database"
     },
     {
@@ -3435,12 +3711,8 @@
         "Use ORM methods",
         "Never concatenate user input"
       ],
-      "fileExtensions": [
-        ".ts",
-        ".js"
-      ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [],
+      "hasCondition": false,
       "sourceFile": "database"
     },
     {
@@ -3472,8 +3744,7 @@
         ".ts",
         ".prisma"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "database"
     },
     {
@@ -3503,8 +3774,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "database"
     },
     {
@@ -3533,8 +3803,7 @@
       "fileExtensions": [
         ".ts"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "database"
     },
     {
@@ -3561,8 +3830,7 @@
         "yarn.lock",
         "pnpm-lock.yaml"
       ],
-      "hasPatterns": true,
-      "hasHelpers": true,
+      "hasCondition": true,
       "sourceFile": "dependencies"
     },
     {
@@ -3587,8 +3855,7 @@
       "fileExtensions": [
         "package.json"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "dependencies"
     },
     {
@@ -3613,9 +3880,178 @@
       "fileExtensions": [
         "package.json"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "dependencies"
+    },
+    {
+      "id": "DJANGO_N_PLUS_ONE",
+      "name": "N+1 query problem in Django",
+      "category": "performance",
+      "severity": "high",
+      "frameworks": [
+        "django"
+      ],
+      "description": "Use select_related() or prefetch_related() to prevent N+1 queries.",
+      "title": "Fix N+1 queries with eager loading",
+      "library": "Django",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "django"
+    },
+    {
+      "id": "DJANGO_MISSING_TRANSACTION",
+      "name": "Missing transaction.atomic for database operations",
+      "category": "reliability",
+      "severity": "high",
+      "frameworks": [
+        "django"
+      ],
+      "description": "Wrap multiple database operations in transaction.atomic() to ensure atomicity.",
+      "title": "Use transaction.atomic for database operations",
+      "library": "Django",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "django"
+    },
+    {
+      "id": "DJANGO_MISSING_ON_DELETE",
+      "name": "ForeignKey without on_delete",
+      "category": "reliability",
+      "severity": "high",
+      "frameworks": [
+        "django"
+      ],
+      "description": "Always specify on_delete (e.g., on_delete=models.CASCADE).",
+      "title": "Specify on_delete for ForeignKey",
+      "library": "Django",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "django"
+    },
+    {
+      "id": "DJANGO_DEBUG_TRUE",
+      "name": "DEBUG enabled in production",
+      "category": "security",
+      "severity": "critical",
+      "frameworks": [
+        "django"
+      ],
+      "description": "Set DEBUG=False in production settings.",
+      "title": "Disable DEBUG in production",
+      "library": "Django",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "django"
+    },
+    {
+      "id": "DJANGO_PLAINTEXT_PASSWORD",
+      "name": "Storing passwords without hashing",
+      "category": "security",
+      "severity": "critical",
+      "frameworks": [
+        "django"
+      ],
+      "description": "Use models.CharField() with make_password() or Django's User model.",
+      "title": "Use Django's password hashing",
+      "library": "Django",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "django"
+    },
+    {
+      "id": "DJANGO_QUERY_IN_LOOP",
+      "name": "Database query inside loop",
+      "category": "performance",
+      "severity": "high",
+      "frameworks": [
+        "django"
+      ],
+      "description": "Use bulk_create(), filter with __in, or prefetch_related.",
+      "title": "Use bulk operations or prefetch",
+      "library": "Django",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "django"
+    },
+    {
+      "id": "DJANGO_BULK_CREATE",
+      "name": "Multiple objects created in loop",
+      "category": "performance",
+      "severity": "medium",
+      "frameworks": [
+        "django"
+      ],
+      "description": "Use Model.objects.bulk_create() for inserting multiple records.",
+      "title": "Use bulk_create for multiple inserts",
+      "library": "Django",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "django"
+    },
+    {
+      "id": "DJANGO_GET_WITHOUT_TRY",
+      "name": "Model.get() without try-except",
+      "category": "error-handling",
+      "severity": "high",
+      "frameworks": [
+        "django"
+      ],
+      "description": "Wrap .get() in try-except or use .filter().first().",
+      "title": "Handle DoesNotExist exception",
+      "library": "Django",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "django"
+    },
+    {
+      "id": "DJANGO_MODEL_STR",
+      "name": "Model without __str__ method",
+      "category": "usability",
+      "severity": "low",
+      "frameworks": [
+        "django"
+      ],
+      "description": "Add def __str__(self): return self.name or similar.",
+      "title": "Define __str__ method for models",
+      "library": "Django",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "django"
+    },
+    {
+      "id": "DJANGO_ALLOWED_HOSTS",
+      "name": "ALLOWED_HOSTS not configured",
+      "category": "security",
+      "severity": "high",
+      "frameworks": [
+        "django"
+      ],
+      "description": "Set ALLOWED_HOSTS to your domain in production.",
+      "title": "Configure ALLOWED_HOSTS",
+      "library": "Django",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "django"
     },
     {
       "id": "DOCKER_RUN_ROOT",
@@ -3639,8 +4075,7 @@
       "fileExtensions": [
         "Dockerfile"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "docker"
     },
     {
@@ -3665,8 +4100,7 @@
       "fileExtensions": [
         "Dockerfile"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "docker"
     },
     {
@@ -3691,8 +4125,7 @@
       "fileExtensions": [
         "Dockerfile"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "docker"
     },
     {
@@ -3717,8 +4150,7 @@
       "fileExtensions": [
         "Dockerfile"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "docker"
     },
     {
@@ -3743,8 +4175,7 @@
       "fileExtensions": [
         "Dockerfile"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "docker"
     },
     {
@@ -3769,8 +4200,7 @@
       "fileExtensions": [
         "Dockerfile"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "docker"
     },
     {
@@ -3795,8 +4225,7 @@
       "fileExtensions": [
         "Dockerfile"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "docker"
     },
     {
@@ -3821,8 +4250,7 @@
       "fileExtensions": [
         "Dockerfile"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "docker"
     },
     {
@@ -3845,8 +4273,7 @@
         "Create interactive API explorer"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "documentation"
     },
     {
@@ -3868,9 +4295,12 @@
         "Include installation instructions",
         "Add usage examples"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".md",
+        ".rst",
+        ".txt"
+      ],
+      "hasCondition": true,
       "sourceFile": "documentation"
     },
     {
@@ -3893,8 +4323,7 @@
         "Exclude sensitive values"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "documentation"
     },
     {
@@ -3917,8 +4346,7 @@
         "Explain how to submit changes"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "documentation"
     },
     {
@@ -3941,8 +4369,7 @@
         "Keep .env.example in sync with code"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "documentation"
     },
     {
@@ -3968,8 +4395,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "email"
     },
     {
@@ -3995,8 +4421,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "email"
     },
     {
@@ -4022,8 +4447,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "email"
     },
     {
@@ -4049,8 +4473,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "email"
     },
     {
@@ -4076,8 +4499,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "email"
     },
     {
@@ -4105,8 +4527,7 @@
         ".yaml",
         ".yml"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "email"
     },
     {
@@ -4128,9 +4549,13 @@
         "Add .catch() to promises",
         "Handle errors properly"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".ts",
+        ".js",
+        ".tsx",
+        ".jsx"
+      ],
+      "hasCondition": true,
       "sourceFile": "error-handling"
     },
     {
@@ -4153,8 +4578,7 @@
         "Handle rejections properly"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "error-handling"
     },
     {
@@ -4176,9 +4600,13 @@
         "Handle returned promises",
         "Use proper async patterns"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".ts",
+        ".js",
+        ".tsx",
+        ".jsx"
+      ],
+      "hasCondition": true,
       "sourceFile": "error-handling"
     },
     {
@@ -4201,8 +4629,7 @@
         "Never leave catch blocks empty"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "error-handling"
     },
     {
@@ -4228,8 +4655,7 @@
         "Add componentDidCatch"
       ],
       "fileExtensions": [],
-      "hasPatterns": false,
-      "hasHelpers": true,
+      "hasCondition": true,
       "sourceFile": "error-handling"
     },
     {
@@ -4252,8 +4678,7 @@
         "Don't throw in event handlers"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "error-handling"
     },
     {
@@ -4276,8 +4701,7 @@
         "Rethrow if needed"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "error-handling"
     },
     {
@@ -4303,8 +4727,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "error-handling"
     },
     {
@@ -4327,8 +4750,7 @@
         "Return error values or throw"
       ],
       "fileExtensions": [],
-      "hasPatterns": false,
-      "hasHelpers": true,
+      "hasCondition": true,
       "sourceFile": "error-handling"
     },
     {
@@ -4351,8 +4773,7 @@
         "Return value from async functions"
       ],
       "fileExtensions": [],
-      "hasPatterns": false,
-      "hasHelpers": true,
+      "hasCondition": true,
       "sourceFile": "error-handling"
     },
     {
@@ -4377,8 +4798,7 @@
         "Use worker threads if needed"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "express"
     },
     {
@@ -4403,8 +4823,7 @@
         "Return proper error responses"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "express"
     },
     {
@@ -4429,9 +4848,161 @@
         "Enable HSTS"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "express"
+    },
+    {
+      "id": "FASTAPI_SYNC_DB_ASYNC",
+      "name": "Sync database operation in async FastAPI handler",
+      "category": "performance",
+      "severity": "high",
+      "frameworks": [
+        "fastapi"
+      ],
+      "description": "Use async database drivers (like databases, asyncpg) or run sync operations in a thread pool.",
+      "title": "Use async database operations in async handlers",
+      "library": "FastAPI",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "fastapi"
+    },
+    {
+      "id": "FASTAPI_MISSING_RESPONSE_MODEL",
+      "name": "Missing response_model in FastAPI endpoint",
+      "category": "api",
+      "severity": "medium",
+      "frameworks": [
+        "fastapi"
+      ],
+      "description": "Define response models for automatic documentation and validation.",
+      "title": "Add response_model to FastAPI endpoints",
+      "library": "FastAPI",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "fastapi"
+    },
+    {
+      "id": "FASTAPI_NO_PAGINATION",
+      "name": "Missing pagination for list endpoints",
+      "category": "performance",
+      "severity": "medium",
+      "frameworks": [
+        "fastapi"
+      ],
+      "description": "Use skip/limit or page/page_size parameters.",
+      "title": "Add pagination to list endpoints",
+      "library": "FastAPI",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "fastapi"
+    },
+    {
+      "id": "FASTAPI_NO_CORS",
+      "name": "Missing CORS configuration",
+      "category": "security",
+      "severity": "medium",
+      "frameworks": [
+        "fastapi"
+      ],
+      "description": "Use app.add_middleware(CORSMiddleware, ...) to configure CORS.",
+      "title": "Configure CORS explicitly",
+      "library": "FastAPI",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "fastapi"
+    },
+    {
+      "id": "FASTAPI_NO_ERROR_HANDLER",
+      "name": "Missing custom error handlers",
+      "category": "error-handling",
+      "severity": "medium",
+      "frameworks": [
+        "fastapi"
+      ],
+      "description": "Use app.add_exception_handler for custom error responses.",
+      "title": "Add custom error handlers",
+      "library": "FastAPI",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "fastapi"
+    },
+    {
+      "id": "FASTAPI_DEBUG_TRUE",
+      "name": "Debug mode potentially enabled",
+      "category": "security",
+      "severity": "high",
+      "frameworks": [
+        "fastapi"
+      ],
+      "description": "Don't use --reload in production.",
+      "title": "Disable debug in production",
+      "library": "FastAPI",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "fastapi"
+    },
+    {
+      "id": "FASTAPI_SYNC_IN_ASYNC",
+      "name": "Synchronous function called in async endpoint",
+      "category": "performance",
+      "severity": "high",
+      "frameworks": [
+        "fastapi"
+      ],
+      "description": "Use aiosqlite, asyncpg, or run sync code with await run_in_executor().",
+      "title": "Use async libraries or run in thread pool",
+      "library": "FastAPI",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "fastapi"
+    },
+    {
+      "id": "FASTAPI_MISSING_DEPENDS",
+      "name": "Database connection not using dependency injection",
+      "category": "architecture",
+      "severity": "medium",
+      "frameworks": [
+        "fastapi"
+      ],
+      "description": "Use Depends() to inject database connections for proper cleanup.",
+      "title": "Use dependency injection for database",
+      "library": "FastAPI",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "fastapi"
+    },
+    {
+      "id": "FASTAPI_NO_VERSIONING",
+      "name": "Missing API versioning",
+      "category": "architecture",
+      "severity": "low",
+      "frameworks": [
+        "fastapi"
+      ],
+      "description": "Use /api/v1/ path prefix or header versioning.",
+      "title": "Add API versioning",
+      "library": "FastAPI",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "fastapi"
     },
     {
       "id": "FASTIFY_SCHEMA_MISSING",
@@ -4455,8 +5026,7 @@
         "Use fast-json-stringify"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "fastify"
     },
     {
@@ -4481,8 +5051,7 @@
         "Handle rejections properly"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "fastify"
     },
     {
@@ -4507,9 +5076,178 @@
         "Use Redis for distributed"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "fastify"
+    },
+    {
+      "id": "FLASK_APP_FACTORY_PATTERN",
+      "name": "Flask app created at module level without factory pattern",
+      "category": "architecture",
+      "severity": "medium",
+      "frameworks": [
+        "flask"
+      ],
+      "description": "Use application factory pattern (create_app) to avoid circular imports and improve testability.",
+      "title": "Use Flask application factory pattern",
+      "library": "Flask",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "flask"
+    },
+    {
+      "id": "FLASK_DEBUG_TRUE",
+      "name": "Debug mode enabled in production",
+      "category": "security",
+      "severity": "critical",
+      "frameworks": [
+        "flask"
+      ],
+      "description": "Set debug=False in production or use a WSGI server.",
+      "title": "Disable debug in production",
+      "library": "Flask",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "flask"
+    },
+    {
+      "id": "FLASK_SECRET_KEY",
+      "name": "Missing or weak Flask secret key",
+      "category": "security",
+      "severity": "high",
+      "frameworks": [
+        "flask"
+      ],
+      "description": "Use os.urandom(24).hex() to generate a secret key.",
+      "title": "Set a strong secret key",
+      "library": "Flask",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "flask"
+    },
+    {
+      "id": "FLASK_JSON_SORTED",
+      "name": "JSON not sorted for consistent responses",
+      "category": "performance",
+      "severity": "low",
+      "frameworks": [
+        "flask"
+      ],
+      "description": "Set JSON_SORT_KEYS=True for consistent API responses.",
+      "title": "Enable JSON_SORT_KEYS",
+      "library": "Flask",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "flask"
+    },
+    {
+      "id": "FLASK_NO_ERROR_HANDLERS",
+      "name": "Missing custom error handlers",
+      "category": "error-handling",
+      "severity": "medium",
+      "frameworks": [
+        "flask"
+      ],
+      "description": "Use @app.errorhandler(404) for custom error pages.",
+      "title": "Add error handlers",
+      "library": "Flask",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "flask"
+    },
+    {
+      "id": "FLASK_GLOBAL_DB",
+      "name": "Database connection at module level",
+      "category": "architecture",
+      "severity": "medium",
+      "frameworks": [
+        "flask"
+      ],
+      "description": "Create database sessions per request using g or scoped_session.",
+      "title": "Use request-scoped database sessions",
+      "library": "Flask",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "flask"
+    },
+    {
+      "id": "FLASK_PRINT_STATEMENT",
+      "name": "Using print instead of logging",
+      "category": "cleanliness",
+      "severity": "low",
+      "frameworks": [
+        "flask"
+      ],
+      "description": "Use current_app.logger or logging module.",
+      "title": "Use Flask's logging",
+      "library": "Flask",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "flask"
+    },
+    {
+      "id": "FLASK_WTF_CSRF",
+      "name": "CSRF protection not enabled",
+      "category": "security",
+      "severity": "high",
+      "frameworks": [
+        "flask"
+      ],
+      "description": "Use Flask-WTF and enable CSRF protection.",
+      "title": "Enable CSRF protection",
+      "library": "Flask",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "flask"
+    },
+    {
+      "id": "FLASK_NO_PAGINATION",
+      "name": "Missing pagination",
+      "category": "performance",
+      "severity": "medium",
+      "frameworks": [
+        "flask"
+      ],
+      "description": "Use page and per_page parameters.",
+      "title": "Add pagination",
+      "library": "Flask",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "flask"
+    },
+    {
+      "id": "FLASK_RESPONSE_FORMAT",
+      "name": "Inconsistent JSON response format",
+      "category": "api",
+      "severity": "low",
+      "frameworks": [
+        "flask"
+      ],
+      "description": "Create a helper function for consistent API responses.",
+      "title": "Use consistent JSON wrapper",
+      "library": "Flask",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "flask"
     },
     {
       "id": "FORM_NO_VALIDATION",
@@ -4531,8 +5269,7 @@
         "Use form library"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "forms"
     },
     {
@@ -4558,8 +5295,7 @@
         "Use onSubmit handler"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "forms"
     },
     {
@@ -4587,8 +5323,7 @@
         ".graphql",
         ".gql"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "graphql-subscriptions"
     },
     {
@@ -4614,8 +5349,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "graphql-subscriptions"
     },
     {
@@ -4643,8 +5377,7 @@
         ".graphql",
         ".gql"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "graphql-subscriptions"
     },
     {
@@ -4672,8 +5405,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "graphql"
     },
     {
@@ -4700,8 +5432,7 @@
         ".js",
         ".json"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "graphql"
     },
     {
@@ -4728,8 +5459,7 @@
         ".gql",
         ".ts"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "graphql"
     },
     {
@@ -4755,8 +5485,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "graphql"
     },
     {
@@ -4783,8 +5512,7 @@
         ".gql",
         ".ts"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "graphql"
     },
     {
@@ -4811,8 +5539,7 @@
         ".gql",
         ".ts"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "graphql"
     },
     {
@@ -4839,8 +5566,7 @@
         ".gql",
         ".ts"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "graphql"
     },
     {
@@ -4871,8 +5597,7 @@
         ".tsx",
         ".jsx"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "i18n"
     },
     {
@@ -4899,8 +5624,7 @@
         ".js",
         ".json"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "i18n"
     },
     {
@@ -4927,8 +5651,7 @@
         ".js",
         ".json"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "i18n"
     },
     {
@@ -4954,8 +5677,7 @@
         ".json",
         ".ts"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "i18n"
     },
     {
@@ -4983,8 +5705,7 @@
         ".tsx",
         ".jsx"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "i18n"
     },
     {
@@ -5012,8 +5733,7 @@
         ".tsx",
         ".jsx"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "i18n"
     },
     {
@@ -5039,8 +5759,7 @@
         "yaml",
         "yml"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "kubernetes"
     },
     {
@@ -5066,8 +5785,7 @@
         "yaml",
         "yml"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "kubernetes"
     },
     {
@@ -5093,8 +5811,7 @@
         "yaml",
         "yml"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "kubernetes"
     },
     {
@@ -5120,8 +5837,7 @@
         "yaml",
         "yml"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "kubernetes"
     },
     {
@@ -5147,8 +5863,7 @@
         "yaml",
         "yml"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "kubernetes"
     },
     {
@@ -5174,8 +5889,7 @@
         "yaml",
         "yml"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "kubernetes"
     },
     {
@@ -5200,8 +5914,7 @@
         "Audit logging statements"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "logging"
     },
     {
@@ -5224,8 +5937,7 @@
         "Configure log level by environment"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "logging"
     },
     {
@@ -5247,9 +5959,11 @@
         "Use query builder like Knex",
         "Parameterize queries"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".ts",
+        ".js"
+      ],
+      "hasCondition": true,
       "sourceFile": "maintainability"
     },
     {
@@ -5276,8 +5990,7 @@
         "Simplify form state management"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "maintainability"
     },
     {
@@ -5304,8 +6017,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": true,
+      "hasCondition": true,
       "sourceFile": "maintainability"
     },
     {
@@ -5327,9 +6039,13 @@
         "Use enums for related values",
         "Document what numbers mean"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".ts",
+        ".js",
+        ".tsx",
+        ".jsx"
+      ],
+      "hasCondition": true,
       "sourceFile": "maintainability"
     },
     {
@@ -5355,8 +6071,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "maintainability"
     },
     {
@@ -5382,8 +6097,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "maintainability"
     },
     {
@@ -5409,8 +6123,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "maintainability"
     },
     {
@@ -5436,8 +6149,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "maintainability"
     },
     {
@@ -5463,8 +6175,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "maintainability"
     },
     {
@@ -5490,8 +6201,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "maintainability"
     },
     {
@@ -5516,8 +6226,7 @@
       "fileExtensions": [
         ".ts"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "maintainability"
     },
     {
@@ -5544,8 +6253,7 @@
         "js",
         ".sql"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "migrations"
     },
     {
@@ -5572,8 +6280,7 @@
         "js",
         ".sql"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "migrations"
     },
     {
@@ -5600,8 +6307,7 @@
         "js",
         ".sql"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "migrations"
     },
     {
@@ -5626,8 +6332,7 @@
       "fileExtensions": [
         ".sql"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "migrations"
     },
     {
@@ -5654,8 +6359,7 @@
         "ts",
         "js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "migrations"
     },
     {
@@ -5680,8 +6384,7 @@
       "fileExtensions": [
         ".sql"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "migrations"
     },
     {
@@ -5706,8 +6409,7 @@
         "Implement offline-first architecture"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "mobile"
     },
     {
@@ -5732,8 +6434,7 @@
         "Set loading screen background"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "mobile"
     },
     {
@@ -5756,8 +6457,7 @@
         "Test on actual mobile devices"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "mobile"
     },
     {
@@ -5780,8 +6480,7 @@
         "Test touch targets on actual devices"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "mobile"
     },
     {
@@ -5804,8 +6503,7 @@
         "Test gestures on real devices"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "mobile"
     },
     {
@@ -5828,8 +6526,7 @@
         "Add install prompt handling"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "mobile"
     },
     {
@@ -5852,8 +6549,7 @@
         "Use responsive layouts"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "mobile"
     },
     {
@@ -5876,8 +6572,7 @@
         "Test on devices with notches"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "mobile"
     },
     {
@@ -5900,8 +6595,7 @@
         "Clear intervals on page hide"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "mobile"
     },
     {
@@ -5927,8 +6621,7 @@
         "Handle links in navigation"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "mobile"
     },
     {
@@ -5959,8 +6652,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "monitoring"
     },
     {
@@ -5986,8 +6678,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "monitoring"
     },
     {
@@ -6017,8 +6708,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "monitoring"
     },
     {
@@ -6044,8 +6734,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "monitoring"
     },
     {
@@ -6071,8 +6760,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "monitoring"
     },
     {
@@ -6100,8 +6788,7 @@
         ".yaml",
         ".yml"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "monitoring"
     },
     {
@@ -6127,8 +6814,7 @@
         "Follow single responsibility"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "mvc"
     },
     {
@@ -6151,8 +6837,7 @@
         "Extract to services"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "mvc"
     },
     {
@@ -6177,8 +6862,7 @@
         "Pass data from server to client"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "nextjs"
     },
     {
@@ -6203,8 +6887,7 @@
         "Only add 'use client' where needed"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "nextjs"
     },
     {
@@ -6229,8 +6912,7 @@
         "Import actions from server files"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "nextjs"
     },
     {
@@ -6255,8 +6937,7 @@
         "Use fetch with revalidate options"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "nextjs"
     },
     {
@@ -6281,8 +6962,7 @@
         "Document cache strategy"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "nextjs"
     },
     {
@@ -6307,8 +6987,7 @@
         "Keep layouts pure and server-only"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "nextjs"
     },
     {
@@ -6333,8 +7012,7 @@
         "Return dynamic metadata object"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "nextjs"
     },
     {
@@ -6359,8 +7037,7 @@
         "Configure allowed domains"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "nextjs"
     },
     {
@@ -6385,8 +7062,7 @@
         "Remove link tags to Google Fonts"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "nextjs"
     },
     {
@@ -6411,8 +7087,7 @@
         "Use ssr: false for client-only"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "nextjs"
     },
     {
@@ -6442,8 +7117,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "nextjs"
     },
     {
@@ -6468,8 +7142,7 @@
         "Never put secrets in public section"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "nuxt"
     },
     {
@@ -6494,8 +7167,7 @@
         "Handle errors with try-catch"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "nuxt"
     },
     {
@@ -6521,8 +7193,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "payments"
     },
     {
@@ -6548,8 +7219,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "payments"
     },
     {
@@ -6575,8 +7245,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "payments"
     },
     {
@@ -6602,14 +7271,14 @@
         ".ts",
         ".js",
         ".tsx",
-        ".jsx"
+        ".jsx",
+        ".py"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "payments"
     },
     {
-      "id": "PAY_NO_REFUND",
+      "id": "PAY_REFUND",
       "name": "Missing refund functionality",
       "category": "payments",
       "severity": "medium",
@@ -6631,8 +7300,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "payments"
     },
     {
@@ -6658,8 +7326,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "payments"
     },
     {
@@ -6686,8 +7353,7 @@
         ".js",
         ".env"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "payments"
     },
     {
@@ -6715,8 +7381,7 @@
         "Analyze bundle with source-map-explorer"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "performance"
     },
     {
@@ -6743,8 +7408,7 @@
         "Never block in Node.js"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "performance"
     },
     {
@@ -6767,8 +7431,7 @@
         "Clear intervals/timeouts"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "performance"
     },
     {
@@ -6791,8 +7454,7 @@
         "Prefer const over let"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "performance"
     },
     {
@@ -6815,8 +7477,7 @@
         "Use regex literals"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "performance"
     },
     {
@@ -6839,8 +7500,7 @@
         "Cache expensive computations"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "performance"
     },
     {
@@ -6863,8 +7523,7 @@
         "Use useDebouncedCallback"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "performance"
     },
     {
@@ -6887,8 +7546,7 @@
         "Compress images"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "performance"
     },
     {
@@ -6921,8 +7579,7 @@
         ".vue",
         ".svelte"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "performance"
     },
     {
@@ -6945,8 +7602,7 @@
         "Use link rel=preload"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "performance"
     },
     {
@@ -6969,8 +7625,7 @@
         "Offload heavy tasks"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "performance"
     },
     {
@@ -6996,8 +7651,7 @@
         ".json",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "performance"
     },
     {
@@ -7027,8 +7681,7 @@
         ".js",
         ".jsx"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "performance"
     },
     {
@@ -7053,8 +7706,7 @@
       "fileExtensions": [
         ".ts"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "performance"
     },
     {
@@ -7080,8 +7732,7 @@
         "Memoize expensive calculations"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "performance"
     },
     {
@@ -7106,8 +7757,7 @@
         "Use useCallback"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "performance"
     },
     {
@@ -7130,8 +7780,7 @@
         "Configure static asset caching"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "performance"
     },
     {
@@ -7157,8 +7806,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "performance"
     },
     {
@@ -7181,8 +7829,7 @@
         "Configure logging per environment"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "performance"
     },
     {
@@ -7205,8 +7852,7 @@
         "Use pnpm"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "performance"
     },
     {
@@ -7229,8 +7875,7 @@
         "Use knip to find unused"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "performance"
     },
     {
@@ -7253,8 +7898,7 @@
         "Audit necessity"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "performance"
     },
     {
@@ -7279,8 +7923,7 @@
       "fileExtensions": [
         ".json"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "performance"
     },
     {
@@ -7303,9 +7946,516 @@
         "Remove listeners on component unmount (React)"
       ],
       "fileExtensions": [],
-      "hasPatterns": false,
-      "hasHelpers": true,
+      "hasCondition": true,
       "sourceFile": "performance"
+    },
+    {
+      "id": "PYDANTIC_MISSING_FIELD_DESC",
+      "name": "Pydantic Field missing description",
+      "category": "documentation",
+      "severity": "low",
+      "frameworks": [
+        "pydantic",
+        "fastapi"
+      ],
+      "description": "Add description= to Field() for API documentation.",
+      "title": "Add Field description",
+      "library": "Pydantic",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "pydantic"
+    },
+    {
+      "id": "PYDANTIC_MUTABLE_DEFAULT",
+      "name": "Mutable default in Pydantic model",
+      "category": "maintainability",
+      "severity": "high",
+      "frameworks": [
+        "pydantic",
+        "fastapi"
+      ],
+      "description": "Use default_factory for mutable defaults.",
+      "title": "Use Field with default_factory",
+      "library": "Pydantic",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "pydantic"
+    },
+    {
+      "id": "PYDANTIC_NO_VALIDATION",
+      "name": "Pydantic model without validation",
+      "category": "reliability",
+      "severity": "medium",
+      "frameworks": [
+        "pydantic",
+        "fastapi"
+      ],
+      "description": "Add model_config = ConfigDict(...) for validation settings.",
+      "title": "Configure model validation",
+      "library": "Pydantic",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "pydantic"
+    },
+    {
+      "id": "PYDANTIC_NESTED_NO_VALIDATION",
+      "name": "Nested Pydantic model without validation",
+      "category": "reliability",
+      "severity": "medium",
+      "frameworks": [
+        "pydantic",
+        "fastapi"
+      ],
+      "description": "Ensure nested models inherit from BaseModel.",
+      "title": "Use BaseModel for nested types",
+      "library": "Pydantic",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "pydantic"
+    },
+    {
+      "id": "PYDANTIC_OPTIONAL_REQUIRED",
+      "name": "Field marked both Optional and required",
+      "category": "cleanliness",
+      "severity": "low",
+      "frameworks": [
+        "pydantic",
+        "fastapi"
+      ],
+      "description": "Optional fields should have default=None.",
+      "title": "Fix Optional field defaults",
+      "library": "Pydantic",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "pydantic"
+    },
+    {
+      "id": "PYDANTIC_SENSITIVE",
+      "name": "Pydantic field should be sensitive",
+      "category": "security",
+      "severity": "high",
+      "frameworks": [
+        "pydantic",
+        "fastapi"
+      ],
+      "description": "Use Field(exclude=True) or exclude_from_serial=True.",
+      "title": "Mark sensitive fields",
+      "library": "Pydantic",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "pydantic"
+    },
+    {
+      "id": "PYDANTIC_VALIDATOR_IMPORT",
+      "name": "Using deprecated validator import",
+      "category": "cleanliness",
+      "severity": "low",
+      "frameworks": [
+        "pydantic",
+        "fastapi"
+      ],
+      "description": "Use @field_validator (Pydantic v2) instead of @validator.",
+      "title": "Use field_validator",
+      "library": "Pydantic",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "pydantic"
+    },
+    {
+      "id": "PYDANTIC_ROOT_VALIDATOR",
+      "name": "Using deprecated root_validator",
+      "category": "cleanliness",
+      "severity": "low",
+      "frameworks": [
+        "pydantic",
+        "fastapi"
+      ],
+      "description": "Use @model_validator (Pydantic v2) instead of @root_validator.",
+      "title": "Use model_validator",
+      "library": "Pydantic",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "pydantic"
+    },
+    {
+      "id": "PYDANTIC_BARE_TYPE",
+      "name": "Using bare type annotation",
+      "category": "maintainability",
+      "severity": "low",
+      "frameworks": [
+        "pydantic",
+        "fastapi"
+      ],
+      "description": "Use field: Optional[Type] = None instead of field: Type = None.",
+      "title": "Use Optional for nullable fields",
+      "library": "Pydantic",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "pydantic"
+    },
+    {
+      "id": "PYDANTIC_STR_FIELD",
+      "name": "String field without max_length",
+      "category": "performance",
+      "severity": "low",
+      "frameworks": [
+        "pydantic",
+        "fastapi"
+      ],
+      "description": "Add max_length for better validation and performance.",
+      "title": "Add max_length to string fields",
+      "library": "Pydantic",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "pydantic"
+    },
+    {
+      "id": "PYTHON_MUTABLE_DEFAULT",
+      "name": "Mutable default argument in function",
+      "category": "maintainability",
+      "severity": "high",
+      "frameworks": [
+        "python",
+        "django",
+        "fastapi",
+        "flask",
+        "sqlalchemy",
+        "celery"
+      ],
+      "description": "Use None as default and initialize inside function body",
+      "title": "Avoid mutable default arguments",
+      "library": "Python",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "python"
+    },
+    {
+      "id": "PYTHON_BROAD_EXCEPTION",
+      "name": "Catching overly broad exception",
+      "category": "error-handling",
+      "severity": "high",
+      "frameworks": [
+        "python",
+        "django",
+        "fastapi",
+        "flask",
+        "sqlalchemy",
+        "celery"
+      ],
+      "description": "Catch specific exceptions rather than broad Exception or BaseException.",
+      "title": "Catch specific exceptions",
+      "library": "Python",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "python"
+    },
+    {
+      "id": "PYTHON_NONE_COMPARISON",
+      "name": "Incorrect None comparison",
+      "category": "cleanliness",
+      "severity": "low",
+      "frameworks": [
+        "python"
+      ],
+      "description": "Use 'is None' instead of '== None' for identity comparison.",
+      "title": "Use 'is None' for None comparison",
+      "library": "Python",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "python"
+    },
+    {
+      "id": "PYTHON_TYPE_VS_ISINSTANCE",
+      "name": "Using type() instead of isinstance()",
+      "category": "cleanliness",
+      "severity": "medium",
+      "frameworks": [
+        "python"
+      ],
+      "description": "Use isinstance() instead of type() to properly handle subclasses.",
+      "title": "Use isinstance() for type checking",
+      "library": "Python",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "python"
+    },
+    {
+      "id": "PYTHON_FILE_NOT_CLOSED",
+      "name": "File not properly closed",
+      "category": "cleanliness",
+      "severity": "medium",
+      "frameworks": [
+        "python"
+      ],
+      "description": "Use 'with' statement to automatically close files.",
+      "title": "Use context manager for files",
+      "library": "Python",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "python"
+    },
+    {
+      "id": "PYTHON_FUNCTION_NO_ERROR_HANDLING",
+      "name": "Function without error handling",
+      "category": "error-handling",
+      "severity": "medium",
+      "frameworks": [
+        "python",
+        "django",
+        "fastapi",
+        "flask",
+        "sqlalchemy",
+        "celery"
+      ],
+      "description": "Functions performing I/O should have try-except blocks.",
+      "title": "Add error handling to functions",
+      "library": "Python",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "python"
+    },
+    {
+      "id": "PYTHON_EVAL_USAGE",
+      "name": "Using eval() or exec()",
+      "category": "security",
+      "severity": "critical",
+      "frameworks": [
+        "python"
+      ],
+      "description": "Use ast.literal_eval for safe evaluation or redesign to avoid code execution.",
+      "title": "Avoid eval() and exec()",
+      "library": "Python",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "python"
+    },
+    {
+      "id": "PYTHON_PICKLE_SECURITY",
+      "name": "Using pickle with untrusted data",
+      "category": "security",
+      "severity": "critical",
+      "frameworks": [
+        "python"
+      ],
+      "description": "Use JSON for data serialization. If pickle is required, validate source.",
+      "title": "Use JSON instead of pickle",
+      "library": "Python",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "python"
+    },
+    {
+      "id": "PYTHON_HARDCODED_SECRET",
+      "name": "Hardcoded secret or password",
+      "category": "security",
+      "severity": "critical",
+      "frameworks": [
+        "python",
+        "django",
+        "fastapi",
+        "flask"
+      ],
+      "description": "Store secrets in environment variables or a secrets manager.",
+      "title": "Use environment variables for secrets",
+      "library": "Python",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": false,
+      "sourceFile": "python"
+    },
+    {
+      "id": "PYTHON_STRING_CONCAT_LOOP",
+      "name": "String concatenation in loop",
+      "category": "performance",
+      "severity": "medium",
+      "frameworks": [
+        "python"
+      ],
+      "description": "Use ''.join(list) instead of + in loops for better performance.",
+      "title": "Use str.join() for string concatenation",
+      "library": "Python",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "python"
+    },
+    {
+      "id": "PYTHON_IGNORED_EXCEPTION",
+      "name": "Ignored exception variable",
+      "category": "cleanliness",
+      "severity": "low",
+      "frameworks": [
+        "python"
+      ],
+      "description": "Either use the exception variable or use 'except:' without 'as'.",
+      "title": "Use exception variable or omit 'as' clause",
+      "library": "Python",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "python"
+    },
+    {
+      "id": "PYTHON_TIME_SLEEP_ASYNC",
+      "name": "Using time.sleep() in async code",
+      "category": "performance",
+      "severity": "high",
+      "frameworks": [
+        "python",
+        "fastapi"
+      ],
+      "description": "Use asyncio.sleep() instead of time.sleep() to avoid blocking the event loop.",
+      "title": "Use asyncio.sleep() in async code",
+      "library": "Python",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "python"
+    },
+    {
+      "id": "PYTHON_SQL_INJECTION",
+      "name": "Potential SQL injection",
+      "category": "security",
+      "severity": "critical",
+      "frameworks": [
+        "python",
+        "django",
+        "fastapi",
+        "flask"
+      ],
+      "description": "Use %s or %(name)s placeholders with parameters, not f-strings.",
+      "title": "Use parameterized queries",
+      "library": "Python",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "python"
+    },
+    {
+      "id": "PYTHON_BARE_RAISE",
+      "name": "Bare raise in except block",
+      "category": "error-handling",
+      "severity": "medium",
+      "frameworks": [
+        "python"
+      ],
+      "description": "Use 'raise ... from ...' or ensure raise is inside an except block.",
+      "title": "Use raise from or proper exception handling",
+      "library": "Python",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "python"
+    },
+    {
+      "id": "PYTHON_MISSING_TYPE_HINTS",
+      "name": "Missing type hints on function parameters",
+      "category": "maintainability",
+      "severity": "medium",
+      "frameworks": [
+        "python"
+      ],
+      "description": "Add type hints like def foo(x: int) -> str:",
+      "title": "Add type hints to function parameters",
+      "library": "Python",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "python"
+    },
+    {
+      "id": "PYTHON_ANY_TYPE",
+      "name": "Using Any type",
+      "category": "maintainability",
+      "severity": "medium",
+      "frameworks": [
+        "python"
+      ],
+      "description": "Replace Any with specific types or use generics.",
+      "title": "Use specific types instead of Any",
+      "library": "Python",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "python"
+    },
+    {
+      "id": "PYTHON_IMPORT_STAR",
+      "name": "Using 'from module import *'",
+      "category": "cleanliness",
+      "severity": "low",
+      "frameworks": [
+        "python"
+      ],
+      "description": "Use 'from module import specific_name' instead.",
+      "title": "Use explicit imports",
+      "library": "Python",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "python"
+    },
+    {
+      "id": "PYTHON_GLOBAL_VARIABLE",
+      "name": "Modifying global variable",
+      "category": "maintainability",
+      "severity": "medium",
+      "frameworks": [
+        "python"
+      ],
+      "description": "Pass variables as parameters or use a class/config.",
+      "title": "Avoid global variables",
+      "library": "Python",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "python"
     },
     {
       "id": "QUEUE_NO_TIMEOUT",
@@ -7330,8 +8480,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "queues"
     },
     {
@@ -7357,8 +8506,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "queues"
     },
     {
@@ -7384,8 +8532,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "queues"
     },
     {
@@ -7411,8 +8558,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "queues"
     },
     {
@@ -7443,8 +8589,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "queues"
     },
     {
@@ -7470,8 +8615,7 @@
         "Fix missing dependencies"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "react"
     },
     {
@@ -7497,8 +8641,7 @@
         "Fix dependency array"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "react"
     },
     {
@@ -7524,8 +8667,7 @@
         "Follow Rules of Hooks"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "react"
     },
     {
@@ -7551,8 +8693,7 @@
         "Avoid index as key"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "react"
     },
     {
@@ -7578,8 +8719,7 @@
         "Fix dependency array"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "react"
     },
     {
@@ -7605,8 +8745,7 @@
         "Move expensive logic outside component"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "react"
     },
     {
@@ -7632,8 +8771,7 @@
         "Use useEffect for initialization"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "react"
     },
     {
@@ -7662,8 +8800,7 @@
         ".jsx",
         ".tsx"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "react"
     },
     {
@@ -7689,8 +8826,7 @@
         "Refactor to hooks"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "react"
     },
     {
@@ -7716,8 +8852,7 @@
         "Let React handle DOM updates"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "react"
     },
     {
@@ -7743,8 +8878,7 @@
         "Create update methods in context provider"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "react"
     },
     {
@@ -7770,8 +8904,7 @@
         "Consider not using ref at all"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "react"
     },
     {
@@ -7797,8 +8930,7 @@
         "Call setState in callbacks, not directly in render"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "react"
     },
     {
@@ -7824,8 +8956,7 @@
         "Use arrow functions in class properties"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "react"
     },
     {
@@ -7851,8 +8982,7 @@
         "Always return new object from setState"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "react"
     },
     {
@@ -7878,8 +9008,7 @@
         "Define component prop types"
       ],
       "fileExtensions": [],
-      "hasPatterns": false,
-      "hasHelpers": true,
+      "hasCondition": true,
       "sourceFile": "react"
     },
     {
@@ -7905,8 +9034,7 @@
         "Consider splitting into multiple effects"
       ],
       "fileExtensions": [],
-      "hasPatterns": false,
-      "hasHelpers": true,
+      "hasCondition": true,
       "sourceFile": "react"
     },
     {
@@ -7931,8 +9059,7 @@
         "Throw Response for errors"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "remix"
     },
     {
@@ -7957,8 +9084,7 @@
         "Show helpful error messages"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "remix"
     },
     {
@@ -7983,8 +9109,7 @@
         "Guard with typeof window checks"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "remix"
     },
     {
@@ -8011,8 +9136,7 @@
         "Set reasonable default limits"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "saas"
     },
     {
@@ -8035,8 +9159,7 @@
         "Batch fetch related records"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "saas"
     },
     {
@@ -8059,8 +9182,7 @@
         "Set appropriate TTL"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "saas"
     },
     {
@@ -8085,8 +9207,7 @@
         "Move to worker threads if needed"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "saas"
     },
     {
@@ -8112,8 +9233,7 @@
         "Add stricter limits for auth endpoints"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "saas"
     },
     {
@@ -8139,8 +9259,7 @@
         "Use auth middleware on routes"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "saas"
     },
     {
@@ -8162,9 +9281,13 @@
         "Verify user owns resource",
         "Add role-based checks"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".ts",
+        ".js",
+        ".tsx",
+        ".jsx"
+      ],
+      "hasCondition": true,
       "sourceFile": "saas"
     },
     {
@@ -8186,9 +9309,13 @@
         "Implement RLS policies",
         "Verify tenant context"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".ts",
+        ".js",
+        ".tsx",
+        ".jsx"
+      ],
+      "hasCondition": true,
       "sourceFile": "saas"
     },
     {
@@ -8213,8 +9340,7 @@
         "Finish in-flight requests"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "saas"
     },
     {
@@ -8240,8 +9366,7 @@
         "Configure Kubernetes probes"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "saas"
     },
     {
@@ -8267,8 +9392,7 @@
         "Plan deprecation strategy"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "saas"
     },
     {
@@ -8294,8 +9418,7 @@
         "Use error classes"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "saas"
     },
     {
@@ -8318,8 +9441,7 @@
         "Use OpenTelemetry"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "saas"
     },
     {
@@ -8345,8 +9467,7 @@
         "Never use * in production"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "saas"
     },
     {
@@ -8371,8 +9492,7 @@
         "Use secure session config"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "saas"
     },
     {
@@ -8394,20 +9514,41 @@
         "Validate all inputs",
         "Sanitize before use"
       ],
+      "fileExtensions": [
+        ".ts",
+        ".js",
+        ".tsx",
+        ".jsx"
+      ],
+      "hasCondition": true,
+      "sourceFile": "saas"
+    },
+    {
+      "id": "SEC_GOOD_CSRF_PROTECTION",
+      "name": "Uses CSRF protection",
+      "category": "security",
+      "severity": "info",
+      "frameworks": [
+        "express"
+      ],
+      "description": "This code uses CSRF protection - good security practice for state-changing requests.",
+      "title": "Good: CSRF protection in use",
+      "library": "CSRF",
+      "catches": [],
+      "fix": [],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "saas"
     },
     {
       "id": "SAAS_NO_CSRF",
-      "name": "Missing CSRF protection",
+      "name": "Missing CSRF protection for state-changing routes",
       "category": "security",
       "severity": "high",
       "frameworks": [
         "express"
       ],
-      "description": "State-changing requests need CSRF tokens for browser clients.",
+      "description": "Express POST/PUT/DELETE routes should use CSRF protection. Check for csurf middleware or express-jwt with csrf.",
       "title": "Add CSRF protection",
       "library": "CSRF",
       "catches": [
@@ -8421,8 +9562,7 @@
         "Use SameSite cookies"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "saas"
     },
     {
@@ -8444,9 +9584,13 @@
         "Add HSTS header",
         "Use Helmet"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".ts",
+        ".js",
+        ".tsx",
+        ".jsx"
+      ],
+      "hasCondition": true,
       "sourceFile": "saas"
     },
     {
@@ -8469,8 +9613,7 @@
         "Reuse connections"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "saas"
     },
     {
@@ -8493,9 +9636,23 @@
         "Store key with result"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "saas"
+    },
+    {
+      "id": "SEC_GOOD_PROTOTYPE_PROTECTION",
+      "name": "Uses prototype pollution protection",
+      "category": "security",
+      "severity": "info",
+      "frameworks": [],
+      "description": "This code uses Object.freeze, cloneDeep, or Object.create(null) to prevent prototype pollution - good security practice.",
+      "title": "Good: Prototype pollution protection in use",
+      "library": "Security",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "security"
     },
     {
       "id": "COMM_SECRET_HARDCODED",
@@ -8517,8 +9674,7 @@
         "Never commit .env files to version control"
       ],
       "fileExtensions": [],
-      "hasPatterns": false,
-      "hasHelpers": true,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -8541,8 +9697,7 @@
         "Use server-side only environment variables for sensitive data"
       ],
       "fileExtensions": [],
-      "hasPatterns": false,
-      "hasHelpers": true,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -8565,8 +9720,7 @@
         "Never log req.body, headers, or authentication tokens"
       ],
       "fileExtensions": [],
-      "hasPatterns": false,
-      "hasHelpers": true,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -8589,8 +9743,7 @@
         "Never pass secrets in URLs"
       ],
       "fileExtensions": [],
-      "hasPatterns": false,
-      "hasHelpers": true,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -8613,8 +9766,7 @@
         "Add SameSite attribute for CSRF protection"
       ],
       "fileExtensions": [],
-      "hasPatterns": false,
-      "hasHelpers": true,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -8637,8 +9789,7 @@
         "Never disable certificate verification in production"
       ],
       "fileExtensions": [],
-      "hasPatterns": false,
-      "hasHelpers": true,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -8661,8 +9812,7 @@
         "Never concatenate user input into SQL strings"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "security"
     },
     {
@@ -8685,8 +9835,7 @@
         "Use JSON.parse instead of eval for data"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "security"
     },
     {
@@ -8709,8 +9858,7 @@
         "Use database-level row security policies"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -8733,8 +9881,7 @@
         "Use type-safe validation"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -8757,8 +9904,7 @@
         "Use environment-specific configuration"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -8780,9 +9926,13 @@
         "Enforce minimum password length and complexity",
         "Check passwords against common password lists"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".ts",
+        ".js",
+        ".tsx",
+        ".jsx"
+      ],
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -8805,8 +9955,7 @@
         "Use URL parser to verify hostname before fetching"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -8829,8 +9978,7 @@
         "Never commit keys to version control"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "security"
     },
     {
@@ -8853,8 +10001,7 @@
         "Store files outside web root with random names"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -8877,8 +10024,7 @@
         "Regularly update dependencies"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -8900,9 +10046,13 @@
         "Log access control violations",
         "Log admin actions and sensitive data access"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".ts",
+        ".js",
+        ".tsx",
+        ".jsx"
+      ],
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -8925,8 +10075,7 @@
         "Set X-Frame-Options to DENY or SAMEORIGIN"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -8949,8 +10098,7 @@
         "Configure server to hide version info"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -8972,9 +10120,12 @@
         "Configure strong cipher suites",
         "Disable weak ciphers like DES and RC4"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".ts",
+        ".js",
+        ".json"
+      ],
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -8997,8 +10148,7 @@
         "Verify algorithm matches expected type"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -9021,8 +10171,7 @@
         "Avoid dangerouslySetInnerHTML when possible"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -9044,9 +10193,13 @@
         "Limit input length before regex",
         "Avoid nested quantifiers like (a+)+"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".js",
+        ".ts",
+        ".tsx",
+        ".jsx"
+      ],
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -9069,8 +10222,7 @@
         "Start with report-only mode to find issues"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -9092,9 +10244,12 @@
         "Use environment-based origin whitelist",
         "Never use '*' in production"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".ts",
+        ".js",
+        ".json"
+      ],
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -9117,8 +10272,7 @@
         "Configure in web server"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -9141,8 +10295,7 @@
         "Use Helmet.js"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -9165,8 +10318,7 @@
         "Set proper Content-Type headers"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -9188,9 +10340,13 @@
         "Use path.resolve and check startsWith",
         "Reject paths with .. sequences"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".js",
+        ".ts",
+        ".tsx",
+        ".jsx"
+      ],
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -9217,8 +10373,7 @@
         ".ts",
         ".xml"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -9246,8 +10401,7 @@
         ".tsx",
         ".jsx"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -9256,7 +10410,7 @@
       "category": "security",
       "severity": "critical",
       "frameworks": [],
-      "description": "User input merged into objects can pollute prototypes. Use safe merge libraries.",
+      "description": "User input merged into objects without sanitization can pollute prototypes. Avoid Object.assign with user data.",
       "title": "Prevent prototype pollution",
       "library": "lodash (cloneDeep), Object.freeze",
       "catches": [
@@ -9270,8 +10424,7 @@
         "Use safe-merge libraries"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -9280,22 +10433,23 @@
       "category": "security",
       "severity": "critical",
       "frameworks": [],
-      "description": "Deserializing untrusted data is dangerous. Use JSON.parse() or safe libraries.",
+      "description": "Avoid eval(), pickle, yaml.load, and unserialize with untrusted data.",
       "title": "Use safe deserialization",
       "library": "Security",
       "catches": [
-        "Using pickle.loads (Python) with untrusted data",
-        "Using ObjectInputStream with user data",
-        "Unsafe deserialization formats"
+        "Using eval() with string input",
+        "Using pickle.loads with untrusted data",
+        "Using yaml.load without safe loader",
+        "Using unserialize() with user data"
       ],
       "fix": [
-        "Use JSON.parse for data",
-        "Avoid pickle with untrusted input",
+        "Use JSON.parse for data serialization",
+        "Use yaml.safe_load for YAML",
+        "Avoid eval() with dynamic code",
         "Use safe serialization formats"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "security"
     },
     {
@@ -9318,8 +10472,7 @@
         "Escape user input"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -9342,8 +10495,7 @@
         "Use optimistic locking with version field"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -9366,8 +10518,7 @@
         "Compare hashes instead of raw values"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -9390,8 +10541,7 @@
         "Review overrides in security audits"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -9414,8 +10564,7 @@
         "Verify package names before installing"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -9438,8 +10587,7 @@
         "Use error handling middleware"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "security"
     },
     {
@@ -9462,8 +10610,7 @@
         "Validate and type-check inputs"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "security"
     },
     {
@@ -9486,8 +10633,7 @@
         "Return same response time regardless of user existence"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "security"
     },
     {
@@ -9510,8 +10656,7 @@
         "Use strict type checking throughout"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "security"
     },
     {
@@ -9534,8 +10679,7 @@
         "Never redirect to arbitrary URLs"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "security"
     },
     {
@@ -9558,8 +10702,7 @@
         "Avoid localStorage for sensitive data"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "security"
     },
     {
@@ -9582,8 +10725,7 @@
         "Use proper password hashing libraries"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "security"
     },
     {
@@ -9606,8 +10748,7 @@
         "Validate all update parameters explicitly"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "security"
     },
     {
@@ -9630,8 +10771,7 @@
         "Never commit default credentials"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "security"
     },
     {
@@ -9654,8 +10794,7 @@
         "Never hardcode JWT secrets"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "security"
     },
     {
@@ -9678,8 +10817,7 @@
         "Validate in API routes before processing"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -9702,8 +10840,7 @@
         "Explicitly set allowed algorithms"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "security"
     },
     {
@@ -9726,8 +10863,7 @@
         "Verify registry configuration in .npmrc"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -9750,8 +10886,7 @@
         "Validate username format strictly"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -9774,8 +10909,7 @@
         "Never use Math.random() for security"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -9798,8 +10932,7 @@
         "Refactor to avoid dynamic code"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "security"
     },
     {
@@ -9822,8 +10955,7 @@
         "Create files with random names"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -9846,8 +10978,7 @@
         "Use static imports only"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -9870,8 +11001,7 @@
         "Configure CDN to block .git paths"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -9894,8 +11024,7 @@
         "Use server-side APIs for signing"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "security"
     },
     {
@@ -9918,8 +11047,7 @@
         "Use SHA-256 or better for hashing"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "security"
     },
     {
@@ -9944,8 +11072,7 @@
         "Use createMemo instead of useMemo"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "solidjs"
     },
     {
@@ -9970,8 +11097,7 @@
         "Create new arrays, don't mutate"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": false,
       "sourceFile": "solidjs"
     },
     {
@@ -9996,9 +11122,331 @@
         "Avoid array index as key"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "solidjs"
+    },
+    {
+      "id": "SQLA_N_PLUS_ONE",
+      "name": "N+1 query problem in SQLAlchemy",
+      "category": "performance",
+      "severity": "high",
+      "frameworks": [
+        "sqlalchemy"
+      ],
+      "description": "Use eager loading strategies (joinedload, selectinload) to prevent N+1 queries.",
+      "title": "Fix N+1 queries with eager loading",
+      "library": "SQLAlchemy",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "sqlalchemy"
+    },
+    {
+      "id": "SQLA_SESSION_NOT_CLOSED",
+      "name": "Database session not properly closed",
+      "category": "reliability",
+      "severity": "high",
+      "frameworks": [
+        "sqlalchemy"
+      ],
+      "description": "Use 'with Session() as session:' or session.remove() after use.",
+      "title": "Use context managers for sessions",
+      "library": "SQLAlchemy",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "sqlalchemy"
+    },
+    {
+      "id": "SQLA_NO_COMMIT",
+      "name": "Transaction not committed",
+      "category": "reliability",
+      "severity": "high",
+      "frameworks": [
+        "sqlalchemy"
+      ],
+      "description": "Call session.commit() after making changes.",
+      "title": "Commit transactions explicitly",
+      "library": "SQLAlchemy",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "sqlalchemy"
+    },
+    {
+      "id": "SQLA_QUERY_IN_LOOP",
+      "name": "Database query inside loop",
+      "category": "performance",
+      "severity": "high",
+      "frameworks": [
+        "sqlalchemy"
+      ],
+      "description": "Use session.bulk_insert_mappings or batch operations.",
+      "title": "Use bulk operations or subqueries",
+      "library": "SQLAlchemy",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "sqlalchemy"
+    },
+    {
+      "id": "SQLA_LAZY_LOADING",
+      "name": "Relationship using default lazy loading",
+      "category": "performance",
+      "severity": "medium",
+      "frameworks": [
+        "sqlalchemy"
+      ],
+      "description": "Use lazy='joined' or lazy='selectin' for eager loading.",
+      "title": "Specify lazy strategy for relationships",
+      "library": "SQLAlchemy",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "sqlalchemy"
+    },
+    {
+      "id": "SQLA_STRING_CONCAT",
+      "name": "SQL built with string concatenation",
+      "category": "security",
+      "severity": "critical",
+      "frameworks": [
+        "sqlalchemy"
+      ],
+      "description": "Use :param format with text() or proper ORM queries.",
+      "title": "Use bound parameters",
+      "library": "SQLAlchemy",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "sqlalchemy"
+    },
+    {
+      "id": "SQLA_AUTOFLUSH",
+      "name": "Auto-flush may cause premature commits",
+      "category": "reliability",
+      "severity": "medium",
+      "frameworks": [
+        "sqlalchemy"
+      ],
+      "description": "Use autoflush=False and explicit flush() when needed.",
+      "title": "Control flush behavior",
+      "library": "SQLAlchemy",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "sqlalchemy"
+    },
+    {
+      "id": "SQLA_NO_ENGINES",
+      "name": "Engine created without pool settings",
+      "category": "performance",
+      "severity": "low",
+      "frameworks": [
+        "sqlalchemy"
+      ],
+      "description": "Set pool_size and max_overflow for production.",
+      "title": "Configure connection pool",
+      "library": "SQLAlchemy",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "sqlalchemy"
+    },
+    {
+      "id": "SQLA_ECHO_TRUE",
+      "name": "SQL echo enabled in production",
+      "category": "security",
+      "severity": "medium",
+      "frameworks": [
+        "sqlalchemy"
+      ],
+      "description": "Set echo=False in production.",
+      "title": "Disable SQL echo in production",
+      "library": "SQLAlchemy",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "sqlalchemy"
+    },
+    {
+      "id": "STARLETTE_SYNC_IN_ASYNC",
+      "name": "Synchronous blocking code in async endpoint",
+      "category": "performance",
+      "severity": "high",
+      "frameworks": [
+        "starlette"
+      ],
+      "description": "Use httpx or aiohttp instead of requests.",
+      "title": "Use async HTTP client",
+      "library": "Starlette",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "starlette"
+    },
+    {
+      "id": "STARLETTE_NO_PAGINATION",
+      "name": "Missing pagination for list endpoints",
+      "category": "performance",
+      "severity": "medium",
+      "frameworks": [
+        "starlette"
+      ],
+      "description": "Use offset/limit or cursor-based pagination.",
+      "title": "Add pagination",
+      "library": "Starlette",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "starlette"
+    },
+    {
+      "id": "STARLETTE_NO_DEPENDENCY_INJECTION",
+      "name": "Not using dependency injection",
+      "category": "architecture",
+      "severity": "medium",
+      "frameworks": [
+        "starlette"
+      ],
+      "description": "Use Depends() to inject dependencies.",
+      "title": "Use Depends() for dependencies",
+      "library": "Starlette",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "starlette"
+    },
+    {
+      "id": "STARLETTE_NO_RESPONSE_MODEL",
+      "name": "Missing response_model",
+      "category": "api",
+      "severity": "medium",
+      "frameworks": [
+        "starlette"
+      ],
+      "description": "Use response_model parameter for type validation.",
+      "title": "Add response_model",
+      "library": "Starlette",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "starlette"
+    },
+    {
+      "id": "STARLETTE_DEBUG_TRUE",
+      "name": "Debug mode in production",
+      "category": "security",
+      "severity": "high",
+      "frameworks": [
+        "starlette"
+      ],
+      "description": "Set debug=False in production settings.",
+      "title": "Disable debug in production",
+      "library": "Starlette",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "starlette"
+    },
+    {
+      "id": "STARLETTE_SESSION_SECRET",
+      "name": "Missing secret key for sessions",
+      "category": "security",
+      "severity": "high",
+      "frameworks": [
+        "starlette"
+      ],
+      "description": "Provide secret_key parameter to SessionMiddleware.",
+      "title": "Set secret key",
+      "library": "Starlette",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "starlette"
+    },
+    {
+      "id": "STARLETTE_NO_ERROR_HANDLER",
+      "name": "Missing exception handlers",
+      "category": "error-handling",
+      "severity": "medium",
+      "frameworks": [
+        "starlette"
+      ],
+      "description": "Use app.add_exception_handler() for custom errors.",
+      "title": "Add exception handlers",
+      "library": "Starlette",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "starlette"
+    },
+    {
+      "id": "STARLETTE_NO_CORS",
+      "name": "Missing CORS configuration",
+      "category": "security",
+      "severity": "medium",
+      "frameworks": [
+        "starlette"
+      ],
+      "description": "Use app.add_middleware(CORSMiddleware, ...).",
+      "title": "Configure CORS",
+      "library": "Starlette",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "starlette"
+    },
+    {
+      "id": "STARLETTE_NO_MIDDLEWARE_ORDER",
+      "name": "Middleware order may affect security",
+      "category": "architecture",
+      "severity": "low",
+      "frameworks": [
+        "starlette"
+      ],
+      "description": "Put security middleware (CORS, CSP) after SessionMiddleware.",
+      "title": "Review middleware order",
+      "library": "Starlette",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "starlette"
+    },
+    {
+      "id": "STARLETTE_ROUTE_NO_NAME",
+      "name": "Route without name",
+      "category": "cleanliness",
+      "severity": "low",
+      "frameworks": [
+        "starlette"
+      ],
+      "description": "Add name= parameter for reverse URL lookup.",
+      "title": "Name routes",
+      "library": "Starlette",
+      "catches": [],
+      "fix": [],
+      "fileExtensions": [],
+      "hasCondition": true,
+      "sourceFile": "starlette"
     },
     {
       "id": "STATE_GLOBAL_MUTATION",
@@ -10025,8 +11473,7 @@
         ".tsx",
         ".jsx"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "state"
     },
     {
@@ -10051,8 +11498,7 @@
         "Return new array from setState"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "state"
     },
     {
@@ -10077,8 +11523,7 @@
         "Store the unsubscribe function"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "svelte"
     },
     {
@@ -10103,8 +11548,7 @@
         "Trigger reactivity with ="
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "svelte"
     },
     {
@@ -10129,8 +11573,7 @@
         "Show error state to user"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "svelte"
     },
     {
@@ -10155,8 +11598,7 @@
         "Document slot prop interface"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "svelte"
     },
     {
@@ -10181,8 +11623,7 @@
         "Avoid createEventDispatcher"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "svelte"
     },
     {
@@ -10207,8 +11648,7 @@
         "Check context exists before use"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "svelte"
     },
     {
@@ -10233,8 +11673,7 @@
         "Unsubscribe from stores"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "svelte"
     },
     {
@@ -10259,8 +11698,7 @@
         "Avoid :global() unless needed"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "svelte"
     },
     {
@@ -10288,8 +11726,7 @@
         ".svelte",
         ".ts"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "svelte"
     },
     {
@@ -10314,8 +11751,7 @@
         "Use out:transition for leaving"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "svelte"
     },
     {
@@ -10337,13 +11773,8 @@
         "Run coverage with tests",
         "Generate coverage reports"
       ],
-      "fileExtensions": [
-        ".ts",
-        ".js",
-        ".json"
-      ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [],
+      "hasCondition": false,
       "sourceFile": "testing"
     },
     {
@@ -10365,9 +11796,12 @@
         "Fail CI below threshold",
         "Aim for 80%+ coverage"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".json",
+        ".ts",
+        ".js"
+      ],
+      "hasCondition": true,
       "sourceFile": "testing"
     },
     {
@@ -10390,8 +11824,7 @@
         "Prioritize critical paths"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "testing"
     },
     {
@@ -10419,8 +11852,7 @@
         ".test.js",
         ".spec.js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "testing"
     },
     {
@@ -10443,8 +11875,7 @@
         "Test critical paths in real browser"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "testing"
     },
     {
@@ -10470,8 +11901,7 @@
         "Separate read and write logic"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "trpc"
     },
     {
@@ -10497,8 +11927,7 @@
         "Use .input(zodSchema)"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "trpc"
     },
     {
@@ -10524,8 +11953,7 @@
         "Show user-friendly error messages"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "trpc"
     },
     {
@@ -10551,8 +11979,7 @@
         ".ts",
         ".tsx"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "typescript"
     },
     {
@@ -10578,8 +12005,7 @@
         ".ts",
         ".tsx"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "typescript"
     },
     {
@@ -10601,9 +12027,11 @@
         "Restructure objects",
         "Add null checks"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".ts",
+        ".tsx"
+      ],
+      "hasCondition": true,
       "sourceFile": "typescript"
     },
     {
@@ -10625,9 +12053,11 @@
         "Avoid 'as' assertions",
         "Define interfaces"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".ts",
+        ".tsx"
+      ],
+      "hasCondition": true,
       "sourceFile": "typescript"
     },
     {
@@ -10649,9 +12079,11 @@
         "Use const objects",
         "Use union types"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".ts",
+        ".tsx"
+      ],
+      "hasCondition": true,
       "sourceFile": "typescript"
     },
     {
@@ -10673,9 +12105,11 @@
         "Avoid interface merging",
         "Be explicit about types"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".ts",
+        ".tsx"
+      ],
+      "hasCondition": true,
       "sourceFile": "typescript"
     },
     {
@@ -10700,8 +12134,7 @@
       "fileExtensions": [
         ".ts"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "typescript"
     },
     {
@@ -10723,9 +12156,11 @@
         "Fix generic constraints",
         "Improve type inference"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".ts",
+        ".tsx"
+      ],
+      "hasCondition": true,
       "sourceFile": "typescript"
     },
     {
@@ -10750,8 +12185,7 @@
       "fileExtensions": [
         ".json"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "typescript"
     },
     {
@@ -10773,9 +12207,11 @@
         "Handle null/undefined",
         "Use optional chaining"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".ts",
+        ".tsx"
+      ],
+      "hasCondition": true,
       "sourceFile": "typescript"
     },
     {
@@ -10801,8 +12237,7 @@
         ".ts",
         ".tsx"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "typescript"
     },
     {
@@ -10824,9 +12259,11 @@
         "Add instanceof checks",
         "Use typeof"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".ts",
+        ".tsx"
+      ],
+      "hasCondition": true,
       "sourceFile": "typescript"
     },
     {
@@ -10851,32 +12288,29 @@
       "fileExtensions": [
         ".ts"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "typescript"
     },
     {
       "id": "TS_NEVER_TYPE",
-      "name": "Unhandled exhaustive cases",
+      "name": "Exhaustive switch pattern detected",
       "category": "typescript",
-      "severity": "high",
+      "severity": "info",
       "frameworks": [],
-      "description": "Use never type for exhaustive switch/case matching.",
-      "title": "Ensure exhaustive matching",
+      "description": "Using never type for exhaustive switch/case matching is a recommended TypeScript pattern that ensures all cases are handled at compile time.",
+      "title": "Exhaustive switch is a best practice",
       "library": "TypeScript",
       "catches": [
-        "Unhandled cases in switch",
-        "Not exhaustive",
-        "Runtime errors"
+        "Exhaustive switch using never type"
       ],
       "fix": [
-        "Use never type for exhaustiveness",
-        "Add all cases",
-        "Add compile-time checks"
+        "This is a TypeScript best practice - no action needed"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".ts",
+        ".tsx"
+      ],
+      "hasCondition": true,
       "sourceFile": "typescript"
     },
     {
@@ -10898,9 +12332,11 @@
         "Put required first",
         "Use optional at end"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".ts",
+        ".tsx"
+      ],
+      "hasCondition": true,
       "sourceFile": "typescript"
     },
     {
@@ -10928,8 +12364,7 @@
         ".js",
         ".jsx"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "typescript"
     },
     {
@@ -10957,8 +12392,7 @@
         ".js",
         ".jsx"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "typescript"
     },
     {
@@ -10980,9 +12414,11 @@
         "Use instanceof",
         "Use strict equality"
       ],
-      "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [
+        ".ts",
+        ".tsx"
+      ],
+      "hasCondition": true,
       "sourceFile": "typescript"
     },
     {
@@ -11010,8 +12446,7 @@
         ".js",
         ".jsx"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "typescript"
     },
     {
@@ -11034,8 +12469,7 @@
         "Document function signatures"
       ],
       "fileExtensions": [],
-      "hasPatterns": false,
-      "hasHelpers": true,
+      "hasCondition": true,
       "sourceFile": "typescript"
     },
     {
@@ -11061,8 +12495,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "uploads"
     },
     {
@@ -11088,8 +12521,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "uploads"
     },
     {
@@ -11111,14 +12543,8 @@
         "Scan before storing",
         "Quarantine suspicious files"
       ],
-      "fileExtensions": [
-        ".ts",
-        ".js",
-        ".ts",
-        ".js"
-      ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "fileExtensions": [],
+      "hasCondition": false,
       "sourceFile": "uploads"
     },
     {
@@ -11144,8 +12570,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "uploads"
     },
     {
@@ -11171,8 +12596,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "uploads"
     },
     {
@@ -11200,8 +12624,7 @@
         ".tsx",
         ".jsx"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "uploads"
     },
     {
@@ -11228,8 +12651,7 @@
         "Provide fallback UI"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "usability"
     },
     {
@@ -11254,8 +12676,7 @@
       "fileExtensions": [
         ".ts"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "usability"
     },
     {
@@ -11280,8 +12701,7 @@
       "fileExtensions": [
         ".ts"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "usability"
     },
     {
@@ -11307,8 +12727,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "usability"
     },
     {
@@ -11334,8 +12753,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "usability"
     },
     {
@@ -11361,8 +12779,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "usability"
     },
     {
@@ -11388,8 +12805,7 @@
         "Use v-model with props"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "vue"
     },
     {
@@ -11415,8 +12831,7 @@
         "Use stable identifiers"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "vue"
     },
     {
@@ -11442,8 +12857,7 @@
         "Handle both initial and change cases"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "vue"
     },
     {
@@ -11473,8 +12887,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "vue"
     },
     {
@@ -11504,8 +12917,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "vue"
     },
     {
@@ -11531,8 +12943,7 @@
         "Refactor component structure"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "vue"
     },
     {
@@ -11558,8 +12969,7 @@
         "Add delay option"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "vue"
     },
     {
@@ -11588,8 +12998,7 @@
         ".vue",
         ".ts"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "vue"
     },
     {
@@ -11615,8 +13024,7 @@
         "Use shallowRef for large arrays"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "vue"
     },
     {
@@ -11645,8 +13053,7 @@
         ".vue",
         ".ts"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "vue"
     },
     {
@@ -11672,8 +13079,7 @@
         "Use composition API stores"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "vue"
     },
     {
@@ -11699,8 +13105,7 @@
         "Refactor to composition API"
       ],
       "fileExtensions": [],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "vue"
     },
     {
@@ -11726,8 +13131,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "websockets"
     },
     {
@@ -11753,8 +13157,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "websockets"
     },
     {
@@ -11780,8 +13183,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "websockets"
     },
     {
@@ -11807,8 +13209,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "websockets"
     },
     {
@@ -11834,8 +13235,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "websockets"
     },
     {
@@ -11861,8 +13261,7 @@
         ".ts",
         ".js"
       ],
-      "hasPatterns": true,
-      "hasHelpers": false,
+      "hasCondition": true,
       "sourceFile": "websockets"
     }
   ]

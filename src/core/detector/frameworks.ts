@@ -135,8 +135,8 @@ export const frameworkPlugins: FrameworkPlugin[] = [
 
 export function detectFramework(packageJson: Record<string, unknown>): Framework {
   const deps = {
-    ...packageJson.dependencies,
-    ...packageJson.devDependencies
+    ...(packageJson.dependencies as Record<string, string> || {}),
+    ...(packageJson.devDependencies as Record<string, string> || {})
   };
 
   // Priority order for detection

@@ -1,0 +1,474 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "MAIN_HARDCODED_SQL",
+      "name": "Hardcoded SQL Queries",
+      "description": "Hardcoded SQL queries reduce maintainability. Use query builders.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "maintainability",
+      "recommendation": {
+        "title": "Use query builders or ORMs",
+        "description": "Hardcoded SQL queries reduce maintainability. Use query builders.",
+        "library": "Knex, Prisma"
+      },
+      "catches": [
+        "SQL queries embedded in code",
+        "Hard to change schema",
+        "SQL injection risks"
+      ],
+      "fix": [
+        "Use Prisma or Drizzle ORM",
+        "Use query builder like Knex",
+        "Parameterize queries"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "['\"]SELECT.*FROM|['\"]INSERT.*INTO|['\"]UPDATE.*SET|['\"]DELETE.*FROM",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "info",
+        "message": "Raw SQL query detected - consider using an ORM or query builder"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "MAIN_MANUAL_FORM_STATE",
+      "name": "Manual useState for form fields",
+      "description": "Manual useState for each form field reduces maintainability. Use form libraries.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react",
+        "vue",
+        "svelte"
+      ],
+      "category": "maintainability",
+      "recommendation": {
+        "title": "Use form libraries",
+        "description": "Manual useState for each form field reduces maintainability. Use form libraries.",
+        "library": "React Hook Form, Formik"
+      },
+      "catches": [
+        "Many useState for each field",
+        "Hard to manage validation",
+        "Boilerplate code"
+      ],
+      "fix": [
+        "Use React Hook Form or Formik",
+        "Use form library for validation",
+        "Simplify form state management"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "useForm|formik|react-hook-form"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Form library found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "MAIN_DRY_VIOLATION",
+      "name": "Potential DRY violation",
+      "description": "Potential DRY violation - duplicate code chunks found across multiple files. Extract to shared utility.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "maintainability",
+      "recommendation": {
+        "title": "Extract repeated code",
+        "description": "Potential DRY violation - duplicate code chunks found across multiple files. Extract to shared utility.",
+        "library": "Refactoring"
+      },
+      "catches": [
+        "Code repeated multiple times across files",
+        "Duplicate code chunks that should be extracted",
+        "DRY principle violated",
+        "Hard to maintain changes"
+      ],
+      "fix": [
+        "Extract to reusable function",
+        "Create utility functions",
+        "Reuse existing code"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "function\\s+\\w+\\s*\\(\\)\\s*\\{\\}\\s*\\{",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Nested function found",
+        "helper": "findDuplicateCode",
+        "params": {
+          "minChunkLines": 10,
+          "minOccurrences": 2,
+          "message": "Duplicate code found across files - extract to shared utility",
+          "fileExtensions": [
+            ".ts",
+            ".js",
+            ".tsx",
+            ".jsx"
+          ],
+          "skipPaths": [
+            "src/rules/",
+            "node_modules/"
+          ]
+        }
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "MAIN_MAGIC_NUMBERS",
+      "name": "Magic numbers in code",
+      "description": "Magic numbers reduce readability. Use named constants instead.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "maintainability",
+      "recommendation": {
+        "title": "Use constants",
+        "description": "Magic numbers reduce readability. Use named constants instead.",
+        "library": "Constants"
+      },
+      "catches": [
+        "Numbers without explanation",
+        "Hard to understand code",
+        "Difficult to update"
+      ],
+      "fix": [
+        "Create named constants",
+        "Use enums for related values",
+        "Document what numbers mean"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "(?<![a-zA-Z_])[0-9]{3,}(?![a-zA-Z0-9_])",
+        "fileExtensions": [
+          ".ts",
+          ".js",
+          ".tsx",
+          ".jsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "info",
+        "message": "Magic number detected - consider using a named constant"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "MAIN_HARDCODED_VALUES",
+      "name": "Hardcoded values",
+      "description": "Hardcoded values should be extracted to configuration files.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "maintainability",
+      "recommendation": {
+        "title": "Extract configuration",
+        "description": "Hardcoded values should be extracted to configuration files.",
+        "library": "Configuration"
+      },
+      "catches": [
+        "Values hardcoded in code",
+        "Requires code changes to update",
+        "No environment-specific config"
+      ],
+      "fix": [
+        "Move to config file",
+        "Use environment variables",
+        "Create config object"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "process\\.env\\.|dotenv\\.config\\(|require\\('dotenv'\\)",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Environment config found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "MAIN_LONG_FILE",
+      "name": "Long file",
+      "description": "Files should be kept under 500 lines for maintainability.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "maintainability",
+      "recommendation": {
+        "title": "Split long files",
+        "description": "Files should be kept under 500 lines for maintainability.",
+        "library": "Code organization"
+      },
+      "catches": [
+        "Files too large",
+        "Hard to navigate",
+        "Difficult to maintain"
+      ],
+      "fix": [
+        "Split into multiple files",
+        "Extract to separate modules",
+        "Organize by feature"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "export\\s+(class|function|const)",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Export statement found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "MAIN_COMPLEX_FUNCTION",
+      "name": "Complex function",
+      "description": "Functions should be simple and focused on a single task.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "maintainability",
+      "recommendation": {
+        "title": "Simplify complex functions",
+        "description": "Functions should be simple and focused on a single task.",
+        "library": "Refactoring"
+      },
+      "catches": [
+        "Function does too much",
+        "Hard to understand",
+        "Difficult to test"
+      ],
+      "fix": [
+        "Extract to smaller functions",
+        "Follow single responsibility",
+        "Reduce function size"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "function\\s+\\w+\\s*\\(\\)\\s*\\{[^}]{200,}",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Long function found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "MAIN_DEEP_NESTING",
+      "name": "Deeply nested code",
+      "description": "Deeply nested code is hard to read and maintain.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "maintainability",
+      "recommendation": {
+        "title": "Reduce nesting",
+        "description": "Deeply nested code is hard to read and maintain.",
+        "library": "Refactoring"
+      },
+      "catches": [
+        "Too many nested levels",
+        "Hard to follow logic",
+        "Complex to maintain"
+      ],
+      "fix": [
+        "Use early returns",
+        "Extract to functions",
+        "Simplify conditionals"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "if\\s*\\([X]\\)\\s*\\{[^}]{0,50}\\}[\\s]*else\\s*if",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Deeply nested if-else chain found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "MAIN_GOD_OBJECT",
+      "name": "God object",
+      "description": "Objects that do too much should be split into smaller, focused objects.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "maintainability",
+      "recommendation": {
+        "title": "Split god objects",
+        "description": "Objects that do too much should be split into smaller, focused objects.",
+        "library": "SOLID principles"
+      },
+      "catches": [
+        "Class doing too much",
+        "Hard to maintain",
+        "Too many responsibilities"
+      ],
+      "fix": [
+        "Split into smaller classes",
+        "Follow single responsibility",
+        "Use composition"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "class\\s+[A-Z][a-zA-Z0-9]*\\s*\\{[^}]{500,}",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Large class definition found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "MAIN_FEATURE_ENVY",
+      "name": "Feature envy",
+      "description": "Functions that access too much data from other objects should be moved closer to that data.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "maintainability",
+      "recommendation": {
+        "title": "Move code to data",
+        "description": "Functions that access too much data from other objects should be moved closer to that data.",
+        "library": "Refactoring"
+      },
+      "catches": [
+        "Function uses too much external data",
+        "Strong coupling",
+        "Hard to reuse"
+      ],
+      "fix": [
+        "Move method to the class it uses most",
+        "Pass needed data only",
+        "Reduce coupling"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "this\\.\\w+\\(\\)",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Method call found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "MAIN_DATA_CLUMP",
+      "name": "Data clump",
+      "description": "Groups of variables passed together should be extracted into their own class or object.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "maintainability",
+      "recommendation": {
+        "title": "Extract data clumps",
+        "description": "Groups of variables passed together should be extracted into their own class or object.",
+        "library": "Refactoring"
+      },
+      "catches": [
+        "Same variables passed together",
+        "Duplicated parameter lists",
+        "Hard to maintain"
+      ],
+      "fix": [
+        "Extract to interface or type",
+        "Create parameter object",
+        "Group related data"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "interface\\s+\\w+\\s*\\{",
+        "fileExtensions": [
+          ".ts"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Interface definition found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

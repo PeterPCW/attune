@@ -1,0 +1,167 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "ANGULAR_SUBSCRIBE_LEAK",
+      "name": "Subscription without unsubscribe",
+      "description": "Always unsubscribe from observables to prevent memory leaks. Use takeUntilDestroyed or unsubscribe.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "angular"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Unsubscribe from observables",
+        "description": "Always unsubscribe from observables to prevent memory leaks. Use takeUntilDestroyed or unsubscribe.",
+        "library": "RxJS"
+      },
+      "catches": [
+        "Observable subscription without unsubscribe",
+        "Memory leaks",
+        "Performance degradation"
+      ],
+      "fix": [
+        "Use takeUntilDestroyed()",
+        "Unsubscribe in ngOnDestroy",
+        "Use async pipe instead"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "\\.subscribe\\s*\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "critical",
+        "message": "Observable subscription without unsubscribe - will cause memory leak"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "ANGULAR_DETECT_CHANGE",
+      "name": "Manual change detection",
+      "description": "Manual change detection can cause performance issues. Use OnPush and async pipe.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "angular"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Avoid manual change detection",
+        "description": "Manual change detection can cause performance issues. Use OnPush and async pipe.",
+        "library": "Angular"
+      },
+      "catches": [
+        "Manual change detection calls",
+        "Performance issues",
+        "Unnecessary re-renders"
+      ],
+      "fix": [
+        "Use OnPush change detection",
+        "Use async pipe",
+        "Avoid detectChanges() calls"
+      ],
+      "conditions": [
+        {
+          "type": "regex",
+          "pattern": "detectChanges\\s*\\(\\s*\\)"
+        },
+        {
+          "type": "regex",
+          "pattern": "markForCheck\\s*\\(\\s*\\)"
+        }
+      ],
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Manual change detection - use OnPush and async pipe instead"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "ANGULAR_TEMPLATE_CHANGE",
+      "name": "Method call in template",
+      "description": "Method calls in templates run on every change detection. Use pipes or computed properties.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "angular"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Avoid method calls in templates",
+        "description": "Method calls in templates run on every change detection. Use pipes or computed properties.",
+        "library": "Angular"
+      },
+      "catches": [
+        "Method calls in template",
+        "Runs on every change detection",
+        "Performance issues"
+      ],
+      "fix": [
+        "Use pure pipes",
+        "Use computed properties",
+        "Move logic to component"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "\\{\\{\\s*\\w+\\s*\\(\\)\\s*\\}\\}"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Method call in template - runs on every change detection"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "ANGULAR_PIPE_PURE",
+      "name": "Impure pipe with expensive computation",
+      "description": "Pipes should be pure by default for performance.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "angular"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Mark pure pipes",
+        "description": "Pipes should be pure by default for performance.",
+        "library": "Angular"
+      },
+      "catches": [
+        "Impure pipe with expensive computation",
+        "Runs on every change detection",
+        "Performance issues"
+      ],
+      "fix": [
+        "Make pipe pure if possible",
+        "Cache results in impure pipe",
+        "Use OnPush change detection"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "@Pipepure:\\s*false"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Impure pipe runs on every change detection - make pure if possible"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

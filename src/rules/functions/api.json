@@ -1,0 +1,403 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "API_NO_ERROR_TYPE",
+      "name": "API missing error type",
+      "description": "API should return typed error responses for proper error handling.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "express",
+        "fastify",
+        "nextjs",
+        "nuxt"
+      ],
+      "category": "api",
+      "recommendation": {
+        "title": "Add typed error responses",
+        "description": "API should return typed error responses for proper error handling.",
+        "library": "TypeScript"
+      },
+      "catches": [
+        "No typed error responses",
+        "Clients can't handle errors properly",
+        "Inconsistent error format"
+      ],
+      "fix": [
+        "Define error response types",
+        "Use error handling middleware",
+        "Return consistent error format"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "router\\.(get|post|put|delete|patch)\\(|app\\.(get|post|put|delete|patch)\\(",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "API route handler found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "API_NO_PAGINATION",
+      "name": "API missing pagination",
+      "description": "Large data sets should be paginated.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "express",
+        "fastify",
+        "nextjs",
+        "nuxt"
+      ],
+      "category": "api",
+      "recommendation": {
+        "title": "Add pagination to list endpoints",
+        "description": "Large data sets should be paginated.",
+        "library": "API design"
+      },
+      "catches": [
+        "No pagination on list endpoints",
+        "Large data sets returned",
+        "Performance issues"
+      ],
+      "fix": [
+        "Add page/limit parameters",
+        "Implement cursor-based pagination",
+        "Set reasonable defaults"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "\\.findMany\\(|\\.find\\(|router\\.(get|post)\\(",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Data query found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "API_NO_RATE_LIMIT",
+      "name": "API missing rate limiting",
+      "description": "APIs should have rate limiting to prevent abuse.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "express",
+        "fastify"
+      ],
+      "category": "api",
+      "recommendation": {
+        "title": "Add rate limiting",
+        "description": "APIs should have rate limiting to prevent abuse.",
+        "library": "API security"
+      },
+      "catches": [
+        "No rate limiting",
+        "Vulnerable to abuse",
+        "DDoS vulnerability"
+      ],
+      "fix": [
+        "Add rate limiting middleware",
+        "Configure limits per endpoint",
+        "Use Redis for distributed rate limiting"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "express-rate-limit|rate-limit|@fastify/rate-limit",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Rate limiting found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "API_SENSITIVE_HEADER",
+      "name": "Sensitive data in request headers",
+      "description": "Avoid sending sensitive data like passwords or tokens in HTTP headers.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "security",
+      "recommendation": {
+        "title": "Don't expose sensitive data in headers",
+        "description": "Avoid sending sensitive data like passwords or tokens in HTTP headers.",
+        "library": "API security"
+      },
+      "catches": [
+        "Sensitive data in headers",
+        "Potential data exposure",
+        "Security vulnerability"
+      ],
+      "fix": [
+        "Use request body for sensitive data",
+        "Use Authorization header for tokens",
+        "Don't log sensitive headers"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "(headers|req\\.headers|request\\.headers)[\\s\\S]*?(password|token|secret|auth|bearer)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Sensitive data should not be sent in HTTP headers"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "API_PUBLIC_CALLS_PRIVATE",
+      "name": "Public API directly calls private/internal API",
+      "description": "Public APIs should go through an API gateway rather than directly calling internal services.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "api",
+      "recommendation": {
+        "title": "Use API Gateway pattern",
+        "description": "Public APIs should go through an API gateway rather than directly calling internal services.",
+        "library": "API Gateway, BFF pattern"
+      },
+      "catches": [
+        "Public API calls internal services",
+        "No API Gateway",
+        "Direct service-to-service calls"
+      ],
+      "fix": [
+        "Use API Gateway",
+        "Implement BFF pattern",
+        "Hide internal services"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "internal|private|-api|\\.internal\\.",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Internal API call found - consider API Gateway"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "API_NO_REQUEST_ID",
+      "name": "Missing request ID for tracing",
+      "description": "Add X-Request-ID or correlation ID for request tracing.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "express",
+        "fastify",
+        "nextjs",
+        "nuxt"
+      ],
+      "category": "api",
+      "recommendation": {
+        "title": "Add request ID headers",
+        "description": "Add X-Request-ID or correlation ID for request tracing.",
+        "library": "Express: uuid, Morgan"
+      },
+      "catches": [
+        "No request ID for tracing",
+        "Hard to debug issues",
+        "No correlation across services"
+      ],
+      "fix": [
+        "Add X-Request-ID header",
+        "Pass request ID to logs",
+        "Use OpenTelemetry"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "x-request-id|correlation-id|requestId",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Request ID header found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "API_NO_DEPRECATION",
+      "name": "Missing deprecation header for old endpoints",
+      "description": "Deprecated endpoints should include Deprecation and Sunset headers.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "express",
+        "fastify",
+        "nextjs",
+        "nuxt"
+      ],
+      "category": "api",
+      "recommendation": {
+        "title": "Add deprecation headers",
+        "description": "Deprecated endpoints should include Deprecation and Sunset headers.",
+        "library": "API versioning"
+      },
+      "catches": [
+        "No deprecation headers",
+        "Clients don't know endpoint is deprecated",
+        "Breaking changes surprise users"
+      ],
+      "fix": [
+        "Add Deprecation header",
+        "Add Sunset header",
+        "Document deprecation timeline"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "deprecation|Sunset|@deprecated",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Deprecation header found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "API_NO_ETAG",
+      "name": "Missing ETag for caching",
+      "description": "Add ETag headers to enable conditional requests and caching.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "express",
+        "fastify",
+        "nextjs",
+        "nuxt"
+      ],
+      "category": "api",
+      "recommendation": {
+        "title": "Add ETag for conditional requests",
+        "description": "Add ETag headers to enable conditional requests and caching.",
+        "library": "Express: express-etag"
+      },
+      "catches": [
+        "No ETag headers",
+        "No conditional request support",
+        "Wasted bandwidth"
+      ],
+      "fix": [
+        "Add ETag headers",
+        "Support if-none-match",
+        "Use express-etag or similar"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "ETag|etag|if-none-match|if-modified",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "ETag caching found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "API_NO_IDEMPOTENCY",
+      "name": "Missing idempotency for critical operations",
+      "description": "POST/PUT/DELETE endpoints should support idempotency keys to prevent duplicate operations.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "express",
+        "fastify",
+        "nextjs",
+        "nuxt"
+      ],
+      "category": "api",
+      "recommendation": {
+        "title": "Add idempotency keys",
+        "description": "POST/PUT/DELETE endpoints should support idempotency keys to prevent duplicate operations.",
+        "library": "Idempotency"
+      },
+      "catches": [
+        "No idempotency support",
+        "Duplicate operations possible",
+        "Payment issues"
+      ],
+      "fix": [
+        "Add idempotency key header",
+        "Store key with result",
+        "Check before processing"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "idempotency|POST|PUT|DELETE",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "State-changing endpoint - consider idempotency"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

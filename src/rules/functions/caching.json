@@ -1,0 +1,169 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "CACHE_NO_TTL",
+      "name": "Cache entry missing TTL",
+      "description": "Cache entries should have expiration times.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "caching",
+      "recommendation": {
+        "title": "Set cache TTL",
+        "description": "Cache entries should have expiration times.",
+        "library": "Redis, Memcached"
+      },
+      "catches": [
+        "Cache entry without TTL",
+        "Data never expires",
+        "Potential stale data"
+      ],
+      "fix": [
+        "Set TTL for cache entries",
+        "Choose appropriate expiration",
+        "Use setEx or similar"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "cache\\.|redis\\.|setEx\\(|set\\(",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Cache call found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "CACHE_NO_KEY_PREFIX",
+      "name": "Cache missing key prefix",
+      "description": "Key prefixes prevent collisions and aid debugging.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "caching",
+      "recommendation": {
+        "title": "Use cache key prefixes",
+        "description": "Key prefixes prevent collisions and aid debugging.",
+        "library": "Redis"
+      },
+      "catches": [
+        "No key prefix",
+        "Potential key collisions",
+        "Hard to debug"
+      ],
+      "fix": [
+        "Add key prefixes",
+        "Use namespace",
+        "Make keys descriptive"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "keyPrefix|PREFIX|prefix:",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Key prefix found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "CACHE_STALE_WHILE_REVALIDATE",
+      "name": "Missing stale-while-revalidate pattern",
+      "description": "Serve stale content while revalidating in background.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "caching",
+      "recommendation": {
+        "title": "Use stale-while-revalidate",
+        "description": "Serve stale content while revalidating in background.",
+        "library": "HTTP Cache, Redis"
+      },
+      "catches": [
+        "No stale-while-revalidate",
+        "Stale content not served",
+        "Slower response times"
+      ],
+      "fix": [
+        "Implement stale-while-revalidate",
+        "Serve stale while revalidating",
+        "Improve response times"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "stale-while-revalidate|staleWhileRevalidate",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Stale-while-revalidate found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "CACHE_NO_INVALIDATION",
+      "name": "Missing cache invalidation strategy",
+      "description": "Have a clear strategy for when cached data becomes stale.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "caching",
+      "recommendation": {
+        "title": "Plan cache invalidation",
+        "description": "Have a clear strategy for when cached data becomes stale.",
+        "library": "Cache patterns"
+      },
+      "catches": [
+        "No cache invalidation strategy",
+        "Stale data served indefinitely",
+        "Data inconsistencies"
+      ],
+      "fix": [
+        "Plan cache invalidation",
+        "Use write-through or write-back",
+        "Invalidate on data change"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "invalidate|del\\(|delete\\(",
+        "fileExtensions": [
+          ".ts",
+          ".js"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Cache invalidation found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

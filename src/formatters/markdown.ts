@@ -1,4 +1,5 @@
 import { Finding, ScanMetadata } from '../types/index.js';
+import { groupBySeverity } from '../utils/findings.js';
 
 export function formatMarkdown(findings: Finding[], metadata: ScanMetadata): string {
   let output = `# Attune Report\n\n`;
@@ -7,10 +8,7 @@ export function formatMarkdown(findings: Finding[], metadata: ScanMetadata): str
   output += `**Scan Time:** ${(metadata.scanTime / 1000).toFixed(1)}s\n`;
   output += `**Files Scanned:** ${metadata.filesScanned}\n\n`;
 
-  const critical = findings.filter(f => f.severity === 'critical');
-  const high = findings.filter(f => f.severity === 'high');
-  const medium = findings.filter(f => f.severity === 'medium');
-  const low = findings.filter(f => f.severity === 'low');
+  const { critical, high, medium, low } = groupBySeverity(findings);
 
   if (critical.length > 0) {
     output += `## 🔴 Critical (${critical.length})\n\n`;

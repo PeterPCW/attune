@@ -1,0 +1,325 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "STARLETTE_SYNC_IN_ASYNC",
+      "name": "Synchronous blocking code in async endpoint",
+      "description": "Use httpx or aiohttp instead of requests.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "starlette"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Use async HTTP client",
+        "description": "Use httpx or aiohttp instead of requests.",
+        "library": "Starlette"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "async\\s+def\\s+\\w+.*:requests\\."
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Synchronous HTTP client in async function"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "STARLETTE_NO_PAGINATION",
+      "name": "Missing pagination for list endpoints",
+      "description": "Use offset/limit or cursor-based pagination.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "starlette"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Add pagination",
+        "description": "Use offset/limit or cursor-based pagination.",
+        "library": "Starlette"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "@router\\.get\\(\""
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Consider adding pagination to list endpoints"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "STARLETTE_NO_DEPENDENCY_INJECTION",
+      "name": "Not using dependency injection",
+      "description": "Use Depends() to inject dependencies.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "starlette"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Use Depends() for dependencies",
+        "description": "Use Depends() to inject dependencies.",
+        "library": "Starlette"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "async\\s+def\\s+\\w+\\(\\):(?!Depends)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Consider using Depends() for dependency injection"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "STARLETTE_NO_RESPONSE_MODEL",
+      "name": "Missing response_model",
+      "description": "Use response_model parameter for type validation.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "starlette"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "api",
+      "recommendation": {
+        "title": "Add response_model",
+        "description": "Use response_model parameter for type validation.",
+        "library": "Starlette"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "async\\s+def\\s+\\w+\\(\\)\\s*->"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Consider adding response_model"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "STARLETTE_DEBUG_TRUE",
+      "name": "Debug mode in production",
+      "description": "Set debug=False in production settings.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "starlette"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "security",
+      "recommendation": {
+        "title": "Disable debug in production",
+        "description": "Set debug=False in production settings.",
+        "library": "Starlette"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "debug\\s*=\\s*True"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Debug mode should be disabled in production"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "STARLETTE_SESSION_SECRET",
+      "name": "Missing secret key for sessions",
+      "description": "Provide secret_key parameter to SessionMiddleware.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "starlette"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "security",
+      "recommendation": {
+        "title": "Set secret key",
+        "description": "Provide secret_key parameter to SessionMiddleware.",
+        "library": "Starlette"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "SessionMiddleware\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Configure secret_key for sessions"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "STARLETTE_NO_ERROR_HANDLER",
+      "name": "Missing exception handlers",
+      "description": "Use app.add_exception_handler() for custom errors.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "starlette"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "error-handling",
+      "recommendation": {
+        "title": "Add exception handlers",
+        "description": "Use app.add_exception_handler() for custom errors.",
+        "library": "Starlette"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "app\\s*=\\s*FastAPI\\(\\)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Consider adding exception handlers"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "STARLETTE_NO_CORS",
+      "name": "Missing CORS configuration",
+      "description": "Use app.add_middleware(CORSMiddleware, ...).",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "starlette"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "security",
+      "recommendation": {
+        "title": "Configure CORS",
+        "description": "Use app.add_middleware(CORSMiddleware, ...).",
+        "library": "Starlette"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "app\\s*=\\s*FastAPI\\(\\)"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Add CORS middleware"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "STARLETTE_NO_MIDDLEWARE_ORDER",
+      "name": "Middleware order may affect security",
+      "description": "Put security middleware (CORS, CSP) after SessionMiddleware.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "starlette"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "architecture",
+      "recommendation": {
+        "title": "Review middleware order",
+        "description": "Put security middleware (CORS, CSP) after SessionMiddleware.",
+        "library": "Starlette"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "app\\.add_middleware"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Consider middleware order for security"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "STARLETTE_ROUTE_NO_NAME",
+      "name": "Route without name",
+      "description": "Add name= parameter for reverse URL lookup.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "starlette"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "cleanliness",
+      "recommendation": {
+        "title": "Name routes",
+        "description": "Add name= parameter for reverse URL lookup.",
+        "library": "Starlette"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "@router\\.get\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Consider adding name to route"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

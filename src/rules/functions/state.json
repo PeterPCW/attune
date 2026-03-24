@@ -1,0 +1,87 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "STATE_GLOBAL_MUTATION",
+      "name": "Global state mutation",
+      "description": "Mutating global state leads to unpredictable behavior.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "state",
+      "recommendation": {
+        "title": "Don't mutate global state",
+        "description": "Mutating global state leads to unpredictable behavior.",
+        "library": "State management"
+      },
+      "catches": [
+        "State changes hard to track",
+        "Unexpected bugs from shared state",
+        "Difficult debugging"
+      ],
+      "fix": [
+        "Use state management library",
+        "Keep state local to components",
+        "Use immutable patterns"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "window\\.[a-zA-Z_][a-zA-Z0-9_]*\\s*=|document\\.body\\.|globalThis\\.[a-zA-Z_][a-zA-Z0-9_]*\\s*=",
+        "fileExtensions": [
+          ".js",
+          ".ts",
+          ".tsx",
+          ".jsx"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Global state mutation found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "STATE_USE_STATE_ARRAY",
+      "name": "Direct array state mutation",
+      "description": "Directly mutating state arrays won't trigger re-renders.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "react"
+      ],
+      "category": "state",
+      "recommendation": {
+        "title": "Use immutable state updates",
+        "description": "Directly mutating state arrays won't trigger re-renders.",
+        "library": "React"
+      },
+      "catches": [
+        "UI not updating on changes",
+        "Array mutations not detected",
+        "Buggy behavior"
+      ],
+      "fix": [
+        "Create new array with spread or map",
+        "Use Immer for immutable updates",
+        "Return new array from setState"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "useState|setState|useReducer"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "State management found"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

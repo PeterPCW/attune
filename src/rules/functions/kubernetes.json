@@ -1,0 +1,233 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "K8S_NO_LIVENESS",
+      "name": "Missing liveness probe",
+      "description": "Liveness probes detect hung containers that need restart.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "kubernetes",
+      "recommendation": {
+        "title": "Add liveness probe",
+        "description": "Liveness probes detect hung containers that need restart.",
+        "library": "Kubernetes"
+      },
+      "catches": [
+        "Hung containers not restarted",
+        "No recovery mechanism",
+        "App stuck in bad state"
+      ],
+      "fix": [
+        "Add livenessProbe endpoint",
+        "Configure initial delay",
+        "Set failure threshold"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "livenessProbe|liveness",
+        "fileExtensions": [
+          "yaml",
+          "yml"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Liveness probe found"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "K8S_NO_READINESS",
+      "name": "Missing readiness probe",
+      "description": "Readiness probes prevent traffic to unhealthy pods.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "kubernetes",
+      "recommendation": {
+        "title": "Add readiness probe",
+        "description": "Readiness probes prevent traffic to unhealthy pods.",
+        "library": "Kubernetes"
+      },
+      "catches": [
+        "Traffic sent to unhealthy pods",
+        "Failed requests",
+        "Poor user experience"
+      ],
+      "fix": [
+        "Add readinessProbe endpoint",
+        "Check dependencies in probe",
+        "Return 200 when ready"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "readinessProbe|readiness",
+        "fileExtensions": [
+          "yaml",
+          "yml"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Readiness probe found"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "K8S_NO_RESOURCES",
+      "name": "Missing resource limits",
+      "description": "Prevent resource starvation and set QoS class.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "kubernetes",
+      "recommendation": {
+        "title": "Set resource limits and requests",
+        "description": "Prevent resource starvation and set QoS class.",
+        "library": "Kubernetes resources"
+      },
+      "catches": [
+        "No resource limits set",
+        "Resource starvation",
+        "No QoS class"
+      ],
+      "fix": [
+        "Set requests and limits",
+        "Configure CPU and memory",
+        "Enable QoS guarantee"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "resources:|limits:|requests:",
+        "fileExtensions": [
+          "yaml",
+          "yml"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Resource limits found"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "K8S_NO_POD_DISRUPTION_BUDGET",
+      "name": "Missing PodDisruptionBudget",
+      "description": "Ensure minimum replicas during voluntary disruptions.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "kubernetes",
+      "recommendation": {
+        "title": "Add PodDisruptionBudget",
+        "description": "Ensure minimum replicas during voluntary disruptions.",
+        "library": "Kubernetes PDB"
+      },
+      "catches": [
+        "All pods down during update",
+        "Service unavailable",
+        "Downtime during deploys"
+      ],
+      "fix": [
+        "Create PodDisruptionBudget",
+        "Set min available replicas",
+        "Allow rolling updates"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "PodDisruptionBudget|pdb:|maxUnavailable|maxAvailable",
+        "fileExtensions": [
+          "yaml",
+          "yml"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "PDB found"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "K8S_NO_SECURITY_CONTEXT",
+      "name": "Missing security context",
+      "description": "Run containers as non-root with read-only filesystem.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "kubernetes",
+      "recommendation": {
+        "title": "Set security context",
+        "description": "Run containers as non-root with read-only filesystem.",
+        "library": "Kubernetes security"
+      },
+      "catches": [
+        "Running as root user",
+        "Writable filesystem",
+        "Security vulnerabilities"
+      ],
+      "fix": [
+        "Set securityContext",
+        "RunAsNonRoot: true",
+        "ReadOnlyRootFilesystem: true"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "securityContext:|runAsNonRoot|readOnlyRootFilesystem",
+        "fileExtensions": [
+          "yaml",
+          "yml"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Security context found"
+      },
+      "projectTypes": []
+    },
+    {
+      "id": "K8S_NO_HPA",
+      "name": "No HorizontalPodAutoscaler",
+      "description": "HPA enables automatic scaling based on load.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [],
+      "category": "kubernetes",
+      "recommendation": {
+        "title": "Add HPA for scaling",
+        "description": "HPA enables automatic scaling based on load.",
+        "library": "Kubernetes HPA"
+      },
+      "catches": [
+        "No auto-scaling",
+        "Can't handle traffic spikes",
+        "Manual scaling only"
+      ],
+      "fix": [
+        "Create HorizontalPodAutoscaler",
+        "Set CPU/memory targets",
+        "Configure min/max replicas"
+      ],
+      "condition": {
+        "type": "regex",
+        "pattern": "HorizontalPodAutoscaler|hpa:",
+        "fileExtensions": [
+          "yaml",
+          "yml"
+        ]
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "HPA found"
+      },
+      "projectTypes": []
+    }
+  ]
+}

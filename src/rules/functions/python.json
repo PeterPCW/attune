@@ -1,0 +1,637 @@
+{
+  "version": "1.0",
+  "functions": [
+    {
+      "id": "PYTHON_MUTABLE_DEFAULT",
+      "name": "Mutable default argument in function",
+      "description": "Use None as default and initialize inside function body",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "python",
+        "django",
+        "fastapi",
+        "flask",
+        "sqlalchemy",
+        "celery"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "maintainability",
+      "recommendation": {
+        "title": "Avoid mutable default arguments",
+        "description": "Use None as default and initialize inside function body",
+        "library": "Python"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "def \\w+\\(=\\s*\\[\\s*\\]|def \\w+\\(=\\s*\\{"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Mutable default argument detected"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PYTHON_BROAD_EXCEPTION",
+      "name": "Catching overly broad exception",
+      "description": "Catch specific exceptions rather than broad Exception or BaseException.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "python",
+        "django",
+        "fastapi",
+        "flask",
+        "sqlalchemy",
+        "celery"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "error-handling",
+      "recommendation": {
+        "title": "Catch specific exceptions",
+        "description": "Catch specific exceptions rather than broad Exception or BaseException.",
+        "library": "Python"
+      },
+      "condition": {
+        "type": "exists",
+        "field": "content"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Check for findBroadExceptionHandling",
+        "helper": "findBroadExceptionHandling",
+        "params": {
+          "message": "Broad exception catch"
+        }
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PYTHON_NONE_COMPARISON",
+      "name": "Incorrect None comparison",
+      "description": "Use 'is None' instead of '== None' for identity comparison.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "python"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "cleanliness",
+      "recommendation": {
+        "title": "Use 'is None' for None comparison",
+        "description": "Use 'is None' instead of '== None' for identity comparison.",
+        "library": "Python"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "==\\s*None|!=\\s*None"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Using == None instead of is None"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PYTHON_TYPE_VS_ISINSTANCE",
+      "name": "Using type() instead of isinstance()",
+      "description": "Use isinstance() instead of type() to properly handle subclasses.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "python"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "cleanliness",
+      "recommendation": {
+        "title": "Use isinstance() for type checking",
+        "description": "Use isinstance() instead of type() to properly handle subclasses.",
+        "library": "Python"
+      },
+      "condition": {
+        "type": "exists",
+        "field": "content"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Check for findTypeVsIsinstance",
+        "helper": "findTypeVsIsinstance",
+        "params": {
+          "message": "Using type() instead of isinstance()"
+        }
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PYTHON_FILE_NOT_CLOSED",
+      "name": "File not properly closed",
+      "description": "Use 'with' statement to automatically close files.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "python"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "cleanliness",
+      "recommendation": {
+        "title": "Use context manager for files",
+        "description": "Use 'with' statement to automatically close files.",
+        "library": "Python"
+      },
+      "condition": {
+        "type": "exists",
+        "field": "content"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Check for findFileWithoutContextManager",
+        "helper": "findFileWithoutContextManager",
+        "params": {
+          "message": "File opened without context manager"
+        }
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PYTHON_FUNCTION_NO_ERROR_HANDLING",
+      "name": "Function without error handling",
+      "description": "Functions performing I/O should have try-except blocks.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "python",
+        "django",
+        "fastapi",
+        "flask",
+        "sqlalchemy",
+        "celery"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "error-handling",
+      "recommendation": {
+        "title": "Add error handling to functions",
+        "description": "Functions performing I/O should have try-except blocks.",
+        "library": "Python"
+      },
+      "condition": {
+        "type": "exists",
+        "field": "content"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Check for findPythonFunctionWithoutErrorHandling",
+        "helper": "findPythonFunctionWithoutErrorHandling",
+        "params": {
+          "message": "Function without error handling",
+          "skipPaths": [
+            "migrations",
+            "tests",
+            "__pycache__",
+            "venv",
+            "env",
+            ".venv"
+          ]
+        }
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PYTHON_EVAL_USAGE",
+      "name": "Using eval() or exec()",
+      "description": "Use ast.literal_eval for safe evaluation or redesign to avoid code execution.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "python"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "security",
+      "recommendation": {
+        "title": "Avoid eval() and exec()",
+        "description": "Use ast.literal_eval for safe evaluation or redesign to avoid code execution.",
+        "library": "Python"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "\\beval\\s*\\(|\\bexec\\s*\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "critical",
+        "message": "Using eval() or exec() is a security risk"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PYTHON_PICKLE_SECURITY",
+      "name": "Using pickle with untrusted data",
+      "description": "Use JSON for data serialization. If pickle is required, validate source.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "python"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "security",
+      "recommendation": {
+        "title": "Use JSON instead of pickle",
+        "description": "Use JSON for data serialization. If pickle is required, validate source.",
+        "library": "Python"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "pickle\\.loads?\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "critical",
+        "message": "Using pickle to load untrusted data is a security risk"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PYTHON_HARDCODED_SECRET",
+      "name": "Hardcoded secret or password",
+      "description": "Store secrets in environment variables or a secrets manager.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "python",
+        "django",
+        "fastapi",
+        "flask"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "security",
+      "recommendation": {
+        "title": "Use environment variables for secrets",
+        "description": "Store secrets in environment variables or a secrets manager.",
+        "library": "Python"
+      },
+      "conditions": [
+        {
+          "type": "regex",
+          "pattern": "password\\s*=\\s*['\"][X]['\"]"
+        },
+        {
+          "type": "regex",
+          "pattern": "api_?key\\s*=\\s*['\"][X]['\"]"
+        },
+        {
+          "type": "regex",
+          "pattern": "secret\\s*=\\s*['\"][X]['\"]"
+        }
+      ],
+      "action": {
+        "type": "flag",
+        "severity": "critical",
+        "message": "Hardcoded password detected"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PYTHON_STRING_CONCAT_LOOP",
+      "name": "String concatenation in loop",
+      "description": "Use ''.join(list) instead of + in loops for better performance.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "python"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Use str.join() for string concatenation",
+        "description": "Use ''.join(list) instead of + in loops for better performance.",
+        "library": "Python"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "for\\s+\\w+\\s+in\\s+[X]:\\+\\s*="
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "String concatenation in loop is inefficient"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PYTHON_IGNORED_EXCEPTION",
+      "name": "Ignored exception variable",
+      "description": "Either use the exception variable or use 'except:' without 'as'.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "python"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "cleanliness",
+      "recommendation": {
+        "title": "Use exception variable or omit 'as' clause",
+        "description": "Either use the exception variable or use 'except:' without 'as'.",
+        "library": "Python"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "except\\s+\\w+\\s+as\\s+\\w+:\\s*\\n\\s*\\w+"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Exception variable captured but not used"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PYTHON_TIME_SLEEP_ASYNC",
+      "name": "Using time.sleep() in async code",
+      "description": "Use asyncio.sleep() instead of time.sleep() to avoid blocking the event loop.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "python",
+        "fastapi"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "performance",
+      "recommendation": {
+        "title": "Use asyncio.sleep() in async code",
+        "description": "Use asyncio.sleep() instead of time.sleep() to avoid blocking the event loop.",
+        "library": "Python"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "async\\s+def\\s+\\w+time\\.sleep\\s*\\("
+      },
+      "action": {
+        "type": "flag",
+        "severity": "high",
+        "message": "Using blocking time.sleep() in async function"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PYTHON_SQL_INJECTION",
+      "name": "Potential SQL injection",
+      "description": "Use %s or %(name)s placeholders with parameters, not f-strings.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "python",
+        "django",
+        "fastapi",
+        "flask"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "security",
+      "recommendation": {
+        "title": "Use parameterized queries",
+        "description": "Use %s or %(name)s placeholders with parameters, not f-strings.",
+        "library": "Python"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "execute\\s*\\(\\s*['\"]%|cursor\\.execute\\s*\\(\\s*f['\"]"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "critical",
+        "message": "Potential SQL injection vulnerability"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PYTHON_BARE_RAISE",
+      "name": "Bare raise in except block",
+      "description": "Use 'raise ... from ...' or ensure raise is inside an except block.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "python"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "error-handling",
+      "recommendation": {
+        "title": "Use raise from or proper exception handling",
+        "description": "Use 'raise ... from ...' or ensure raise is inside an except block.",
+        "library": "Python"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "^\\s*raise\\s*$"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Bare raise statement outside except handler"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PYTHON_MISSING_TYPE_HINTS",
+      "name": "Missing type hints on function parameters",
+      "description": "Add type hints like def foo(x: int) -> str:",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "python"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "maintainability",
+      "recommendation": {
+        "title": "Add type hints to function parameters",
+        "description": "Add type hints like def foo(x: int) -> str:",
+        "library": "Python"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "def\\s+\\w+\\s*\\(()\\s*\\):\\s*\"\"\""
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Function missing type hints"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PYTHON_ANY_TYPE",
+      "name": "Using Any type",
+      "description": "Replace Any with specific types or use generics.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "python"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "maintainability",
+      "recommendation": {
+        "title": "Use specific types instead of Any",
+        "description": "Replace Any with specific types or use generics.",
+        "library": "Python"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": ":\\s*Any\\s*="
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Using Any type reduces type safety"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PYTHON_IMPORT_STAR",
+      "name": "Using 'from module import *'",
+      "description": "Use 'from module import specific_name' instead.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "python"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "cleanliness",
+      "recommendation": {
+        "title": "Use explicit imports",
+        "description": "Use 'from module import specific_name' instead.",
+        "library": "Python"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "from\\s+\\w+\\s+import\\s+\\*"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "low",
+        "message": "Wildcard import detected"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    },
+    {
+      "id": "PYTHON_GLOBAL_VARIABLE",
+      "name": "Modifying global variable",
+      "description": "Pass variables as parameters or use a class/config.",
+      "enabled": true,
+      "priority": 1,
+      "frameworks": [
+        "python"
+      ],
+      "languages": [
+        "python"
+      ],
+      "category": "maintainability",
+      "recommendation": {
+        "title": "Avoid global variables",
+        "description": "Pass variables as parameters or use a class/config.",
+        "library": "Python"
+      },
+      "condition": {
+        "type": "regex",
+        "pattern": "^\\s*global\\s+\\w+"
+      },
+      "action": {
+        "type": "flag",
+        "severity": "medium",
+        "message": "Global variable modification detected"
+      },
+      "projectTypes": [
+        "webapp",
+        "saas"
+      ]
+    }
+  ]
+}

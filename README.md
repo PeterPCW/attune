@@ -6,7 +6,7 @@ A local-first CLI tool for comprehensive code quality checks. Attune analyzes yo
 
 - **500+ Built-in Rules** covering security, performance, architecture, and code quality
 - **Multi-Language Support**: JavaScript/TypeScript, Python (Django, FastAPI, Flask, SQLAlchemy, Celery)
-- **Multi-Framework Support**: React, Next.js, Vue, Svelte, Angular, Nuxt, Astro, Remix, SolidJS, Express, Fastify, tRPC, Django, FastAPI, Flask
+- **Multi-Framework Support**: React, Next.js, Vue, Svelte, Angular, Nuxt, Astro, Remix, SolidJS, Express, Fastify, tRPC, Django, FastAPI, Flask, SQLAlchemy, Celery, Pydantic, aiohttp, Starlette
 - **Project Type Detection**: Automatically detects CLI tools, libraries, web apps, SaaS, mobile, desktop apps
 - **Security Scanning**: OWASP Top 10, secret detection, SQL injection, command injection
 - **Architecture Patterns**: MVC, state management, component patterns
@@ -103,18 +103,6 @@ After fixing all issues:
 
 ## Configuration
 
-### Quick Start
-
-On first run, Attune creates:
-- `.attunerc` - Default CLI flags
-- `.attuneignore` - Files to exclude
-
-```bash
-# Example .attunerc
---json
---use-attuneignore
-```
-
 ### .attunerc
 
 Stores default CLI flags. One per line, comments start with `#`.
@@ -128,31 +116,6 @@ Stores default CLI flags. One per line, comments start with `#`.
 ### .attuneignore
 
 Exclude files from scanning:
-
-```bash
-# Ignore test files
-**/__tests__/**
-**/*.test.ts
-
-# Ignore build outputs
-dist/
-```
-
-### Rule-Specific Ignores
-
-Skip specific rules on specific files:
-
-```bash
-# Format: RULE_ID:path
-OWASP_A08_INTEGRITY_FAIL:src/types/index.ts
-ERR_ASYNC_NO_AWAIT:src/cli/handlers/*.ts
-```
-
-For complete configuration options, see [docs/CONFIG.md](docs/CONFIG.md).
-
-### .attuneignore
-
-Create a `.attuneignore` file in your project root to exclude files:
 
 ```
 # Test files
@@ -168,7 +131,7 @@ build/
 node_modules/
 ```
 
-#### Rule-Specific Ignores
+### Rule-Specific Ignores
 
 You can skip specific rules on specific files while still running other rules on those files. This is useful for handling false positives:
 
@@ -185,11 +148,6 @@ RULE_ID_1:path/to/file1.ts
 RULE_ID_2:path/to/file2.ts
 ```
 
-This allows you to:
-- Fix false positives without disabling the entire rule
-- Keep other rules running on the same files
-- Fine-tune which rules apply where
-
 ### Scanning Modes
 
 Attune supports three scanning modes:
@@ -203,8 +161,8 @@ Attune supports three scanning modes:
 Reports are saved to `.attune/reports/`:
 
 ```bash
-# Report saved to .attune/reports/attune-2024-01-15T10-30-00.json
-# Report saved to .attune/reports/attune-2024-01-15T10-30-00.html
+# Report saved to .attune/reports/attune-2026-03-24T10-30-00.json
+# Report saved to .attune/reports/attune-2026-03-24T10-30-00.html
 ```
 
 ## Finding Limits
@@ -220,21 +178,7 @@ To prevent overwhelming reports, Attune limits each rule to a maximum of 10 find
 
 For detailed CLI usage, output format comparison, and common workflows, see [docs/GUIDE.md](docs/GUIDE.md).
 
-## NPM Scripts
-
-Add to your `package.json`:
-
-```json
-{
-  "scripts": {
-    "attune": "attune analyze .",
-    "attune:check": "attune analyze . --security",
-    "attune:ci": "attune analyze ."
-  }
-}
-```
-
-## CLI Options
+### CLI Options
 
 ```bash
 # Common options
@@ -249,6 +193,20 @@ attune analyze . --project-type saas
 ```
 
 For complete CLI options, see [docs/CONFIG.md](docs/CONFIG.md).
+
+## NPM Scripts
+
+Add to your `package.json`:
+
+```json
+{
+  "scripts": {
+    "attune": "attune analyze .",
+    "attune:check": "attune analyze . --security",
+    "attune:ci": "attune analyze ."
+  }
+}
+```
 
 ## Supported Frameworks
 
